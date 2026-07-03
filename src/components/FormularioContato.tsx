@@ -142,7 +142,7 @@ export const FormularioContato = ({ variante = "contato" }: FormularioContatoPro
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-5 pb-16 sm:pb-0">
       {/* Honeypot anti-spam: fora da tela, sem tab e sem autocomplete — humano
           nunca vê nem preenche. Bots costumam preencher; a Edge Function
           descarta silenciosamente quando vier com conteúdo. */}

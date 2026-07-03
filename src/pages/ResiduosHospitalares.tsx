@@ -207,6 +207,43 @@ const ResiduosHospitalares = () => {
         </div>
       </section>
 
+      {/* Rastreabilidade e conformidade */}
+      <section className="bg-background">
+        <div className="container-sba py-16 md:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto mb-5 rule-gold" />
+            <h2 className="font-display text-3xl font-bold text-primary-dark">
+              Rastreabilidade e conformidade
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              O que a instituição de saúde precisa para decidir com segurança:
+              cada etapa documentada e dentro da norma.
+            </p>
+          </div>
+          <ul className="mx-auto mt-10 grid max-w-4xl gap-3 sm:grid-cols-2">
+            {[
+              "Manifesto de Transporte de Resíduos (MTR) e Certificado de Destinação Final que comprovam o caminho do resíduo, do recolhimento à destinação.",
+              "Alinhamento ao PGRSS da instituição e à RDC ANVISA 222/2018.",
+              "Solução implantada com licenciamento ambiental e sanitário, sob responsabilidade do operador parceiro — a SBA estrutura essa parte no projeto.",
+              "A SBA reduz o risco conectando um operador devidamente licenciado e garantindo a cadeia documental — sem prometer que a corresponsabilidade do gerador desaparece.",
+            ].map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 rounded-lg border border-border bg-card p-4"
+              >
+                <ShieldCheck
+                  className="mt-0.5 h-5 w-5 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                <span className="text-sm leading-relaxed text-foreground/90">
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <SecaoCTA
         titulo="Sua instituição de saúde quer tratar o RSS com mais segurança e menos custo?"
         texto="Fale com a SBA. Estruturamos um projeto sob medida, com a tecnologia certa e valores sob consulta."

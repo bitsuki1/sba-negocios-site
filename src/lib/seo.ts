@@ -58,6 +58,31 @@ export const SEO_MAP: Record<string, PageSeo> = {
     description:
       "Estabilização de solo com ConAid CBR Plus para estradas e pátios: firmeza o ano todo, menos manutenção e custo de material menor.",
   },
+  "/solucoes/energia-fotovoltaica": {
+    title: `Energia Fotovoltaica — ${MARCA.nome}`,
+    description:
+      "Usinas solares para abastecer prédios e equipamentos públicos — economia previsível na conta de energia do município, com engenharia e jurídico parceiros.",
+  },
+  "/solucoes/iluminacao-publica": {
+    title: `Iluminação Pública (LED) — ${MARCA.nome}`,
+    description:
+      "Modernização da iluminação municipal para LED e telegestão: conta de energia menor e cidade mais segura, do diagnóstico ao modelo de contratação.",
+  },
+  "/solucoes/reflorestamento-carbono": {
+    title: `Reflorestamento & Crédito de Carbono — ${MARCA.nome}`,
+    description:
+      "Restauração e reflorestamento de áreas, com potencial de geração de crédito de carbono — conformidade ambiental e nova fonte de receita.",
+  },
+  "/solucoes/saneamento-agua": {
+    title: `Saneamento & Água (ETA/ETE) — ${MARCA.nome}`,
+    description:
+      "Projetos de tratamento de água e esgoto alinhados ao Novo Marco do Saneamento, com o arranjo técnico e financeiro estruturado.",
+  },
+  "/solucoes/eventos-cultura": {
+    title: `Eventos & Projetos Culturais — ${MARCA.nome}`,
+    description:
+      "Estruturação e captação de recursos para eventos e projetos culturais do município, inclusive por leis de incentivo.",
+  },
   "/sobre": {
     title: `Sobre — ${MARCA.nome}`,
     description:

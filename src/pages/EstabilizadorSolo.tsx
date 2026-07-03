@@ -59,7 +59,7 @@ const EstabilizadorSolo = () => {
         compacto
         eyebrow="Infraestrutura · Estabilização de Solo"
         titulo="Estradas firmes o ano todo, a um custo bem menor."
-        subtitulo="A SBA estrutura projetos de estabilização de solo com o ConAid CBR Plus — líder mundial em estabilização iônica, presente em mais de 100 países. Menos lama, menos poeira e menos manutenção, transformando o próprio solo em base resistente."
+        subtitulo="A SBA estrutura projetos de estabilização de solo com o ConAid CBR Plus — referência mundial em estabilização iônica, presente em mais de 100 países. Menos lama, menos poeira e menos manutenção, transformando o próprio solo em base resistente."
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
       />
 
@@ -291,6 +291,10 @@ const EstabilizadorSolo = () => {
               ))}
             </ul>
           </div>
+          <p className="mx-auto mt-8 max-w-3xl text-center text-xs text-muted-foreground">
+            Dados de desempenho e certificações informados pelo fabricante e pelo
+            distribuidor (ConAid e Dynacal).
+          </p>
         </div>
       </section>
 

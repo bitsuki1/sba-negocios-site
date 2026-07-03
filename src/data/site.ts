@@ -161,7 +161,7 @@ export const SOLUCOES: Solucao[] = [
     resumo:
       "Solução de destinação e valorização para indústria, comércio e agro que geram grande volume de resíduos.",
     beneficio:
-      "Conformidade com a Política Nacional de Resíduos, menos passivo ambiental e custo sob controle.",
+      "Conformidade com a Política Nacional de Resíduos, menos passivo ambiental e custo de destinação previsível.",
     icon: Factory,
     href: "/residuos",
   },
@@ -283,7 +283,7 @@ export const PARCEIRO_CSTR = {
   entregas: [
     "Energia elétrica, biogás, biometano e biofertilizante",
     "Plantas de resíduos projetadas, implantadas e gerenciadas",
-    "Reconhecido como Startup do ano para a Indústria 4.0",
+    "Reconhecida como Startup do ano (Troféu Frotas & Fretes Verdes 2025)",
     "Tecnologia própria, com frente de pesquisa e inovação (PD&I)",
   ],
   // Projeto-âncora (fato divulgado pelo parceiro)

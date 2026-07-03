@@ -66,9 +66,10 @@ const Residuos = () => {
               <div className="mt-5 space-y-4 text-muted-foreground">
                 <p>
                   Hoje o resíduo é, quase sempre, só despesa: transporte, aterro,
-                  passivo ambiental e pressão regulatória. A boa notícia é que,
-                  bem estruturado, o mesmo resíduo vira reciclável, energia e
-                  receita nova.
+                  passivo ambiental e a pressão do Novo Marco do Saneamento (Lei
+                  14.026/2020), que exige o fim dos lixões e a destinação
+                  adequada. A boa notícia é que, bem estruturado, o mesmo resíduo
+                  vira reciclável, energia e receita nova.
                 </p>
                 <p>
                   É esse o caminho que a SBA monta — da coleta à valorização —
@@ -199,7 +200,7 @@ const Residuos = () => {
               </p>
               <p className="mt-5 leading-relaxed text-muted-foreground">
                 {PARCEIRO_CSTR.chamada} Assim, o município ou a empresa não
-                precisa escolher uma tecnologia sozinho: a SBA estrutura o
+                precisa escolher a tecnologia por conta própria: a SBA estrutura o
                 projeto e a {PARCEIRO_CSTR.nome} traz a solução validada e a
                 operação.
               </p>

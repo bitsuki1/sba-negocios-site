@@ -138,7 +138,7 @@ export const LANDINGS: Record<string, Landing> = {
       },
       {
         q: "Como é contratado?",
-        a: "A SBA estrutura o modelo — do diagnóstico ao financiamento — que cabe no orçamento; os valores ficam sob consulta.",
+        a: "A SBA estrutura o modelo — do diagnóstico ao financiamento — que cabe no orçamento e pode ser custeado pela COSIP/CIP (a contribuição de iluminação pública); os valores ficam sob consulta.",
       },
     ],
     cta: {
@@ -200,7 +200,7 @@ export const LANDINGS: Record<string, Landing> = {
     oQueE: {
       titulo: "Saneamento é meta e é saúde",
       paragrafos: [
-        "O Novo Marco do Saneamento fixou metas de universalização de água e esgoto. Para muitos municípios, o desafio não é só técnico — é estruturar o projeto e o financiamento que tornam a obra viável.",
+        "O Novo Marco do Saneamento fixou metas de universalização de água e esgoto até 2033. Para muitos municípios, o desafio não é só técnico — é estruturar o projeto e o financiamento que tornam a obra viável, sob risco de perder prazos e contratos.",
         "A SBA organiza esse caminho: avalia a situação, desenha a solução de ETA/ETE e conecta os parceiros de engenharia, operação e jurídico que executam.",
       ],
     },
@@ -244,7 +244,7 @@ export const LANDINGS: Record<string, Landing> = {
       titulo: "Cultura também precisa de estrutura",
       paragrafos: [
         "Eventos e projetos culturais movimentam a economia local e a identidade da cidade — mas muitas vezes esbarram na falta de estruturação e de captação de recursos.",
-        "A SBA organiza o projeto, conecta os parceiros e estrutura a captação (inclusive por leis de incentivo), para que a ideia vire um evento ou projeto viável.",
+        "A SBA organiza o projeto, conecta os parceiros e estrutura a captação — inclusive por leis de incentivo como a Lei Paulo Gustavo, a Lei Aldir Blanc, o ProAC (SP) e a Lei Rouanet —, para que a ideia vire um evento ou projeto viável.",
       ],
     },
     beneficios: [

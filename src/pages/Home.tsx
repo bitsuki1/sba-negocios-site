@@ -24,13 +24,13 @@ const PROVAS = [
     icon: ShieldCheck,
     titulo: "Rigor que se demonstra",
     texto:
-      "O mesmo padrão do nosso trabalho tributário — que parte de uma decisão definitiva do STF (Tema 1130) — guia todas as frentes: cada proposta nasce de fonte, dado e fundamento.",
+      "Cada proposta nasce de fonte, dado e fundamento técnico — o mesmo rigor em todas as frentes, do tributário aos projetos de resíduos, energia e infraestrutura.",
   },
   {
     icon: FileSearch,
     titulo: "Método auditável",
     texto:
-      "Trabalhamos com dado público e um método que pode ser conferido. Do estudo da sua cidade ao diagnóstico de um projeto, você entende de onde vem cada número.",
+      "Trabalhamos com dado público e um método que pode ser conferido. Do estudo tributário ao diagnóstico de um projeto, você entende de onde vem cada número.",
   },
   {
     icon: Network,
@@ -250,7 +250,7 @@ const Home = () => {
                     Startup do ano
                   </p>
                   <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    Reconhecimento da CSTR para a Indústria 4.0.
+                    Reconhecimento do parceiro CSTR.
                   </p>
                 </div>
               </div>

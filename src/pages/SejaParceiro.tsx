@@ -39,6 +39,46 @@ const SejaParceiro = () => {
         }}
       />
 
+      {/* O que a SBA oferece ao parceiro */}
+      <section className="border-b border-border bg-secondary/50">
+        <div className="container-sba py-14 md:py-16">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto mb-5 rule-gold" />
+            <h2 className="font-display text-3xl font-bold text-primary-dark">
+              O que você ganha na rede da SBA
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                t: "Projetos já originados",
+                d: "A SBA leva a demanda pronta e estruturada (prefeitura ou empresa). Você entra na sua especialidade, sem precisar prospectar.",
+              },
+              {
+                t: "Relação clara, por escrito",
+                d: "Papéis, escopo e remuneração são definidos caso a caso e sempre por escrito antes de começar — nada combinado no ar.",
+              },
+              {
+                t: "Você executa, a SBA coordena",
+                d: "A SBA organiza o projeto e conecta as pontas; você foca no que faz de melhor, sem gerenciar dez fornecedores.",
+              },
+            ].map((it) => (
+              <div
+                key={it.t}
+                className="rounded-lg border border-border bg-card p-7"
+              >
+                <h3 className="font-display text-lg font-semibold text-primary-dark">
+                  {it.t}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {it.d}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-background">
         <div className="container-sba py-16 md:py-20">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-start">
@@ -81,8 +121,8 @@ const SejaParceiro = () => {
                 Candidate-se à rede
               </h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Preencha os campos abaixo. Vamos retornar para entender como podemos
-                trabalhar juntos.
+                Preencha os campos abaixo. Analisamos cada candidatura e
+                retornamos em até 2 dias úteis para uma conversa inicial.
               </p>
               <div className="mt-6">
                 <FormularioContato variante="parceiro" />
