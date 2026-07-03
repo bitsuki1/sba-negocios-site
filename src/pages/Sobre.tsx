@@ -4,6 +4,7 @@ import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { Button } from "@/components/ui/button";
 import { TIME } from "@/data/site";
+import heroSobre from "@/assets/hero-home.png";
 
 const VALORES = [
   {
@@ -31,6 +32,10 @@ const Sobre = () => {
         eyebrow="Sobre a SBA Negócios"
         titulo="A gestão que conecta as pontas."
         subtitulo="A SBA Negócios é uma empresa de desenvolvimento de negócios e consultoria para os setores público e privado. Atuamos como gestora de projetos: originamos, estruturamos e coordenamos — sem executar a obra diretamente."
+        imagem={{
+          src: heroSobre,
+          alt: "A SBA conecta cliente, técnico, jurídico e tecnologia em cada projeto.",
+        }}
       />
 
       <section className="bg-background">

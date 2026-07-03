@@ -15,7 +15,7 @@ import depois from "@/assets/conaid/depois.jpg";
 import aplicacao from "@/assets/conaid/aplicacao.jpg";
 
 const CREDIBILIDADE = [
-  "Líder mundial em estabilização de solos",
+  "Líder mundial em estabilização de solos (segundo o fabricante)",
   "Presente em mais de 100 países",
   "Distribuidor exclusivo no Brasil há 15 anos",
   "+5 milhões de m² aplicados no Brasil (2007–2023)",

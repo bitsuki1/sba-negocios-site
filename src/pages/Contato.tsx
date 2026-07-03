@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { FormularioContato } from "@/components/FormularioContato";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { CONTATO } from "@/data/site";
+import heroContato from "@/assets/fotos/sao-paulo.jpg";
 
 const Contato = () => {
   return (
@@ -12,6 +13,7 @@ const Contato = () => {
         eyebrow="Contato"
         titulo="Dê o primeiro passo — a SBA organiza o caminho a partir daqui."
         subtitulo="Seja prefeito, secretário ou gestor de empresa: conte o seu caso e a SBA indica o melhor primeiro passo, sem compromisso."
+        imagem={{ src: heroContato, alt: "São Paulo, onde fica a SBA Negócios." }}
       />
 
       <section className="bg-background">

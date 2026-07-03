@@ -3,8 +3,10 @@ import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { CardSolucao } from "@/components/CardSolucao";
+import { FaixaConfianca } from "@/components/FaixaConfianca";
 import { cn } from "@/lib/utils";
 import { TEMAS, solucoesPorTema, type Setor } from "@/data/site";
+import heroSolucoes from "@/assets/fotos/cidade.jpg";
 
 const SUBTITULO_TEMA: Record<string, string> = {
   "Recuperação Tributária": "Receita que já é do município, de volta ao caixa.",
@@ -35,6 +37,10 @@ const Solucoes = () => {
         titulo="Do tributário ao ambiental: onde a SBA pode atuar na sua realidade."
         subtitulo="Organizamos o portfólio por tema. Cada solução traz o benefício para o cliente; os valores das frentes ambientais e de infraestrutura ficam sob consulta, caso a caso. No tributário, é sempre piso estimado e pagamento no êxito."
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
+        imagem={{
+          src: heroSolucoes,
+          alt: "Portfólio da SBA para o setor público e privado.",
+        }}
       />
 
       {/* Filtro por setor */}
@@ -94,6 +100,8 @@ const Solucoes = () => {
           </section>
         );
       })}
+
+      <FaixaConfianca />
 
       <SecaoCTA
         titulo="Não sabe por onde começar?"

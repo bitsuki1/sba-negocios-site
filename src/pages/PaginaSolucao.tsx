@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { LANDINGS, PROCESSO_SBA } from "@/data/landings";
+import { FaixaConfianca } from "@/components/FaixaConfianca";
 
 const PaginaSolucao = () => {
   const { slug } = useParams();
@@ -131,6 +132,8 @@ const PaginaSolucao = () => {
           )}
         </div>
       </section>
+
+      <FaixaConfianca />
 
       <SecaoCTA
         titulo={dados.cta.titulo}

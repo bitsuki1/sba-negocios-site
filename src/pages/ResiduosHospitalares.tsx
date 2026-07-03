@@ -97,11 +97,11 @@ const ResiduosHospitalares = () => {
           <div className="mx-auto max-w-2xl text-center">
             <div className="mx-auto mb-5 rule-gold" />
             <h2 className="font-display text-3xl font-bold text-primary-dark">
-              Duas tecnologias do {PARCEIRO_CSTR.nome}
+              Duas tecnologias da {PARCEIRO_CSTR.nome}
             </h2>
             <p className="mt-4 text-muted-foreground">
               Uma solução já em operação e uma frente de inovação. A SBA estrutura
-              o projeto; o {PARCEIRO_CSTR.nome} traz a tecnologia.
+              o projeto; a {PARCEIRO_CSTR.nome} traz a tecnologia.
             </p>
           </div>
 
@@ -187,7 +187,7 @@ const ResiduosHospitalares = () => {
                 rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center gap-2 font-semibold text-primary transition-colors hover:text-primary-dark"
               >
-                Conhecer o {PARCEIRO_CSTR.nome}
+                Conhecer a {PARCEIRO_CSTR.nome}
                 <ExternalLink className="h-4 w-4" />
               </a>
             </div>

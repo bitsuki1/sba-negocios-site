@@ -8,6 +8,7 @@ import residuoValor from "@/assets/cstr/residuo-valor.png";
 import plantaBiogas from "@/assets/cstr/planta-biogas.jpg";
 import premioImg from "@/assets/cstr/premio.jpg";
 import cstrLogo from "@/assets/cstr/cstr-logo.png";
+import heroResiduos from "@/assets/cstr/circular.jpg";
 
 const ESTAGIOS = [
   {
@@ -47,6 +48,10 @@ const Residuos = () => {
         titulo="Resíduo não é só custo. Bem estruturado, vira valor."
         subtitulo="A SBA não constrói usinas: estrutura o projeto e conecta cliente, operador, tecnologia e jurídico — do primeiro contato ao contrato. Atendemos o resíduo urbano do município, o grande gerador e o setor hospitalar."
         ctaPrincipal={{ label: "Conversar sobre um projeto", href: "/contato" }}
+        imagem={{
+          src: heroResiduos,
+          alt: "Economia circular: resíduo que vira energia e valor.",
+        }}
       />
 
       {/* Do resíduo ao valor */}
@@ -154,7 +159,7 @@ const Residuos = () => {
                 Parceiro de tecnologia
               </p>
               <h2 className="mt-1 font-display text-3xl font-bold text-primary-dark">
-                A tecnologia vem do {PARCEIRO_CSTR.nome}
+                A tecnologia vem da {PARCEIRO_CSTR.nome}
               </h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 {PARCEIRO_CSTR.nomeCompleto}
@@ -162,7 +167,7 @@ const Residuos = () => {
               <p className="mt-5 leading-relaxed text-muted-foreground">
                 {PARCEIRO_CSTR.chamada} Assim, o município ou a empresa não
                 precisa escolher uma tecnologia sozinho: a SBA estrutura o
-                projeto e o {PARCEIRO_CSTR.nome} traz a solução validada e a
+                projeto e a {PARCEIRO_CSTR.nome} traz a solução validada e a
                 operação.
               </p>
               <a
@@ -171,7 +176,7 @@ const Residuos = () => {
                 rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center gap-2 font-semibold text-primary transition-colors hover:text-primary-dark"
               >
-                Conhecer o {PARCEIRO_CSTR.nome}
+                Conhecer a {PARCEIRO_CSTR.nome}
                 <ExternalLink className="h-4 w-4" />
               </a>
             </div>
@@ -191,7 +196,7 @@ const Residuos = () => {
               </figure>
               <div className="rounded-lg border border-primary/20 bg-primary/5 p-7">
                 <h3 className="font-display text-lg font-semibold text-primary-dark">
-                  O que o {PARCEIRO_CSTR.nome} entrega
+                  O que a {PARCEIRO_CSTR.nome} entrega
                 </h3>
               <ul className="mt-5 space-y-3">
                 {PARCEIRO_CSTR.entregas.map((item) => (
@@ -258,7 +263,7 @@ const Residuos = () => {
           <div className="mx-auto max-w-2xl text-center">
             <div className="mx-auto mb-5 rule-gold" />
             <h2 className="font-display text-3xl font-bold text-primary-dark">
-              As tecnologias do {PARCEIRO_CSTR.nome}
+              As tecnologias da {PARCEIRO_CSTR.nome}
             </h2>
             <p className="mt-4 text-muted-foreground">
               Cada material tem o seu sistema. As faixas abaixo são as

@@ -2,6 +2,7 @@ import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { FormularioContato } from "@/components/FormularioContato";
 import { Handshake, Scale, Users } from "lucide-react";
+import heroParceiro from "@/assets/conaid/estrada.jpg";
 
 const PERFIS = [
   {
@@ -32,6 +33,10 @@ const SejaParceiro = () => {
         eyebrow="Rede de parceiros"
         titulo="Seja um parceiro da SBA Negócios."
         subtitulo="A SBA trabalha com uma rede de parceiros técnicos, jurídicos, operadores e representantes. Se você quer somar com a gente nos nossos projetos, conte como pode contribuir."
+        imagem={{
+          src: heroParceiro,
+          alt: "Rede de parceiros que executam os projetos da SBA.",
+        }}
       />
 
       <section className="bg-background">
