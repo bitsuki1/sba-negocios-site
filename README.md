@@ -49,11 +49,11 @@ npm run preview   # pré-visualiza o build de produção
 
 A maior parte do texto que se repete está em **`src/data/site.ts`**:
 
-- **`CONTATO`** — endereço, telefone, e-mail e domínio.
-  - ⚠️ Defina o **domínio final** (hoje está `sbanegocios.com.br` como exemplo).
+- **`CONTATO`** — endereço, telefone, e-mail e domínio (`sbanegocios.com.br`, em produção).
 - **`NAV`** — itens do menu.
-- **`AREAS`** — as duas áreas exibidas na Home.
-- **`FRENTES`** — as cinco frentes da Área B (Resíduos & Infraestrutura).
+- **`SETORES`** — as duas portas (Setor Público / Setor Privado).
+- **`SOLUCOES`** — o portfólio de soluções (tema, setor, imagem e página de cada uma).
+- **`TEMAS`** — os eixos temáticos usados na página Soluções.
 - **`PASSOS_TRIBUTARIO`** — os 3 passos da Recuperação Tributária.
 
 O texto mais longo de cada página está dentro do próprio arquivo em `src/pages/`.
@@ -74,12 +74,11 @@ O texto mais longo de cada página está dentro do próprio arquivo em `src/page
 
 ## Formulários
 
-Hoje os formulários (`Contato` e `Seja um parceiro`) usam um **fallback por
-e-mail**: ao enviar, abrem o e-mail do usuário já preenchido para
-`eduardo@saobentoservicos.com.br`. Não há backend.
-
-Para **gravar** os contatos, conecte o formulário a um backend (ex.: Supabase,
-n8n ou um serviço de formulário) editando a função `handleSubmit` em
+Os formulários (`Contato` e `Seja um parceiro`) gravam o lead via **Edge Function
+`submit-lead` do Supabase** (projeto `gestao-integrada-dados`), que escreve na
+tabela `sba_leads` — o site nunca escreve direto na tabela. Há **fallback por
+e-mail** (`mailto` para `eduardo@saobentoservicos.com.br`) caso o envio falhe, e
+**anti-spam** (honeypot + tempo mínimo) validado na função. A lógica está em
 `src/components/FormularioContato.tsx`.
 
 ---

@@ -135,9 +135,10 @@ const RecuperacaoTributaria = () => {
                 Dever de boa gestão fiscal
               </h3>
               <p className="mt-3 text-muted-foreground">
-                A Lei de Responsabilidade Fiscal impõe ao gestor arrecadar as
-                receitas de sua competência. Recuperar o IRRF que é do município
-                não é só oportunidade — é aderente ao dever de boa gestão fiscal.
+                A boa gestão fiscal — princípio da Lei de Responsabilidade
+                Fiscal — pede que o gestor zele pelas receitas do município.
+                Recuperar o IRRF que pertence a ele não é só oportunidade: é
+                cuidar bem do dinheiro público.
               </p>
             </div>
           </div>
@@ -176,15 +177,15 @@ const RecuperacaoTributaria = () => {
                 },
                 {
                   q: "A Câmara ou o Tribunal de Contas podem questionar?",
-                  a: "Trata-se de recuperar receita própria do município, com base em decisão definitiva do STF e método auditável. Deixar de arrecadar receita a que o município tem direito é que pode configurar renúncia. Todo o trabalho é documentado para a prestação de contas ao TCE.",
+                  a: "Trata-se de recuperar receita própria do município, com base em decisão definitiva do STF e método auditável. Deixar de buscar receita que pertence ao município é que contraria o dever de boa gestão fiscal. Todo o trabalho é documentado para a prestação de contas ao TCE.",
                 },
                 {
                   q: "Recuperar isso é boa gestão?",
-                  a: "Sim. A Lei de Responsabilidade Fiscal impõe ao gestor arrecadar as receitas de sua competência — recuperar o IRRF que é do município é aderente a esse dever.",
+                  a: "Sim. Zelar pelas receitas próprias do município é dever de boa gestão fiscal — recuperar o IRRF que é dele é aderente a esse dever.",
                 },
                 {
                   q: "Quanto tempo leva?",
-                  a: "O estudo inicial é rápido. A recuperação costuma seguir a via administrativa (na Receita, pelo e-CAC), não um precatório judicial, e o que deixa de ser retido daqui em diante passa a ficar com a cidade desde cedo. O prazo exato varia caso a caso — nada prometido sem base.",
+                  a: "O estudo inicial é rápido. A recuperação costuma ser buscada pela via administrativa (na Receita, pelo e-CAC); o caminho e o prazo exatos variam caso a caso. E o que deixa de ser retido daqui em diante passa a ficar com a cidade desde cedo — nada prometido sem base.",
                 },
               ].map((item) => (
                 <div key={item.q} className="py-5">
