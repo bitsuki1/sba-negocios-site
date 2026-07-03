@@ -9,7 +9,7 @@ import cstrLogo from "@/assets/cstr/cstr-logo.png";
 import heroHome from "@/assets/hero-home.png";
 import imgPublico from "@/assets/conaid/estrada.jpg";
 import imgPrivado from "@/assets/cstr/circular.jpg";
-import imgCstrPlanta from "@/assets/cstr/planta-render.png";
+import imgCstrPlanta from "@/assets/cstr/planta-biogas.jpg";
 
 // Imagem de abertura de cada "porta" (setor)
 const IMAGEM_SETOR: Record<Setor, { src: string; alt: string }> = {
