@@ -22,7 +22,7 @@ const IMAGEM_SETOR: Record<Setor, { src: string; alt: string }> = {
 const PROVAS = [
   {
     icon: ShieldCheck,
-    titulo: "Rigor que se comprova",
+    titulo: "Rigor que se demonstra",
     texto:
       "O mesmo padrão do nosso trabalho tributário — que parte de uma decisão definitiva do STF (Tema 1130) — guia todas as frentes: cada proposta nasce de fonte, dado e fundamento.",
   },
@@ -227,7 +227,7 @@ const Home = () => {
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                 {PARCEIRO_CSTR.chamada}
               </p>
-              <div className="mt-6 grid grid-cols-3 gap-4">
+              <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div>
                   <p className="font-display text-base font-bold text-primary">
                     {PARCEIRO_CSTR.projeto.local}

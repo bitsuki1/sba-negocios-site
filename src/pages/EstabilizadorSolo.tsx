@@ -245,7 +245,7 @@ const EstabilizadorSolo = () => {
             <div>
               <div className="rule-gold mb-5" />
               <h2 className="font-display text-3xl font-bold text-primary-dark">
-                Confiança comprovada
+                Confiança construída
               </h2>
               <p className="mt-5 leading-relaxed text-muted-foreground">
                 O ConAid CBR Plus tem histórico, certificação ambiental e

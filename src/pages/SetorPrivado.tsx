@@ -5,7 +5,7 @@ import { CardSolucao } from "@/components/CardSolucao";
 import { FaixaDesafios } from "@/components/FaixaDesafios";
 import { FaixaConfianca } from "@/components/FaixaConfianca";
 import { solucoesPorSetor } from "@/data/site";
-import heroPrivado from "@/assets/cstr/circular.jpg";
+import heroPrivado from "@/assets/fotos/residuos-industria.jpg";
 
 const SetorPrivado = () => {
   const solucoes = solucoesPorSetor("privado");
@@ -20,7 +20,7 @@ const SetorPrivado = () => {
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
         imagem={{
           src: heroPrivado,
-          alt: "Resíduo industrial tratado e valorizado em economia circular.",
+          alt: "Resíduo industrial destinado e valorizado com rastreabilidade.",
         }}
       />
 

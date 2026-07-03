@@ -5,7 +5,7 @@ import { ShieldCheck, FileSearch, Network, HandCoins, type LucideIcon } from "lu
 const PILARES: { icon: LucideIcon; titulo: string; texto: string }[] = [
   {
     icon: ShieldCheck,
-    titulo: "Rigor que se comprova",
+    titulo: "Rigor que se demonstra",
     texto:
       "O mesmo padrão do nosso trabalho tributário — que parte de uma decisão definitiva do STF (Tema 1130) — guia todas as frentes: cada proposta nasce de fonte, dado e fundamento.",
   },

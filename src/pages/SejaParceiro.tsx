@@ -2,7 +2,7 @@ import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { FormularioContato } from "@/components/FormularioContato";
 import { Handshake, Scale, Users } from "lucide-react";
-import heroParceiro from "@/assets/conaid/estrada.jpg";
+import heroParceiro from "@/assets/fotos/parceria.jpg";
 
 const PERFIS = [
   {
