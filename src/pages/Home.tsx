@@ -170,7 +170,7 @@ const Home = () => {
           <div className="mx-auto max-w-3xl text-center">
             <div className="mx-auto mb-5 rule-gold" />
             <h2 className="font-display text-3xl font-bold text-primary-dark">
-              A SBA orquestra — você não gerencia dez fornecedores.
+              A SBA orquestra — você trata com uma ponta só.
             </h2>
             <p className="mt-4 leading-relaxed text-muted-foreground">
               Funcionamos como um hub: originamos o projeto, organizamos o

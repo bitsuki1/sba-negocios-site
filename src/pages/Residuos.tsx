@@ -66,9 +66,10 @@ const Residuos = () => {
               <div className="mt-5 space-y-4 text-muted-foreground">
                 <p>
                   Hoje o resíduo é, quase sempre, só despesa: transporte, aterro,
-                  passivo ambiental e a pressão do Novo Marco do Saneamento (Lei
-                  14.026/2020), que exige o fim dos lixões e a destinação
-                  adequada. A boa notícia é que, bem estruturado, o mesmo resíduo
+                  passivo ambiental e pressão regulatória — o Novo Marco do
+                  Saneamento (Lei 14.026/2020), que exige o fim dos lixões nos
+                  municípios, e a Política Nacional de Resíduos, que responsabiliza
+                  quem gera. A boa notícia é que, bem estruturado, o mesmo resíduo
                   vira reciclável, energia e receita nova.
                 </p>
                 <p>
@@ -127,15 +128,13 @@ const Residuos = () => {
                     <p className="mt-1 text-sm text-foreground/90">{s.beneficio}</p>
                   </div>
                   <div className="flex-1" />
-                  {temPaginaPropria && (
-                    <Link
-                      to={s.href!}
-                      className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
-                    >
-                      Ver detalhes
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  )}
+                  <Link
+                    to={temPaginaPropria ? s.href! : "/contato"}
+                    className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
+                  >
+                    {temPaginaPropria ? "Ver detalhes" : "Falar sobre este resíduo"}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </div>
               );
             })}

@@ -126,7 +126,8 @@ const RecuperacaoTributaria = () => {
               <p className="mt-3 text-muted-foreground">
                 O direito do município nasce de uma decisão definitiva do STF. Não
                 dependemos de uma tese em discussão: partimos do que já está
-                decidido.
+                decidido, com o estudo conduzido por advogados e contadores
+                especializados.
               </p>
             </div>
             <div className="rounded-lg border border-primary/20 bg-primary/5 p-7">
