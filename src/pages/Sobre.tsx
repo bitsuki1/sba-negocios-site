@@ -4,7 +4,7 @@ import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { Button } from "@/components/ui/button";
 import { TIME } from "@/data/site";
-import heroSobre from "@/assets/hero-home.png";
+import heroSobre from "@/assets/fotos/equipe.jpg";
 
 const VALORES = [
   {
@@ -34,7 +34,7 @@ const Sobre = () => {
         subtitulo="A SBA Negócios é uma empresa de desenvolvimento de negócios e consultoria para os setores público e privado. Atuamos como gestora de projetos: originamos, estruturamos e coordenamos — sem executar a obra diretamente."
         imagem={{
           src: heroSobre,
-          alt: "A SBA conecta cliente, técnico, jurídico e tecnologia em cada projeto.",
+          alt: "Equipe da SBA analisando dados e indicadores de um projeto.",
         }}
       />
 

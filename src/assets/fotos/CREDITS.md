@@ -11,5 +11,10 @@ uso gratuito, sem necessidade de atribuição, modificação permitida). Fonte: 
 | saneamento.jpg | 27490881 | estação de tratamento de água (ETA/ETE) |
 | cultura.jpg | 5193532 | palco / evento cultural |
 | cidade.jpg | 8078138 | cidade brasileira (aérea) |
+| sao-paulo.jpg | — | skyline urbano (hero Contato) |
+| parceria.jpg | — | aperto de mãos / parceria (hero Seja Parceiro) |
+| residuos-industria.jpg | — | pátio industrial / resíduos (hero Setor Privado) |
+| equipe.jpg | 7693692 | equipe analisando dados e indicadores (hero Sobre) |
+| infraestrutura.jpg | 8860492 | entroncamento viário sobre a água — "conectar as pontas" (hero Soluções) |
 
 Referência da licença: https://www.pexels.com/license/

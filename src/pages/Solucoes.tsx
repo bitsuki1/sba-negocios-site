@@ -6,7 +6,7 @@ import { CardSolucao } from "@/components/CardSolucao";
 import { FaixaConfianca } from "@/components/FaixaConfianca";
 import { cn } from "@/lib/utils";
 import { TEMAS, solucoesPorTema, type Setor } from "@/data/site";
-import heroSolucoes from "@/assets/fotos/cidade.jpg";
+import heroSolucoes from "@/assets/fotos/infraestrutura.jpg";
 
 const SUBTITULO_TEMA: Record<string, string> = {
   "Recuperação Tributária": "Receita que já é do município, de volta ao caixa.",
@@ -39,7 +39,7 @@ const Solucoes = () => {
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
         imagem={{
           src: heroSolucoes,
-          alt: "Portfólio da SBA para o setor público e privado.",
+          alt: "Malha viária conectando pontas — o portfólio da SBA para o setor público e privado.",
         }}
       />
 
