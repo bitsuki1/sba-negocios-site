@@ -149,7 +149,7 @@ export const SOLUCOES: Solucao[] = [
     beneficio:
       "Destinação adequada, menos aterro e potencial de energia e receita nova para o município.",
     icon: Recycle,
-    href: "/solucoes/residuos-municipal",
+    href: "/residuos",
     destaque: true,
   },
   {
@@ -163,7 +163,7 @@ export const SOLUCOES: Solucao[] = [
     beneficio:
       "Conformidade com a Política Nacional de Resíduos, menos passivo ambiental e custo sob controle.",
     icon: Factory,
-    href: "/solucoes/residuos-grandes-geradores",
+    href: "/residuos",
   },
   {
     id: "residuos-hospitalar",

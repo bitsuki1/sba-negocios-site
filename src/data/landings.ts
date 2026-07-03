@@ -5,8 +5,6 @@
 // Marca: "SBA Negócios". Honestidade: sem número inventado; "valores sob consulta".
 // ============================================================================
 
-import plantaBiogas from "@/assets/cstr/planta-biogas.jpg";
-import incinerador from "@/assets/cstr/incinerador.jpg";
 import floresta from "@/assets/cstr/floresta.jpg";
 import solar from "@/assets/fotos/solar.jpg";
 import iluminacao from "@/assets/fotos/iluminacao.jpg";
@@ -54,66 +52,6 @@ export const PROCESSO_SBA = [
 ];
 
 export const LANDINGS: Record<string, Landing> = {
-  "residuos-municipal": {
-    id: "residuos-municipal",
-    eyebrow: "Resíduos & Valorização · Município",
-    titulo: "O lixo urbano deixa de ser problema e vira solução.",
-    subtitulo:
-      "Para prefeituras e consórcios, a SBA estrutura uma usina de tratamento e valorização do resíduo sólido urbano — do teaser ao contrato, com operador e tecnologia parceiros.",
-    imagem: plantaBiogas,
-    oQueE: {
-      titulo: "Por que estruturar agora",
-      paragrafos: [
-        "O Novo Marco do Saneamento exige o fim dos lixões e a destinação adequada dos resíduos, ao mesmo tempo em que os aterros se esgotam e o custo de transporte só cresce. O resíduo urbano virou uma pressão de gestão e de orçamento.",
-        "A SBA monta o projeto que transforma esse passivo em valor: uma planta que separa, trata e valoriza o resíduo, gerando energia, biometano e biofertilizante — com a tecnologia do parceiro e o operador certo para tocar a operação.",
-      ],
-    },
-    beneficios: [
-      { titulo: "Conformidade", texto: "Destinação adequada, alinhada ao Novo Marco do Saneamento." },
-      { titulo: "Menos aterro", texto: "Reduz o volume enviado ao aterro e o custo de transporte." },
-      { titulo: "Receita nova", texto: "Energia, biometano e biofertilizante a partir do que era custo." },
-      { titulo: "Sem executar sozinho", texto: "A SBA traz a tecnologia validada e o operador; o município decide a cada etapa." },
-    ],
-    parceiro: {
-      nota: "Tecnologia do parceiro CSTR. Veja a página de Resíduos para o detalhe técnico.",
-      href: "/residuos",
-    },
-    cta: {
-      titulo: "Quer entender o potencial da sua cidade?",
-      texto: "Comece pelo teaser, sem custo. A partir dele, decidimos juntos se vale seguir.",
-    },
-  },
-
-  "residuos-grandes-geradores": {
-    id: "residuos-grandes-geradores",
-    eyebrow: "Resíduos & Valorização · Empresas",
-    titulo: "Resíduo industrial deixa de ser passivo.",
-    subtitulo:
-      "Para indústria, comércio e agro que geram grande volume, a SBA estrutura a destinação e a valorização dos resíduos — com conformidade legal, rastreabilidade e parceiros que operam.",
-    imagem: incinerador,
-    oQueE: {
-      titulo: "O desafio de quem gera muito resíduo",
-      paragrafos: [
-        "Para o grande gerador, o resíduo significa custo logístico, risco ambiental e exigência regulatória crescente — sem que isso seja, em geral, o negócio principal da empresa.",
-        "A SBA estrutura a solução de ponta a ponta: avalia o tipo e o volume, conecta a tecnologia e o operador adequados e organiza a destinação com rastreabilidade — para a empresa cuidar do seu negócio, não do lixo.",
-      ],
-    },
-    beneficios: [
-      { titulo: "Conformidade (PNRS)", texto: "Atende à Política Nacional de Resíduos Sólidos e à logística reversa." },
-      { titulo: "Menos passivo", texto: "Reduz risco ambiental e a exposição da empresa." },
-      { titulo: "Custo sob controle", texto: "Logística e destinação organizadas, com previsibilidade." },
-      { titulo: "Valorização", texto: "Sempre que possível, o resíduo vira energia, matéria-prima ou receita." },
-    ],
-    parceiro: {
-      nota: "Tecnologia do parceiro CSTR. Veja a página de Resíduos para o detalhe técnico.",
-      href: "/residuos",
-    },
-    cta: {
-      titulo: "Tem um volume de resíduo que hoje é só custo?",
-      texto: "Fale com a SBA. Avaliamos o caso e estruturamos o melhor caminho — valores sob consulta.",
-    },
-  },
-
   "energia-fotovoltaica": {
     id: "energia-fotovoltaica",
     eyebrow: "Energia & Eficiência",

@@ -1,8 +1,8 @@
-import { Check, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Check, ExternalLink, ArrowRight } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
-import { CardSolucao } from "@/components/CardSolucao";
 import { solucoesPorTema, PARCEIRO_CSTR } from "@/data/site";
 import residuoValor from "@/assets/cstr/residuo-valor.png";
 import plantaBiogas from "@/assets/cstr/planta-biogas.jpg";
@@ -102,9 +102,42 @@ const Residuos = () => {
           </div>
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {segmentos.map((s) => (
-              <CardSolucao key={s.id} solucao={s} />
-            ))}
+            {segmentos.map((s) => {
+              const Icone = s.icon;
+              const temPaginaPropria = s.href && s.href !== "/residuos";
+              return (
+                <div
+                  key={s.id}
+                  className="flex h-full flex-col rounded-lg border border-border bg-card p-7"
+                >
+                  <span className="flex h-12 w-12 items-center justify-center rounded-md bg-secondary text-primary">
+                    <Icone className="h-6 w-6" aria-hidden="true" />
+                  </span>
+                  <h3 className="mt-4 font-display text-lg font-semibold text-primary-dark">
+                    {s.titulo}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {s.resumo}
+                  </p>
+                  <div className="mt-4 rounded-md bg-secondary/70 p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-accent">
+                      Benefício
+                    </p>
+                    <p className="mt-1 text-sm text-foreground/90">{s.beneficio}</p>
+                  </div>
+                  <div className="flex-1" />
+                  {temPaginaPropria && (
+                    <Link
+                      to={s.href!}
+                      className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
+                    >
+                      Ver detalhes
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
