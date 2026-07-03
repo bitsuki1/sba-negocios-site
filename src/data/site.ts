@@ -187,7 +187,7 @@ export const SOLUCOES: Solucao[] = [
     id: "reflorestamento-carbono",
     titulo: "Reflorestamento & Crédito de Carbono",
     tema: "Ambiental",
-    setores: ["publico", "privado"],
+    setores: ["publico"],
     resumo:
       "Restauração e reflorestamento de áreas, com possibilidade de gerar crédito de carbono.",
     beneficio:
@@ -211,7 +211,7 @@ export const SOLUCOES: Solucao[] = [
     id: "estabilizador-solo",
     titulo: "Estabilizador de Solo (ConAid CBR Plus)",
     tema: "Infraestrutura",
-    setores: ["publico", "privado"],
+    setores: ["publico"],
     resumo:
       "Estabilização iônica do solo com o ConAid CBR Plus (líder mundial, +100 países) para estradas, pátios e obras — menos lama, menos poeira e menos manutenção.",
     beneficio:
