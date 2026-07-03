@@ -25,6 +25,7 @@ export interface Landing {
   oQueE: { titulo: string; paragrafos: string[] };
   beneficios: Beneficio[];
   aplicacoes?: string[];
+  faq?: { q: string; a: string }[];
   parceiro?: { nota: string; href?: string };
   cta: { titulo: string; texto: string };
 }
@@ -72,6 +73,27 @@ export const LANDINGS: Record<string, Landing> = {
       { titulo: "Sustentabilidade", texto: "Energia limpa, alinhada às metas ambientais do município." },
       { titulo: "Modelo sob medida", texto: "Da geração própria à contratação — a SBA estrutura o arranjo viável." },
     ],
+    aplicacoes: [
+      "Escolas, creches e unidades de saúde",
+      "Prédios administrativos e a Câmara",
+      "Iluminação e bombeamento públicos",
+      "Estações de tratamento de água e esgoto",
+      "Equipamentos de esporte e cultura",
+    ],
+    faq: [
+      {
+        q: "A economia é garantida?",
+        a: "Não trabalhamos com promessa. Fazemos um estudo de viabilidade com o consumo real do município e mostramos o potencial de economia antes de qualquer decisão.",
+      },
+      {
+        q: "O município precisa investir?",
+        a: "Depende do modelo — da geração própria à contratação de energia. A SBA estrutura o arranjo que cabe no orçamento; os valores ficam sob consulta.",
+      },
+      {
+        q: "Quem executa e opera a usina?",
+        a: "Parceiros de engenharia e jurídico. A SBA origina e coordena o projeto — não executa a obra diretamente.",
+      },
+    ],
     cta: {
       titulo: "Quanto a sua cidade gasta de energia hoje?",
       texto: "Fale com a SBA. Avaliamos o consumo e o potencial de economia — valores sob consulta.",
@@ -97,6 +119,27 @@ export const LANDINGS: Record<string, Landing> = {
       { titulo: "Cidade mais segura", texto: "Luz melhor distribuída aumenta a sensação de segurança." },
       { titulo: "Telegestão", texto: "Controle e manutenção mais inteligentes, com menos apagões." },
       { titulo: "Modelo viável", texto: "A SBA estrutura a contratação que cabe no orçamento." },
+    ],
+    aplicacoes: [
+      "Vias, avenidas e rodovias urbanas",
+      "Praças, parques e áreas de lazer",
+      "Entornos de escolas e unidades de saúde",
+      "Travessias e pontos de insegurança",
+      "Prédios e monumentos públicos",
+    ],
+    faq: [
+      {
+        q: "O LED reduz mesmo a conta?",
+        a: "O LED consome bem menos que a tecnologia antiga. Medimos o parque atual e projetamos a economia caso a caso, sem prometer um número fixo.",
+      },
+      {
+        q: "O que é telegestão?",
+        a: "É o controle remoto e inteligente da iluminação: acende, apaga e detecta falhas à distância, reduzindo apagões e custo de manutenção.",
+      },
+      {
+        q: "Como é contratado?",
+        a: "A SBA estrutura o modelo — do diagnóstico ao financiamento — que cabe no orçamento; os valores ficam sob consulta.",
+      },
     ],
     cta: {
       titulo: "Quer modernizar a iluminação da sua cidade?",
@@ -124,6 +167,23 @@ export const LANDINGS: Record<string, Landing> = {
       { titulo: "Receita com carbono", texto: "Potencial de geração e venda de crédito de carbono." },
       { titulo: "Projeto certificável", texto: "A SBA conecta quem executa e quem certifica o crédito." },
     ],
+    aplicacoes: [
+      "Áreas de preservação a recompor (APP e reserva legal)",
+      "Áreas degradadas e passivos ambientais",
+      "Margens de rios e nascentes",
+      "Compensação ambiental de obras",
+      "Projetos de geração de crédito de carbono",
+    ],
+    faq: [
+      {
+        q: "Dá para gerar receita com carbono?",
+        a: "É um potencial, não uma promessa: depende da área, do projeto e da certificação. A SBA estrutura e conecta quem certifica, avaliando caso a caso.",
+      },
+      {
+        q: "Quem faz o plantio e o manejo?",
+        a: "Parceiros técnicos especializados. A SBA organiza o projeto e conecta quem executa e quem certifica.",
+      },
+    ],
     cta: {
       titulo: "Tem áreas a recuperar ou potencial de carbono?",
       texto: "Fale com a SBA. Avaliamos a área e o caminho — valores sob consulta.",
@@ -150,6 +210,23 @@ export const LANDINGS: Record<string, Landing> = {
       { titulo: "Projeto viável", texto: "Arranjo técnico e financeiro estruturado para sair do papel." },
       { titulo: "Parceiros certos", texto: "A SBA conecta quem projeta, executa e opera." },
     ],
+    aplicacoes: [
+      "Tratamento de água (ETA)",
+      "Tratamento de esgoto (ETE)",
+      "Ampliação de rede e ligações domiciliares",
+      "Adequação às metas do Novo Marco do Saneamento",
+      "Estruturação técnica e financeira do projeto",
+    ],
+    faq: [
+      {
+        q: "Isso ajuda a cumprir o Novo Marco?",
+        a: "Sim. O Novo Marco fixou metas de universalização de água e esgoto; a SBA estrutura o projeto e o financiamento que tornam a obra viável.",
+      },
+      {
+        q: "A SBA opera o saneamento?",
+        a: "Não. Estruturamos o projeto e conectamos os parceiros de engenharia, operação e jurídico que executam e operam.",
+      },
+    ],
     cta: {
       titulo: "Sua cidade precisa avançar em água e esgoto?",
       texto: "Fale com a SBA. Avaliamos a situação e os caminhos — valores sob consulta.",
@@ -175,6 +252,23 @@ export const LANDINGS: Record<string, Landing> = {
       { titulo: "Captação organizada", texto: "Estruturação de recursos, inclusive por leis de incentivo." },
       { titulo: "Projeto viável", texto: "Da ideia à execução, com os parceiros certos." },
       { titulo: "Identidade", texto: "Fortalece a cultura e a imagem do município." },
+    ],
+    aplicacoes: [
+      "Festivais, festas cívicas e datas do município",
+      "Projetos por leis de incentivo à cultura",
+      "Eventos de turismo e economia local",
+      "Projetos culturais em escolas e espaços públicos",
+      "Captação de recursos e prestação de contas",
+    ],
+    faq: [
+      {
+        q: "Como funciona a captação?",
+        a: "Estruturamos o projeto e a captação de recursos, inclusive por leis de incentivo, com a organização e a prestação de contas necessárias.",
+      },
+      {
+        q: "A SBA produz o evento?",
+        a: "A SBA estrutura e viabiliza; a execução fica com os parceiros e produtores certos para cada projeto.",
+      },
     ],
     cta: {
       titulo: "Tem um evento ou projeto cultural em mente?",

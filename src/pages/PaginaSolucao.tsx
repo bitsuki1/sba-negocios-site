@@ -20,36 +20,23 @@ const PaginaSolucao = () => {
         titulo={dados.titulo}
         subtitulo={dados.subtitulo}
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
+        imagem={
+          dados.imagem ? { src: dados.imagem, alt: dados.titulo } : undefined
+        }
       />
 
       {/* O que é */}
       <section className="border-b border-border bg-background">
         <div className="container-sba py-16 md:py-20">
-          <div
-            className={
-              dados.imagem
-                ? "grid gap-10 lg:grid-cols-2 lg:items-center"
-                : "mx-auto max-w-3xl"
-            }
-          >
-            {dados.imagem && (
-              <img
-                src={dados.imagem}
-                alt=""
-                className="aspect-[4/3] w-full rounded-lg border border-border object-cover"
-                loading="lazy"
-              />
-            )}
-            <div>
-              <div className="rule-gold mb-5" />
-              <h2 className="font-display text-3xl font-bold text-primary-dark">
-                {dados.oQueE.titulo}
-              </h2>
-              <div className="mt-5 space-y-4 leading-relaxed text-muted-foreground">
-                {dados.oQueE.paragrafos.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
+          <div className="mx-auto max-w-3xl">
+            <div className="rule-gold mb-5" />
+            <h2 className="font-display text-3xl font-bold text-primary-dark">
+              {dados.oQueE.titulo}
+            </h2>
+            <div className="mt-5 space-y-4 leading-relaxed text-muted-foreground">
+              {dados.oQueE.paragrafos.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
           </div>
         </div>
@@ -85,8 +72,37 @@ const PaginaSolucao = () => {
         </div>
       </section>
 
+      {/* Onde se aplica */}
+      {dados.aplicacoes && dados.aplicacoes.length > 0 && (
+        <section className="bg-background">
+          <div className="container-sba py-16 md:py-20">
+            <div className="mx-auto max-w-2xl text-center">
+              <div className="mx-auto mb-5 rule-gold" />
+              <h2 className="font-display text-3xl font-bold text-primary-dark">
+                Onde se aplica
+              </h2>
+            </div>
+            <ul className="mx-auto mt-10 grid max-w-4xl gap-3 sm:grid-cols-2">
+              {dados.aplicacoes.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 rounded-lg border border-border bg-card p-4"
+                >
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Check className="h-3.5 w-3.5" aria-hidden="true" />
+                  </span>
+                  <span className="text-sm leading-relaxed text-foreground/90">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
       {/* Como funciona */}
-      <section className="bg-background">
+      <section className="bg-secondary/50">
         <div className="container-sba py-16 md:py-20">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="font-display text-3xl font-bold text-primary-dark">
@@ -132,6 +148,32 @@ const PaginaSolucao = () => {
           )}
         </div>
       </section>
+
+      {/* Perguntas frequentes */}
+      {dados.faq && dados.faq.length > 0 && (
+        <section className="bg-background">
+          <div className="container-sba py-16 md:py-20">
+            <div className="mx-auto max-w-3xl">
+              <div className="rule-gold mb-5" />
+              <h2 className="font-display text-3xl font-bold text-primary-dark">
+                Perguntas frequentes
+              </h2>
+              <dl className="mt-8 divide-y divide-border">
+                {dados.faq.map((item) => (
+                  <div key={item.q} className="py-5">
+                    <dt className="font-display text-lg font-semibold text-primary-dark">
+                      {item.q}
+                    </dt>
+                    <dd className="mt-2 leading-relaxed text-muted-foreground">
+                      {item.a}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </section>
+      )}
 
       <FaixaConfianca />
 
