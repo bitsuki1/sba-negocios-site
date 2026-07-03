@@ -98,14 +98,12 @@ export const Hero = ({
           </div>
 
           {imagem && (
-            <div className="animate-fade-up">
+            <div className="aspect-[4/3] animate-fade-up overflow-hidden rounded-xl shadow-2xl ring-1 ring-white/10">
               <img
                 src={imagem.src}
                 alt={imagem.alt}
-                className="w-full rounded-xl shadow-2xl ring-1 ring-white/10"
+                className="h-full w-full object-cover"
                 loading="eager"
-                width={1400}
-                height={1050}
               />
             </div>
           )}

@@ -3,7 +3,9 @@ import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { CardSolucao } from "@/components/CardSolucao";
 import { FaixaDesafios } from "@/components/FaixaDesafios";
+import { FaixaConfianca } from "@/components/FaixaConfianca";
 import { solucoesPorSetor } from "@/data/site";
+import heroPrivado from "@/assets/cstr/circular.jpg";
 
 const SetorPrivado = () => {
   const solucoes = solucoesPorSetor("privado");
@@ -16,6 +18,10 @@ const SetorPrivado = () => {
         titulo="Resíduo deixa de ser passivo e vira solução."
         subtitulo="Para grandes geradores e para o setor hospitalar, a SBA estrutura a destinação e a valorização dos resíduos com conformidade legal, rastreabilidade e parceiros que operam — sem que a sua empresa precise virar especialista no assunto."
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
+        imagem={{
+          src: heroPrivado,
+          alt: "Resíduo industrial tratado e valorizado em economia circular.",
+        }}
       />
 
       <FaixaDesafios setor="privado" />
@@ -40,6 +46,8 @@ const SetorPrivado = () => {
           </div>
         </div>
       </section>
+
+      <FaixaConfianca />
 
       <SecaoCTA
         titulo="Tem um volume de resíduo que hoje é só custo e risco?"

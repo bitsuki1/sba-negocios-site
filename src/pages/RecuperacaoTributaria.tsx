@@ -3,11 +3,12 @@ import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { PASSOS_TRIBUTARIO } from "@/data/site";
+import heroTributario from "@/assets/tiles/tributario.png";
 
 const HONESTIDADE = [
   "Os honorários são 100% no êxito: você paga apenas sobre o que for de fato recuperado.",
   "Nenhum custo antecipado para fazer o estudo da sua cidade.",
-  "O valor apresentado é um piso estimado — não prometemos resultado garantido.",
+  "O valor apresentado é um piso estimado — trabalhamos com estimativa, não com promessa de resultado.",
   "A confirmação documento a documento acontece na fase seguinte e é responsabilidade do município.",
   "Todo o trabalho parte de dado público e de um método que pode ser auditado.",
 ];
@@ -23,6 +24,10 @@ const RecuperacaoTributaria = () => {
         ctaPrincipal={{
           label: "Solicitar estudo da minha cidade",
           href: "/contato",
+        }}
+        imagem={{
+          src: heroTributario,
+          alt: "IRRF retido pelo município pertence ao município (STF, Tema 1130).",
         }}
       />
 

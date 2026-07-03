@@ -5,9 +5,13 @@
 // Marca: "SBA Negócios". Honestidade: sem número inventado; "valores sob consulta".
 // ============================================================================
 
-import aterro from "@/assets/cstr/aterro.jpg";
-import plantaRender from "@/assets/cstr/planta-render.png";
+import plantaBiogas from "@/assets/cstr/planta-biogas.jpg";
+import incinerador from "@/assets/cstr/incinerador.jpg";
 import floresta from "@/assets/cstr/floresta.jpg";
+import solar from "@/assets/tiles/solar.png";
+import iluminacao from "@/assets/tiles/iluminacao.png";
+import saneamento from "@/assets/tiles/saneamento.png";
+import cultura from "@/assets/tiles/cultura.png";
 
 export interface Beneficio {
   titulo: string;
@@ -56,7 +60,7 @@ export const LANDINGS: Record<string, Landing> = {
     titulo: "O lixo urbano deixa de ser problema e vira solução.",
     subtitulo:
       "Para prefeituras e consórcios, a SBA estrutura uma usina de tratamento e valorização do resíduo sólido urbano — do teaser ao contrato, com operador e tecnologia parceiros.",
-    imagem: plantaRender,
+    imagem: plantaBiogas,
     oQueE: {
       titulo: "Por que estruturar agora",
       paragrafos: [
@@ -86,7 +90,7 @@ export const LANDINGS: Record<string, Landing> = {
     titulo: "Resíduo industrial deixa de ser passivo.",
     subtitulo:
       "Para indústria, comércio e agro que geram grande volume, a SBA estrutura a destinação e a valorização dos resíduos — com conformidade legal, rastreabilidade e parceiros que operam.",
-    imagem: aterro,
+    imagem: incinerador,
     oQueE: {
       titulo: "O desafio de quem gera muito resíduo",
       paragrafos: [
@@ -116,6 +120,7 @@ export const LANDINGS: Record<string, Landing> = {
     titulo: "Energia solar para abastecer o que é público.",
     subtitulo:
       "A SBA estrutura usinas fotovoltaicas para abastecer prédios e equipamentos públicos, com engenharia e jurídico parceiros — para o município pagar menos pela energia que já consome.",
+    imagem: solar,
     oQueE: {
       titulo: "Trocar conta de luz por ativo próprio",
       paragrafos: [
@@ -141,6 +146,7 @@ export const LANDINGS: Record<string, Landing> = {
     titulo: "Iluminação pública mais eficiente e mais segura.",
     subtitulo:
       "A SBA estrutura a modernização da iluminação municipal — troca para LED e telegestão — do diagnóstico ao modelo de contratação, com os parceiros que executam.",
+    imagem: iluminacao,
     oQueE: {
       titulo: "Iluminar melhor gastando menos",
       paragrafos: [
@@ -192,6 +198,7 @@ export const LANDINGS: Record<string, Landing> = {
     titulo: "Água e esgoto tratados, dentro do Novo Marco.",
     subtitulo:
       "A SBA estrutura projetos de tratamento de água (ETA) e de esgoto (ETE), alinhados ao Novo Marco do Saneamento, com o arranjo técnico e financeiro montado.",
+    imagem: saneamento,
     oQueE: {
       titulo: "Saneamento é meta e é saúde",
       paragrafos: [
@@ -217,6 +224,7 @@ export const LANDINGS: Record<string, Landing> = {
     titulo: "Projetos culturais que saem do papel.",
     subtitulo:
       "A SBA estrutura e ajuda a captar recursos para eventos e projetos culturais do município — com organização, parceiros e captação por leis de incentivo.",
+    imagem: cultura,
     oQueE: {
       titulo: "Cultura também precisa de estrutura",
       paragrafos: [

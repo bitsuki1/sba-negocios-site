@@ -3,7 +3,9 @@ import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { CardSolucao } from "@/components/CardSolucao";
 import { FaixaDesafios } from "@/components/FaixaDesafios";
+import { FaixaConfianca } from "@/components/FaixaConfianca";
 import { solucoesPorSetor } from "@/data/site";
+import heroPublico from "@/assets/tiles/hero-publico.png";
 
 const SetorPublico = () => {
   const solucoes = solucoesPorSetor("publico");
@@ -16,6 +18,10 @@ const SetorPublico = () => {
         titulo="Mais receita, menos custo e projetos que saem do papel."
         subtitulo="Para prefeituras e consórcios, a SBA recupera receita que é do município, estrutura a destinação dos resíduos urbanos e destrava projetos de energia e infraestrutura — sempre com dado público e método auditável."
         ctaPrincipal={{ label: "Solicitar um diagnóstico", href: "/contato" }}
+        imagem={{
+          src: heroPublico,
+          alt: "A SBA destrava receita e projetos para o município.",
+        }}
       />
 
       <FaixaDesafios setor="publico" />
@@ -40,6 +46,8 @@ const SetorPublico = () => {
           </div>
         </div>
       </section>
+
+      <FaixaConfianca />
 
       <SecaoCTA
         titulo="Quer saber quanto a sua cidade tem a recuperar — ou destravar?"

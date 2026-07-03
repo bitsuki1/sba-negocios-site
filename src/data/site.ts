@@ -23,6 +23,18 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+// Imagens por solução (tiles institucionais gerados + fotos reais dos parceiros)
+import imgTributario from "@/assets/tiles/tributario.png";
+import imgSolar from "@/assets/tiles/solar.png";
+import imgIluminacao from "@/assets/tiles/iluminacao.png";
+import imgSaneamento from "@/assets/tiles/saneamento.png";
+import imgCultura from "@/assets/tiles/cultura.png";
+import imgResiduosMun from "@/assets/cstr/planta-biogas.jpg";
+import imgResiduosGer from "@/assets/cstr/incinerador.jpg";
+import imgResiduosHosp from "@/assets/cstr/hospitalar.jpg";
+import imgFloresta from "@/assets/cstr/floresta.jpg";
+import imgEstrada from "@/assets/conaid/estrada.jpg";
+
 export const MARCA = {
   nome: "SBA Negócios",
   sigla: "SBA",
@@ -106,6 +118,7 @@ export interface Solucao {
   resumo: string;
   beneficio: string;
   icon: LucideIcon;
+  imagem: string; // imagem de abertura do card (tile institucional ou foto)
   href?: string; // página dedicada, quando existir
   destaque?: boolean;
 }
@@ -113,6 +126,7 @@ export interface Solucao {
 export const SOLUCOES: Solucao[] = [
   {
     id: "tema-1130",
+    imagem: imgTributario,
     titulo: "Recuperação Tributária — Tema 1130",
     tema: "Recuperação Tributária",
     setores: ["publico"],
@@ -126,6 +140,7 @@ export const SOLUCOES: Solucao[] = [
   },
   {
     id: "residuos-municipal",
+    imagem: imgResiduosMun,
     titulo: "Resíduos Sólidos Urbanos (município)",
     tema: "Resíduos & Valorização",
     setores: ["publico"],
@@ -139,6 +154,7 @@ export const SOLUCOES: Solucao[] = [
   },
   {
     id: "residuos-grandes-geradores",
+    imagem: imgResiduosGer,
     titulo: "Resíduos de Grandes Geradores",
     tema: "Resíduos & Valorização",
     setores: ["privado"],
@@ -151,6 +167,7 @@ export const SOLUCOES: Solucao[] = [
   },
   {
     id: "residuos-hospitalar",
+    imagem: imgResiduosHosp,
     titulo: "Resíduos Hospitalares (RSS)",
     tema: "Resíduos & Valorização",
     setores: ["privado"],
@@ -163,6 +180,7 @@ export const SOLUCOES: Solucao[] = [
   },
   {
     id: "energia-fotovoltaica",
+    imagem: imgSolar,
     titulo: "Energia Fotovoltaica",
     tema: "Energia & Eficiência",
     setores: ["publico"],
@@ -174,6 +192,7 @@ export const SOLUCOES: Solucao[] = [
   },
   {
     id: "iluminacao-publica",
+    imagem: imgIluminacao,
     titulo: "Iluminação Pública",
     tema: "Energia & Eficiência",
     setores: ["publico"],
@@ -185,6 +204,7 @@ export const SOLUCOES: Solucao[] = [
   },
   {
     id: "reflorestamento-carbono",
+    imagem: imgFloresta,
     titulo: "Reflorestamento & Crédito de Carbono",
     tema: "Ambiental",
     setores: ["publico"],
@@ -197,6 +217,7 @@ export const SOLUCOES: Solucao[] = [
   },
   {
     id: "saneamento-agua",
+    imagem: imgSaneamento,
     titulo: "Saneamento & Água (ETA/ETE)",
     tema: "Ambiental",
     setores: ["publico"],
@@ -209,11 +230,12 @@ export const SOLUCOES: Solucao[] = [
   },
   {
     id: "estabilizador-solo",
+    imagem: imgEstrada,
     titulo: "Estabilizador de Solo (ConAid CBR Plus)",
     tema: "Infraestrutura",
     setores: ["publico"],
     resumo:
-      "Estabilização iônica do solo com o ConAid CBR Plus (líder mundial, +100 países) para estradas, pátios e obras — menos lama, menos poeira e menos manutenção.",
+      "Estabilização iônica do solo com o ConAid CBR Plus (referência mundial, usado em mais de 100 países) para estradas, pátios e obras — menos lama, menos poeira e menos manutenção.",
     beneficio:
       "Estradas firmes o ano todo, com custo de material muito menor que cascalho, brita ou solo-cimento.",
     icon: Layers,
@@ -221,6 +243,7 @@ export const SOLUCOES: Solucao[] = [
   },
   {
     id: "eventos-cultura",
+    imagem: imgCultura,
     titulo: "Eventos & Projetos Culturais",
     tema: "Cultura",
     setores: ["publico"],
@@ -256,7 +279,7 @@ export const PARCEIRO_CSTR = {
   origem: "Ouro Preto — MG",
   site: "https://cstr.eco.br",
   chamada:
-    "Para transformar resíduo em valor, a SBA trabalha com o CSTR. Ele projeta, implanta e gerencia plantas de tratamento de resíduos — transformando passivos ambientais em ativos econômicos.",
+    "Para transformar resíduo em valor, a SBA trabalha com a CSTR. Ela projeta, implanta e gerencia plantas de tratamento de resíduos — transformando passivos ambientais em ativos econômicos.",
   entregas: [
     "Energia elétrica, biogás, biometano e biofertilizante",
     "Plantas de resíduos projetadas, implantadas e gerenciadas",

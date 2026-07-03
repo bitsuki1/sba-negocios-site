@@ -34,8 +34,8 @@ const PaginaSolucao = () => {
             {dados.imagem && (
               <img
                 src={dados.imagem}
-                alt={dados.titulo}
-                className="w-full rounded-lg border border-border object-cover"
+                alt=""
+                className="aspect-[4/3] w-full rounded-lg border border-border object-cover"
                 loading="lazy"
               />
             )}
