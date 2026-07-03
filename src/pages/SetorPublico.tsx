@@ -5,7 +5,7 @@ import { CardSolucao } from "@/components/CardSolucao";
 import { FaixaDesafios } from "@/components/FaixaDesafios";
 import { FaixaConfianca } from "@/components/FaixaConfianca";
 import { solucoesPorSetor } from "@/data/site";
-import heroPublico from "@/assets/tiles/hero-publico.png";
+import heroPublico from "@/assets/fotos/cidade.jpg";
 
 const SetorPublico = () => {
   const solucoes = solucoesPorSetor("publico");

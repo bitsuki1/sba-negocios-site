@@ -24,11 +24,11 @@ import {
 } from "lucide-react";
 
 // Imagens por solução (tiles institucionais gerados + fotos reais dos parceiros)
-import imgTributario from "@/assets/tiles/tributario.png";
-import imgSolar from "@/assets/tiles/solar.png";
-import imgIluminacao from "@/assets/tiles/iluminacao.png";
-import imgSaneamento from "@/assets/tiles/saneamento.png";
-import imgCultura from "@/assets/tiles/cultura.png";
+import imgTributario from "@/assets/fotos/tributario.jpg";
+import imgSolar from "@/assets/fotos/solar.jpg";
+import imgIluminacao from "@/assets/fotos/iluminacao.jpg";
+import imgSaneamento from "@/assets/fotos/saneamento.jpg";
+import imgCultura from "@/assets/fotos/cultura.jpg";
 import imgResiduosMun from "@/assets/cstr/planta-biogas.jpg";
 import imgResiduosGer from "@/assets/cstr/incinerador.jpg";
 import imgResiduosHosp from "@/assets/cstr/hospitalar.jpg";

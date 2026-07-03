@@ -8,10 +8,10 @@
 import plantaBiogas from "@/assets/cstr/planta-biogas.jpg";
 import incinerador from "@/assets/cstr/incinerador.jpg";
 import floresta from "@/assets/cstr/floresta.jpg";
-import solar from "@/assets/tiles/solar.png";
-import iluminacao from "@/assets/tiles/iluminacao.png";
-import saneamento from "@/assets/tiles/saneamento.png";
-import cultura from "@/assets/tiles/cultura.png";
+import solar from "@/assets/fotos/solar.jpg";
+import iluminacao from "@/assets/fotos/iluminacao.jpg";
+import saneamento from "@/assets/fotos/saneamento.jpg";
+import cultura from "@/assets/fotos/cultura.jpg";
 
 export interface Beneficio {
   titulo: string;

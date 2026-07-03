@@ -3,7 +3,7 @@ import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { PASSOS_TRIBUTARIO } from "@/data/site";
-import heroTributario from "@/assets/tiles/tributario.png";
+import heroTributario from "@/assets/fotos/tributario.jpg";
 
 const HONESTIDADE = [
   "Os honorários são 100% no êxito: você paga apenas sobre o que for de fato recuperado.",
