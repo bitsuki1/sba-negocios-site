@@ -1,0 +1,76 @@
+{
+  "default": {
+    "title": "SBA Negócios — Desenvolvimento de Negócios e Consultoria",
+    "description": "A SBA Negócios estrutura projetos para os setores público e privado: recuperação tributária (Tema 1130 do STF), resíduos e infraestrutura ambiental."
+  },
+  "routes": {
+    "/": {
+      "title": "SBA Negócios — Desenvolvimento de Negócios e Consultoria",
+      "description": "A SBA Negócios estrutura projetos para os setores público e privado: recuperação tributária (Tema 1130 do STF), resíduos e infraestrutura ambiental."
+    },
+    "/setor-publico": {
+      "title": "Setor Público — SBA Negócios",
+      "description": "Para prefeituras e consórcios: recuperação de receita (Tema 1130), resíduos urbanos, energia e infraestrutura — com dado público e método auditável."
+    },
+    "/setor-privado": {
+      "title": "Setor Privado — SBA Negócios",
+      "description": "Destinação e valorização de resíduos para indústria, comércio, agro e saúde — conformidade legal, rastreabilidade e parceiros que operam."
+    },
+    "/solucoes": {
+      "title": "Soluções — SBA Negócios",
+      "description": "O portfólio da SBA por tema: recuperação tributária, resíduos, energia, ambiental, infraestrutura e cultura."
+    },
+    "/recuperacao-tributaria": {
+      "title": "Recuperação Tributária (Tema 1130) — SBA Negócios",
+      "description": "Recuperação tributária municipal pelo Tema 1130 do STF: o IRRF retido dos fornecedores é do município. Dado público e honorários só no êxito."
+    },
+    "/residuos": {
+      "title": "Resíduos & Valorização — SBA Negócios",
+      "description": "Tratamento e valorização de resíduos sólidos urbanos com tecnologia parceira (CSTR) — do estudo ao contrato."
+    },
+    "/residuos-hospitalares": {
+      "title": "Resíduos Hospitalares (RSS) — SBA Negócios",
+      "description": "Tratamento de resíduos de serviços de saúde (RSS) com rastreabilidade do recolhimento à destinação final e conformidade ANVISA."
+    },
+    "/estabilizador-de-solo": {
+      "title": "Estabilizador de Solo (ConAid CBR Plus) — SBA Negócios",
+      "description": "Estabilização de solo com ConAid CBR Plus para estradas e pátios: firmeza o ano todo, menos manutenção e custo de material menor."
+    },
+    "/solucoes/energia-fotovoltaica": {
+      "title": "Energia Fotovoltaica — SBA Negócios",
+      "description": "Usinas solares para abastecer prédios e equipamentos públicos — economia previsível na conta de energia do município, com engenharia e jurídico parceiros."
+    },
+    "/solucoes/iluminacao-publica": {
+      "title": "Iluminação Pública (LED) — SBA Negócios",
+      "description": "Modernização da iluminação municipal para LED e telegestão: conta de energia menor e cidade mais segura, do diagnóstico ao modelo de contratação."
+    },
+    "/solucoes/reflorestamento-carbono": {
+      "title": "Reflorestamento & Crédito de Carbono — SBA Negócios",
+      "description": "Restauração e reflorestamento de áreas, com potencial de geração de crédito de carbono — conformidade ambiental e nova fonte de receita."
+    },
+    "/solucoes/saneamento-agua": {
+      "title": "Saneamento & Água (ETA/ETE) — SBA Negócios",
+      "description": "Projetos de tratamento de água e esgoto alinhados ao Novo Marco do Saneamento, com o arranjo técnico e financeiro estruturado."
+    },
+    "/solucoes/eventos-cultura": {
+      "title": "Eventos & Projetos Culturais — SBA Negócios",
+      "description": "Estruturação e captação de recursos para eventos e projetos culturais do município, inclusive por leis de incentivo."
+    },
+    "/sobre": {
+      "title": "Sobre — SBA Negócios",
+      "description": "A SBA Negócios é uma gestora de projetos para os setores público e privado: origina, estrutura e coordena — sem executar a obra."
+    },
+    "/seja-um-parceiro": {
+      "title": "Seja um parceiro — SBA Negócios",
+      "description": "Seja parceiro da SBA: técnicos, jurídicos, operadores e representantes que somam com a SBA em cada projeto."
+    },
+    "/contato": {
+      "title": "Contato — SBA Negócios",
+      "description": "Fale com a SBA Negócios. Solicite o estudo da sua cidade ou converse sobre um projeto — sem compromisso."
+    },
+    "/privacidade": {
+      "title": "Política de Privacidade — SBA Negócios",
+      "description": "Como a SBA Negócios trata os dados pessoais enviados pelo site, conforme a LGPD (Lei 13.709/2018)."
+    }
+  }
+}

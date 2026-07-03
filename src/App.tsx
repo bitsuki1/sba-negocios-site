@@ -1,5 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
+// Web Analytics da Vercel — mede visitas/rotas sem cookies e sem PII, e
+// não roda em desenvolvimento (o componente já se auto-desliga fora de prod).
+// Só coleta quando o site está publicado na Vercel; no GitHub Pages é inócuo.
+import { Analytics } from "@vercel/analytics/react";
 
 // Lazy-load das páginas: cada rota vira um chunk próprio, carregado sob demanda.
 // Isso reduz o bundle inicial e acelera o primeiro carregamento.
@@ -48,6 +52,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      <Analytics />
     </BrowserRouter>
   );
 };
