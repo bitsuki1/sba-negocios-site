@@ -377,7 +377,7 @@ export const PASSOS_TRIBUTARIO = [
     numero: "03",
     titulo: "Confirmação e recuperação",
     texto:
-      "Na fase seguinte, o valor é confirmado documento a documento (responsabilidade do município). Os honorários são cobrados apenas sobre o que de fato for recuperado.",
+      "Na fase seguinte, o valor é confirmado documento a documento, com o acompanhamento da SBA. Os honorários são cobrados apenas sobre o que de fato for recuperado.",
   },
 ];
 

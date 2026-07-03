@@ -45,7 +45,7 @@ export const CardSolucao = ({ solucao, mostrarTema = false }: CardSolucaoProps) 
         </div>
       </div>
       <CardHeader>
-        <span className="-mt-11 mb-1 flex h-12 w-12 items-center justify-center rounded-md bg-card text-primary shadow-md ring-1 ring-border">
+        <span className="relative z-10 -mt-11 mb-1 flex h-12 w-12 items-center justify-center rounded-md bg-card text-primary shadow-md ring-1 ring-border">
           <Icone className="h-6 w-6" aria-hidden="true" />
         </span>
         {mostrarTema && (

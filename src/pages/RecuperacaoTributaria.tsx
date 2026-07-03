@@ -9,7 +9,7 @@ const HONESTIDADE = [
   "Os honorários são 100% no êxito: você paga apenas sobre o que for de fato recuperado.",
   "Nenhum custo antecipado para fazer o estudo da sua cidade.",
   "O valor apresentado é um piso estimado — trabalhamos com estimativa, não com promessa de resultado.",
-  "A confirmação documento a documento acontece na fase seguinte e é responsabilidade do município.",
+  "A confirmação documento a documento acontece na fase seguinte, com o acompanhamento da SBA.",
   "Todo o trabalho parte de dado público e de um método que pode ser auditado.",
 ];
 
@@ -166,7 +166,7 @@ const RecuperacaoTributaria = () => {
                 },
                 {
                   q: "Quem faz a apuração documental?",
-                  a: "É responsabilidade do município, na Receita (e-CAC). O escopo da SBA vai até a aprovação do estudo; a partir daí, orientamos e acompanhamos.",
+                  a: "A apuração documental final acontece na Receita (e-CAC), com a orientação e o acompanhamento da SBA em cada etapa.",
                 },
                 {
                   q: "Recuperar isso é boa gestão?",
