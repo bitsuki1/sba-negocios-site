@@ -106,11 +106,11 @@ const PaginaSolucao = () => {
         <div className="container-sba py-16 md:py-20">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="font-display text-3xl font-bold text-primary-dark">
-              Como a SBA conduz
+              Como a SBA trabalha, passo a passo
             </h2>
             <p className="mt-4 text-muted-foreground">
-              A SBA organiza o projeto e conecta quem executa. Cada etapa só
-              avança quando faz sentido para você.
+              A SBA organiza o projeto e traz o parceiro que vai executar. Cada
+              etapa só avança quando faz sentido para você.
             </p>
           </div>
           <ol className="mt-12 grid gap-6 md:grid-cols-3">

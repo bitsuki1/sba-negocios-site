@@ -73,7 +73,7 @@ export const CardSolucao = ({ solucao, mostrarTema = false }: CardSolucaoProps) 
 
         <div className="flex items-center justify-between pt-1">
           <p className="text-xs text-muted-foreground">
-            {ehTributario ? "Honorários só no êxito." : "Valores sob consulta."}
+            {ehTributario ? "Você só paga se recuperar." : "Preço conforme o caso."}
           </p>
           {solucao.href && (
             <Link

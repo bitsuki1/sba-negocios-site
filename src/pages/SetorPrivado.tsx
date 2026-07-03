@@ -15,12 +15,12 @@ const SetorPrivado = () => {
       <Hero
         compacto
         eyebrow="Setor Privado · Empresas, indústria e saúde"
-        titulo="Resíduo deixa de ser passivo e vira solução."
-        subtitulo="Para grandes geradores e para o setor hospitalar, a SBA estrutura a destinação e a valorização dos resíduos com conformidade legal, rastreabilidade e parceiros que operam — sem que a sua empresa precise virar especialista no assunto."
+        titulo="O resíduo deixa de ser problema e custo e passa a gerar valor."
+        subtitulo="Para empresas que geram grande volume de resíduo e para o setor hospitalar, a SBA organiza o descarte e o aproveitamento dos resíduos dentro da lei, com registro de cada etapa (para você comprovar onde o resíduo foi parar) e parceiros que fazem a operação — sem que a sua empresa precise virar especialista no assunto."
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
         imagem={{
           src: heroPrivado,
-          alt: "Resíduo industrial destinado e valorizado com rastreabilidade.",
+          alt: "Resíduo industrial descartado corretamente e reaproveitado, com cada etapa registrada.",
         }}
       />
 
@@ -34,8 +34,8 @@ const SetorPrivado = () => {
               Soluções para empresas e geradores
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Indústria, comércio, agro e saúde. A SBA monta o arranjo e conecta
-              a tecnologia e o operador certos para cada tipo de resíduo.
+              Indústria, comércio, agro e saúde. A SBA monta a solução e liga
+              a tecnologia e a empresa certa para cada tipo de resíduo.
             </p>
           </div>
 
@@ -51,7 +51,7 @@ const SetorPrivado = () => {
 
       <SecaoCTA
         titulo="Tem um volume de resíduo que hoje é só custo e risco?"
-        texto="Comece por um diagnóstico. A partir dele, decidimos juntos o melhor caminho de destinação e valorização — com valores sob consulta."
+        texto="Comece por uma análise. A partir dela, decidimos juntos o melhor caminho para descartar e aproveitar o resíduo — e apresentamos o preço conforme o seu caso."
         botao={{ label: "Conversar sobre o resíduo que gero", href: "/contato" }}
       />
     </Layout>

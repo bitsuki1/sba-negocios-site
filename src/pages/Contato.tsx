@@ -11,7 +11,7 @@ const Contato = () => {
       <Hero
         compacto
         eyebrow="Contato"
-        titulo="Dê o primeiro passo — a SBA organiza o caminho a partir daqui."
+        titulo="Dê o primeiro passo — a partir daqui, a SBA organiza tudo para você."
         subtitulo="Seja prefeito, secretário ou gestor de empresa: conte o seu caso e a SBA indica o melhor primeiro passo, sem compromisso."
         imagem={{ src: heroContato, alt: "São Paulo, onde fica a SBA Negócios." }}
       />
@@ -97,8 +97,8 @@ const Contato = () => {
                 Envie uma mensagem
               </h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Se você representa uma prefeitura, diga o nome da cidade — já
-                adiantamos o estudo.
+                Se você é de uma prefeitura, informe a cidade — já começamos a
+                levantar quanto ela tem a recuperar em impostos.
               </p>
               <div className="mt-6">
                 <FormularioContato variante="contato" />

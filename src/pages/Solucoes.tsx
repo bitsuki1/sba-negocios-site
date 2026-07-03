@@ -10,12 +10,12 @@ import heroSolucoes from "@/assets/fotos/infraestrutura.jpg";
 
 const SUBTITULO_TEMA: Record<string, string> = {
   "Recuperação Tributária": "Receita que já é do município, de volta ao caixa.",
-  "Resíduos & Valorização":
-    "Do lixo urbano ao resíduo hospitalar — destinação correta e valor onde havia custo.",
-  "Energia & Eficiência": "Menos conta de energia, mais eficiência para a cidade.",
-  Ambiental: "Recuperar áreas, tratar água e abrir receita com carbono.",
-  Infraestrutura: "Soluções que dão base e durabilidade às obras.",
-  Cultura: "Projetos culturais viáveis, com captação organizada.",
+  "Resíduos & Aproveitamento":
+    "Do lixo da cidade ao lixo de hospital — descarte dentro da lei e receita a partir do que hoje só dá despesa.",
+  "Energia & Eficiência": "Conta de luz menor para os prédios e serviços da cidade.",
+  Ambiental: "Recuperar áreas degradadas, tratar água e gerar receita com a venda de crédito de carbono.",
+  Infraestrutura: "Materiais e técnicas que deixam as obras da cidade mais duráveis e resistentes.",
+  Cultura: "Projetos culturais que saem do papel, com a busca de patrocínio já organizada.",
 };
 
 type Filtro = "todos" | Setor;
@@ -34,8 +34,8 @@ const Solucoes = () => {
       <Hero
         compacto
         eyebrow="Soluções"
-        titulo="Do tributário ao ambiental: onde a SBA pode atuar na sua realidade."
-        subtitulo="Organizamos o portfólio por tema. Cada solução traz o benefício para o cliente; os valores das frentes ambientais e de infraestrutura ficam sob consulta, caso a caso. No tributário, é sempre piso estimado e pagamento no êxito."
+        titulo="O que a SBA pode fazer pela sua cidade ou pela sua empresa."
+        subtitulo="Aqui está tudo o que a SBA faz, organizado por área. Em cada serviço você vê o que a sua cidade ou empresa ganha. Nas áreas de meio ambiente e de infraestrutura, o preço depende de cada caso — montamos um orçamento para a sua situação. Já na recuperação de impostos, você recebe uma estimativa do mínimo a recuperar e só paga sobre o que for de fato recuperado."
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
         imagem={{
           src: heroSolucoes,

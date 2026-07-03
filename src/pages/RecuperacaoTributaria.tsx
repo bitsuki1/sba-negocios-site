@@ -6,9 +6,9 @@ import { PASSOS_TRIBUTARIO } from "@/data/site";
 import heroTributario from "@/assets/fotos/tributario.jpg";
 
 const HONESTIDADE = [
-  "Os honorários são 100% no êxito: você paga apenas sobre o que for de fato recuperado.",
+  "Os honorários são pagos apenas no êxito: você só paga sobre o que for de fato recuperado — nada é cobrado antes.",
   "Nenhum custo antecipado para fazer o estudo da sua cidade.",
-  "O valor apresentado é um piso estimado — trabalhamos com estimativa, não com promessa de resultado.",
+  "O valor apresentado é uma estimativa mínima e conservadora — um piso, não uma promessa de resultado. O número real só se confirma documento a documento na fase seguinte.",
   "A confirmação documento a documento acontece na fase seguinte, com o acompanhamento da SBA.",
   "Todo o trabalho parte de dado público e de um método que pode ser auditado.",
 ];
@@ -18,7 +18,7 @@ const RecuperacaoTributaria = () => {
     <Layout>
       <Hero
         compacto
-        eyebrow="Recuperação Tributária · Tema 1130 do STF"
+        eyebrow="Recuperação Tributária · Decisão definitiva do STF (Tema 1130)"
         titulo="O IRRF retido pelo município é do município."
         subtitulo="O STF decidiu, em definitivo, que o Imposto de Renda Retido na Fonte (IRRF) descontado nos pagamentos do município aos seus fornecedores pertence ao próprio município — e não à União. A SBA ajuda a sua cidade a recuperar e a passar a receber o que é dela."
         ctaPrincipal={{
@@ -157,27 +157,27 @@ const RecuperacaoTributaria = () => {
               {[
                 {
                   q: "Isso é seguro juridicamente?",
-                  a: "Sim. Parte de uma decisão definitiva do STF (Tema 1130, RE 1.293.453). Não é uma tese em discussão: é o que a Corte já decidiu.",
+                  a: "Sim. Parte de uma decisão definitiva do STF sobre o IRRF dos municípios (registrada como Tema 1130 / processo RE 1.293.453). Não é uma tese em discussão: é o que a Corte já decidiu.",
                 },
                 {
                   q: "Quanto custa para o município?",
-                  a: "Nada antecipado. Os honorários são 100% no êxito — cobrados apenas sobre o que for de fato recuperado.",
+                  a: "Nada antecipado. Você só paga sobre o que for de fato recuperado — os honorários incidem apenas sobre o valor que realmente entrar no caixa da prefeitura.",
                 },
                 {
                   q: "De onde vem o valor apresentado?",
-                  a: "De dado público das contas do município e de um método que pode ser auditado. É sempre um piso estimado, confirmado documento a documento na fase seguinte.",
+                  a: "De dado público das contas do município e de um método que pode ser auditado. É sempre uma estimativa mínima e conservadora (um piso), confirmada documento a documento na fase seguinte.",
                 },
                 {
                   q: "Quem faz a apuração documental?",
-                  a: "A apuração documental final acontece na Receita (e-CAC), com a orientação e o acompanhamento da SBA em cada etapa.",
+                  a: "A apuração documental final acontece junto à Receita Federal, pelo portal de atendimento online dela (o e-CAC), com a orientação e o acompanhamento da SBA em cada etapa.",
                 },
                 {
                   q: "Como a prefeitura contrata a SBA legalmente?",
-                  a: "A contratação segue a legislação de licitações e contratos (Lei 14.133/2021), no modelo adequado a cada município. A remuneração no êxito é definida em contrato, sobre o valor efetivamente recuperado — sem despesa prévia no orçamento. A SBA apoia a procuradoria com toda a fundamentação.",
+                  a: "A contratação segue a legislação de licitações e contratos (Lei 14.133/2021), no modelo adequado a cada município. A remuneração é paga apenas no êxito — ou seja, só sobre o valor efetivamente recuperado, sem nenhuma despesa antes disso no orçamento. A SBA apoia a procuradoria com toda a fundamentação.",
                 },
                 {
                   q: "A Câmara ou o Tribunal de Contas podem questionar?",
-                  a: "Trata-se de recuperar receita própria do município, com base em decisão definitiva do STF e método auditável. Deixar de buscar receita que pertence ao município é que contraria o dever de boa gestão fiscal. Todo o trabalho é documentado para a prestação de contas ao TCE.",
+                  a: "Trata-se de recuperar receita própria do município, com base em decisão definitiva do STF e num método que pode ser auditado. Deixar de buscar receita que pertence ao município é que contraria o dever de boa gestão fiscal. Todo o trabalho é documentado para a prestação de contas ao Tribunal de Contas do Estado (TCE).",
                 },
                 {
                   q: "Recuperar isso é boa gestão?",
@@ -185,7 +185,7 @@ const RecuperacaoTributaria = () => {
                 },
                 {
                   q: "Quanto tempo leva?",
-                  a: "O estudo inicial é rápido. A recuperação costuma ser buscada pela via administrativa (na Receita, pelo e-CAC); o caminho e o prazo exatos variam caso a caso. E o que deixa de ser retido daqui em diante passa a ficar com a cidade desde cedo — nada prometido sem base.",
+                  a: "O estudo inicial é rápido. A recuperação costuma ser buscada pela via administrativa (junto à Receita Federal, pelo portal e-CAC); o caminho e o prazo exatos variam caso a caso. E o que deixa de ser retido daqui em diante passa a ficar com a cidade desde cedo — nada prometido sem base.",
                 },
               ].map((item) => (
                 <div key={item.q} className="py-5">
@@ -204,7 +204,7 @@ const RecuperacaoTributaria = () => {
 
       <SecaoCTA
         titulo="Solicite o estudo da sua cidade"
-        texto="Sem custo antecipado. Você recebe uma estimativa de piso e o método utilizado, para decidir com clareza."
+        texto="Sem custo antecipado. Você recebe uma estimativa conservadora, de piso (o mínimo a recuperar), e o método usado, para decidir com clareza."
         botao={{ label: "Solicitar estudo da minha cidade", href: "/contato" }}
       />
     </Layout>

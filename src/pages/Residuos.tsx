@@ -13,44 +13,44 @@ import heroResiduos from "@/assets/cstr/circular.jpg";
 const ESTAGIOS = [
   {
     numero: "01",
-    titulo: "Teaser (grátis)",
+    titulo: "Primeira leitura (grátis)",
     texto:
-      "Uma primeira leitura da oportunidade, sem custo. Serve para entender se faz sentido seguir.",
+      "Uma primeira análise da oportunidade, sem custo. Serve para entender se faz sentido seguir.",
   },
   {
     numero: "02",
-    titulo: "Diagnóstico (pago)",
+    titulo: "Estudo aprofundado (pago)",
     texto:
       "Estudo a fundo da situação: o que existe, o volume, o que é possível e quais os caminhos.",
   },
   {
     numero: "03",
-    titulo: "Estruturação",
+    titulo: "Montagem do projeto",
     texto:
-      "Organização do projeto: técnico, jurídico, modelo e atores. A SBA monta o arranjo que o torna viável.",
+      "Organização do projeto: a parte técnica, a jurídica, o modelo de negócio e os parceiros. A SBA monta tudo o que torna o projeto possível.",
   },
   {
     numero: "04",
-    titulo: "Intermediação",
+    titulo: "Ligação até o contrato",
     texto:
-      "A SBA conecta cliente, operador, tecnologia e jurídico até o acordo. Quem executa é o operador, não a SBA.",
+      "A SBA liga cliente, operador, tecnologia e jurídico até o contrato. Quem faz a operação é o operador, não a SBA.",
   },
 ];
 
 const Residuos = () => {
-  const segmentos = solucoesPorTema("Resíduos & Valorização");
+  const segmentos = solucoesPorTema("Resíduos & Aproveitamento");
 
   return (
     <Layout>
       <Hero
         compacto
-        eyebrow="Resíduos & Valorização"
-        titulo="Resíduo não é só custo. Bem estruturado, vira valor."
-        subtitulo="A SBA não constrói usinas: estrutura o projeto e conecta cliente, operador, tecnologia e jurídico — do primeiro contato ao contrato. Atendemos o resíduo urbano do município, o grande gerador e o setor hospitalar."
+        eyebrow="Resíduos & Aproveitamento"
+        titulo="Resíduo não é só custo. Bem aproveitado, vira receita."
+        subtitulo="A SBA não constrói usinas: ela organiza o projeto e reúne cliente, operador, tecnologia e jurídico — do primeiro contato ao contrato. Atendemos o lixo urbano do município, as empresas que geram grande volume e o setor hospitalar."
         ctaPrincipal={{ label: "Conversar sobre um projeto", href: "/contato" }}
         imagem={{
           src: heroResiduos,
-          alt: "Economia circular: resíduo que vira energia e valor.",
+          alt: "Resíduo que vira energia e receita, em vez de ir para o aterro.",
         }}
       />
 
@@ -66,16 +66,16 @@ const Residuos = () => {
               <div className="mt-5 space-y-4 text-muted-foreground">
                 <p>
                   Hoje o resíduo é, quase sempre, só despesa: transporte, aterro,
-                  passivo ambiental e pressão regulatória — o Novo Marco do
+                  risco de multa ambiental e pressão da lei — o Novo Marco do
                   Saneamento (Lei 14.026/2020), que exige o fim dos lixões nos
                   municípios, e a Política Nacional de Resíduos, que responsabiliza
-                  quem gera. A boa notícia é que, bem estruturado, o mesmo resíduo
-                  vira reciclável, energia e receita nova.
+                  quem gera o lixo. A boa notícia é que, bem trabalhado, o mesmo
+                  resíduo vira material reciclável, energia e receita nova.
                 </p>
                 <p>
-                  É esse o caminho que a SBA monta — da coleta à valorização —
+                  É esse o caminho que a SBA monta — da coleta ao aproveitamento —
                   com a tecnologia certa para cada material e o operador certo
-                  para tocar a planta.
+                  para tocar a usina.
                 </p>
               </div>
             </div>
@@ -95,11 +95,11 @@ const Residuos = () => {
           <div className="mx-auto max-w-2xl text-center">
             <div className="mx-auto mb-5 rule-gold" />
             <h2 className="font-display text-3xl font-bold text-primary-dark">
-              Três frentes, sem misturar
+              Três tipos de resíduo, sem misturar
             </h2>
             <p className="mt-4 text-muted-foreground">
               Cada tipo de resíduo tem regra, tecnologia e operador próprios. A
-              SBA trata cada um na sua frente.
+              SBA cuida de cada um separadamente.
             </p>
           </div>
 
@@ -147,11 +147,12 @@ const Residuos = () => {
         <div className="container-sba py-16 md:py-20">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="font-display text-3xl font-bold text-primary-dark">
-              O modelo Hub Conector
+              Como a SBA trabalha: organiza, não executa
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Em vez de executar, a SBA articula. Trabalhamos em estágios, e cada
-              um só avança quando faz sentido para o cliente.
+              A SBA não toca a obra: ela organiza o projeto e reúne as pessoas
+              certas. Trabalhamos por etapas, e cada uma só avança quando faz
+              sentido para o cliente.
             </p>
           </div>
 
@@ -199,8 +200,8 @@ const Residuos = () => {
               </p>
               <p className="mt-5 leading-relaxed text-muted-foreground">
                 {PARCEIRO_CSTR.chamada} Assim, o município ou a empresa não
-                precisa escolher a tecnologia por conta própria: a SBA estrutura o
-                projeto e a {PARCEIRO_CSTR.nome} traz a solução validada e a
+                precisa escolher a tecnologia por conta própria: a SBA organiza o
+                projeto e a {PARCEIRO_CSTR.nome} traz a tecnologia testada e a
                 operação.
               </p>
               <a
@@ -244,9 +245,10 @@ const Residuos = () => {
                 ))}
               </ul>
               <p className="mt-5 border-t border-primary/15 pt-4 text-sm text-muted-foreground">
-                O objetivo é simples: tirar o resíduo do aterro e do passivo
-                ambiental e devolvê-lo como valor — energia, receita ou
-                conformidade. Os números variam caso a caso e ficam sob consulta.
+                O objetivo é simples: tirar o resíduo do aterro e do risco
+                ambiental e devolvê-lo como valor — energia, receita ou o
+                cumprimento da lei. O tamanho e o custo de cada projeto dependem
+                do caso — a SBA calcula isso junto com você.
               </p>
               </div>
             </div>
@@ -260,20 +262,20 @@ const Residuos = () => {
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <img
               src={plantaBiogas}
-              alt="Render de uma planta de valorização de resíduos (biogás, biometano e biofertilizante)"
+              alt="Ilustração de uma usina que transforma resíduo em energia (biogás, biometano e biofertilizante)"
               className="w-full rounded-lg shadow-xl ring-1 ring-white/10"
               loading="lazy"
             />
             <div className="text-primary-foreground">
               <div className="rule-gold mb-5" />
               <h2 className="font-display text-3xl font-bold">
-                Como é uma planta de valorização
+                Como é uma usina que transforma o lixo
               </h2>
               <p className="mt-5 leading-relaxed text-primary-foreground/85">
-                Em vez de mandar tudo para o aterro, o resíduo entra numa planta
+                Em vez de mandar tudo para o aterro, o resíduo entra numa usina
                 que separa, trata e transforma o material — gerando energia,
                 biometano, biofertilizante e até crédito de carbono. É a
-                infraestrutura que a SBA estrutura junto ao parceiro de tecnologia.
+                estrutura que a SBA organiza junto ao parceiro de tecnologia.
               </p>
               <ul className="mt-6 grid gap-3 sm:grid-cols-2">
                 {["Energia e biometano", "Biofertilizante", "Crédito de carbono", "Menos aterro"].map(
@@ -299,9 +301,9 @@ const Residuos = () => {
               As tecnologias da {PARCEIRO_CSTR.nome}
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Cada material tem o seu sistema. As faixas abaixo são as
-              capacidades técnicas do parceiro — o dimensionamento de cada
-              projeto é definido caso a caso.
+              Cada material tem o seu sistema. Os números abaixo são a
+              capacidade máxima que cada sistema do parceiro consegue tratar; o
+              tamanho de cada projeto é definido caso a caso.
             </p>
           </div>
 
@@ -358,14 +360,14 @@ const Residuos = () => {
 
           <p className="mt-6 text-center text-xs text-muted-foreground">
             Capacidades técnicas informadas pelo parceiro {PARCEIRO_CSTR.nome}.
-            Dimensionamento e valores por projeto, sob consulta.
+            O tamanho e o custo de cada projeto a SBA calcula com você.
           </p>
         </div>
       </section>
 
       <SecaoCTA
         titulo="Tem um desafio de resíduos na sua cidade ou empresa?"
-        texto="Comece pelo teaser, sem custo. A partir dele, decidimos juntos se vale seguir para o diagnóstico."
+        texto="Comece pela primeira leitura, sem custo. A partir dela, decidimos juntos se vale seguir para o estudo aprofundado."
         botao={{ label: "Conversar sobre um projeto", href: "/contato" }}
       />
     </Layout>

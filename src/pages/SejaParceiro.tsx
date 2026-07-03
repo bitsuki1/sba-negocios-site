@@ -15,13 +15,13 @@ const PERFIS = [
     icon: Handshake,
     titulo: "Operadores e tecnologia",
     texto:
-      "Quem executa a solução em campo e quem traz a tecnologia que viabiliza cada frente.",
+      "Quem faz o serviço no local e quem traz a tecnologia que viabiliza cada tipo de projeto.",
   },
   {
     icon: Users,
     titulo: "Representantes",
     texto:
-      "Pessoas com relacionamento e capacidade de originar projetos junto a municípios e empresas.",
+      "Pessoas com relacionamento e capacidade de trazer novos projetos junto a prefeituras e empresas.",
   },
 ];
 
@@ -32,7 +32,7 @@ const SejaParceiro = () => {
         compacto
         eyebrow="Rede de parceiros"
         titulo="Seja um parceiro da SBA Negócios."
-        subtitulo="A SBA trabalha com uma rede de parceiros técnicos, jurídicos, operadores e representantes. Se você quer somar com a gente nos nossos projetos, conte como pode contribuir."
+        subtitulo="A SBA trabalha com uma rede de parceiros técnicos, jurídicos, operadores e representantes. Se você quer trabalhar junto nos projetos da SBA, conte o que você faz e como pode ajudar."
         imagem={{
           src: heroParceiro,
           alt: "Rede de parceiros que executam os projetos da SBA.",
@@ -51,8 +51,8 @@ const SejaParceiro = () => {
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {[
               {
-                t: "Projetos já originados",
-                d: "A SBA leva a demanda pronta e estruturada (prefeitura ou empresa). Você entra na sua especialidade, sem precisar prospectar.",
+                t: "Projetos já prontos para começar",
+                d: "A SBA traz o cliente e o projeto já montado (prefeitura ou empresa). Você entra na sua especialidade, sem precisar buscar clientes.",
               },
               {
                 t: "Relação clara, por escrito",
@@ -60,7 +60,7 @@ const SejaParceiro = () => {
               },
               {
                 t: "Você executa, a SBA coordena",
-                d: "A SBA organiza o projeto e conecta as pontas; você foca no que faz de melhor, sem gerenciar dez fornecedores.",
+                d: "A SBA organiza o projeto e reúne todos os envolvidos; você foca no que faz de melhor, sem ter que gerenciar dez fornecedores.",
               },
             ].map((it) => (
               <div

@@ -14,7 +14,7 @@ import imgCstrPlanta from "@/assets/cstr/planta-biogas.jpg";
 // Imagem de abertura de cada "porta" (setor)
 const IMAGEM_SETOR: Record<Setor, { src: string; alt: string }> = {
   publico: { src: imgPublico, alt: "Infraestrutura e obras públicas" },
-  privado: { src: imgPrivado, alt: "Valorização de resíduos para a indústria" },
+  privado: { src: imgPrivado, alt: "Aproveitamento de resíduos para a indústria" },
 };
 
 // Por que confiar na SBA — princípios que valem para TODAS as frentes
@@ -24,25 +24,25 @@ const PROVAS = [
     icon: ShieldCheck,
     titulo: "Rigor que se demonstra",
     texto:
-      "Cada proposta nasce de fonte, dado e fundamento técnico — o mesmo rigor em todas as frentes, do tributário aos projetos de resíduos, energia e infraestrutura.",
+      "Toda proposta que apresentamos vem de documentos, números oficiais e análise técnica — o mesmo cuidado em tudo o que fazemos, da recuperação de impostos aos projetos de lixo, energia e obras.",
   },
   {
     icon: FileSearch,
-    titulo: "Método auditável",
+    titulo: "Você pode conferir cada conta",
     texto:
-      "Trabalhamos com dado público e um método que pode ser conferido. Do estudo tributário ao diagnóstico de um projeto, você entende de onde vem cada número.",
+      "Usamos dados públicos e um jeito de trabalhar que qualquer um pode checar. Do estudo de impostos à análise de um projeto, você vê de onde saiu cada número.",
   },
   {
     icon: Network,
-    titulo: "A SBA orquestra as pontas",
+    titulo: "A SBA junta todos os envolvidos por você",
     texto:
-      "Você não gerencia dez fornecedores. Originamos o projeto e conectamos jurídico, técnico e tecnologia — e quem executa é sempre um parceiro de referência.",
+      "Você não precisa gerenciar dez fornecedores. A SBA monta o projeto e reúne advogado, engenheiro e tecnologia num só lugar — e quem faz o serviço é sempre um parceiro de confiança.",
   },
   {
     icon: HandCoins,
     titulo: "Baixo risco para começar",
     texto:
-      "O primeiro passo pesa pouco: no tributário, honorários apenas no êxito; nas demais frentes, um diagnóstico antes de qualquer compromisso.",
+      "O primeiro passo pesa pouco: na recuperação de impostos, você só paga sobre o que realmente recuperar; nos outros projetos, começamos com uma análise antes de qualquer compromisso.",
   },
 ];
 
@@ -51,13 +51,13 @@ const Home = () => {
     <Layout>
       <Hero
         eyebrow="SBA Negócios"
-        titulo="Estruturamos negócios para o setor público e privado."
-        subtitulo="A SBA origina e estrutura projetos para prefeituras e empresas — com o jurídico, o técnico e a tecnologia já montados, sem você ter que resolver cada parte separada. Da recuperação tributária do município à valorização de resíduos."
+        titulo="Criamos e viabilizamos projetos para prefeituras e empresas."
+        subtitulo="A SBA cria e monta projetos para prefeituras e empresas — com a parte jurídica, técnica e de tecnologia já resolvidas, sem que você tenha que amarrar cada pedaço. Da recuperação de impostos do município ao aproveitamento do lixo, que vira receita."
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
         ctaSecundario={{ label: "Ver soluções", href: "/solucoes" }}
         imagem={{
           src: heroHome,
-          alt: "A SBA conecta setor público e privado, jurídico, técnico e tecnologia em torno de cada projeto.",
+          alt: "A SBA reúne setor público e privado, jurídico, técnico e tecnologia em torno de cada projeto.",
         }}
       />
 
@@ -70,8 +70,7 @@ const Home = () => {
               Por onde você começa
             </h2>
             <p className="mt-4 text-muted-foreground">
-              A SBA atua em duas frentes, com soluções organizadas para quem
-              decide. Identifique o seu perfil.
+              A SBA atende dois públicos. Escolha o seu para ver as soluções.
             </p>
           </div>
 
@@ -170,14 +169,15 @@ const Home = () => {
           <div className="mx-auto max-w-3xl text-center">
             <div className="mx-auto mb-5 rule-gold" />
             <h2 className="font-display text-3xl font-bold text-primary-dark">
-              A SBA orquestra — você trata com uma ponta só.
+              A SBA cuida da coordenação — você conversa com um interlocutor só.
             </h2>
             <p className="mt-4 leading-relaxed text-muted-foreground">
-              Funcionamos como um hub: originamos o projeto, organizamos o
-              problema e ligamos prefeitura ou empresa aos operadores e às
-              tecnologias parceiras que executam. Quem opera a usina, planta a
-              floresta ou instala a usina solar é o parceiro especializado — o
-              nosso papel é fazer o projeto acontecer e manter tudo coordenado.
+              Funcionamos como um ponto central: trazemos a oportunidade,
+              organizamos o que precisa ser resolvido e ligamos a prefeitura ou a
+              empresa às empresas parceiras que fazem o serviço na prática. Quem
+              opera a usina, planta a floresta ou instala os painéis solares é o
+              parceiro especializado — o nosso papel é fazer o projeto acontecer
+              e manter tudo coordenado.
             </p>
             <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
@@ -203,9 +203,9 @@ const Home = () => {
               Nos resíduos, a SBA trabalha com a CSTR
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Quem transforma resíduo em valor é um parceiro de referência: a SBA
-              origina e coordena o projeto; a CSTR projeta, implanta e opera a
-              tecnologia.
+              Quem transforma o lixo em receita é uma parceira especializada: a
+              SBA traz e coordena o projeto; a CSTR projeta, instala e opera a
+              usina.
             </p>
           </div>
 
@@ -213,7 +213,7 @@ const Home = () => {
           <div className="mx-auto mt-10 max-w-4xl overflow-hidden rounded-xl border border-border bg-card md:grid md:grid-cols-2">
             <img
               src={imgCstrPlanta}
-              alt="Planta de tratamento e valorização de resíduos da CSTR"
+              alt="Usina de tratamento de resíduos da CSTR"
               className="h-56 w-full object-cover md:h-full"
               loading="lazy"
             />
@@ -241,8 +241,8 @@ const Home = () => {
                     50–300 t/dia
                   </p>
                   <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    Capacidade das plantas de resíduos sólidos urbanos (modular e
-                    escalável).
+                    Quanto de lixo urbano cada usina processa por dia — o tamanho
+                    se adapta à cidade.
                   </p>
                 </div>
                 <div>
@@ -250,7 +250,8 @@ const Home = () => {
                     Startup do ano
                   </p>
                   <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    Reconhecimento do parceiro CSTR.
+                    Prêmio recebido pela parceira CSTR (Troféu Frotas &amp; Fretes
+                    Verdes 2025).
                   </p>
                 </div>
               </div>
@@ -264,7 +265,7 @@ const Home = () => {
 
       <SecaoCTA
         titulo="Quer saber por onde a sua cidade ou empresa pode começar?"
-        texto="Conte o seu caso. No tributário, dado público e honorários só no êxito; nas demais frentes, um diagnóstico antes de qualquer compromisso."
+        texto="Conte o seu caso. Na recuperação de impostos, trabalhamos com dados públicos e você só paga se e quando o dinheiro entrar; nos outros projetos, começamos por uma análise gratuita antes de qualquer compromisso."
         botao={{ label: "Falar com a SBA", href: "/contato" }}
       />
     </Layout>

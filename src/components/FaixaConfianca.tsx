@@ -7,25 +7,25 @@ const PILARES: { icon: LucideIcon; titulo: string; texto: string }[] = [
     icon: ShieldCheck,
     titulo: "Rigor que se demonstra",
     texto:
-      "Cada proposta nasce de fonte, dado e fundamento técnico — o mesmo rigor em todas as frentes, do tributário aos projetos de resíduos, energia e infraestrutura.",
+      "Toda proposta que apresentamos vem de documentos, números oficiais e análise técnica — o mesmo cuidado em tudo o que fazemos, da recuperação de impostos aos projetos de lixo, energia e obras.",
   },
   {
     icon: FileSearch,
-    titulo: "Método auditável",
+    titulo: "Você pode conferir cada conta",
     texto:
-      "Trabalhamos com dado público e um método que pode ser conferido. Do estudo tributário ao diagnóstico de um projeto, você entende de onde vem cada número.",
+      "Usamos dados públicos e um jeito de trabalhar que qualquer um pode checar. Do estudo de impostos à análise de um projeto, você vê de onde saiu cada número.",
   },
   {
     icon: Network,
-    titulo: "A SBA orquestra as pontas",
+    titulo: "A SBA junta todos os envolvidos por você",
     texto:
-      "Você não gerencia dez fornecedores. Originamos o projeto e conectamos jurídico, técnico e tecnologia — e quem executa é sempre um parceiro de referência.",
+      "Você não precisa gerenciar dez fornecedores. A SBA monta o projeto e reúne advogado, engenheiro e tecnologia num só lugar — e quem faz o serviço é sempre um parceiro de confiança.",
   },
   {
     icon: HandCoins,
     titulo: "Baixo risco para começar",
     texto:
-      "O primeiro passo pesa pouco: no tributário, honorários apenas no êxito; nas demais frentes, um diagnóstico antes de qualquer compromisso.",
+      "O primeiro passo pesa pouco: na recuperação de impostos, você só paga sobre o que realmente recuperar; nos outros projetos, começamos com uma análise antes de qualquer compromisso.",
   },
 ];
 
@@ -39,8 +39,8 @@ export const FaixaConfianca = () => {
             Por que confiar na SBA
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Os mesmos princípios valem para tudo o que fazemos — do tributário aos
-            projetos de resíduos, energia e infraestrutura.
+            Os mesmos princípios valem para tudo o que fazemos — da recuperação
+            de impostos aos projetos de resíduos, energia e obras.
           </p>
         </div>
 
