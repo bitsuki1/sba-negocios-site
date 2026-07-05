@@ -49,8 +49,7 @@ npm run preview   # pré-visualiza o build de produção
 
 A maior parte do texto que se repete está em **`src/data/site.ts`**:
 
-- **`CONTATO`** — endereço, telefone, e-mail e domínio.
-  - ⚠️ Defina o **domínio final** (hoje está `sbanegocios.com.br` como exemplo).
+- **`CONTATO`** — endereço, telefone, e-mail e domínio (`sbanegocios.com.br`, já no ar em produção).
 - **`NAV`** — itens do menu.
 - **`AREAS`** — as duas áreas exibidas na Home.
 - **`FRENTES`** — as cinco frentes da Área B (Resíduos & Infraestrutura).
@@ -74,13 +73,14 @@ O texto mais longo de cada página está dentro do próprio arquivo em `src/page
 
 ## Formulários
 
-Hoje os formulários (`Contato` e `Seja um parceiro`) usam um **fallback por
-e-mail**: ao enviar, abrem o e-mail do usuário já preenchido para
-`eduardo@saobentoservicos.com.br`. Não há backend.
+Os formulários (`Contato` e `Seja um parceiro`) **gravam os leads no Supabase**
+via a Edge Function **`submit-lead`** (projeto `gestao-integrada-dados`, tabela
+`sba_leads`), com **anti-spam** (honeypot + tempo mínimo) e **aviso por e-mail**
+(Resend). Um **fallback por e-mail** (`mailto` para
+`eduardo@saobentoservicos.com.br`) fica preservado.
 
-Para **gravar** os contatos, conecte o formulário a um backend (ex.: Supabase,
-n8n ou um serviço de formulário) editando a função `handleSubmit` em
-`src/components/FormularioContato.tsx`.
+A lógica de envio está em `src/components/FormularioContato.tsx`; a Edge Function
+vive no **Supabase** (não neste repo). Detalhe em `docs/HANDOFF-2026-06-28.md`.
 
 ---
 
@@ -121,3 +121,7 @@ Os valores ficam como variáveis CSS (HSL) em `src/index.css`.
 > Use paleta azul (#2E5AAC / #1a3a5c) com acento dourado/verde discreto, fontes
 > Poppins + Inter, design limpo, institucional, responsivo e acessível. Marca
 > sempre "SBA Negócios"; nunca usar marcas antigas. Todo o texto em PT-BR simples.
+
+---
+
+> _Notas de **domínio** e **formulários** acima atualizadas pelo Escritório do MOU (PMO) — 2026-07-05 (higiene de doc: o site já está em produção em `sbanegocios.com.br` e os formulários já gravam no Supabase via `submit-lead`). Fonte: `docs/HANDOFF-2026-06-28.md`._
