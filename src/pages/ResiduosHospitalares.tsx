@@ -9,9 +9,9 @@ import neomagImg from "@/assets/cstr/neomag.jpg";
 
 const DESAFIOS_RSS = [
   "Resíduo infectante e de alto risco sanitário",
-  "Custos de transporte e destinação elevados",
+  "Custos altos de transporte e descarte",
   "Forte dependência de empresas terceirizadas",
-  "Exigências regulatórias e de rastreabilidade",
+  "Exigências da lei e a necessidade de comprovar todo o caminho do resíduo",
 ];
 
 const TECNOLOGIAS = [
@@ -30,11 +30,11 @@ const TECNOLOGIAS = [
   {
     icon: FlaskConical,
     img: neomagImg,
-    nome: "NEOMAG — neotermólise óxido-magnética",
-    status: "Em desenvolvimento (PD&I)",
+    nome: "NEOMAG",
+    status: "Em desenvolvimento",
     capacidade: "até 2 t/dia",
     pontos: [
-      "Tecnologia de decomposição termo-magnética (plasma frio por força magnética)",
+      "Tecnologia nova que decompõe o resíduo por calor e força magnética (sem chama aberta), reduzindo bastante o volume e eliminando os agentes de risco (patógenos)",
       "Reduz até 90% da massa e elimina agentes biológicos, químicos e físicos",
       "Sistema compacto, sem combustível fóssil e com baixa emissão de poluentes",
     ],
@@ -43,10 +43,10 @@ const TECNOLOGIAS = [
 
 const DIFERENCIAL = [
   "Minimiza riscos de investimento",
-  "Adapta a tecnologia à realidade do hospital",
+  "Ajusta a tecnologia ao dia a dia e ao volume do hospital",
   "Gera dados técnicos reais para a tomada de decisão",
-  "Estrutura uma solução personalizada",
-  "Posiciona o hospital como protagonista em inovação",
+  "Monta um projeto sob medida",
+  "Coloca o hospital à frente em inovação no setor",
 ];
 
 const ResiduosHospitalares = () => {
@@ -56,7 +56,7 @@ const ResiduosHospitalares = () => {
         compacto
         eyebrow="Setor Privado · Saúde"
         titulo="Resíduo de saúde tratado com segurança, perto de onde é gerado."
-        subtitulo="Para hospitais, clínicas e laboratórios, a SBA estrutura o tratamento de resíduos de serviços de saúde (RSS) com a tecnologia do parceiro CSTR — da destruição segura do material infectante à inovação que reduz volume e dependência de terceiros."
+        subtitulo="Para hospitais, clínicas e laboratórios, a SBA organiza o tratamento de resíduos de serviços de saúde (RSS) com a tecnologia do parceiro CSTR — da destruição segura do material infectante à inovação que reduz volume e dependência de terceiros."
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
       />
 
@@ -97,18 +97,18 @@ const ResiduosHospitalares = () => {
           <div className="mx-auto max-w-2xl text-center">
             <div className="mx-auto mb-5 rule-gold" />
             <h2 className="font-display text-3xl font-bold text-primary-dark">
-              Duas tecnologias do {PARCEIRO_CSTR.nome}
+              Duas tecnologias da {PARCEIRO_CSTR.nome}
             </h2>
             <p className="mt-4 text-muted-foreground">
               Uma solução já em operação e uma frente de inovação. A SBA estrutura
-              o projeto; o {PARCEIRO_CSTR.nome} traz a tecnologia.
+              o projeto; a {PARCEIRO_CSTR.nome} traz a tecnologia.
             </p>
           </div>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {TECNOLOGIAS.map((t) => {
               const Icone = t.icon;
-              const ehPDI = t.status.includes("PD&I");
+              const emDesenvolvimento = t.status.includes("desenvolvimento");
               return (
                 <div
                   key={t.nome}
@@ -127,7 +127,7 @@ const ResiduosHospitalares = () => {
                     </span>
                     <span
                       className={
-                        ehPDI
+                        emDesenvolvimento
                           ? "rounded-full bg-gold/15 px-2.5 py-1 text-xs font-semibold text-gold-foreground"
                           : "rounded-full bg-accent/15 px-2.5 py-1 text-xs font-semibold text-accent"
                       }
@@ -161,8 +161,8 @@ const ResiduosHospitalares = () => {
 
           <p className="mt-6 text-center text-xs text-muted-foreground">
             Tecnologias do parceiro {PARCEIRO_CSTR.nome}. A NEOMAG está em fase de
-            pesquisa e desenvolvimento (PD&I); capacidades e valores por projeto,
-            sob consulta.
+            pesquisa e desenvolvimento (P&D); o tamanho e o custo de cada projeto
+            a SBA calcula com você.
           </p>
         </div>
       </section>
@@ -174,12 +174,13 @@ const ResiduosHospitalares = () => {
             <div>
               <div className="rule-gold mb-5" />
               <h2 className="font-display text-3xl font-bold text-primary-dark">
-                Um modelo que tira o risco da frente
+                Um modelo que reduz o risco antes de investir
               </h2>
               <p className="mt-5 leading-relaxed text-muted-foreground">
                 Em vez de uma compra de risco, o tratamento é estruturado como um
-                projeto: primeiro valida na realidade do hospital, gera dados
-                reais e só então avança para a escala. Assim a decisão é segura.
+                projeto: primeiro testa no próprio hospital, com o volume real
+                dele, gera dados reais e só então avança para a escala. Assim a
+                decisão é segura.
               </p>
               <a
                 href={PARCEIRO_CSTR.site}
@@ -187,7 +188,7 @@ const ResiduosHospitalares = () => {
                 rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center gap-2 font-semibold text-primary transition-colors hover:text-primary-dark"
               >
-                Conhecer o {PARCEIRO_CSTR.nome}
+                Conhecer a {PARCEIRO_CSTR.nome}
                 <ExternalLink className="h-4 w-4" />
               </a>
             </div>
@@ -207,9 +208,46 @@ const ResiduosHospitalares = () => {
         </div>
       </section>
 
+      {/* Rastreabilidade e conformidade */}
+      <section className="bg-background">
+        <div className="container-sba py-16 md:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto mb-5 rule-gold" />
+            <h2 className="font-display text-3xl font-bold text-primary-dark">
+              Rastreabilidade e conformidade
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              O que a instituição de saúde precisa para decidir com segurança:
+              cada etapa documentada e dentro da norma.
+            </p>
+          </div>
+          <ul className="mx-auto mt-10 grid max-w-4xl gap-3 sm:grid-cols-2">
+            {[
+              "Manifesto de Transporte de Resíduos (MTR) e Certificado de Destinação Final que comprovam o caminho do resíduo, do recolhimento à destinação.",
+              "Alinhamento ao plano de gerenciamento de resíduos da instituição (o PGRSS) e à norma sanitária que rege esses resíduos (a RDC ANVISA nº 222/2018).",
+              "Solução implantada com licenciamento ambiental e sanitário, sob responsabilidade do operador parceiro — a SBA estrutura essa parte no projeto.",
+              "A SBA reduz o risco conectando um operador devidamente licenciado e garantindo a cadeia documental — sem prometer o impossível: pela lei, o hospital que gera o resíduo continua corresponsável por ele, e a SBA trabalha para reduzir esse risco, não para escondê-lo.",
+            ].map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 rounded-lg border border-border bg-card p-4"
+              >
+                <ShieldCheck
+                  className="mt-0.5 h-5 w-5 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                <span className="text-sm leading-relaxed text-foreground/90">
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <SecaoCTA
         titulo="Sua instituição de saúde quer tratar o RSS com mais segurança e menos custo?"
-        texto="Fale com a SBA. Estruturamos um projeto sob medida, com a tecnologia certa e valores sob consulta."
+        texto="Fale com a SBA. Estruturamos um projeto sob medida, com a tecnologia certa; o custo a SBA calcula com você."
         botao={{ label: "Falar com a SBA", href: "/contato" }}
       />
     </Layout>

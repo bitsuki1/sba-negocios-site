@@ -1,19 +1,40 @@
 #!/usr/bin/env bash
 # ============================================================================
-# Deploy de PRODUÇÃO — Site SBA Negócios → GitHub Pages (branch gh-pages)
-# Domínio próprio: https://sbanegocios.com.br
+# ⚠️  LEGADO / FALLBACK — a partir de 2026-07-03 o host oficial é a VERCEL.
+# ============================================================================
+# Deploy para GitHub Pages (branch gh-pages) — Site SBA Negócios.
 #
-# Por que é manual: o "Pages via GitHub Actions" deste repo está bloqueado
-# (token de integração sem permissão de Pages — "Resource not accessible by
-# integration"). Enquanto isso não é regularizado nas Settings do repo, este
-# script reproduz EXATAMENTE a virada de produção, de forma determinística.
+# ▸ HOST OFICIAL AGORA É A VERCEL: o projeto está conectado ao Git e faz
+#   **deploy automático a cada push na `main`**. NÃO é preciso rodar nada
+#   à mão para publicar. Detalhes em docs/HANDOFF-2026-07-03.md §5.
 #
-# Uso: rode da raiz do repo, com a branch de conteúdo já no estado a publicar.
+# ▸ Este script só serve ENQUANTO o DNS ainda apontar `sbanegocios.com.br`
+#   para o GitHub Pages (antes do cutover de DNS na GoDaddy). Depois que o
+#   DNS virar para a Vercel (A @ → 216.198.79.1 e CNAME www →
+#   a6cc1438ad279349.vercel-dns-017.com), o GitHub Pages deixa de receber
+#   tráfego e ESTE SCRIPT FICA OBSOLETO — pode ser removido junto com a
+#   branch gh-pages.
+#
+# Uso (fallback): rode da raiz do repo, com a branch de conteúdo pronta.
 #   bash scripts/deploy-producao.sh
+#   (pule o aviso com CONFIRMAR_PAGES=1 bash scripts/deploy-producao.sh)
 # ============================================================================
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
+
+# Aviso de host legado — Vercel é o oficial. Não bloqueia se CONFIRMAR_PAGES=1.
+if [ "${CONFIRMAR_PAGES:-0}" != "1" ]; then
+  echo "⚠️  ATENÇÃO: o host oficial agora é a VERCEL (deploy automático por push na main)."
+  echo "    Este deploy publica no GitHub Pages, que só vale ANTES do cutover de DNS."
+  echo "    Se o DNS já foi migrado para a Vercel, você NÃO precisa rodar isto."
+  printf "    Continuar mesmo assim? [s/N] "
+  read -r resposta || resposta=""
+  case "$resposta" in
+    s|S|sim|SIM) : ;;
+    *) echo "==> abortado (nada publicado)."; exit 0 ;;
+  esac
+fi
 
 echo "==> build de produção (base '/', sem BASE_PATH)"
 unset BASE_PATH || true

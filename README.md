@@ -49,10 +49,11 @@ npm run preview   # pré-visualiza o build de produção
 
 A maior parte do texto que se repete está em **`src/data/site.ts`**:
 
-- **`CONTATO`** — endereço, telefone, e-mail e domínio (`sbanegocios.com.br`, já no ar em produção).
+- **`CONTATO`** — endereço, telefone, e-mail e domínio (`sbanegocios.com.br`, em produção).
 - **`NAV`** — itens do menu.
-- **`AREAS`** — as duas áreas exibidas na Home.
-- **`FRENTES`** — as cinco frentes da Área B (Resíduos & Infraestrutura).
+- **`SETORES`** — as duas portas (Setor Público / Setor Privado).
+- **`SOLUCOES`** — o portfólio de soluções (tema, setor, imagem e página de cada uma).
+- **`TEMAS`** — os eixos temáticos usados na página Soluções.
 - **`PASSOS_TRIBUTARIO`** — os 3 passos da Recuperação Tributária.
 
 O texto mais longo de cada página está dentro do próprio arquivo em `src/pages/`.
@@ -73,14 +74,12 @@ O texto mais longo de cada página está dentro do próprio arquivo em `src/page
 
 ## Formulários
 
-Os formulários (`Contato` e `Seja um parceiro`) **gravam os leads no Supabase**
-via a Edge Function **`submit-lead`** (projeto `gestao-integrada-dados`, tabela
-`sba_leads`), com **anti-spam** (honeypot + tempo mínimo) e **aviso por e-mail**
-(Resend). Um **fallback por e-mail** (`mailto` para
-`eduardo@saobentoservicos.com.br`) fica preservado.
-
-A lógica de envio está em `src/components/FormularioContato.tsx`; a Edge Function
-vive no **Supabase** (não neste repo). Detalhe em `docs/HANDOFF-2026-06-28.md`.
+Os formulários (`Contato` e `Seja um parceiro`) gravam o lead via **Edge Function
+`submit-lead` do Supabase** (projeto `gestao-integrada-dados`), que escreve na
+tabela `sba_leads` — o site nunca escreve direto na tabela. Há **fallback por
+e-mail** (`mailto` para `eduardo@saobentoservicos.com.br`) caso o envio falhe, e
+**anti-spam** (honeypot + tempo mínimo) validado na função. A lógica está em
+`src/components/FormularioContato.tsx`.
 
 ---
 
@@ -121,7 +120,3 @@ Os valores ficam como variáveis CSS (HSL) em `src/index.css`.
 > Use paleta azul (#2E5AAC / #1a3a5c) com acento dourado/verde discreto, fontes
 > Poppins + Inter, design limpo, institucional, responsivo e acessível. Marca
 > sempre "SBA Negócios"; nunca usar marcas antigas. Todo o texto em PT-BR simples.
-
----
-
-> _Notas de **domínio** e **formulários** acima atualizadas pelo Escritório do MOU (PMO) — 2026-07-05 (higiene de doc: o site já está em produção em `sbanegocios.com.br` e os formulários já gravam no Supabase via `submit-lead`). Fonte: `docs/HANDOFF-2026-06-28.md`._

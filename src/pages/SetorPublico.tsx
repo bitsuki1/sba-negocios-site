@@ -3,7 +3,9 @@ import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { CardSolucao } from "@/components/CardSolucao";
 import { FaixaDesafios } from "@/components/FaixaDesafios";
+import { FaixaConfianca } from "@/components/FaixaConfianca";
 import { solucoesPorSetor } from "@/data/site";
+import heroPublico from "@/assets/fotos/cidade.jpg";
 
 const SetorPublico = () => {
   const solucoes = solucoesPorSetor("publico");
@@ -14,8 +16,12 @@ const SetorPublico = () => {
         compacto
         eyebrow="Setor Público · Prefeituras & Consórcios"
         titulo="Mais receita, menos custo e projetos que saem do papel."
-        subtitulo="Para prefeituras e consórcios, a SBA recupera receita que é do município, estrutura a destinação dos resíduos urbanos e destrava projetos de energia e infraestrutura — sempre com dado público e método auditável."
-        ctaPrincipal={{ label: "Solicitar um diagnóstico", href: "/contato" }}
+        subtitulo="Para prefeituras e consórcios, a SBA recupera receita que já pertence ao município, organiza o descarte correto do lixo urbano e tira do papel projetos de energia e obras — sempre com dados públicos e contas que você pode conferir."
+        ctaPrincipal={{ label: "Solicitar uma análise", href: "/contato" }}
+        imagem={{
+          src: heroPublico,
+          alt: "A SBA destrava receita e projetos para o município.",
+        }}
       />
 
       <FaixaDesafios setor="publico" />
@@ -28,8 +34,8 @@ const SetorPublico = () => {
               Soluções para o município
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Do tributário à infraestrutura. A SBA organiza o projeto e conecta
-              os parceiros que executam — o município decide a cada etapa.
+              Do tributário à infraestrutura. A SBA organiza o projeto e chama
+              os parceiros que fazem o serviço — e o município decide em cada etapa.
             </p>
           </div>
 
@@ -41,10 +47,12 @@ const SetorPublico = () => {
         </div>
       </section>
 
+      <FaixaConfianca />
+
       <SecaoCTA
-        titulo="Quer saber quanto a sua cidade tem a recuperar — ou destravar?"
-        texto="Comece pela recuperação tributária (dado público, honorários só no êxito) ou por um diagnóstico de resíduos, energia ou infraestrutura — sem compromisso, e o resultado é seu."
-        botao={{ label: "Solicitar um estudo da minha cidade", href: "/contato" }}
+        titulo="Quer saber quanto a sua cidade tem para recuperar — ou quais projetos consegue tirar do papel?"
+        texto="Comece pela recuperação tributária (dado público, você só paga sobre o que for de fato recuperado) ou por uma análise de lixo, energia ou obras — sem compromisso, e todo o ganho fica com o município."
+        botao={{ label: "Solicitar estudo da minha cidade", href: "/contato" }}
       />
     </Layout>
   );

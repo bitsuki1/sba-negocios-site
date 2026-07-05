@@ -7,6 +7,8 @@ interface HeroProps {
   subtitulo: string;
   ctaPrincipal?: { label: string; href: string };
   ctaSecundario?: { label: string; href: string };
+  /** Imagem de destaque à direita (ex.: home) */
+  imagem?: { src: string; alt: string };
   /** Versão compacta para páginas internas */
   compacto?: boolean;
 }
@@ -17,6 +19,7 @@ export const Hero = ({
   subtitulo,
   ctaPrincipal,
   ctaSecundario,
+  imagem,
   compacto = false,
 }: HeroProps) => {
   return (
@@ -44,45 +47,64 @@ export const Hero = ({
           compacto ? "py-16 md:py-20" : "py-20 md:py-28"
         }`}
       >
-        <div className="max-w-3xl animate-fade-up">
-          {eyebrow && (
-            <>
-              <div className="rule-gold mb-5" />
-              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-gold">
-                {eyebrow}
-              </p>
-            </>
-          )}
-          <h1
-            className={`font-display font-bold leading-[1.08] ${
-              compacto
-                ? "text-3xl md:text-4xl"
-                : "text-4xl md:text-5xl lg:text-[3.4rem]"
-            }`}
-          >
-            {titulo}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-primary-foreground/85">
-            {subtitulo}
-          </p>
+        <div
+          className={
+            imagem
+              ? "grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]"
+              : ""
+          }
+        >
+          <div className={`animate-fade-up ${imagem ? "" : "max-w-3xl"}`}>
+            {eyebrow && (
+              <>
+                <div className="rule-gold mb-5" />
+                <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-gold">
+                  {eyebrow}
+                </p>
+              </>
+            )}
+            <h1
+              className={`font-display font-bold leading-[1.08] ${
+                compacto
+                  ? "text-3xl md:text-4xl"
+                  : "text-4xl md:text-5xl lg:text-[3.4rem]"
+              }`}
+            >
+              {titulo}
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-primary-foreground/85">
+              {subtitulo}
+            </p>
 
-          {(ctaPrincipal || ctaSecundario) && (
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              {ctaPrincipal && (
-                <Button asChild variant="gold" size="lg">
-                  <Link to={ctaPrincipal.href}>{ctaPrincipal.label}</Link>
-                </Button>
-              )}
-              {ctaSecundario && (
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground hover:text-primary-dark"
-                >
-                  <Link to={ctaSecundario.href}>{ctaSecundario.label}</Link>
-                </Button>
-              )}
+            {(ctaPrincipal || ctaSecundario) && (
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                {ctaPrincipal && (
+                  <Button asChild variant="gold" size="lg">
+                    <Link to={ctaPrincipal.href}>{ctaPrincipal.label}</Link>
+                  </Button>
+                )}
+                {ctaSecundario && (
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground hover:text-primary-dark"
+                  >
+                    <Link to={ctaSecundario.href}>{ctaSecundario.label}</Link>
+                  </Button>
+                )}
+              </div>
+            )}
+          </div>
+
+          {imagem && (
+            <div className="aspect-[4/3] animate-fade-up overflow-hidden rounded-xl shadow-2xl ring-1 ring-white/10">
+              <img
+                src={imagem.src}
+                alt={imagem.alt}
+                className="h-full w-full object-cover"
+                loading="eager"
+              />
             </div>
           )}
         </div>

@@ -15,8 +15,8 @@ export const Footer = () => {
             <img src={logoSba} alt="SBA Negócios" className="h-9 w-auto" loading="lazy" />
           </span>
           <p className="mt-4 max-w-xs text-sm text-primary-foreground/75">
-            {MARCA.tagline} para os setores público e privado. Gestão que conecta
-            as pontas e estrutura projetos.
+            {MARCA.tagline} para os setores público e privado. A gestão que reúne
+            todos os envolvidos e monta o projeto por você.
           </p>
         </div>
 

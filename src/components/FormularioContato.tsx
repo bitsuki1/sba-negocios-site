@@ -111,7 +111,10 @@ export const FormularioContato = ({ variante = "contato" }: FormularioContatoPro
 
   if (status === "ok") {
     return (
-      <div className="rounded-lg border border-accent/30 bg-accent/5 p-8 text-center">
+      <div
+        role="status"
+        className="rounded-lg border border-accent/30 bg-accent/5 p-8 text-center"
+      >
         <CheckCircle2 className="mx-auto h-12 w-12 text-accent" />
         <h3 className="mt-4 font-display text-xl font-semibold text-primary-dark">
           Mensagem recebida
@@ -142,7 +145,7 @@ export const FormularioContato = ({ variante = "contato" }: FormularioContatoPro
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-5 pb-16 sm:pb-0">
       {/* Honeypot anti-spam: fora da tela, sem tab e sem autocomplete — humano
           nunca vê nem preenche. Bots costumam preencher; a Edge Function
           descarta silenciosamente quando vier com conteúdo. */}
@@ -234,7 +237,10 @@ export const FormularioContato = ({ variante = "contato" }: FormularioContatoPro
       </div>
 
       {status === "erro" && (
-        <div className="rounded-md border border-destructive/30 bg-destructive/5 p-4 text-sm">
+        <div
+          role="alert"
+          className="rounded-md border border-destructive/30 bg-destructive/5 p-4 text-sm"
+        >
           <p className="text-foreground/90">
             Não consegui enviar agora. Você pode tentar de novo ou nos escrever
             direto por e-mail.

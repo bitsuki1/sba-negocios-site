@@ -4,12 +4,13 @@ import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { Button } from "@/components/ui/button";
 import { TIME } from "@/data/site";
+import heroSobre from "@/assets/fotos/equipe.jpg";
 
 const VALORES = [
   {
     titulo: "Honestidade",
     texto:
-      "Falamos com clareza sobre o que é estimativa e o que é certeza. No tributário, é piso estimado e pagamento no êxito — nada de promessa de resultado garantido.",
+      "Falamos com clareza sobre o que é estimativa e o que é certeza. Na recuperação de impostos, mostramos uma estimativa mínima do que dá para recuperar e você só paga sobre o que realmente entrar — nunca prometemos resultado garantido.",
   },
   {
     titulo: "Simplicidade",
@@ -29,8 +30,12 @@ const Sobre = () => {
       <Hero
         compacto
         eyebrow="Sobre a SBA Negócios"
-        titulo="A gestão que conecta as pontas."
-        subtitulo="A SBA Negócios é uma empresa de desenvolvimento de negócios e consultoria para os setores público e privado. Atuamos como gestora de projetos: originamos, estruturamos e coordenamos — sem executar a obra diretamente."
+        titulo="A gestão que reúne todos os envolvidos num projeto só."
+        subtitulo="A SBA Negócios é uma empresa de desenvolvimento de negócios e consultoria para os setores público e privado. Funcionamos como gestora de projetos: identificamos a oportunidade, montamos o projeto e coordenamos todos os envolvidos — sem tocar a obra diretamente."
+        imagem={{
+          src: heroSobre,
+          alt: "Equipe da SBA analisando dados e indicadores de um projeto.",
+        }}
       />
 
       <section className="bg-background">
@@ -42,13 +47,13 @@ const Sobre = () => {
                 O que fazemos (e o que não fazemos)
               </h2>
               <p>
-                A SBA conecta as quatro pontas de um projeto: o cliente (prefeitura,
-                consórcio ou empresa), o técnico que entende da solução, o jurídico
-                que dá segurança e a tecnologia que viabiliza.
+                A SBA reúne os quatro lados de um projeto: você (prefeitura,
+                consórcio ou empresa), o especialista técnico, o advogado
+                que dá segurança jurídica e a tecnologia que faz funcionar.
               </p>
               <p>
-                Originamos e estruturamos projetos. Organizamos o problema,
-                desenhamos o caminho e conduzimos as partes até o resultado.
+                Criamos e montamos os projetos. Entendemos o problema,
+                definimos o caminho e conduzimos todos os envolvidos até a entrega.
               </p>
               <p>
                 <strong className="text-foreground">
@@ -72,8 +77,8 @@ const Sobre = () => {
                 </li>
                 <li>
                   <strong className="text-primary-dark">Setor privado</strong> —
-                  empresas que precisam de estruturação de negócios e de conexão com
-                  os atores certos.
+                  empresas que precisam montar um projeto e ser ligadas às pessoas
+                  e empresas certas para tocá-lo.
                 </li>
                 <li>
                   <strong className="text-primary-dark">Rede de parceiros</strong> —
@@ -171,7 +176,7 @@ const Sobre = () => {
 
       <SecaoCTA
         titulo="Vamos conversar sobre o seu projeto?"
-        texto="Conte o que você precisa. A SBA organiza o caminho e conecta quem precisa estar junto."
+        texto="Conte o que você precisa. A SBA organiza os passos e chama os parceiros certos para o seu projeto."
         botao={{ label: "Falar com a SBA", href: "/contato" }}
       />
     </Layout>

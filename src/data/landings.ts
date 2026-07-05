@@ -5,9 +5,11 @@
 // Marca: "SBA Negócios". Honestidade: sem número inventado; "valores sob consulta".
 // ============================================================================
 
-import aterro from "@/assets/cstr/aterro.jpg";
-import plantaRender from "@/assets/cstr/planta-render.png";
 import floresta from "@/assets/cstr/floresta.jpg";
+import solar from "@/assets/fotos/solar.jpg";
+import iluminacao from "@/assets/fotos/iluminacao.jpg";
+import saneamento from "@/assets/fotos/saneamento.jpg";
+import cultura from "@/assets/fotos/cultura.jpg";
 
 export interface Beneficio {
   titulo: string;
@@ -23,6 +25,7 @@ export interface Landing {
   oQueE: { titulo: string; paragrafos: string[] };
   beneficios: Beneficio[];
   aplicacoes?: string[];
+  faq?: { q: string; a: string }[];
   parceiro?: { nota: string; href?: string };
   cta: { titulo: string; texto: string };
 }
@@ -31,107 +34,69 @@ export interface Landing {
 export const PROCESSO_SBA = [
   {
     numero: "01",
-    titulo: "Diagnóstico",
+    titulo: "Análise",
     texto:
-      "A SBA avalia a sua realidade e dimensiona a oportunidade. O primeiro passo é leve e sem compromisso.",
+      "A SBA analisa a sua situação e calcula quanto você pode ganhar ou economizar. O primeiro contato é simples e sem compromisso.",
   },
   {
     numero: "02",
-    titulo: "Estruturação",
+    titulo: "Montagem do projeto",
     texto:
-      "Montamos o arranjo técnico, jurídico e financeiro com os parceiros certos para o seu caso.",
+      "Organizamos toda a parte técnica, a jurídica e o financiamento, com os parceiros certos para o seu caso.",
   },
   {
     numero: "03",
-    titulo: "Execução conectada",
+    titulo: "Execução com quem faz",
     texto:
-      "Ligamos quem executa e conduzimos até o resultado. A SBA não executa a obra — coordena.",
+      "Trazemos as empresas que executam e acompanhamos até o resultado final. A SBA não faz a obra — ela organiza e coordena.",
   },
 ];
 
 export const LANDINGS: Record<string, Landing> = {
-  "residuos-municipal": {
-    id: "residuos-municipal",
-    eyebrow: "Resíduos & Valorização · Município",
-    titulo: "O lixo urbano deixa de ser problema e vira solução.",
-    subtitulo:
-      "Para prefeituras e consórcios, a SBA estrutura uma usina de tratamento e valorização do resíduo sólido urbano — do teaser ao contrato, com operador e tecnologia parceiros.",
-    imagem: plantaRender,
-    oQueE: {
-      titulo: "Por que estruturar agora",
-      paragrafos: [
-        "O Novo Marco do Saneamento exige o fim dos lixões e a destinação adequada dos resíduos, ao mesmo tempo em que os aterros se esgotam e o custo de transporte só cresce. O resíduo urbano virou uma pressão de gestão e de orçamento.",
-        "A SBA monta o projeto que transforma esse passivo em valor: uma planta que separa, trata e valoriza o resíduo, gerando energia, biometano e biofertilizante — com a tecnologia do parceiro e o operador certo para tocar a operação.",
-      ],
-    },
-    beneficios: [
-      { titulo: "Conformidade", texto: "Destinação adequada, alinhada ao Novo Marco do Saneamento." },
-      { titulo: "Menos aterro", texto: "Reduz o volume enviado ao aterro e o custo de transporte." },
-      { titulo: "Receita nova", texto: "Energia, biometano e biofertilizante a partir do que era custo." },
-      { titulo: "Sem executar sozinho", texto: "A SBA traz a tecnologia validada e o operador; o município decide a cada etapa." },
-    ],
-    parceiro: {
-      nota: "Tecnologia do parceiro CSTR. Veja a página de Resíduos para o detalhe técnico.",
-      href: "/residuos",
-    },
-    cta: {
-      titulo: "Quer entender o potencial da sua cidade?",
-      texto: "Comece pelo teaser, sem custo. A partir dele, decidimos juntos se vale seguir.",
-    },
-  },
-
-  "residuos-grandes-geradores": {
-    id: "residuos-grandes-geradores",
-    eyebrow: "Resíduos & Valorização · Empresas",
-    titulo: "Resíduo industrial deixa de ser passivo.",
-    subtitulo:
-      "Para indústria, comércio e agro que geram grande volume, a SBA estrutura a destinação e a valorização dos resíduos — com conformidade legal, rastreabilidade e parceiros que operam.",
-    imagem: aterro,
-    oQueE: {
-      titulo: "O desafio de quem gera muito resíduo",
-      paragrafos: [
-        "Para o grande gerador, o resíduo significa custo logístico, risco ambiental e exigência regulatória crescente — sem que isso seja, em geral, o negócio principal da empresa.",
-        "A SBA estrutura a solução de ponta a ponta: avalia o tipo e o volume, conecta a tecnologia e o operador adequados e organiza a destinação com rastreabilidade — para a empresa cuidar do seu negócio, não do lixo.",
-      ],
-    },
-    beneficios: [
-      { titulo: "Conformidade (PNRS)", texto: "Atende à Política Nacional de Resíduos Sólidos e à logística reversa." },
-      { titulo: "Menos passivo", texto: "Reduz risco ambiental e a exposição da empresa." },
-      { titulo: "Custo sob controle", texto: "Logística e destinação organizadas, com previsibilidade." },
-      { titulo: "Valorização", texto: "Sempre que possível, o resíduo vira energia, matéria-prima ou receita." },
-    ],
-    parceiro: {
-      nota: "Tecnologia do parceiro CSTR. Veja a página de Resíduos para o detalhe técnico.",
-      href: "/residuos",
-    },
-    cta: {
-      titulo: "Tem um volume de resíduo que hoje é só custo?",
-      texto: "Fale com a SBA. Avaliamos o caso e estruturamos o melhor caminho — valores sob consulta.",
-    },
-  },
-
   "energia-fotovoltaica": {
     id: "energia-fotovoltaica",
     eyebrow: "Energia & Eficiência",
     titulo: "Energia solar para abastecer o que é público.",
     subtitulo:
-      "A SBA estrutura usinas fotovoltaicas para abastecer prédios e equipamentos públicos, com engenharia e jurídico parceiros — para o município pagar menos pela energia que já consome.",
+      "A SBA monta usinas de energia solar para abastecer prédios e equipamentos públicos, com parceiros de engenharia e jurídico — para o município pagar menos pela energia que já consome.",
+    imagem: solar,
     oQueE: {
-      titulo: "Trocar conta de luz por ativo próprio",
+      titulo: "Trocar a conta de luz por uma usina da própria prefeitura",
       paragrafos: [
-        "Boa parte do orçamento municipal vai para a conta de energia de escolas, postos de saúde, iluminação e prédios administrativos. A geração solar permite trocar parte dessa despesa por uma fonte própria e previsível.",
-        "A SBA organiza o projeto — do estudo de viabilidade ao modelo de contratação — e conecta os parceiros de engenharia e jurídico que implantam e operam a usina.",
+        "Boa parte do orçamento municipal vai para a conta de energia de escolas, postos de saúde, iluminação e prédios administrativos. A energia solar permite trocar parte dessa despesa por uma fonte própria e de custo previsível.",
+        "A SBA organiza o projeto — do estudo de viabilidade à definição de como contratar — e reúne os parceiros de engenharia e jurídico que instalam e operam a usina.",
       ],
     },
     beneficios: [
       { titulo: "Economia direta", texto: "Redução previsível na conta de energia dos prédios públicos." },
-      { titulo: "Previsibilidade", texto: "Menos exposição às variações de tarifa e bandeiras." },
+      { titulo: "Previsibilidade", texto: "Menos impacto quando a tarifa de energia sobe ou entram as bandeiras vermelhas." },
       { titulo: "Sustentabilidade", texto: "Energia limpa, alinhada às metas ambientais do município." },
-      { titulo: "Modelo sob medida", texto: "Da geração própria à contratação — a SBA estrutura o arranjo viável." },
+      { titulo: "Modelo sob medida", texto: "Da usina própria à compra de energia — a SBA monta o modelo que cabe no orçamento." },
+    ],
+    aplicacoes: [
+      "Escolas, creches e unidades de saúde",
+      "Prédios administrativos e a Câmara",
+      "Iluminação e bombeamento públicos",
+      "Estações de tratamento de água e esgoto",
+      "Equipamentos de esporte e cultura",
+    ],
+    faq: [
+      {
+        q: "A economia é garantida?",
+        a: "Não trabalhamos com promessa. Fazemos um estudo de viabilidade com o consumo real do município e mostramos o potencial de economia antes de qualquer decisão.",
+      },
+      {
+        q: "O município precisa investir?",
+        a: "Depende do modelo — da usina própria à compra de energia. A SBA monta o modelo que cabe no orçamento; o custo depende de cada caso e a SBA informa depois de avaliar o projeto.",
+      },
+      {
+        q: "Quem executa e opera a usina?",
+        a: "Empresas parceiras de engenharia e de assessoria jurídica. A SBA identifica a oportunidade e coordena o projeto — não faz a obra diretamente.",
+      },
     ],
     cta: {
       titulo: "Quanto a sua cidade gasta de energia hoje?",
-      texto: "Fale com a SBA. Avaliamos o consumo e o potencial de economia — valores sob consulta.",
+      texto: "Fale com a SBA. Avaliamos o seu consumo e quanto dá para economizar; o custo depende do caso e informamos depois da análise.",
     },
   },
 
@@ -140,74 +105,131 @@ export const LANDINGS: Record<string, Landing> = {
     eyebrow: "Energia & Eficiência",
     titulo: "Iluminação pública mais eficiente e mais segura.",
     subtitulo:
-      "A SBA estrutura a modernização da iluminação municipal — troca para LED e telegestão — do diagnóstico ao modelo de contratação, com os parceiros que executam.",
+      "A SBA organiza a modernização da iluminação da cidade — troca por LED e controle remoto das lâmpadas — do levantamento à definição de como contratar, com os parceiros que executam.",
+    imagem: iluminacao,
     oQueE: {
       titulo: "Iluminar melhor gastando menos",
       paragrafos: [
-        "A iluminação pública é uma das maiores contas de energia do município e, muitas vezes, ainda usa tecnologia antiga, cara e de manutenção difícil. A modernização para LED com telegestão corta o consumo e melhora a qualidade da luz.",
-        "A SBA organiza o projeto — diagnóstico do parque, modelo de contratação e financiamento — e conecta os parceiros que fazem a troca e a operação.",
+        "A iluminação pública é uma das maiores contas de energia do município e, muitas vezes, ainda usa tecnologia antiga, cara e de manutenção difícil. A troca por LED, com controle remoto das lâmpadas, corta o consumo e melhora a qualidade da luz.",
+        "A SBA organiza o projeto — levantamento de todos os pontos de luz da cidade, definição de como contratar e do financiamento — e reúne os parceiros que fazem a troca e a operação.",
       ],
     },
     beneficios: [
       { titulo: "Conta menor", texto: "O LED reduz o consumo de energia da iluminação pública." },
       { titulo: "Cidade mais segura", texto: "Luz melhor distribuída aumenta a sensação de segurança." },
-      { titulo: "Telegestão", texto: "Controle e manutenção mais inteligentes, com menos apagões." },
-      { titulo: "Modelo viável", texto: "A SBA estrutura a contratação que cabe no orçamento." },
+      { titulo: "Controle remoto", texto: "Controle e manutenção mais inteligentes, com menos apagões." },
+      { titulo: "Modelo viável", texto: "A SBA organiza a contratação que cabe no orçamento." },
+    ],
+    aplicacoes: [
+      "Vias, avenidas e rodovias urbanas",
+      "Praças, parques e áreas de lazer",
+      "Entornos de escolas e unidades de saúde",
+      "Travessias e pontos de insegurança",
+      "Prédios e monumentos públicos",
+    ],
+    faq: [
+      {
+        q: "O LED reduz mesmo a conta?",
+        a: "O LED consome bem menos que a tecnologia antiga. Levantamos todos os pontos de luz atuais e projetamos a economia caso a caso, sem prometer um número fixo.",
+      },
+      {
+        q: "O que é esse controle remoto das lâmpadas?",
+        a: "É um sistema (chamado telegestão) que acende, apaga e detecta falhas à distância, reduzindo apagões e custo de manutenção.",
+      },
+      {
+        q: "Como é contratado?",
+        a: "A SBA organiza o modelo — do levantamento ao financiamento — que cabe no orçamento e pode ser pago pela COSIP/CIP, a taxa de iluminação pública que já vem na conta de luz dos moradores; o custo depende de cada caso e a SBA informa depois de avaliar.",
+      },
     ],
     cta: {
       titulo: "Quer modernizar a iluminação da sua cidade?",
-      texto: "Fale com a SBA. Avaliamos o parque atual e o potencial de economia — valores sob consulta.",
+      texto: "Fale com a SBA. Avaliamos os pontos de luz atuais e quanto dá para economizar; o custo depende do caso e informamos depois da análise.",
     },
   },
 
   "reflorestamento-carbono": {
     id: "reflorestamento-carbono",
     eyebrow: "Ambiental",
-    titulo: "Recuperar áreas e abrir receita com carbono.",
+    titulo: "Recuperar áreas e gerar renda com crédito de carbono.",
     subtitulo:
-      "A SBA estrutura projetos de restauração e reflorestamento de áreas, com a possibilidade de gerar crédito de carbono — unindo conformidade ambiental e nova fonte de receita.",
+      "A SBA organiza projetos de restauração e reflorestamento de áreas, com a possibilidade de gerar crédito de carbono (um certificado que pode ser vendido a empresas que precisam compensar suas emissões) — unindo o cumprimento da lei ambiental e uma nova fonte de renda.",
     imagem: floresta,
     oQueE: {
-      titulo: "Da obrigação ambiental ao ativo",
+      titulo: "Da obrigação ambiental a uma fonte de renda",
       paragrafos: [
-        "Áreas degradadas, reservas a recompor e passivos ambientais costumam ser vistos só como custo e obrigação legal. Bem estruturada, a restauração vira um ativo — inclusive financeiro, pela geração de crédito de carbono.",
-        "A SBA organiza o projeto — diagnóstico da área, plano de restauração e estruturação do crédito — e conecta os parceiros técnicos que executam e certificam.",
+        "Áreas degradadas e reservas a recuperar costumam ser vistas só como custo e obrigação legal. Bem conduzida, a recuperação pode virar uma fonte de renda — pela venda de crédito de carbono.",
+        "A SBA organiza o projeto — análise da área, plano de recuperação e preparação do crédito de carbono — e reúne os parceiros técnicos que executam e certificam.",
       ],
     },
     beneficios: [
       { titulo: "Conformidade", texto: "Atende a obrigações ambientais e a compromissos de restauração." },
-      { titulo: "Áreas recuperadas", texto: "Restauração de ecossistemas e conectividade ambiental." },
+      { titulo: "Áreas recuperadas", texto: "Recuperação da vegetação e ligação entre as áreas verdes." },
       { titulo: "Receita com carbono", texto: "Potencial de geração e venda de crédito de carbono." },
-      { titulo: "Projeto certificável", texto: "A SBA conecta quem executa e quem certifica o crédito." },
+      { titulo: "Projeto certificável", texto: "A SBA reúne quem executa e quem certifica o crédito." },
+    ],
+    aplicacoes: [
+      "Áreas de preservação a recuperar (as margens de rio e a parte de mata que a lei exige manter)",
+      "Áreas degradadas e contaminadas",
+      "Margens de rios e nascentes",
+      "Recuperação de áreas exigida como contrapartida de obras",
+      "Projetos de geração de crédito de carbono",
+    ],
+    faq: [
+      {
+        q: "Dá para gerar receita com carbono?",
+        a: "É um potencial, não uma promessa: depende da área, do projeto e da certificação. A SBA organiza o projeto e reúne quem certifica, avaliando caso a caso.",
+      },
+      {
+        q: "Quem faz o plantio e o manejo?",
+        a: "Parceiros técnicos especializados. A SBA organiza o projeto e reúne quem executa e quem certifica.",
+      },
     ],
     cta: {
       titulo: "Tem áreas a recuperar ou potencial de carbono?",
-      texto: "Fale com a SBA. Avaliamos a área e o caminho — valores sob consulta.",
+      texto: "Fale com a SBA. Avaliamos a área e o caminho; o custo depende do caso e informamos depois da análise.",
     },
   },
 
   "saneamento-agua": {
     id: "saneamento-agua",
     eyebrow: "Ambiental",
-    titulo: "Água e esgoto tratados, dentro do Novo Marco.",
+    titulo: "Água e esgoto tratados, dentro da nova lei do saneamento.",
     subtitulo:
-      "A SBA estrutura projetos de tratamento de água (ETA) e de esgoto (ETE), alinhados ao Novo Marco do Saneamento, com o arranjo técnico e financeiro montado.",
+      "A SBA organiza projetos de tratamento de água (as ETAs) e de esgoto (as ETEs), de acordo com a nova lei federal do saneamento, com toda a parte técnica e o financiamento já organizados.",
+    imagem: saneamento,
     oQueE: {
       titulo: "Saneamento é meta e é saúde",
       paragrafos: [
-        "O Novo Marco do Saneamento fixou metas de universalização de água e esgoto. Para muitos municípios, o desafio não é só técnico — é estruturar o projeto e o financiamento que tornam a obra viável.",
-        "A SBA organiza esse caminho: avalia a situação, desenha a solução de ETA/ETE e conecta os parceiros de engenharia, operação e jurídico que executam.",
+        "A nova lei federal do saneamento (Lei 14.026/2020) obriga levar água tratada e esgoto a toda a população até 2033. Para muitos municípios, o desafio não é só técnico — é organizar o projeto e o financiamento que tornam a obra possível, sob risco de perder prazos e contratos.",
+        "A SBA organiza esse caminho: avalia a situação, projeta a estação de tratamento de água (ETA) e a de esgoto (ETE) e reúne os parceiros de engenharia, operação e jurídico que executam.",
       ],
     },
     beneficios: [
-      { titulo: "Conformidade", texto: "Alinhamento às metas do Novo Marco do Saneamento." },
+      { titulo: "Dentro da lei", texto: "Cumprimento das metas da nova lei do saneamento." },
       { titulo: "Saúde pública", texto: "Água tratada e esgoto adequado reduzem doenças e custos de saúde." },
-      { titulo: "Projeto viável", texto: "Arranjo técnico e financeiro estruturado para sair do papel." },
-      { titulo: "Parceiros certos", texto: "A SBA conecta quem projeta, executa e opera." },
+      { titulo: "Projeto viável", texto: "Parte técnica e financiamento organizados para a obra sair do papel." },
+      { titulo: "Parceiros certos", texto: "A SBA reúne quem projeta, executa e opera." },
+    ],
+    aplicacoes: [
+      "Tratamento de água (ETA)",
+      "Tratamento de esgoto (ETE)",
+      "Ampliação de rede e ligações domiciliares",
+      "Adequação às metas da nova lei do saneamento",
+      "Organização técnica e financeira do projeto",
+    ],
+    faq: [
+      {
+        q: "Isso ajuda a cumprir a nova lei do saneamento?",
+        a: "Sim. A lei fixou metas de levar água e esgoto a todos até 2033; a SBA organiza o projeto e o financiamento que tornam a obra possível.",
+      },
+      {
+        q: "A SBA opera o saneamento?",
+        a: "Não. Organizamos o projeto e reunimos os parceiros de engenharia, operação e jurídico que executam e operam.",
+      },
     ],
     cta: {
       titulo: "Sua cidade precisa avançar em água e esgoto?",
-      texto: "Fale com a SBA. Avaliamos a situação e os caminhos — valores sob consulta.",
+      texto: "Fale com a SBA. Avaliamos a situação e os caminhos; o custo depende do caso e informamos depois da análise.",
     },
   },
 
@@ -216,23 +238,41 @@ export const LANDINGS: Record<string, Landing> = {
     eyebrow: "Cultura",
     titulo: "Projetos culturais que saem do papel.",
     subtitulo:
-      "A SBA estrutura e ajuda a captar recursos para eventos e projetos culturais do município — com organização, parceiros e captação por leis de incentivo.",
+      "A SBA organiza e ajuda a buscar recursos para eventos e projetos culturais da cidade — com organização, parceiros e as leis de incentivo à cultura.",
+    imagem: cultura,
     oQueE: {
       titulo: "Cultura também precisa de estrutura",
       paragrafos: [
-        "Eventos e projetos culturais movimentam a economia local e a identidade da cidade — mas muitas vezes esbarram na falta de estruturação e de captação de recursos.",
-        "A SBA organiza o projeto, conecta os parceiros e estrutura a captação (inclusive por leis de incentivo), para que a ideia vire um evento ou projeto viável.",
+        "Eventos e projetos culturais movimentam a economia local e a identidade da cidade — mas muitas vezes esbarram na falta de organização e de recursos.",
+        "A SBA organiza o projeto, reúne os parceiros e cuida da busca de recursos — inclusive pelas leis de incentivo à cultura, que permitem financiar projetos com renúncia fiscal (Lei Paulo Gustavo, Lei Aldir Blanc, ProAC-SP e Lei Rouanet) —, para que a ideia vire um evento ou projeto de verdade.",
       ],
     },
     beneficios: [
       { titulo: "Economia local", texto: "Movimenta comércio, turismo e empregos na cidade." },
-      { titulo: "Captação organizada", texto: "Estruturação de recursos, inclusive por leis de incentivo." },
+      { titulo: "Busca de recursos", texto: "Organização da busca de recursos, inclusive pelas leis de incentivo à cultura." },
       { titulo: "Projeto viável", texto: "Da ideia à execução, com os parceiros certos." },
       { titulo: "Identidade", texto: "Fortalece a cultura e a imagem do município." },
     ],
+    aplicacoes: [
+      "Festivais, festas cívicas e datas do município",
+      "Projetos por leis de incentivo à cultura",
+      "Eventos de turismo e economia local",
+      "Projetos culturais em escolas e espaços públicos",
+      "Captação de recursos e prestação de contas",
+    ],
+    faq: [
+      {
+        q: "Como funciona a busca de recursos?",
+        a: "Organizamos o projeto e a busca de recursos, inclusive pelas leis de incentivo à cultura, com a organização e a prestação de contas necessárias.",
+      },
+      {
+        q: "A SBA produz o evento?",
+        a: "A SBA organiza o projeto e torna ele possível; quem produz o evento são os parceiros e produtores certos para cada caso.",
+      },
+    ],
     cta: {
       titulo: "Tem um evento ou projeto cultural em mente?",
-      texto: "Fale com a SBA. Estruturamos e ajudamos a viabilizar — valores sob consulta.",
+      texto: "Fale com a SBA. Organizamos e ajudamos a viabilizar; o custo depende do caso e informamos depois da análise.",
     },
   },
 };

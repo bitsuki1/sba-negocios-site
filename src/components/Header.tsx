@@ -83,6 +83,18 @@ export const Header = () => {
                 {item.label}
               </NavLink>
             ))}
+            <NavLink
+              to="/seja-um-parceiro"
+              onClick={() => setAberto(false)}
+              className={({ isActive }) =>
+                cn(
+                  "rounded-md px-3 py-2.5 text-sm font-medium text-foreground/90 hover:bg-secondary",
+                  isActive && "bg-secondary text-primary"
+                )
+              }
+            >
+              Seja um parceiro
+            </NavLink>
             <Button asChild className="mt-2">
               <Link to="/contato" onClick={() => setAberto(false)}>
                 Falar com a {MARCA.sigla}

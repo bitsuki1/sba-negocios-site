@@ -15,7 +15,7 @@ import depois from "@/assets/conaid/depois.jpg";
 import aplicacao from "@/assets/conaid/aplicacao.jpg";
 
 const CREDIBILIDADE = [
-  "Líder mundial em estabilização de solos",
+  "Líder mundial em estabilização de solos (segundo o fabricante)",
   "Presente em mais de 100 países",
   "Distribuidor exclusivo no Brasil há 15 anos",
   "+5 milhões de m² aplicados no Brasil (2007–2023)",
@@ -31,10 +31,10 @@ const APLICACOES = [
 ];
 
 const BENEF_TEC = [
-  "Acaba com a lama: reduz o índice de plasticidade",
-  "Aumenta o suporte do solo (ISC/CBR em ~50%)",
+  "Acaba com a lama: o solo deixa de amolecer e empoçar na chuva.",
+  "Aumenta a resistência do solo em cerca de 50% (medida pelos índices ISC/CBR usados em engenharia).",
   "Reduz a absorção de água e a liberação de poeira",
-  "Produto com Selo Verde",
+  "Produto com selo ambiental (Selo Verde)",
 ];
 
 const BENEF_ECO = [
@@ -46,9 +46,9 @@ const BENEF_ECO = [
 
 const CERTIFICACOES = [
   "Registro nos Conselhos de Química e de Engenharia",
-  "Selo Verde e ensaios ambientais anuais (acreditação INMETRO)",
-  "Certificação junto ao IBAMA e a órgãos estaduais (IAT-PR, IMA-SC)",
-  "Uso em obras com financiamento do BID",
+  "Selo ambiental e ensaios anuais em laboratório reconhecido pelo INMETRO",
+  "Certificação no IBAMA e em órgãos ambientais estaduais (como o do Paraná e o de Santa Catarina)",
+  "Uso em obras financiadas pelo Banco Interamericano de Desenvolvimento (BID)",
   "Atestados de Petrobras, Vale e de obras públicas",
 ];
 
@@ -59,7 +59,7 @@ const EstabilizadorSolo = () => {
         compacto
         eyebrow="Infraestrutura · Estabilização de Solo"
         titulo="Estradas firmes o ano todo, a um custo bem menor."
-        subtitulo="A SBA estrutura projetos de estabilização de solo com o ConAid CBR Plus — líder mundial em estabilização iônica, presente em mais de 100 países. Menos lama, menos poeira e menos manutenção, transformando o próprio solo em base resistente."
+        subtitulo="A SBA monta projetos de estabilização de solo com o ConAid CBR Plus — referência mundial nesse tipo de tratamento químico, que endurece o próprio terreno e está presente em mais de 100 países. Menos lama, menos poeira e menos manutenção, transformando o próprio solo em base resistente."
         ctaPrincipal={{ label: "Falar com a SBA", href: "/contato" }}
       />
 
@@ -201,7 +201,7 @@ const EstabilizadorSolo = () => {
               Pelo custo de material de <strong>1 km</strong> feito com brita
               graduada ou solo-cimento, dá para estabilizar de{" "}
               <strong>2 a 3 km</strong> de estrada com o ConAid CBR Plus.
-              Dimensionamento e valores por projeto, sob consulta.
+              O tamanho e o custo de cada obra a SBA calcula com você.
             </p>
           </div>
         </div>
@@ -245,12 +245,12 @@ const EstabilizadorSolo = () => {
             <div>
               <div className="rule-gold mb-5" />
               <h2 className="font-display text-3xl font-bold text-primary-dark">
-                Confiança comprovada
+                Confiança construída
               </h2>
               <p className="mt-5 leading-relaxed text-muted-foreground">
                 O ConAid CBR Plus tem histórico, certificação ambiental e
-                atestados de grandes operações. A SBA estrutura o projeto e
-                conecta o produto à execução.
+                atestados de grandes operações. A SBA monta o projeto e liga o
+                produto a quem executa.
               </p>
               <p className="mt-4 leading-relaxed text-muted-foreground">
                 Na estabilização e pavimentação, a SBA trabalha com parceiros
@@ -291,12 +291,16 @@ const EstabilizadorSolo = () => {
               ))}
             </ul>
           </div>
+          <p className="mx-auto mt-8 max-w-3xl text-center text-xs text-muted-foreground">
+            Dados de desempenho e certificações informados pelo fabricante e pelo
+            distribuidor (ConAid e Dynacal).
+          </p>
         </div>
       </section>
 
       <SecaoCTA
         titulo="Tem estradas, pátios ou obras que pedem solo firme?"
-        texto="Fale com a SBA. Avaliamos o solo, dimensionamos a aplicação e estruturamos o projeto com a tecnologia certa — valores sob consulta."
+        texto="Fale com a SBA. Avaliamos o solo, definimos a aplicação e montamos o projeto com a tecnologia certa. O tamanho e o custo de cada obra a SBA calcula com você."
         botao={{ label: "Falar com a SBA", href: "/contato" }}
       />
     </Layout>

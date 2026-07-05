@@ -2,6 +2,7 @@ import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { FormularioContato } from "@/components/FormularioContato";
 import { Handshake, Scale, Users } from "lucide-react";
+import heroParceiro from "@/assets/fotos/parceria.jpg";
 
 const PERFIS = [
   {
@@ -14,13 +15,13 @@ const PERFIS = [
     icon: Handshake,
     titulo: "Operadores e tecnologia",
     texto:
-      "Quem executa a solução em campo e quem traz a tecnologia que viabiliza cada frente.",
+      "Quem faz o serviço no local e quem traz a tecnologia que viabiliza cada tipo de projeto.",
   },
   {
     icon: Users,
     titulo: "Representantes",
     texto:
-      "Pessoas com relacionamento e capacidade de originar projetos junto a municípios e empresas.",
+      "Pessoas com relacionamento e capacidade de trazer novos projetos junto a prefeituras e empresas.",
   },
 ];
 
@@ -31,8 +32,52 @@ const SejaParceiro = () => {
         compacto
         eyebrow="Rede de parceiros"
         titulo="Seja um parceiro da SBA Negócios."
-        subtitulo="A SBA trabalha com uma rede de parceiros técnicos, jurídicos, operadores e representantes. Se você quer somar com a gente nos nossos projetos, conte como pode contribuir."
+        subtitulo="A SBA trabalha com uma rede de parceiros técnicos, jurídicos, operadores e representantes. Se você quer trabalhar junto nos projetos da SBA, conte o que você faz e como pode ajudar."
+        imagem={{
+          src: heroParceiro,
+          alt: "Rede de parceiros que executam os projetos da SBA.",
+        }}
       />
+
+      {/* O que a SBA oferece ao parceiro */}
+      <section className="border-b border-border bg-secondary/50">
+        <div className="container-sba py-14 md:py-16">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto mb-5 rule-gold" />
+            <h2 className="font-display text-3xl font-bold text-primary-dark">
+              O que você ganha na rede da SBA
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                t: "Projetos já prontos para começar",
+                d: "A SBA traz o cliente e o projeto já montado (prefeitura ou empresa). Você entra na sua especialidade, sem precisar buscar clientes.",
+              },
+              {
+                t: "Relação clara, por escrito",
+                d: "Papéis, escopo e remuneração são definidos caso a caso e sempre por escrito antes de começar — nada combinado no ar.",
+              },
+              {
+                t: "Você executa, a SBA coordena",
+                d: "A SBA organiza o projeto e reúne todos os envolvidos; você foca no que faz de melhor, sem ter que gerenciar dez fornecedores.",
+              },
+            ].map((it) => (
+              <div
+                key={it.t}
+                className="rounded-lg border border-border bg-card p-7"
+              >
+                <h3 className="font-display text-lg font-semibold text-primary-dark">
+                  {it.t}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {it.d}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="bg-background">
         <div className="container-sba py-16 md:py-20">
@@ -76,8 +121,8 @@ const SejaParceiro = () => {
                 Candidate-se à rede
               </h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Preencha os campos abaixo. Vamos retornar para entender como podemos
-                trabalhar juntos.
+                Preencha os campos abaixo. Analisamos cada candidatura e
+                retornamos em até 2 dias úteis para uma conversa inicial.
               </p>
               <div className="mt-6">
                 <FormularioContato variante="parceiro" />
