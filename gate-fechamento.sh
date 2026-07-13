@@ -17,7 +17,7 @@ if [ -n "$pend" ]; then
     [ -f "$DIR/caixa-de-entrada/processados/$base" ] && continue
     # MR-53 (2026-07-05): aceita marcador 'STATUS: APLICADA' inline — o hábito real é RESPONDER, não `git mv`;
     # exigir só par-por-nome deixava o gate VERMELHO mesmo com o trabalho feito (bitsuki: 8+ dias).
-    grep -qE '^STATUS:[[:space:]]*(APLICADA|ROTEADA|RESPONDIDA|RECUSADA|CONTRAPROPOSTA)' "$f" 2>/dev/null && continue
+    grep -qE '^STATUS:[[:space:]]*(APLICADA|RESPONDIDA|RECUSADA|CONTRAPROPOSTA)' "$f" 2>/dev/null && continue
     fail "carta NÃO-APLICADA: ${f#$DIR/} (aplique e mova p/ processados/ OU marque 'STATUS: APLICADA' no topo)"
   done <<< "$pend"
 fi

@@ -14,3 +14,9 @@ React Router; captação de leads no Supabase com fallback por e-mail. Conteúdo
 - **Quem mexe:** o orquestrador da SBA (sessões do projeto), em branch e sob o gate da unidade (D21).
   O escritório só registra/audita (D128 §3); mudança de produto é da esteira da SBA.
 - **Registro no PMO:** linha no `escritorio-do-mou/portfolio/MAPA-DO-PORTFOLIO.md` (TAG=USO, dona=SBA).
+
+## (c) git = SSOT — NÃO reescrever história publicada (anti-rebase/force-push)
+> Regra padrão de repo de USO (trazida pela auditoria tripla do Escritório, 2026-07-13 — era a única USO sem esta cláusula).
+- **git é a fonte da verdade.** A produção (`gh-pages`, `https://sbanegocios.com.br`) reflete o git; mudança de produto entra por commit em branch, sob o gate da SBA (D21).
+- **NUNCA `git push --force` / `rebase` / `reset --hard` em branch publicada** (`main`/`gh-pages`): reescrever história publicada quebra o histórico e pode corromper o deploy do GitHub Pages. Em conflito, reconcilie por UNIÃO (merge), nunca sobrescrevendo.
+- Deploy é pelo `scripts/deploy-producao.sh` (manual, intencional) — não automatizar force-push.
