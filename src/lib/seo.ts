@@ -15,6 +15,8 @@ import seoRoutes from "./seo-routes.json";
 interface PageSeo {
   title: string;
   description: string;
+  /** Página "não listada" (acesso só pela URL): injeta robots noindex. */
+  noindex?: boolean;
 }
 
 export const SEO_DEFAULT: PageSeo = seoRoutes.default;
@@ -41,4 +43,10 @@ export function applySeo(pathname: string) {
   setMeta("og:description", seo.description, "property");
   setMeta("twitter:title", seo.title, "property");
   setMeta("twitter:description", seo.description, "property");
+  // Rota não-listada: robots noindex (e remove a meta ao navegar para fora).
+  if (seo.noindex) {
+    setMeta("robots", "noindex, nofollow", "name");
+  } else {
+    document.head.querySelector('meta[name="robots"]')?.remove();
+  }
 }

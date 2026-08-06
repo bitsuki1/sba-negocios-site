@@ -71,6 +71,11 @@
     "/privacidade": {
       "title": "Política de Privacidade — SBA Negócios",
       "description": "Como a SBA Negócios trata os dados pessoais enviados pelo site, conforme a LGPD (Lei 13.709/2018)."
+    },
+    "/guia-etapas": {
+      "title": "Guia do Processo — Recuperação do IRRF (Tema 1130) | SBA Negócios",
+      "description": "Guia completo para parceiros e municípios: o que o STF decidiu no Tema 1130, os quatro caminhos do dinheiro retido, as 12 etapas do processo, o que se assina e quanto custa.",
+      "noindex": true
     }
   }
 }

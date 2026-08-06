@@ -20,6 +20,9 @@ const Sobre = lazy(() => import("@/pages/Sobre"));
 const SejaParceiro = lazy(() => import("@/pages/SejaParceiro"));
 const Contato = lazy(() => import("@/pages/Contato"));
 const PoliticaPrivacidade = lazy(() => import("@/pages/PoliticaPrivacidade"));
+// Guia do processo (Tema 1130) — página SEM link interno (acesso só pela URL,
+// enviada a parceiros/clientes) e com noindex; ver seo-routes.json.
+const GuiaEtapas = lazy(() => import("@/pages/GuiaEtapas"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
 const Fallback = () => (
@@ -49,6 +52,8 @@ const App = () => {
           <Route path="/seja-um-parceiro" element={<SejaParceiro />} />
           <Route path="/contato" element={<Contato />} />
           <Route path="/privacidade" element={<PoliticaPrivacidade />} />
+          {/* rota "não listada": nenhum menu/rodapé aponta para cá (de propósito) */}
+          <Route path="/guia-etapas" element={<GuiaEtapas />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
