@@ -75,6 +75,15 @@ function renderForRoute(pathname, seo) {
     `$1${url}$2`,
   );
 
+  // Rota não-listada (noindex no JSON): robots noindex já no HTML estático,
+  // para valer também para robôs que não rodam JS.
+  if (seo.noindex) {
+    html = html.replace(
+      "</head>",
+      '  <meta name="robots" content="noindex, nofollow" />\n  </head>',
+    );
+  }
+
   return html;
 }
 
