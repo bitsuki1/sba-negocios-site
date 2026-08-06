@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { NAV, MARCA } from "@/data/site";
-import logoSba from "@/assets/sba-logo-flat.png";
+import logoSba from "@/assets/logo-sba-horizontal.png";
 
 const Logo = () => (
   <Link to="/" className="flex items-center" aria-label="SBA Negócios — início">
@@ -12,8 +12,8 @@ const Logo = () => (
       src={logoSba}
       alt="SBA Negócios"
       className="h-9 w-auto md:h-10"
-      width={210}
-      height={75}
+      width={202}
+      height={100}
     />
   </Link>
 );

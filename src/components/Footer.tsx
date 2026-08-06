@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
 import { NAV, CONTATO, MARCA } from "@/data/site";
-import logoSba from "@/assets/sba-logo-flat.png";
+import logoSba from "@/assets/logo-sba-horizontal.png";
 
 export const Footer = () => {
   const ano = new Date().getFullYear();
