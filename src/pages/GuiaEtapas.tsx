@@ -5,7 +5,7 @@
 // noindex (via seo-routes.json + prerender): é material de apoio que a SBA
 // envia a quem já está na conversa — não uma página de captação orgânica.
 // Conteúdo: o guia completo do processo + catálogo de produtos + o explicativo
-// da via administrativa (e da reserva judicial), em linguagem de leigo.
+// da via administrativa (SBA fornecedora única), em linguagem de leigo.
 // ============================================================================
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
@@ -301,7 +301,7 @@ const GuiaEtapas = () => {
       {/* 3 · REGRAS DE OURO + MAPA DAS ETAPAS */}
       <Secao
         numero="3 · O percurso de relance"
-        titulo="As 12 etapas, em 4 blocos"
+        titulo="As 13 etapas, em 4 blocos"
         chamada="O processo é uma escada: cada etapa produz o papel (ou o fato) que a seguinte precisa para existir. Três regras valem do começo ao fim:"
       >
         <div className="grid gap-4 md:grid-cols-3">
@@ -389,20 +389,27 @@ const GuiaEtapas = () => {
                 ],
                 [
                   "10",
+                  "A proposta comercial",
+                  "SBA (aprovação do Município)",
+                  "Só o aceite da proposta",
+                  "Nada",
+                ],
+                [
+                  "11",
                   "O contrato",
                   "Município + SBA",
                   "Sim — o contrato",
                   "Define os preços",
                 ],
                 [
-                  "11",
+                  "12",
                   "A execução",
                   "SBA (atos do Município)",
                   "Atos próprios do Município",
                   "Coberto pelo contrato",
                 ],
                 [
-                  "12",
+                  "13",
                   "A cobrança",
                   "SBA + Controle Interno",
                   "Nada",
@@ -485,6 +492,18 @@ const GuiaEtapas = () => {
             cede acesso a sistema e não tem custo escondido. Se a conferência
             der zero, ele simplesmente se encerra.
           </p>
+          <Cartao>
+            <Rotulo>O ponto que fazemos questão de deixar claro</Rotulo>
+            <p className="mt-2 text-sm leading-relaxed">
+              O termo é, antes de tudo, uma <b>garantia para o município — e
+              sobretudo para o servidor</b> que vai reunir e entregar as
+              cópias: é ele que formaliza a autorização e blinda quem entrega
+              (junto com a portaria e o recibo). <b>A SBA não precisa do termo
+              assinado para si — o que a SBA precisa é dos documentos.</b> O
+              termo existe para que eles saiam da prefeitura com segurança e
+              amparo para todos.
+            </p>
+          </Cartao>
         </Etapa>
 
         <Etapa n={4} nome="A portaria do servidor" grupo="Autorizar">
@@ -505,6 +524,12 @@ const GuiaEtapas = () => {
             <b>Livro Razão</b> da conta de retenções, que sozinho já permite
             começar; o restante vem em levas, no ritmo do município — a
             entrega nunca trava à espera de um item difícil.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            <b>Em uma frase: o que precisamos são os documentos.</b> É deles —
+            e só deles — que sai o número com prova. Termo, portaria e ofício
+            não são exigências nossas: são o arcabouço que protege o servidor
+            e o município enquanto as cópias chegam até nós.
           </p>
         </Etapa>
 
@@ -547,13 +572,28 @@ const GuiaEtapas = () => {
           <p>
             Com o Levantamento na mão, SBA e Município olham{" "}
             <b>todas as oportunidades juntas</b> e definem o que será feito e
-            por quais vias — administrativa por regra; conformidade; judicial
-            só como reserva. Nasce o <b>Plano de Recuperação</b>, base do
-            contrato. Nada se assina aqui.
+            por quais vias — sempre pela via administrativa, com a
+            conformidade organizada. Nasce o <b>Plano de Recuperação</b> — que
+            desemboca na proposta comercial (a próxima etapa). Nada se assina
+            aqui.
           </p>
         </Etapa>
 
-        <Etapa n={10} nome="O contrato" grupo="Definir e recuperar">
+        <Etapa n={10} nome="A proposta comercial" grupo="Definir e recuperar">
+          <p>
+            Com o Levantamento e o Plano na mesa, a SBA formaliza a{" "}
+            <b>Proposta Comercial</b>: o escopo produto a produto (o que será
+            feito, por qual via), o preço de referência de cada um e as
+            condições — tudo ancorado no número <b>com prova</b> apurado na
+            conferência. O gestor avalia com calma e dá o{" "}
+            <b>aceite formal da proposta</b>. Só depois desse aceite nasce a
+            minuta de contrato. <b>Nada se paga aqui</b> — a proposta é a
+            ponte entre o número conferido e o contrato, para que ninguém
+            assine nada sem saber exatamente o quê e por quanto.
+          </p>
+        </Etapa>
+
+        <Etapa n={11} nome="O contrato" grupo="Definir e recuperar">
           <p>
             Só agora, com número real e vontade de seguir: a forma de
             contratação (inexigibilidade, licitação ou credenciamento — quem
@@ -565,7 +605,7 @@ const GuiaEtapas = () => {
           </p>
         </Etapa>
 
-        <Etapa n={11} nome="A execução" grupo="Definir e recuperar">
+        <Etapa n={12} nome="A execução" grupo="Definir e recuperar">
           <p>
             A SBA conduz cada oportunidade pela via definida até o dinheiro
             estar <b>disponível</b> para o município: apropriar/regularizar
@@ -584,7 +624,7 @@ const GuiaEtapas = () => {
           </p>
         </Etapa>
 
-        <Etapa n={12} nome="A cobrança — só sobre o que virou realidade" grupo="Definir e recuperar">
+        <Etapa n={13} nome="A cobrança — só sobre o que virou realidade" grupo="Definir e recuperar">
           <p>
             O fecho do ciclo: a SBA só cobra sobre proveito{" "}
             <b>efetivamente disponibilizado</b>, evento a evento, atestado pelo{" "}
@@ -610,7 +650,7 @@ const GuiaEtapas = () => {
       <Secao
         numero="5 · Os produtos"
         titulo="O que a SBA entrega — e quanto custa cada coisa"
-        chamada="Cada produto trata de um destino do dinheiro retido (para onde ele foi) ou de como parar de perdê-lo. Regra-mãe: tudo até o Plano de Recuperação é gratuito; preço só existe no contrato; cobrança só sobre resultado."
+        chamada="Cada produto trata de um destino do dinheiro retido (para onde ele foi) ou de como parar de perdê-lo. Regra-mãe: tudo até a proposta comercial (inclusive) é gratuito; preço só existe no contrato; cobrança só sobre resultado."
       >
         <div className="grid gap-4 md:grid-cols-2">
           <Cartao>
@@ -725,26 +765,24 @@ const GuiaEtapas = () => {
         </div>
       </Secao>
 
-      {/* 6 · VIA ADMINISTRATIVA × JUDICIAL */}
+      {/* 6 · A VIA */}
       <Secao
         numero="6 · A via"
-        titulo="Por que não é um processo judicial — e o que é a “reserva”"
+        titulo="Por que não é um processo judicial"
       >
         <p>
           A recuperação desenhada é <b>administrativa</b>: apropriação como
           receita própria, compensação com tributos federais do próprio
           município e restituição — atos do próprio município e pedidos à
-          Receita, preparados e validados pela SBA de ponta a ponta.{" "}
-          <b>Não há segundo prestador na regra.</b>
+          Receita, preparados e validados pela SBA de ponta a ponta. É por
+          essa via que o processo inteiro anda, do primeiro ao último passo.
         </p>
         <p>
-          A via <b>judicial</b> existe apenas como <b>reserva</b>: se — e
-          somente se — um ponto concreto travar na via administrativa. Nesse
-          recorte de exceção, a SBA continua não litigando: o patrocínio da
-          ação é de advocacia (ou da Procuradoria do próprio município), por{" "}
-          <b>contrato próprio e separado</b>, com teto global declarado — dois
-          papéis distintos, sem pagar duas vezes pelo mesmo trabalho. É uma
-          porta que fica no plano para o caso raro que a exigir; não é a rota.
+          E um conforto para o gestor: <b>a SBA é a fornecedora única de
+          todos os serviços do processo</b>. O município não precisa contratar
+          mais ninguém, em nenhuma fase — tudo o que o plano exigir, do começo
+          ao fim, é conduzido pela própria SBA, cada coisa no seu momento e
+          pelo instrumento próprio.
         </p>
       </Secao>
 
@@ -804,17 +842,22 @@ const GuiaEtapas = () => {
             Recibos de entrega
           </span>
           <span className="text-muted-foreground">→</span>
+          <span className="rounded-md bg-primary px-3 py-2 text-primary-foreground">
+            Aceite da proposta
+          </span>
+          <span className="text-muted-foreground">→</span>
           <span className="rounded-md bg-gold px-3 py-2 text-gold-foreground">
             Contrato
           </span>
         </div>
         <p>
-          Da entrada ao Plano de Recuperação, os únicos papéis assinados são o{" "}
-          <b>termo</b>, a <b>portaria</b> do próprio município e o{" "}
-          <b>recibo</b> de cada entrega. A conferência, o Levantamento e a
-          definição das vias não têm assinatura de compromisso. O{" "}
-          <b>contrato</b> é o único que gera cobrança — e a execução e a
-          cobrança correm sob ele.
+          Da entrada à proposta comercial, os únicos papéis assinados são o{" "}
+          <b>termo</b> (a garantia do servidor e do município — a SBA precisa
+          é dos documentos), a <b>portaria</b> do próprio município, o{" "}
+          <b>recibo</b> de cada entrega e o <b>aceite da proposta</b> (que
+          ainda não custa nada). A conferência, o Levantamento e a definição
+          das vias não têm assinatura de compromisso. O <b>contrato</b> é o
+          único que gera cobrança — e a execução e a cobrança correm sob ele.
         </p>
       </Secao>
 
@@ -839,9 +882,10 @@ const GuiaEtapas = () => {
           </QA>
           <QA q="Vai virar processo judicial?">
             Não é o caminho. A recuperação é <b>administrativa</b>: atos do
-            próprio município e pedidos à Receita. A via judicial existe só
-            como reserva, por contrato próprio e separado, com advogado — a
-            SBA não litiga.
+            próprio município e pedidos à Receita, do começo ao fim. E, seja o
+            que for que o processo venha a exigir em qualquer fase, quem
+            conduz é a própria SBA — <b>fornecedora única de todos os
+            serviços</b>: o município não precisa contratar mais ninguém.
           </QA>
           <QA q="Quanto o município vai receber?">
             Não sabemos — e quem disser que sabe, antes de conferir os
