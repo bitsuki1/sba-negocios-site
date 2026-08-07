@@ -15,8 +15,11 @@
 // ============================================================================
 import { useState, type FormEvent, type ReactNode } from "react";
 
+// Trocada em 2026-08-07 a pedido do MOU. A anterior tinha sido enviada só no chat e,
+// como aqui mora apenas o hash, não havia como recuperá-la — o desenho está certo, mas
+// a consequência é esta: senha que só existe numa conversa some com a conversa.
 const HASH_SENHA =
-  "b983a4d4dce90c5308e45792486c2f490008bf37097e38fa47da77f6553ca7a7";
+  "4f694d7a02eef65d24e01a57b1abd8875a50688eed8275a6c27d05af3ada449a";
 const CHAVE_SESSAO = "sba-guia-liberado";
 
 async function sha256Hex(texto: string): Promise<string> {
