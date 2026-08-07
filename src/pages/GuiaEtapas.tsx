@@ -125,7 +125,7 @@ const GuiaEtapas = () => {
               Diagnóstico sempre gratuito
             </span>
             <span className="rounded-full bg-white/10 px-4 py-2 font-semibold">
-              Pagamento só sobre resultado real
+              Êxito só sobre resultado real
             </span>
             <span className="rounded-full bg-white/10 px-4 py-2 font-semibold">
               Sem senha, sem sistema, sem procuração
@@ -196,7 +196,8 @@ const GuiaEtapas = () => {
         </p>
         <p>
           <b>É aqui que a SBA entra.</b> A SBA faz a conferência completa —{" "}
-          <b>de graça</b> — e devolve ao município um número com prova. Só se
+          <b>de graça</b> — e devolve ao município um número conferido documento a
+          documento. Só se
           houver valor, e só se o município quiser seguir, é que se fala em
           contrato; e a remuneração é <b>por resultado</b>. Se a conferência der
           zero, o trabalho encerra sem custo. O caminho da recuperação é{" "}
@@ -541,7 +542,8 @@ const GuiaEtapas = () => {
             <b>“impressão digital” eletrônica</b> (SHA-256) de cada arquivo —
             se um único byte mudar depois, a alteração aparece. O servidor
             recebe recibo de tudo. Depois disto,{" "}
-            <b>nada mais se assina até o contrato</b>.
+            <b>nada mais se assina até a aprovação da proposta comercial</b> — que
+            também não custa nada — <b>e, depois dela, o contrato</b>.
           </p>
         </Etapa>
 
@@ -562,7 +564,8 @@ const GuiaEtapas = () => {
           <p>
             O resultado da conferência, entregue ao município: o montante
             agregado apurado e a indicação resumida do caminho de cada parte.
-            É o número com prova que permite decidir com segurança.{" "}
+            É o número conferido documento a documento — o detalhamento
+            probatório, retenção a retenção, é produto da etapa contratada.{" "}
             <b>Se for zero, o vínculo se encerra aqui, sem custo</b> — e o
             município fica com o Levantamento como registro.
           </p>
@@ -681,8 +684,9 @@ const GuiaEtapas = () => {
             </p>
             <p className="mt-3 text-sm">
               <b>Preço:</b> a análise é <b>gratuita</b>; a regularização sai
-              por <b>preço fixo, fechado caso a caso</b> — nunca percentual —,
-              cobrado no aceite do laudo (em até 2 parcelas).
+              por <b>preço fixo em reais</b> — nunca percentual —, com <b>teto
+              declarado antes</b> de qualquer trabalho e valor final apresentado
+              junto com o laudo, para aceite: recusado o preço, nada é devido.
             </p>
           </Cartao>
           <Cartao>
@@ -942,8 +946,8 @@ const GuiaEtapas = () => {
             escopo e saída sem ônus nas hipóteses previstas.
           </QA>
           <QA q="Outros municípios já fizeram?">
-            Sim — há centenas de contratações públicas desse serviço
-            registradas no país. A SBA se diferencia pelo desenho: conferência
+            Sim — mais de 200 contratações públicas desse serviço estão
+            registradas no Portal Nacional de Contratações Públicas (PNCP). A SBA se diferencia pelo desenho: conferência
             gratuita primeiro, contrato depois do número, pagamento só sobre
             resultado e via administrativa como regra.
           </QA>
