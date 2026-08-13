@@ -57,6 +57,7 @@ export const NAV = [
   { label: "Setor Privado", href: "/setor-privado" },
   { label: "Soluções", href: "/solucoes" },
   { label: "Sobre", href: "/sobre" },
+  { label: "Seja um parceiro", href: "/seja-um-parceiro" },
   { label: "Contato", href: "/contato" },
 ];
 
