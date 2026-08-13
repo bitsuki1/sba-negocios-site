@@ -1,14 +1,14 @@
 name: Deploy de produção (GitHub Pages)
 
-# Auto-deploy do site no domínio próprio sbanegocios.com.br quando a main muda.
-# Requer (uma vez), nas Settings do repo:
+# ⚠️ LEGADO — produção real = Vercel (deploy automático no push à main) desde ~07-2026.
+# O gatilho de push foi REMOVIDO para não haver dois deploys concorrentes da main
+# (Pages × Vercel); o Pages legado fica mantido só para disparo manual
+# (workflow_dispatch) — 5º mandato, 2026-08-13.
+# Requisitos (uma vez), nas Settings do repo, caso o disparo manual seja usado:
 #   - Actions > General > Workflow permissions = "Read and write"
 #   - Pages > Build and deployment > Source = "GitHub Actions"
-# Enquanto isso não estiver ligado, o deploy é manual: scripts/deploy-producao.sh
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 # Permissões mínimas para publicar no Pages via Actions

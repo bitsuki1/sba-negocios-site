@@ -15,6 +15,17 @@
 // ⚠️ Este arquivo é o código versionado; a instância deployada pode ter um
 // fallback de chave setado em runtime (risco aceito pelo dono). NÃO coloque
 // chave literal aqui — repo é público.
+//
+// Anti-spam 3 (rate-limit por IP — 5º mandato, 2026-08-13): antes do insert,
+// conta os leads do mesmo IP (header `x-forwarded-for`) nos últimos 10 minutos;
+// com 3 ou mais, responde 429. Verificado no schema real (2026-08-13): a tabela
+// `sba_leads` TEM `created_at` (timestamptz, default now()), mas NÃO tem coluna
+// de IP. Antes de deployar esta versão (decisão do orquestrador), rodar:
+//   alter table public.sba_leads add column if not exists ip text;
+//   create index if not exists sba_leads_ip_created_at_idx
+//     on public.sba_leads (ip, created_at desc);
+// Sem a coluna, o código degrada com segurança: a contagem falha ABERTA (loga e
+// segue) e o insert cai num fallback sem `ip` — nenhum lead humano se perde.
 // ============================================================================
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
@@ -113,9 +124,42 @@ Deno.serve(async (req) => {
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"),
   );
 
+  // Anti-spam 3: rate-limit por IP. O `x-forwarded-for` pode trazer uma lista
+  // ("cliente, proxy1, proxy2") — o IP do cliente é o primeiro. Sem o header,
+  // a checagem é pulada (falha aberta: nunca se perde lead humano por isso).
+  const ip = (req.headers.get("x-forwarded-for") ?? "")
+    .split(",")[0]
+    .trim()
+    .slice(0, 100) || null;
+
+  if (ip) {
+    const desde = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+    const { count, error: erroContagem } = await supabase
+      .from("sba_leads")
+      .select("id", { count: "exact", head: true })
+      .eq("ip", ip)
+      .gte("created_at", desde);
+    if (erroContagem) {
+      // Falha ABERTA (ex.: coluna `ip` ainda nao migrada): loga e segue.
+      console.error("Rate-limit: contagem falhou, seguindo sem limite:", erroContagem.message);
+    } else if ((count ?? 0) >= 3) {
+      return json({
+        error:
+          "Recebemos varios envios seguidos deste endereco. Aguarde alguns minutos e tente novamente — ou, se preferir, escreva direto para " +
+          NOTIFY_TO + ".",
+      }, 429);
+    }
+  }
+
   const lead = { tipo, nome, email, telefone, organizacao, perfil, mensagem, origem: "site-sba-negocios" };
 
-  const { error } = await supabase.from("sba_leads").insert(lead);
+  let { error } = await supabase.from("sba_leads").insert({ ...lead, ip });
+  if (error) {
+    // Fallback pre-migracao: se o insert com `ip` falhar (coluna ainda nao
+    // existe), tenta sem `ip` — nenhum lead se perde por causa do rate-limit.
+    console.error("Insert com ip falhou, tentando sem ip:", error.message);
+    ({ error } = await supabase.from("sba_leads").insert(lead));
+  }
   if (error) {
     console.error("Erro ao gravar lead:", error.message);
     return json({ error: "Falha ao salvar o contato" }, 500);

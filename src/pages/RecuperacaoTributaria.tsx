@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
@@ -169,7 +170,7 @@ const RecuperacaoTributaria = () => {
                 },
                 {
                   q: "Quem faz a apuração documental?",
-                  a: "A apuração documental final acontece junto à Receita Federal, pelo portal de atendimento online dela (o e-CAC), com a orientação e o acompanhamento da SBA em cada etapa.",
+                  a: "A SBA faz a apuração a partir de cópias de documentos que o município já tem, entregues por servidor designado — sem sistema, senha ou procuração. A recuperação segue pela via administrativa, junto à Receita Federal, com a orientação e o acompanhamento da SBA em cada etapa.",
                 },
                 {
                   q: "Como a prefeitura contrata a SBA legalmente?",
@@ -185,7 +186,7 @@ const RecuperacaoTributaria = () => {
                 },
                 {
                   q: "Quanto tempo leva?",
-                  a: "O estudo inicial é rápido. A recuperação costuma ser buscada pela via administrativa (junto à Receita Federal, pelo portal e-CAC); o caminho e o prazo exatos variam caso a caso. E o que deixa de ser retido daqui em diante passa a ficar com a cidade desde cedo — nada prometido sem base.",
+                  a: "O estudo inicial é rápido. A recuperação costuma ser buscada pela via administrativa, junto à Receita Federal; o caminho e o prazo exatos variam caso a caso. E o que deixa de ser retido daqui em diante passa a ficar com a cidade desde cedo — nada prometido sem base.",
                 },
               ].map((item) => (
                 <div key={item.q} className="py-5">
@@ -198,6 +199,14 @@ const RecuperacaoTributaria = () => {
                 </div>
               ))}
             </dl>
+            <p className="mt-8 text-sm text-muted-foreground">
+              <Link
+                to="/guia-etapas"
+                className="font-medium text-primary underline-offset-4 hover:underline"
+              >
+                Guia completo, etapa por etapa →
+              </Link>
+            </p>
           </div>
         </div>
       </section>
