@@ -4,6 +4,9 @@
 > (orquestrador SBA), a pedido do MOU. Zero compressão (doutrina do escritório): a evidência
 > crua fica registrada para a próxima instância e para a auditoria.
 
+> ## ✅ RESOLVIDO — 2026-08-17 ~15:01Z
+> O dono aplicou a correção na GoDaddy: **Encaminhamento do apex removido** + **`A @ → 216.198.79.1`** (mantido o `CNAME www`). Propagação **completa** (Google · Cloudflare · OpenDNS → `216.198.79.1`). Verificação final: **apex → HTTP 200 (`server: Vercel`)** · **www → 308 → apex** (salto único, sem loop). O `404` que apareceu entre a correção e a propagação era o **cache velho dos IPs de encaminhamento** (agora sem regra → 404), não um novo defeito. **Incidente encerrado.** Trilha completa abaixo.
+
 ## 1. Sintoma
 O navegador do MOU (2026-08-17 ~10:49) mostrou, ao abrir `sbanegocios.com.br`:
 
@@ -73,4 +76,4 @@ curl -sSI https://www.sbanegocios.com.br | head -1  # esperado: HTTP/2 308 p/ ap
 ## 6. Estado
 - **Repositório/código:** SÃO — `vercel.json` só tem o rewrite de SPA + headers; **nenhuma regra de redirect no repo** causa isto.
 - **Nota de higiene:** `USO.md` está desatualizado (diz "GitHub Pages"); o hosting real é **Vercel** desde o cutover de 2026-07-03. Corrigir em passe futuro (não é a causa do incidente).
-- **Pendência para o dono:** executar o Caminho recomendado (§4) na GoDaddy.
+- **✅ RESOLVIDO (2026-08-17 ~15:01Z):** o Caminho recomendado (§4) foi aplicado na GoDaddy pelo dono — Encaminhamento removido + `A @ → 216.198.79.1`. Propagação completa (Google/Cloudflare/OpenDNS → `216.198.79.1`); apex **200** (Vercel), www **308 → apex**. Sem pendência.
