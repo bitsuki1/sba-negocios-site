@@ -1,14 +1,47 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Check, ExternalLink, ArrowRight } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
+import { applyPageSchema } from "@/lib/seo";
 import { solucoesPorTema, PARCEIRO_CSTR } from "@/data/site";
 import residuoValor from "@/assets/cstr/residuo-valor.png";
 import plantaBiogas from "@/assets/cstr/planta-biogas.jpg";
 import premioImg from "@/assets/cstr/premio.jpg";
 import cstrLogo from "@/assets/cstr/cstr-logo.png";
 import heroResiduos from "@/assets/cstr/circular.jpg";
+
+// Perguntas frequentes do setor — respostas curtas, factuais, sem promessa
+// de "garantido"; alinhado às regras de conteúdo do README (§Regras de conteúdo).
+// O mesmo conteúdo alimenta o FAQPage schema (JSON-LD abaixo) para AEO / rich
+// snippet ("People Also Ask") no Google.
+const FAQS: { q: string; a: string }[] = [
+  {
+    q: "Qual a diferença entre aterro sanitário e usina de tratamento de resíduos?",
+    a: "Aterro é destino final: o resíduo fica enterrado e o município paga pelo transporte, pela área e pelo passivo ambiental. A usina é o oposto — o resíduo entra e sai transformado em energia, biometano, biofertilizante e materiais recicláveis. O aterro é despesa; a usina, quando bem dimensionada, pode gerar receita nova ou pelo menos zerar o custo da destinação.",
+  },
+  {
+    q: "O que é biometano municipal?",
+    a: "Biometano é o biogás (produzido pela decomposição controlada do resíduo orgânico) que passou por purificação até ficar equivalente ao gás natural. Depois de purificado, pode ser injetado na rede de gás, virar combustível para a frota da prefeitura ou ser vendido a indústrias vizinhas. \"Municipal\" significa que o insumo é o próprio lixo urbano do município.",
+  },
+  {
+    q: "Como funciona um consórcio intermunicipal de resíduos?",
+    a: "Municípios vizinhos se unem por lei (Lei 11.107/2005) e operam como uma pessoa jurídica única na destinação dos resíduos. Assim é possível construir UMA usina que atende TODOS os municípios do consórcio, dividindo o investimento e a operação — dá escala mesmo para prefeituras pequenas, que sozinhas não teriam volume.",
+  },
+  {
+    q: "Quem paga a usina — a prefeitura ou o operador?",
+    a: "Depende do modelo. Nos três mais comuns: (i) a prefeitura paga direto, com dinheiro público e financiamento (FINEP, BNDES ou fundos verdes internacionais); (ii) o operador privado paga tudo e cobra uma tarifa mensal por tonelada tratada (modelo BOT / concessão, parecido com contrato de água); (iii) modelo híbrido, em que a prefeitura entra com a área e a coleta, e o operador entra com o capital e a tecnologia. A SBA estuda o caso e ajuda a definir o melhor modelo antes do contrato.",
+  },
+  {
+    q: "Município pequeno (até 50 mil habitantes) tem escala para uma usina?",
+    a: "Sozinho, quase sempre não. Em consórcio intermunicipal, quase sempre sim. Um município de 30 mil hab gera cerca de 0,8–1 kg/hab/dia de resíduo (fonte pública: SNIS / Ministério do Desenvolvimento Regional) — algo entre 24 e 30 t/dia. Isso está na faixa mínima dos sistemas do parceiro CSTR para RSU (50 a 300 t/dia). Um consórcio de 3–5 municípios da mesma região facilmente ultrapassa o piso.",
+  },
+  {
+    q: "Como o Novo Marco do Saneamento (Lei 14.026/2020) muda a destinação de resíduos do meu município?",
+    a: "O Marco exige o fim dos lixões e a destinação final ambientalmente adequada. O município que ainda usa lixão a céu aberto está fora da lei — e pode ter repasses federais bloqueados, ficar sem crédito nos bancos oficiais e responder na justiça. A mesma lei incentiva soluções regionais (consórcios) e permite ao município cobrar taxa específica de coleta (a \"taxa de lixo\"), que dá lastro financeiro ao projeto.",
+  },
+];
 
 const ESTAGIOS = [
   {
@@ -39,6 +72,46 @@ const ESTAGIOS = [
 
 const Residuos = () => {
   const segmentos = solucoesPorTema("Resíduos & Aproveitamento");
+
+  // Structured data (JSON-LD) para esta rota — Service (o que a SBA oferece)
+  // + FAQPage (as perguntas do FAQ acima). O Google usa para rich snippets.
+  // O helper limpa o script anterior ao trocar de rota (data-page-schema).
+  useEffect(() => {
+    applyPageSchema({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Service",
+          serviceType: "Estruturação de projeto de usina de tratamento de resíduos sólidos urbanos",
+          provider: { "@type": "Organization", name: "SBA Negócios", url: "https://sbanegocios.com.br" },
+          areaServed: { "@type": "Country", name: "Brasil" },
+          audience: [
+            { "@type": "Audience", audienceType: "Prefeituras municipais" },
+            { "@type": "Audience", audienceType: "Consórcios intermunicipais" },
+            { "@type": "Audience", audienceType: "Empresas geradoras de grande volume de resíduo" },
+          ],
+          description:
+            "Estruturação de projetos de usina de tratamento de resíduos sólidos urbanos (RSU): da coleta ao biometano/energia, com tecnologia parceira (CSTR) e conformidade com o Novo Marco do Saneamento (Lei 14.026/2020) e a PNRS. A SBA organiza o projeto — não executa a obra.",
+          offers: {
+            "@type": "Offer",
+            name: "Primeira leitura sem custo",
+            price: "0",
+            priceCurrency: "BRL",
+            availability: "https://schema.org/InStock",
+          },
+        },
+        {
+          "@type": "FAQPage",
+          mainEntity: FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        },
+      ],
+    });
+    return () => applyPageSchema(null);
+  }, []);
 
   return (
     <Layout>
@@ -307,22 +380,52 @@ const Residuos = () => {
             </p>
           </div>
 
-          {/* Projeto-âncora */}
-          <div className="mt-10 rounded-lg border border-primary/20 bg-primary/5 p-6 md:flex md:items-center md:justify-between md:gap-6">
+          {/* Projeto-farol: Congonhas do Campo — MG.
+              Honesto sobre o estado: projeto EM CONSTRUÇÃO, não case operacional. */}
+          <div className="mt-10 grid gap-5 rounded-lg border border-primary/20 bg-primary/5 p-6 md:grid-cols-[1fr_auto] md:items-start md:gap-8 lg:p-8">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-gold-foreground">
-                {PARCEIRO_CSTR.projeto.titulo}
+                Projeto-farol do parceiro CSTR
               </p>
-              <h3 className="mt-1 font-display text-xl font-semibold text-primary-dark">
+              <h3 className="mt-1 font-display text-2xl font-semibold text-primary-dark">
                 {PARCEIRO_CSTR.projeto.local}
               </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {PARCEIRO_CSTR.projeto.tecnologia}
+              <p className="mt-3 leading-relaxed text-muted-foreground">
+                {PARCEIRO_CSTR.projeto.titulo} usando <strong>tecnologia de explosão a vapor</strong> —
+                o diferencial técnico da {PARCEIRO_CSTR.nome}. O resíduo é submetido a vapor sob
+                alta pressão que rompe a estrutura celular do material orgânico, liberando açúcares
+                para a fermentação (biogás/biometano) e reduzindo o volume final a uma fração do
+                original.
               </p>
+              <p className="mt-3 text-sm text-muted-foreground">
+                <span className="font-semibold text-primary-dark">Por que "farol":</span> é o
+                projeto de referência em construção — não uma usina em operação. Serve para o
+                município ver a rota tecnológica e o modelo de projeto antes de decidir. Quando
+                entrar em operação, os números reais entram nesta página.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary-dark">
+                  Startup do Ano · Frotas &amp; Fretes Verdes 2025
+                </span>
+                <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary-dark">
+                  {PARCEIRO_CSTR.origem}
+                </span>
+              </div>
             </div>
-            <span className="mt-3 inline-block shrink-0 rounded-full bg-accent/15 px-3 py-1.5 text-sm font-semibold text-accent md:mt-0">
-              {PARCEIRO_CSTR.projeto.status}
-            </span>
+            <div className="flex shrink-0 flex-col gap-2 md:items-end md:text-right">
+              <span className="inline-block rounded-full bg-accent/15 px-3 py-1.5 text-sm font-semibold text-accent">
+                {PARCEIRO_CSTR.projeto.status}
+              </span>
+              <a
+                href={PARCEIRO_CSTR.site}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
+              >
+                Ver no site da {PARCEIRO_CSTR.nome}
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </div>
           </div>
 
           {/* Sistemas */}
@@ -362,6 +465,50 @@ const Residuos = () => {
             Capacidades técnicas informadas pelo parceiro {PARCEIRO_CSTR.nome}.
             O tamanho e o custo de cada projeto a SBA calcula com você.
           </p>
+        </div>
+      </section>
+
+      {/* FAQ — perguntas reais do setor de resíduos.
+          Também virou FAQPage schema (JSON-LD acima) para rich snippet no Google. */}
+      <section className="border-t border-border bg-background">
+        <div className="container-sba py-16 md:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto mb-5 rule-gold" />
+            <h2 className="font-display text-3xl font-bold text-primary-dark">
+              Perguntas que o município e a empresa fazem
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Respostas curtas e factuais — sem promessa de "garantido". Se a sua
+              dúvida não estiver aqui, pergunte no {" "}
+              <Link to="/contato" className="font-semibold text-primary hover:text-primary-dark">
+                formulário de contato
+              </Link>
+              .
+            </p>
+          </div>
+
+          <div className="mx-auto mt-12 max-w-3xl divide-y divide-border rounded-lg border border-border bg-card">
+            {FAQS.map((f, i) => (
+              <details
+                key={f.q}
+                className="group px-6 py-5"
+                open={i === 0}
+              >
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-display text-base font-semibold text-primary-dark marker:hidden">
+                  <span className="flex-1">{f.q}</span>
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 shrink-0 rounded-full border border-border p-1 text-muted-foreground transition-transform group-open:rotate-45"
+                  >
+                    <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="currentColor">
+                      <path d="M9 4h2v5h5v2h-5v5H9v-5H4V9h5V4z" />
+                    </svg>
+                  </span>
+                </summary>
+                <p className="mt-4 leading-relaxed text-muted-foreground">{f.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 

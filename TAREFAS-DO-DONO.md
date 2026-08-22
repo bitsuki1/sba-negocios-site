@@ -6,6 +6,12 @@
 
 ## ⏳ Abertas (o app trabalha)
 
+### T-002 · Insumos opcionais para o bloco Congonhas do Campo (projeto-farol da CSTR)
+- **Pedido por:** app (auto) · **Data:** 2026-08-22
+- **O quê:** o pacote V6 do MAPA-DE-PENDENCIAS foi entregue e o bloco do projeto-farol Congonhas do Campo — MG ficou ampliado. Ele funciona sozinho, mas fica ainda mais forte com dois insumos que só o dono/parceiro consegue: **(i)** 1 foto ou render do canteiro (JPG/PNG, mín. 1200×800) — se você tiver do parceiro CSTR; **(ii)** 1 link para notícia externa sobre o projeto (Portal do Município de Congonhas, jornal local, G1, etc.) — para prova externa.
+- **Pronto quando:** você me passa 1 ou os 2 aqui, ou responde "não tenho, seguir sem" (a página já está publicada sem esses; T-002 fecha).
+- **Estado:** ⏳ opcional (não bloqueia nada)
+
 ### T-001 · Confirmar rename para `sba-negocios-site` (raiz primeiro, D186)
 - **Pedido por:** escritório (proposta técnica) · **decide:** o dono · **Data:** 2026-08-22
 - **O quê:** a regra viva D186 (`escritorio-do-mou/.claude/rules/nomenclatura-repos.md`) manda o padrão `<unidade>-<projeto>-<tipo>` com a raiz sempre primeiro — o nome atual `sba-site` não carrega a raiz. Nome proposto: **`sba-negocios-site`** (raiz `sba-negocios` = a unidade SBA Negócios; tipo `-site`). Rename é seguro para o espelho Lovable (V-LOVABLE-RENAME); NUNCA desconectar/reconectar.
