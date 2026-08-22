@@ -1,0 +1,53 @@
+# HANDOFF-SURFACES — manifesto das superfícies de retomada deste repo (padrão D66 do escritório)
+# Uma sessão nova que abrir SÓ o `sba-site` (sem co-monte com o escritório) tem que achar TUDO abaixo.
+# Um handoff "verde" precisa que cada superfície esteja atualizada com a data do dia OU aponte para o marco mais recente.
+# Formato: um caminho por linha (relativo à raiz do repo). Linhas em branco e as que começam com # são ignoradas.
+# Ordem = ordem de leitura recomendada para uma sessão nova.
+
+# ══════ ENTRADA DE BOOT (LEIA PRIMEIRO — nesta ordem) ══════
+CLAUDE.md
+HANDOFF-ULTIMO.md
+MAPA-DE-PENDENCIAS.md
+TAREFAS-DO-DONO.md
+REGISTRO-DE-INSTANCIAS.md
+USO.md
+SELO.md
+
+# ══════ CANAIS D144 (o que o escritório mandou / o que você mandou) ══════
+caixa-de-entrada/do-escritorio/
+caixa-de-entrada/processados/
+caixa-de-saida/para-escritorio/
+
+# ══════ TÉCNICO (produto — só se o dono despachar por V6/V7 ou similar) ══════
+README.md
+package.json
+index.html
+src/lib/seo-routes.json
+src/lib/seo.ts
+src/pages/Residuos.tsx
+src/data/site.ts
+scripts/deploy-producao.sh
+
+# ══════ GOVERNANÇA / GATES ══════
+gate-fechamento.sh
+linter-estado.sh
+.claude/settings.json
+.claude/agents/
+.claude/rules/
+
+# ══════ CORPO DE PROCESSOS HERDADO (SSOT no escritorio; cópias 1:1) ══════
+processos/HERDADO-DO-ESCRITORIO.md
+processos/PROTOCOLO-HANDOFF-SEM-PERDAS.md
+processos/PADRAO-DE-REPO.md
+processos/PADRAO-OURO-MAPA-DE-PENDENCIAS.md
+processos/IGNICAO-PADRAO.md
+processos/PLAYBOOK-ARRUMACAO-PROJETO.md
+processos/POLITICA-VIGENCIA.md
+processos/PREVENCAO-DE-PERDAS.md
+processos/MATRIZ-ADMISSAO-LICOES.md
+processos/CASACO-POR-TEMA.md
+processos/templates/TEMPLATE-MAPA-DE-PENDENCIAS.md
+
+# ══════ REPOS EXTERNOS RELEVANTES (não co-montados nesta sessão) ══════
+# Se precisar de CONTEÚDO do site (números, textos jurídicos, cases): co-monte com bitsuki1/sba-unidades-de-negocios
+# (dossiê da unidade em escritorio-do-mou/portfolio/sba/MAPA-DA-UNIDADE.md quando o escritório estiver co-montado).

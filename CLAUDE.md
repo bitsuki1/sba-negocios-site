@@ -31,10 +31,14 @@ Você é o **orquestrador do repo `sba-site`** (chapéu de PROJETO auxiliar, D10
 - **NÃO renomear o repo** sem OK explícito do dono. Proposta D186 (`sba-negocios-site`, raiz primeiro) vive em `TAREFAS-DO-DONO.md` como pendência do dono, não como execução.
 - Deny de escrita em outros governos: ver `.claude/settings.json` (bloqueia `escritorio-do-mou/**` e `keepee-facilities*/**`).
 
-## §6 — Boot desta sessão (3 passos)
-1. Leia este `CLAUDE.md` + `USO.md` (cartão de USO herdado) + `README.md` (stack técnico).
-2. Estampe/atualize sua linha em `REGISTRO-DE-INSTANCIAS.md` (ABERTA no início · FECHADA ao sair · com handoff).
-3. Confira `TAREFAS-DO-DONO.md` — trabalhe nas ⏳ abertas na ordem que o dono pediu; ao terminar, marque ✅ e desça para o rastro com commit.
+## §6 — Boot desta sessão (5 passos — atualizado 2026-08-22 pela onda D66)
+1. Leia este `CLAUDE.md` + **`HANDOFF-ULTIMO.md`** (delta puro da última sessão — D139) + `USO.md` (cartão de USO herdado) + `README.md` (stack técnico).
+2. Consulte **`MAPA-DE-PENDENCIAS.md`** (SSOT das pendências — a URL do Artifact D172 fica no cabeçalho para você abrir sem entrar no repo).
+3. Estampe/atualize sua linha em `REGISTRO-DE-INSTANCIAS.md` (ABERTA no início · FECHADA ao sair · com handoff).
+4. Confira `TAREFAS-DO-DONO.md` — trabalhe nas ⏳ abertas na ordem que o dono pediu; ao terminar, marque ✅ e desça para o rastro com commit.
+5. Confira `caixa-de-entrada/do-escritorio/` (fora de `processados/`) — se o maestro do PMO deixou alguma diretriz, aplique antes de iniciar novo trabalho (o gate cobra no §1).
+
+**Manifesto das superfícies (D66):** `HANDOFF-SURFACES.txt` na raiz — a lista canônica que um verificador de handoff usaria para provar que nenhuma superfície de retomada ficou defasada. Atualize-o sempre que criar/mover superfície.
 
 ## §7 — Ao fechar sessão
 Rodar `bash gate-fechamento.sh` até 🟩 verde (todos os 4 checks). Se o gate travar, resolver antes de sair — não `--no-verify`. Mesclar a branch em `main` pela via limpa (merge, nunca force-push). Depositar ACK no PMO se a tarefa foi trazida por ele.

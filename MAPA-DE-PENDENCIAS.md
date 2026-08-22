@@ -1,6 +1,6 @@
 # MAPA DE PENDÊNCIAS — sba-site (site institucional da SBA Negócios)
 > **🌐 URL para você olhar (padrão D172):** https://claude.ai/code/artifact/a2d0ecf3-8181-445f-ac6c-9418db470fde — foto do SSOT deste arquivo, republicada no MESMO endereço a cada mudança. Fonte HTML da versão publicada: `<scratchpad>/mapa-sba-site.html`; fonte canônica do conteúdo: `MAPA-DE-PENDENCIAS.md` na raiz deste repo.
-> **Atualizado: 2026-08-22 (v3 — corpo de processos do escritório incorporado ao repo por ordem viva do MOU; nenhuma pendência sua nova, tudo puxado por mim).** · **Só pendência.** O que já foi feito vive no git — não se repete aqui.
+> **Atualizado: 2026-08-22 (v4 — handoff sem perdas D66 aplicado: HANDOFF-ULTIMO + HANDOFF-SURFACES criados; achado A-1 do ponteiro fantasma no escritório amarrado à V1; ponto cego declarado sobre `sba-unidades-de-negocios` não co-montado; Tema 1130 destravado como potencial próxima onda).** · **Só pendência.** O que já foi feito vive no git — não se repete aqui.
 > Regras (D172/D181/D182/D191/D192): item 🔒 SEU = passos numerados com **link direto** um por ação · item ⚙️ MEU = 1 linha do que é + estado (⏳/🔄) · resolvido SAI · ordem = o que destrava mais vem primeiro · em português, sempre.
 
 **🎯 Vetor mantido da v1:** você pediu (1) o mapa no padrão, (2) melhorar SEO, (3) aparecer mais com **Usina de Resíduos**. **Delta da v3 (esta):** você deu ordem viva para o maestro do escritório incorporar governação de projeto aqui — **feito por PUXAR direto** (não esperei o maestro empurrar; carta formal ao PMO em `caixa-de-saida/para-escritorio/`). O repo agora tem à mão o mesmo corpo de trabalho do escritório (mapa D172, handoff D66, ignição D109, casaco D137, código de repo, política de vigência, matriz de admissão de lições, prevenção de perdas, 3 subagentes, 3 regras modulares — 10 arquivos + 3 agentes + 4 regras). **Nada mais na sua fila desta ordem** — as pendências restantes seguem sendo V1/V2+V3/V4/V5/V7 (as mesmas da v2).
@@ -11,11 +11,12 @@
 
 ## 1. 🟧 V1 · Renomear o repo para `sba-negocios-site` (padrão D186 — você aprovou; agora é executar)
 **O que é:** você já disse "sim, renomear agora" na caixa de decisão. Falta o clique no GitHub — depois eu abro a onda de varredura de ponteiros no mesmo turno.
-**Placar:** 1 clique seu + ~7 ponteiros que eu corrijo depois no mesmo commit.
+**Placar:** 1 clique seu + ~8 ponteiros que eu corrijo depois no mesmo commit (era 7; +1 pelo achado A-1 da varredura de handoff).
 **Passo a passo:**
 1. **Abrir Settings do repo** → https://github.com/bitsuki1/sba-site/settings (aba geral). *(NÃO clicar em "Transfer" ou "Delete" — só o campo "Repository name" no topo.)*
 2. **Trocar `sba-site` para `sba-negocios-site`** → Save. O GitHub segura o redirect do nome antigo (não eterno).
-3. Me avisar aqui — abro a varredura (CLAUDE.md da unidade SBA, USO.md, `portfolio/MAPA-DO-PORTFOLIO.md`, `GOVERNANCA-REPOS-APP.md`, cofre, badges).
+3. Me avisar aqui — abro a varredura completa.
+> **🆕 Achado A-1 (handoff 2026-08-22):** o `escritorio-do-mou/portfolio/MAPA-DO-PORTFOLIO.md` chama este repo de **`site-sba-negocios`** (invertido do padrão D186 — tipo→raiz→projeto). Isso é ponteiro **fantasma**: não bate com o nome atual (`sba-site`) nem com o proposto (`sba-negocios-site`). A varredura que eu abrir ao seu OK vai corrigir isso junto — no escritório, via caixa D144.
 > **Pronto quando:** https://github.com/bitsuki1/sba-negocios-site abrir o repo.
 
 ## 2. 🟧 V2 · Google Search Console — provar que o site é seu e mandar o mapa do site (você aprovou; executar)
@@ -87,6 +88,7 @@ Cada uma reusa o layout de landing (`PaginaSolucao`). Pouco código novo, muito 
 4. **T-002 (opcional, no `TAREFAS-DO-DONO.md`):** se você tiver 1 foto do canteiro Congonhas do Campo e/ou 1 link para notícia externa, me passa — dou upgrade no bloco projeto-farol. Se não tiver, T-002 fecha com "seguir sem" e o bloco já publicado permanece (é honesto e funcional).
 5. **Depois de tudo acima:** onda 2 — blog/notícias, calculadora "quanto vale meu resíduo?" (lead magnet integrado ao n8n do hub), OG image específica por página-produto (M6).
 6. **Se quiser escalar rápido:** Google Ads B2G ("usina de tratamento de resíduos", "aterro sanitário destinação") e LinkedIn Ads mirando secretários/prefeitos. Decisão sua de budget.
+7. **🆕 Onda análoga para o Tema 1130** (rota `/recuperacao-tributaria`) — esta sessão só tocou o eixo Resíduos por sua ordem específica. O outro projeto ativo da SBA (Tema 1130 · recuperação de IRRF municipal) tem a mesma anatomia: title/description otimizáveis, sem FAQ, sem JSON-LD, sem sub-páginas long-tail. Aguarda seu "vai" — o padrão do V6 replica direto (aprovo pacote a-e, executo M1-like). Requer co-montar `sba-unidades-de-negocios` para não inventar números/dados (o dossiê PMO fica em `escritorio-do-mou/portfolio/sba/MAPA-DA-UNIDADE.md`; SSOT vivo em `sba-unidades-de-negocios/START-HERE-ORQUESTRADOR-TEMA-1130.md` régua v5.12).
 
 ---
 
