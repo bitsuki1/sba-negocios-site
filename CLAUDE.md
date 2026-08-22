@@ -38,3 +38,20 @@ Você é o **orquestrador do repo `sba-site`** (chapéu de PROJETO auxiliar, D10
 
 ## §7 — Ao fechar sessão
 Rodar `bash gate-fechamento.sh` até 🟩 verde (todos os 4 checks). Se o gate travar, resolver antes de sair — não `--no-verify`. Mesclar a branch em `main` pela via limpa (merge, nunca force-push). Depositar ACK no PMO se a tarefa foi trazida por ele.
+
+## §8 — Corpo de processos herdado do Escritório do MOU (ordem viva 2026-08-22)
+Trazido por PUXAR (HÍBRIDO/PUXAR, MOU 2026-06-28) por ordem viva do MOU: _"incorpore toda governação de projeto aqui nesse repo do site"_. O ÍNDICE + rastreabilidade (o que veio, de onde, quando, por que) vive em **`processos/HERDADO-DO-ESCRITORIO.md`** — leia PRIMEIRO se precisar de um processo herdado.
+
+**O que passou a estar à mão neste repo** (todos são **cópias 1:1** do escritório; SSOT segue no PMO — não edito aqui):
+- `processos/PROTOCOLO-HANDOFF-SEM-PERDAS.md` (D66) · `IGNICAO-PADRAO.md` (D109) · `CASACO-POR-TEMA.md` (D137) · `PADRAO-DE-REPO.md` · `PADRAO-OURO-MAPA-DE-PENDENCIAS.md` · `PLAYBOOK-ARRUMACAO-PROJETO.md` · `POLITICA-VIGENCIA.md` · `PREVENCAO-DE-PERDAS.md` · `MATRIZ-ADMISSAO-LICOES.md` (A-209) · `templates/TEMPLATE-MAPA-DE-PENDENCIAS.md`.
+- **Subagentes:** `.claude/agents/documentador` · `escrutinador` (D108 — anti-self-audit) · `curador`.
+- **Regras modulares:** `.claude/rules/linguagem-e-ferramentas.md` (D159/D160) · `ordem-normativa.md` (C36/C120) · `nomenclatura-repos.md` (D186) — lidas no boot.
+
+**O que NÃO foi puxado** (leio in-place no `escritorio-do-mou` co-montado): `AUDITORIA-TRIPLO-LIMPO.md` · `PROTOCOLO-AUDITORIA-ENCERRAMENTO.md` · `CODEX-DOS-PROCESSOS.md` · `GLOSSARIO.md` · skills e agentes do PMO que não fazem sentido em app/site. Justificativa em `processos/HERDADO-DO-ESCRITORIO.md`.
+
+**Reconciliação:** a cada mudança material no escritório (sinalizada em `MELHORIAS-A-REDISTRIBUIR.md` do PMO), rodar diff destes arquivos contra a fonte e trazer atualização em 1 commit "reconciliar processos herdados AAAA-MM-DD". Sem esse ciclo, o herdado envelhece — vira o modo de falha que o próprio `PREVENCAO-DE-PERDAS.md` cataloga.
+
+## §9 — Canais com o escritório (D144, os dois sentidos)
+- **`caixa-de-saida/para-escritorio/`** — cartas que este repo manda ao PMO. Padrão de nome: `AAAA-MM-DD_sba-site_<slug>.md`. O maestro carrega ao próximo co-monte. **Nunca escrevo direto em `escritorio-do-mou/`** — sempre pela caixa.
+- **`caixa-de-entrada/do-escritorio/`** — diretrizes do PMO que este repo aplica. Leio no boot. Aplicadas vão para `caixa-de-entrada/processados/` OU carregam `STATUS: APLICADA` no topo (MR-53). O `gate-fechamento.sh` §1 cobra.
+- **Carta viva pendente ao escritório:** `caixa-de-saida/para-escritorio/2026-08-22_sba-site_pedido-corpo-processos.md` — pede ao maestro homologação da curadoria feita neste repo.
