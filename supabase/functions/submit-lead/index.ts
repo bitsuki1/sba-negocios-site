@@ -19,12 +19,9 @@
 // Anti-spam 3 (rate-limit por IP — 5º mandato, 2026-08-13): antes do insert,
 // conta os leads do mesmo IP (header `x-forwarded-for`) nos últimos 10 minutos;
 // com 3 ou mais, responde 429. Verificado no schema real (2026-08-13): a tabela
-// `sba_leads` TEM `created_at` (timestamptz, default now()), mas NÃO tem coluna
-// de IP. Antes de deployar esta versão (decisão do orquestrador), rodar:
-//   alter table public.sba_leads add column if not exists ip text;
-//   create index if not exists sba_leads_ip_created_at_idx
-//     on public.sba_leads (ip, created_at desc);
-// Sem a coluna, o código degrada com segurança: a contagem falha ABERTA (loga e
+// `sba_leads` TEM `created_at` (timestamptz, default now()), mas NÃO tinha coluna
+// de IP. A migração foi aplicada e conferida em 2026-08-21 (coluna `ip` existe).
+// Ainda assim o código degrada com segurança: a contagem falha ABERTA (loga e
 // segue) e o insert cai num fallback sem `ip` — nenhum lead humano se perde.
 // ============================================================================
 import { createClient } from "jsr:@supabase/supabase-js@2";
@@ -42,12 +39,12 @@ function json(body, status = 200) {
   });
 }
 
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
+const CHAVE_RESEND = Deno.env.get("RESEND_API_KEY") ?? "";
 const NOTIFY_TO = Deno.env.get("LEAD_NOTIFY_TO") ?? "eduardo@saobentoservicos.com.br";
 const NOTIFY_FROM = Deno.env.get("LEAD_NOTIFY_FROM") ?? "SBA Negocios <onboarding@resend.dev>";
 
 async function notificar(lead) {
-  if (!RESEND_API_KEY) return;
+  if (!CHAVE_RESEND) return;
   try {
     const linhas = [
       `Tipo: ${lead.tipo}`,
@@ -63,7 +60,7 @@ async function notificar(lead) {
     const resp = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${RESEND_API_KEY}`,
+        "Authorization": `Bearer ${CHAVE_RESEND}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
