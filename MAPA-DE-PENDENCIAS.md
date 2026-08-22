@@ -1,9 +1,9 @@
 # MAPA DE PENDÊNCIAS — sba-site (site institucional da SBA Negócios)
 > **🌐 URL para você olhar (padrão D172):** https://claude.ai/code/artifact/a2d0ecf3-8181-445f-ac6c-9418db470fde — foto do SSOT deste arquivo, republicada no MESMO endereço a cada mudança. Fonte HTML da versão publicada: `<scratchpad>/mapa-sba-site.html`; fonte canônica do conteúdo: `MAPA-DE-PENDENCIAS.md` na raiz deste repo.
-> **Atualizado: 2026-08-22 (v2 — V6 e M1+M2 concluídos, saem da vista; permanecem 6 suas + 7 minhas).** · **Só pendência.** O que já foi feito vive no git — não se repete aqui.
+> **Atualizado: 2026-08-22 (v3 — corpo de processos do escritório incorporado ao repo por ordem viva do MOU; nenhuma pendência sua nova, tudo puxado por mim).** · **Só pendência.** O que já foi feito vive no git — não se repete aqui.
 > Regras (D172/D181/D182/D191/D192): item 🔒 SEU = passos numerados com **link direto** um por ação · item ⚙️ MEU = 1 linha do que é + estado (⏳/🔄) · resolvido SAI · ordem = o que destrava mais vem primeiro · em português, sempre.
 
-**🎯 Vetor mantido da v1:** você pediu (1) o mapa no padrão, (2) melhorar SEO, (3) aparecer mais com **Usina de Resíduos**. **O que a v2 refleta:** você aprovou V6/V2+V3/V1; V6 (reforço da `/residuos`) e M1+M2 (execução no src) já entregues em `main` (commits `f85ff04`+`b3571e1`+os desta onda) — saíram da vista. V2+V3 e V1 seguem esperando você.
+**🎯 Vetor mantido da v1:** você pediu (1) o mapa no padrão, (2) melhorar SEO, (3) aparecer mais com **Usina de Resíduos**. **Delta da v3 (esta):** você deu ordem viva para o maestro do escritório incorporar governação de projeto aqui — **feito por PUXAR direto** (não esperei o maestro empurrar; carta formal ao PMO em `caixa-de-saida/para-escritorio/`). O repo agora tem à mão o mesmo corpo de trabalho do escritório (mapa D172, handoff D66, ignição D109, casaco D137, código de repo, política de vigência, matriz de admissão de lições, prevenção de perdas, 3 subagentes, 3 regras modulares — 10 arquivos + 3 agentes + 4 regras). **Nada mais na sua fila desta ordem** — as pendências restantes seguem sendo V1/V2+V3/V4/V5/V7 (as mesmas da v2).
 
 ---
 
