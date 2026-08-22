@@ -46,6 +46,33 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Structured data — Organization (constante do site).
+         Ajuda o Google a mostrar cartão de conhecimento (logo/telefone/endereço).
+         Marcador data-site-schema NÃO deve ser removido em runtime; o schema
+         de página vive em <script data-page-schema> e é gerenciado por `applyPageSchema`. -->
+    <script type="application/ld+json" data-site-schema>
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "SBA Negócios",
+        "alternateName": "SBA",
+        "url": "https://sbanegocios.com.br",
+        "logo": "https://sbanegocios.com.br/apple-touch-icon.png",
+        "email": "eduardo@saobentoservicos.com.br",
+        "telephone": "+55-11-99157-4850",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rua XV de Novembro, 200 — 15º andar",
+          "addressLocality": "São Paulo",
+          "addressRegion": "SP",
+          "postalCode": "01013-000",
+          "addressCountry": "BR"
+        },
+        "areaServed": "BR",
+        "description": "A SBA Negócios estrutura projetos para os setores público e privado: recuperação tributária (Tema 1130 do STF) e resíduos & infraestrutura ambiental. Gestora que conecta as pontas — não executa obra."
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

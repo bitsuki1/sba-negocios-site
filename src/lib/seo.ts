@@ -50,3 +50,23 @@ export function applySeo(pathname: string) {
     document.head.querySelector('meta[name="robots"]')?.remove();
   }
 }
+
+/**
+ * Structured data (JSON-LD) por página — injetado no <head> com o marcador
+ * data-page-schema para permitir a substituição limpa ao trocar de rota.
+ * Passar `null` remove qualquer schema anterior sem deixar sujeira.
+ * O schema do Organization (constante do site) fica no index.html com o
+ * marcador data-site-schema — este helper NÃO toca nele.
+ */
+export function applyPageSchema(schema: object | null) {
+  // Remove qualquer script anterior desta rota.
+  document.head
+    .querySelectorAll("script[data-page-schema]")
+    .forEach((el) => el.remove());
+  if (!schema) return;
+  const el = document.createElement("script");
+  el.type = "application/ld+json";
+  el.dataset.pageSchema = "true";
+  el.textContent = JSON.stringify(schema);
+  document.head.appendChild(el);
+}
