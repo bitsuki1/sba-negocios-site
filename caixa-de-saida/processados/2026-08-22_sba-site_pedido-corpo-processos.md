@@ -61,7 +61,7 @@ Justificativa em `processos/HERDADO-DO-ESCRITORIO.md` §"O que NÃO foi trazido"
 ## Rastro no repo `sba-site`
 - Commit desta onda: `_(chega no push seguinte a esta carta)_`
 - Branch: `claude/governanca-sba-negocios-d4ec7i`
-- Mapa: `MAPA-DE-PENDENCIAS.md` v3 (Artifact D172 republicado no mesmo endereço https://claude.ai/code/artifact/a2d0ecf3-8181-445f-ac6c-9418db470fde).
+- Mapa: `MAPA-DE-PENDENCIAS.md` v3 (Artifact D172 republicado no mesmo endereço https://claude.ai/code/artifact/8bf55b35-ffa5-4c03-9257-67c3fa94f09d).
 - Registro entre sessões: linha nova em `REGISTRO-DE-INSTANCIAS.md` marcando este ciclo.
 
 _Encerro esta carta com o combinado do padrão D144: assim que o maestro processar, ela vai para `caixa-de-saida/processados/` (o maestro é quem move — não eu, para o rastro ficar do lado que aplicou)._
