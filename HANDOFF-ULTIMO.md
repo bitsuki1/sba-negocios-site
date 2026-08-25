@@ -58,7 +58,8 @@
 ## 4. Estado ao sair
 
 - **Segredos:** varri o HEAD inteiro **e** as 85 revisões do histórico. **Nada.** A única chave no código é `sb_publishable_…` do Supabase — **pública por desenho (D206)**, protegida por RLS. **Não é vazamento e não deve ser "consertada"**: mexer nela quebra o formulário sem ganho de segurança.
-- **CI:** verde. `linter-estado` passou nas últimas 11 execuções. As 3 falhas de "Deploy de produção" (07/08) eram do workflow **legado** do Pages e foram resolvidas na raiz em 13/08, quando o gatilho de push foi removido. **Não há CI vermelho pendente.**
+- **CI hoje:** verde. `linter-estado` (única esteira ativa) passou nas últimas 11 execuções, inclusive nos 2 merges desta passada. **Não há CI vermelho pendente.**
+- **CI histórico — anote isto:** o workflow `deploy-pages.yml` rodou **29 vezes e falhou 29 vezes. Zero sucessos, desde a estreia em 27/06.** Nunca publicou nada; o Pages era publicado à mão. Em 13/08 o gatilho de push foi **removido** — ou seja, o desfecho foi **silenciar, não consertar**, e isso não estava escrito em lugar nenhum. Não afeta a produção (que é Vercel), mas **recomendei ao escritório remover o workflow do repo**, não só silenciá-lo: enquanto existir, um `workflow_dispatch` distraído republica o site num host sem tráfego.
 - **Gate:** 🟩 nos 4 checks · **linter:** 🟩.
 - **Relatório ao escritório:** `caixa-de-saida/para-escritorio/2026-08-25_sba-site_fecho-para-selo.md`.
 
