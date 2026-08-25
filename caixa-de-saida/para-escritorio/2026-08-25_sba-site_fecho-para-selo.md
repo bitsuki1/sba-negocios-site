@@ -1,5 +1,5 @@
-# FECHO PARA O SELO — `sba-site` · 2026-08-25
-> **De:** orquestrador do `sba-site` (chapéu D104) · branch `claude/sba-site-fecho-selo-2026-08-25`
+# FECHO PARA O SELO — `sba-negocios-site` · 2026-08-25
+> **De:** orquestrador do `sba-negocios-site` (chapéu D104) · branch `claude/sba-site-fecho-selo-2026-08-25`
 > **Para:** torre / maestro do Escritório do MOU
 > **Ordem que me abriu:** *"vamos abrir SBA e Site sba… o site vamos selar apenas"* (ordem viva do dono, 25/08, via escritório). Passada de **regularização + fecho**, não de produto.
 > **Recomendação (adiantada, detalhe no §5):** ✅ **PODE SELAR** — com 3 limites declarados e 1 achado devolvido ao escritório.
@@ -181,7 +181,7 @@ $ bash linter-estado.sh              → 🟩 sem 🟥 · 0 avisos
 
 | aberto | por quê |
 |---|---|
-| **V1 rename** — o repo **continua `sba-site`** | 1 clique do dono. ⚠️ **A ordem supôs que T-001 "provavelmente já foi cumprida porque o repo se chama `sba-site`". A suposição está invertida:** `sba-site` é o nome **antigo**; o proposto pelo D186 é **`sba-negocios-site`**. Nada foi renomeado. |
+| ~~**V1 rename**~~ → ✅ **RESOLVIDO no fim do dia 25/08** | Quando escrevi este relatório o repo ainda era `sba-site` e eu registrei que a ordem tinha suposto o contrário. **O dono renomeou horas depois.** O repo é **`bitsuki1/sba-negocios-site`** e a varredura E-055 de ponteiros já rodou. Ver o adendo no fim deste relatório. |
 | **8 galhos seguros não apagados** | medi e declarei; apagar é ato do escritório/dono |
 | **V2 · V4 · V5 · V7** | dependem do dono; vivem no mapa com passo a passo e link |
 | **A-452** (o portfólio chama este repo de `site-sba-negocios`) | correção é do escritório. **Nota útil:** `site-sba-negocios` **é o nome do projeto na Vercel** — provavelmente daí veio a confusão. O repo nunca se chamou assim. |
@@ -200,8 +200,27 @@ $ bash linter-estado.sh              → 🟩 sem 🟥 · 0 avisos
 
 **O que peço ao escritório junto com o selo:**
 1. **Lavrar `regua-de-admissao.md`** no `.claude/rules/` do PMO (**A-453**) — é regra para todas as casas e hoje não tem arquivo.
-2. **Corrigir `site-sba-negocios` → `sba-site`** no `MAPA-DO-PORTFOLIO.md` (**A-452**), com a glosa de que `site-sba-negocios` é o nome do projeto **na Vercel**.
+2. **Corrigir o nome deste repo no `MAPA-DO-PORTFOLIO.md`** (**A-452**): lá está `site-sba-negocios`, que nunca existiu. **O nome correto e FINAL é `sba-negocios-site`** (o dono renomeou em 25/08 — não corrija para `sba-site`, que também já é passado). Vale a glosa de que `site-sba-negocios` é o nome do projeto **na Vercel**, provável origem da confusão.
 3. **Decidir a esteira** (o commit `7277402`) e **decidir o clique do robô `consolidar`**.
 4. **Considerar a vacina do §2** como regra: *quem sela mede onde o site mora*.
 
 > **Não me auto-selei** (E-071 — quem produz não certifica). O selo é da torre, depois de verificar na `main` o que está declarado aqui.
+
+
+---
+
+# 📌 ADENDO — 2026-08-25, fim do dia · O DONO RENOMEOU O REPO
+
+Depois que este relatório foi escrito e mesclado na `main`, o dono executou a **V1**.
+
+**`bitsuki1/sba-site` → `bitsuki1/sba-negocios-site`.**
+
+- **Confirmado pela API:** `id 1282269823`, criado em `2026-06-27`. É o **mesmo objeto** — **renomeado, não recriado**. Histórico, issues e o espelho do Lovable seguem intactos, exatamente como a regra **V-LOVABLE-RENAME** previa. Ninguém desconectou/reconectou nada.
+- **Varredura E-055 (3º tempo) — feita no mesmo turno, como prometido no mapa:** **39 ponteiros de identidade** corrigidos em **13 arquivos**, mais o `git remote` local, o campo `name` do `package.json` e um comentário obsoleto do `vite.config.ts`.
+- **O que NÃO renomeei, de propósito:** nomes **reais** de branch (`claude/sba-site-fecho-selo-2026-08-25`) e os nomes dos **arquivos de carta já existentes** (`2026-08-22_sba-site_…` e este aqui). Esses objetos **existem** com aquele nome e já estão referenciados por ele — trocá-los no texto criaria exatamente o ponteiro quebrado que a varredura serve para evitar. A convenção para cartas **novas** passou a ser `_sba-negocios-site_`.
+- **Produto:** os 2 únicos arquivos de produto tocados foram **não-funcionais** — o campo `name` do `package.json` e um **comentário** do `vite.config.ts` (a linha `base:` não foi tocada). O comentário era duplamente obsoleto: citava `BASE_PATH="/sba-site/"`, e o `deploy-pages.yml` nem define `BASE_PATH`.
+
+## ⚠️ Isto muda um pedido deste relatório
+O pedido nº 2 (**A-452**) dizia "corrigir `site-sba-negocios` no `MAPA-DO-PORTFOLIO.md`". **Corrija para `sba-negocios-site` — não para `sba-site`.** Os dois nomes antigos estão mortos agora, e o repo passou por dois nomes no mesmo dia. Detalhe e checklist na carta `2026-08-25_sba-negocios-site_rename-executado.md`.
+
+**A recomendação de selar não muda: ✅ PODE SELAR.** O rename fecha a maior pendência aberta do dono e nenhuma das 7 portas foi afetada — só ficaram com o nome novo.

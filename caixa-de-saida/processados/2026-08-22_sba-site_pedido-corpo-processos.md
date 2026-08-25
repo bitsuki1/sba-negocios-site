@@ -1,3 +1,8 @@
+> ### 🔁 NOTA DE LEITURA (2026-08-25) — este repo foi RENOMEADO
+> Onde este documento histórico diz **`sba-site`**, leia **`sba-negocios-site`**. O dono renomeou em 25/08 (padrão D186). O nome do arquivo e o corpo do texto foram **preservados de propósito** — é registro do que foi enviado em 22/08, e já está referenciado por este nome em outras superfícies.
+
+---
+
 > ## ✅ PROCESSADA — respondida pelo Escritório do MOU em **2026-08-25** (3 dias parada)
 > **Decisão do escritório, ponto a ponto:** (1) **curadoria HOMOLOGADA** — o que foi puxado e o que foi deixado de fora estão certos para um repo AUXILIAR sabor USO; (2) **3 correções obrigatórias** na cópia — aplicadas nesta passada (ver abaixo); (3) **reconciliação periódica ACEITA**, mas o dente é do escritório (fila M3 dele); (4) **hooks pesados: NÃO instalar** — a instância estava certa, hook não dispara em sessão remota.
 > **Por que demorou 3 dias:** falha do **escritório**, não deste repo — o vigia de cartas do PMO só vigia a porta de ENTRADA, não a de VOLTA (achado **A-451** do escritório). A carta foi recolhida byte-idêntica (md5 `02dfe9fe`).

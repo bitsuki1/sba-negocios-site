@@ -1,7 +1,11 @@
-# MAPA DE PENDÊNCIAS — sba-site (site institucional da SBA Negócios)
+# MAPA DE PENDÊNCIAS — sba-negocios-site (site institucional da SBA Negócios)
 > **🌐 URL para você olhar (padrão D172):** https://claude.ai/code/artifact/a2d0ecf3-8181-445f-ac6c-9418db470fde — foto deste arquivo, republicada no MESMO endereço a cada mudança.
-> **Atualizado: 2026-08-25 (v5 — passada de regularização e fecho para o selo).** · **Só pendência.** O que já foi feito vive no git — não se repete aqui.
+> **Atualizado: 2026-08-25 (v6 — o rename saiu; a V1 foi cumprida por você e a varredura de ponteiros já rodou).** · **Só pendência.** O que já foi feito vive no git — não se repete aqui.
 > **Régua de admissão (ordem do dono, 25/08):** *"as pendências são de problemas que atrapalham os demais projetos"*. Item que é **clique ou decisão de uma casa só** fica **neste** mapa. Só sobe ao **mapa do portfólio** o que **trava 2+ casas** ou é **regra para todas** — a lista do que subiu está no fim, em "O que mandei para o escritório".
+
+> ### ✅ Você renomeou o repositório — a V1 saiu daqui
+> O repo agora é **`sba-negocios-site`** (era `sba-site`). Fiz a varredura no mesmo turno: **39 ponteiros** corrigidos em 13 arquivos, mais o `package.json` e o endereço do repo na minha cópia local. **Você não precisa fazer mais nada por causa disso.**
+> Uma coisa só, para você saber: o endereço antigo (`github.com/bitsuki1/sba-site`) **ainda funciona por um tempo** — o GitHub segura o redirecionamento, mas não para sempre. Se você tiver esse link salvo em algum favorito ou anotação, vale trocar.
 
 **🎯 O que mudou nesta passada:** o escritório mandou **selar** este repo. Foi uma passada de **arrumação**, não de produto — não encostei em conteúdo, design nem texto do site. Achei e consertei **um erro grande de documentação**: o repo dizia que o site era publicado no GitHub Pages, e faz quase 2 meses que ele roda na **Vercel**. Detalhe no bloco ⚠️ logo abaixo, porque isso muda uma das suas pendências.
 
@@ -21,17 +25,7 @@ O `CLAUDE.md` e o `USO.md` deste repo diziam: *"produção no GitHub Pages, depl
 
 # 🔒 SUAS — só você faz (cada passo já traz o link do lugar exato)
 
-## 1. 🟧 V1 · Renomear o repositório para `sba-negocios-site`
-**O que é:** você já disse "sim, renomear agora". Falta o clique. O padrão da casa é a unidade vir na frente (`sba-negocios`) e o tipo no fim (`-site`).
-**Placar:** 1 clique seu + ~8 ponteiros que eu corrijo depois, no mesmo commit.
-**Passo a passo:**
-1. **Abrir as configurações do repositório** → https://github.com/bitsuki1/sba-site/settings *(NÃO clicar em "Transfer" nem "Delete" — só o campo "Repository name", no topo.)*
-2. **Trocar `sba-site` por `sba-negocios-site`** → Rename. O GitHub segura o redirecionamento do nome antigo por um tempo (não é eterno).
-3. Me avisar aqui — abro a varredura dos ponteiros no mesmo turno.
-> **Renomear é seguro para o espelho do Lovable** (já foi provado em outro repo). O que **nunca** se faz é desconectar/reconectar — isso cria repo novo.
-> **Pronto quando:** https://github.com/bitsuki1/sba-negocios-site abrir o repositório.
-
-## 2. 🟩 V3 (nova) · Conferir se a Vercel já está medindo as visitas — 2 minutos, antes de montar qualquer outra coisa
+## 1. 🟩 V3 (nova) · Conferir se a Vercel já está medindo as visitas — 2 minutos, antes de montar qualquer outra coisa
 **O que é:** o medidor da Vercel (`@vercel/analytics`) **já está instalado e ligado** no código do site. Antes, ele não servia para nada porque o site estava no GitHub Pages. Agora que está na Vercel, provavelmente **já está coletando**. Vale conferir antes de você montar o Google Analytics do zero.
 **Passo a passo:**
 1. **Abrir o projeto na Vercel** → https://vercel.com/bitsuki/site-sba-negocios
@@ -42,7 +36,7 @@ O `CLAUDE.md` e o `USO.md` deste repo diziam: *"produção no GitHub Pages, depl
 > **Rec.:** **faça esta antes da V2.** É a mais barata e pode apagar uma pendência inteira.
 > **Pronto quando:** você me disser qual das 3 telas apareceu.
 
-## 3. 🟧 V2 · Google Search Console — provar que o site é seu e mandar o mapa do site
+## 2. 🟧 V2 · Google Search Console — provar que o site é seu e mandar o mapa do site
 **O que é:** sem isso o Google não te conta o que as pessoas pesquisaram para chegar no site. É o primeiro degrau de qualquer trabalho de busca.
 **Placar:** 1 verificação + 1 sitemap enviado (~5 min).
 **Passo a passo:**
@@ -55,7 +49,7 @@ O `CLAUDE.md` e o `USO.md` deste repo diziam: *"produção no GitHub Pages, depl
 6. **Sitemaps** → New sitemap → digitar `sitemap.xml` → Submit.
 > **Pronto quando:** o card do domínio ficar verde e o sitemap aparecer como "Success".
 
-## 4. 🟨 V4 · Perfil de Empresa no Google — aparecer no mapa e na busca local
+## 3. 🟨 V4 · Perfil de Empresa no Google — aparecer no mapa e na busca local
 **O que é:** aquele card à direita do resultado quando alguém pesquisa o nome da empresa. Gratuito.
 **Passo a passo:**
 1. **Abrir** → https://www.google.com/business/ → Sign in.
@@ -67,7 +61,7 @@ O `CLAUDE.md` e o `USO.md` deste repo diziam: *"produção no GitHub Pages, depl
 > **Rec.:** depois da V2. É uma-vez-só.
 > **Pronto quando:** o card aparecer ao pesquisar "SBA Negócios".
 
-## 5. 🟨 V5 · Pedir ao parceiro CSTR um link de volta para o site
+## 4. 🟨 V5 · Pedir ao parceiro CSTR um link de volta para o site
 **O que é:** hoje a sua página de resíduos linka para o CSTR. Se o CSTR linkar de volta, o Google entende que os dois se reconhecem — e empresta reputação. É o link mais fácil que você tem à mão.
 **Passo a passo:**
 1. **Abrir** → https://cstr.eco.br
@@ -76,7 +70,7 @@ O `CLAUDE.md` e o `USO.md` deste repo diziam: *"produção no GitHub Pages, depl
 > **Rec.:** mande esta semana.
 > **Pronto quando:** aparecer o nome ou o logo da SBA em alguma página do CSTR.
 
-## 6. 🟨 V7 · Aprovar (ou não) 3 páginas novas para o tema Resíduos
+## 5. 🟨 V7 · Aprovar (ou não) 3 páginas novas para o tema Resíduos
 **O que é:** hoje "resíduos" é uma página só. Quem procura digita coisa específica. Cada busca dessas merece uma página própria — é assim que se multiplica a chance de aparecer.
 **As 3 propostas:**
 - `/residuos/consorcio-intermunicipal-residuos` — grupos de municípios (o modelo mais viável no interior).
@@ -121,7 +115,7 @@ _(M1, M2 e M10 saíram: feitos ou reclassificados. Vivem no git.)_
 
 | o que | por que sobe |
 |---|---|
-| **Ponteiro fantasma:** o mapa do portfólio chama este repo de `site-sba-negocios` — nome que não existe (o real é `sba-site`) | Faz sessão irmã montar o repo errado. Atrapalha outras casas. |
+| **Ponteiro fantasma:** o mapa do portfólio chama este repo de `site-sba-negocios` — nome que nunca existiu. **Alvo correto e final: `sba-negocios-site`** (avisei o escritório em carta própria, para ele não corrigir para `sba-site`, que também já é passado) | Faz sessão irmã montar o repo errado. Atrapalha outras casas. |
 | **Regra sem arquivo:** a régua de admissão de 25/08 não existe como arquivo no escritório | É **regra para todas** as casas; sem arquivo, cada sessão inventa a sua. |
 | **Vacina nova:** repo carregou por ~7 semanas um `CLAUDE.md` que apontava o alvo de deploy errado | Vale como regra para todas: quem sela um repo tem que **medir** onde o site mora, não acreditar no que o doc diz. |
 

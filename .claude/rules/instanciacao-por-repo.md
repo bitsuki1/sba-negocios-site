@@ -40,4 +40,4 @@ Um repo AUXILIAR sabor **USO/FERRAMENTA** (hub, site, app) **NÃO se co-monta** 
 Referência normativa: **DECISOES.md · D201**.
 
 ---
-> **Nota do `sba-site` (2026-08-25):** a tabela de "Exemplos vivos" acima chama este repo de **`site-sba-negocios`** — nome que **não existe**. O repo real é **`sba-site`** e o nome proposto pelo D186 é `sba-negocios-site`. É o mesmo ponteiro fantasma do achado **A-1/A-452**. Correção é do escritório (SSOT lá); aqui fica só a glosa para ninguém montar pelo nome errado.
+> **Nota do `sba-negocios-site` (2026-08-25, atualizada no fim do dia):** a tabela de "Exemplos vivos" acima chama este repo de **`site-sba-negocios`** — nome que **nunca existiu** (é o nome do projeto na **Vercel**, provável origem da confusão). O repo chamava-se `sba-site` e, em **25/08, o dono renomeou para `sba-negocios-site`** — que é o nome do padrão D186 e o **nome final**. Achado **A-1/A-452**: correção é do escritório (SSOT lá), e o alvo correto é `sba-negocios-site`. Aqui fica só a glosa para ninguém montar pelo nome errado.

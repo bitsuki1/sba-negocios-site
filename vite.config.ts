@@ -4,8 +4,11 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // Caminho base: "/" em dev/Vercel; no GitHub Pages (projeto) o workflow
-  // define BASE_PATH="/sba-site/" para servir sob o subcaminho.
+  // Caminho base: "/" — a producao roda na VERCEL no apex sbanegocios.com.br.
+  // BASE_PATH so existiria para o GitHub Pages de projeto (subcaminho), que e
+  // LEGADO: o deploy-pages.yml nem define BASE_PATH (builda em "/") e teve o
+  // gatilho de push removido em 2026-08-13. Comentario corrigido em 25/08 —
+  // citava "/sba-site/", nome que nao existe mais (repo = sba-negocios-site).
   base: process.env.BASE_PATH || "/",
   server: {
     host: "::",

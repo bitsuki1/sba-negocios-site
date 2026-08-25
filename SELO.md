@@ -1,4 +1,4 @@
-# SELO DO KIT DE GOVERNANÇA — sba-site (D196)
+# SELO DO KIT DE GOVERNANÇA — sba-negocios-site (D196)
 > **⚠️ Isto NÃO é um selo de fecho de onda (D194).** A unidade SBA Negócios **ainda NÃO está selada** — ela consta como onda pendente na `escritorio-do-mou/SELOS-DE-FECHO.md` §"Fila".
 > Este arquivo é o **TAG do KIT** (D196): marca que este repo-app carrega o **kit-repo-app** aplicado — identidade + canal de tarefas + gate + registro + settings + robô "chega na main" (quando aplicável).
 > Quando a unidade SBA for selada (onda fechar), este arquivo GANHA a seção "Selo de Onda" com o nome do selo emitido em `SELOS-DE-FECHO.md`. Até lá, só o kit.
@@ -8,7 +8,7 @@
 | item | arquivo | estado | observação |
 |---|---|---|---|
 | identidade + contrato D195 + regras de espelho | `CLAUDE.md` | ✅ presente | criado nesta onda |
-| canal de tarefas (a "API/caixa" do dono, D195) | `TAREFAS-DO-DONO.md` | ✅ presente | em 25/08 a T-001 (rename D186) **saiu daqui por reclassificação** — é decisão do dono, foi para o `MAPA-DE-PENDENCIAS.md` como **V1**. Aberta restante: T-002 (opcional). ⚠️ o rename **não foi feito**; o repo segue `sba-site` |
+| canal de tarefas (a "API/caixa" do dono, D195) | `TAREFAS-DO-DONO.md` | ✅ presente | em 25/08 a T-001 (rename D186) **saiu daqui por reclassificação** — é decisão do dono, foi para o `MAPA-DE-PENDENCIAS.md` como **V1**. ✅ **T-001 CUMPRIDA em 25/08** — o dono renomeou; o repo é `bitsuki1/sba-negocios-site` e a varredura de ponteiros rodou no mesmo turno (E-055). Aberta restante: T-002 (opcional). |
 | porta de fecho | `gate-fechamento.sh` | ✅ presente (universal ᵁ) | herdado do kit-clone A-206; governança a MAIS que o `gate-app.sh` enxuto — aceita pela variância ᵁ do `GOVERNANCA-REPOS-APP.md` |
 | linter de estado | `linter-estado.sh` | ✅ presente | herdado do kit-clone A-206 |
 | registro entre sessões | `REGISTRO-DE-INSTANCIAS.md` | ✅ presente | criado nesta onda; linha ABERTA da governança em curso |

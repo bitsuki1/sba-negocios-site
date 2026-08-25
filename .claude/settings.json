@@ -1,5 +1,5 @@
 {
-  "//": "settings do repo-app sba-site (kit D196). Endurecido em 2026-08-25 (porta P5 do fecho para o selo). Esta sessao NAO escreve fora do proprio repo: o escritorio (PMO) e SSOT de processo, o keepee-facilities e territorio do Atlas (D187), e o repo de NEGOCIO da unidade SBA nao se co-monta com o auxiliar (D201) — se um dia for co-montado por engano, a escrita fica bloqueada por caminho. Canal correto para todos eles: deposito em caixa-de-saida/para-escritorio/ (D144).",
+  "//": "settings do repo-app sba-negocios-site (kit D196). Endurecido em 2026-08-25 (porta P5 do fecho para o selo). Esta sessao NAO escreve fora do proprio repo: o escritorio (PMO) e SSOT de processo, o keepee-facilities e territorio do Atlas (D187), e o repo de NEGOCIO da unidade SBA nao se co-monta com o auxiliar (D201) — se um dia for co-montado por engano, a escrita fica bloqueada por caminho. Canal correto para todos eles: deposito em caixa-de-saida/para-escritorio/ (D144).",
   "permissions": {
     "deny": [
       "Edit(**/escritorio-do-mou/**)",
