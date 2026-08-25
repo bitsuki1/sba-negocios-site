@@ -1,84 +1,124 @@
 # MAPA DE PENDÊNCIAS — sba-negocios-site (site institucional da SBA Negócios)
-> **🌐 URL para você olhar (padrão D172):** https://claude.ai/code/artifact/a2d0ecf3-8181-445f-ac6c-9418db470fde — foto deste arquivo, republicada no MESMO endereço a cada mudança.
-> **Atualizado: 2026-08-25 (v6 — o rename saiu; a V1 foi cumprida por você e a varredura de ponteiros já rodou).** · **Só pendência.** O que já foi feito vive no git — não se repete aqui.
-> **Régua de admissão (ordem do dono, 25/08):** *"as pendências são de problemas que atrapalham os demais projetos"*. Item que é **clique ou decisão de uma casa só** fica **neste** mapa. Só sobe ao **mapa do portfólio** o que **trava 2+ casas** ou é **regra para todas** — a lista do que subiu está no fim, em "O que mandei para o escritório".
-
-> ### ✅ Você renomeou o repositório — a V1 saiu daqui
-> O repo agora é **`sba-negocios-site`** (era `sba-site`). Fiz a varredura no mesmo turno: **39 ponteiros** corrigidos em 13 arquivos, mais o `package.json` e o endereço do repo na minha cópia local. **Você não precisa fazer mais nada por causa disso.**
-> Uma coisa só, para você saber: o endereço antigo (`github.com/bitsuki1/sba-site`) **ainda funciona por um tempo** — o GitHub segura o redirecionamento, mas não para sempre. Se você tiver esse link salvo em algum favorito ou anotação, vale trocar.
-
-**🎯 O que mudou nesta passada:** o escritório mandou **selar** este repo. Foi uma passada de **arrumação**, não de produto — não encostei em conteúdo, design nem texto do site. Achei e consertei **um erro grande de documentação**: o repo dizia que o site era publicado no GitHub Pages, e faz quase 2 meses que ele roda na **Vercel**. Detalhe no bloco ⚠️ logo abaixo, porque isso muda uma das suas pendências.
+> **🌐 URL para você olhar (padrão D172):** https://claude.ai/code/artifact/8bf55b35-ffa5-4c03-9257-67c3fa94f09d — foto deste arquivo, republicada no MESMO endereço a cada mudança.
+> ⚠️ **Endereço NOVO desde 2026-08-25.** O anterior (`…a2d0ecf3…`) foi **apagado** e não abre mais — se você tiver ele salvo, troque pelo de cima. O endereço novo é o estável daqui pra frente.
+> **Atualizado: 2026-08-25 (v7 — estudo de SEO das 2 landings + Ads + ferramentas).** · **Só pendência.** O que já foi feito vive no git.
+> **Régua de admissão (sua ordem, 25/08):** só sobe ao mapa do portfólio o que trava 2+ casas ou é regra para todas. Tudo aqui é **desta casa** — é a sua fila do site, não a fila do portfólio.
+> **O estudo completo** (o porquê de cada item, com as fontes) está em `docs/ESTUDO-SEO-ADS-2026-08-25.md`. Este mapa é só a fila.
 
 ---
 
-## ⚠️ Leia isto primeiro — corrigi um dado errado que estava te custando dinheiro à toa
+## 🧭 LEIA ISTO PRIMEIRO — a ordem importa mais que a lista
 
-O `CLAUDE.md` e o `USO.md` deste repo diziam: *"produção no GitHub Pages, deploy manual"*. **Está errado desde 3 de julho.** O site roda na **Vercel** e se publica sozinho a cada merge na `main`.
+Você pediu SEO e pensou em Ads. Depois de estudar, a recomendação muda a ordem natural, e vale explicar em 30 segundos por quê:
 
-**Como eu provei:** o endereço `sbanegocios.com.br` aponta hoje para o número **216.198.79.1** — que é exatamente o número da Vercel escrito dentro do seu próprio script de deploy. O laudo do apagão de 17/08 também fechou com *"apex → 200, servidor: Vercel"*.
+**Anúncio no Google não cria procura — ele compra a procura que já existe.** Se pouca gente procura "recuperação de IRRF do município", nenhum orçamento muda isso. E hoje **nós não sabemos** quanta gente procura, porque o site nunca foi ligado à ferramenta que mede isso.
 
-**O que isso muda para você, na prática:**
-- **Publicar é dar merge na `main`.** Ninguém precisa rodar script nenhum.
-- **A sua pendência de medição (era a V3) encolheu.** O motivo dela era *"o medidor da Vercel não funciona no GitHub Pages"*. Como o site **está** na Vercel, e o medidor **já está ligado no código**, é bem provável que você **já esteja medindo** e não saiba. Virou a **V3 nova** abaixo: 1 conferida de 2 minutos antes de você gastar tempo montando o Google Analytics.
+Então a ordem é:
+
+> **1º descobrir se tem procura (grátis) → 2º arrumar as páginas para capturar → 3º só então decidir se paga anúncio.**
+
+E tem uma quarta coisa, que eu achei no meio do estudo e que provavelmente vale mais que as três juntas para o lado dos resíduos: **existe uma lista pública com 39 consórcios de lixo já organizados e com dinheiro federal para contratar projeto.** Está no item 5.
 
 ---
 
-# 🔒 SUAS — só você faz (cada passo já traz o link do lugar exato)
+# 🔒 SUAS — na ordem recomendada
 
-## 1. 🟩 V3 (nova) · Conferir se a Vercel já está medindo as visitas — 2 minutos, antes de montar qualquer outra coisa
-**O que é:** o medidor da Vercel (`@vercel/analytics`) **já está instalado e ligado** no código do site. Antes, ele não servia para nada porque o site estava no GitHub Pages. Agora que está na Vercel, provavelmente **já está coletando**. Vale conferir antes de você montar o Google Analytics do zero.
+## 1. 🟩 Olhar o painel da Vercel — 2 minutos, e pode apagar uma pendência inteira
+**O que é:** o medidor de visitas da Vercel **já está instalado no site** e provavelmente já está coletando. Antes de montar Google Analytics do zero, vale conferir se você já tem o dado.
 **Passo a passo:**
-1. **Abrir o projeto na Vercel** → https://vercel.com/bitsuki/site-sba-negocios
-2. Clicar na aba **Analytics** (no topo).
-3. **Se aparecer gráfico com visitas** → você já está medindo. Me avisa e eu **fecho a pendência do Google Analytics** (economiza seu tempo).
-4. **Se aparecer um botão "Enable"** → clicar. É 1 clique, e passa a medir a partir dali.
-5. **Se disser que precisa de plano pago** → me avisa, aí sim vale montar o Google Analytics (gratuito) e eu sigo o plano antigo.
-> **Rec.:** **faça esta antes da V2.** É a mais barata e pode apagar uma pendência inteira.
+1. Abrir → https://vercel.com/bitsuki/site-sba-negocios
+2. Clicar na aba **Analytics**, no topo.
+3. **Se aparecer gráfico com visitas** → me avise; eu **apago a pendência do Google Analytics** e você economiza o trabalho.
+4. **Se aparecer um botão "Enable"** → clicar. É 1 clique e passa a medir dali em diante.
+5. **Se pedir plano pago** → me avise; aí sim vale o Google Analytics, que é grátis.
 > **Pronto quando:** você me disser qual das 3 telas apareceu.
 
-## 2. 🟧 V2 · Google Search Console — provar que o site é seu e mandar o mapa do site
-**O que é:** sem isso o Google não te conta o que as pessoas pesquisaram para chegar no site. É o primeiro degrau de qualquer trabalho de busca.
-**Placar:** 1 verificação + 1 sitemap enviado (~5 min).
+## 2. 🟧 Google Search Console — o degrau zero. Sem ele, tudo o resto é chute
+**O que é:** é a ferramenta que mostra **o que as pessoas realmente digitaram** no Google antes de cair no site. É de graça, é do Google, e é ela que vai dizer se vale ou não gastar com anúncio. Enquanto ela não roda, ninguém — nem eu — sabe se existe procura pelos seus temas.
+**Placar:** ~5 minutos + esperar uns dias juntar dado.
 **Passo a passo:**
-1. **Abrir** → https://search.google.com/search-console (com a conta Google dona do domínio).
+1. Abrir → https://search.google.com/search-console (com a conta Google dona do domínio).
 2. **Add property** → escolher **Domain** (não "URL prefix") → digitar `sbanegocios.com.br` → Continue.
-3. O Google mostra um valor `google-site-verification=…` — copiar.
-4. **Colar na GoDaddy** → https://dcc.godaddy.com/manage/sbanegocios.com.br/dns → Add record → Tipo **TXT**, Nome **@**, Valor = o que você copiou → Save.
-   ⚠️ **Só adicione o TXT. Não encoste no registro `A` do `@`** (o `216.198.79.1`) — foi exatamente mexer ali que derrubou o site em 17/08.
+3. O Google mostra um valor que começa com `google-site-verification=…` — copiar.
+4. Ir na GoDaddy → https://dcc.godaddy.com/manage/sbanegocios.com.br/dns → **Add record** → Tipo **TXT**, Nome **@**, Valor = o que copiou → Save.
+   > ⚠️ **Só adicione o TXT. Não encoste no registro `A` do `@`** (o `216.198.79.1`). Foi mexer nesse registro que derrubou o site em 17/08.
 5. Voltar ao Search Console → **Verify**. Se disser que não achou, esperar ~15 min e tentar de novo.
-6. **Sitemaps** → New sitemap → digitar `sitemap.xml` → Submit.
-> **Pronto quando:** o card do domínio ficar verde e o sitemap aparecer como "Success".
+6. **Sitemaps** (menu esquerdo) → New sitemap → digitar `sitemap.xml` → Submit.
+> **Pronto quando:** o card do domínio ficar verde e o sitemap aparecer "Success". **Me avise** — daí a ~2 semanas eu leio os dados e te digo, com número real, se Ads faz sentido.
 
-## 3. 🟨 V4 · Perfil de Empresa no Google — aparecer no mapa e na busca local
-**O que é:** aquele card à direita do resultado quando alguém pesquisa o nome da empresa. Gratuito.
+## 3. 🟩 Aprovar o pacote de correções das 2 landings — é o trabalho que eu faço, só preciso do seu "vai"
+**O que é:** o estudo achou problemas concretos nas duas páginas. Nenhum deles é de conteúdo — eu **não** vou mexer no que você escreveu. São problemas de *estrutura*, que é o que o Google lê.
+
+**O achado principal, em português:** o **título** da página de resíduos promete "Usina de Resíduos Sólidos Urbanos para prefeituras e consórcios", mas o **texto grande** que abre a página diz *"Resíduo não é só custo. Bem aproveitado, vira receita."* — uma frase de efeito que não repete **nenhuma** das palavras que alguém digitaria. A página promete um assunto e abre com outro.
+**A correção não apaga a frase boa** — ela vira o subtítulo, um degrau abaixo. Não se perde nada.
+
+**O pacote (a-d):**
+- **(a) Trocar o texto de abertura das 2 páginas** para conter as palavras que as pessoas procuram; a frase de efeito atual vira subtítulo.
+- **(b) Criar o FAQ da página do Tema 1130** — ela **não tem**, e é o tema com mais dúvida real ("precisa de processo judicial?", "quantos anos para trás?", "o Tribunal de Contas questiona?"). A de resíduos já ganhou FAQ em agosto; a tributária ficou para trás.
+- **(c) Ligar o dado estruturado na página do Tema 1130** — é o código que faz o Google mostrar as perguntas direto no resultado da busca. **A mecânica já existe e funciona** na página de resíduos; é reaproveitar.
+- **(d) Subir a prioridade de `/residuos`** no mapa do site (hoje está *abaixo* da tributária, sendo que é o eixo que você quer crescer).
+> **Rec.:** **aprovar o pacote inteiro (a-d).** É a maior relação ganho/esforço da lista e não toca no seu texto.
+> **Pronto quando:** você responder "vai o pacote" (ou disser quais letras quer).
+
+## 4. 🟨 Decidir o que fazer com o guia que está escondido
+**O que é:** a melhor peça de conteúdo do site — o `/guia-etapas`, com as 13 etapas, os 4 caminhos do dinheiro e o que se assina — está **fechado por senha e invisível para o Google, de propósito**.
+Fechar pode estar certíssimo (é material comercial). Mas o efeito é que **o seu melhor conteúdo não trabalha para você** no Google. Se um concorrente publicar um guia parecido aberto, ele aparece e você não.
+**A proposta:** manter o guia fechado como está **e** publicar uma **versão pública resumida** — sem preços e sem o detalhe comercial, só a explicação do Tema 1130, as etapas em linhas gerais e as dúvidas frequentes. Quem quiser o detalhe pede acesso.
+> **É decisão sua, não minha** — envolve o quanto você quer expor do comercial.
+> **Pronto quando:** você responder "pode fazer a versão pública" ou "deixa fechado".
+
+## 5. 🟨 A lista dos 39 consórcios — provavelmente vale mais que todo o resto desta página
+**O que é:** achei isto pesquisando o setor. O Governo Federal (PPI + BNDES + Caixa) abriu um chamamento para ajudar consórcios de municípios a **estruturar concessões de lixo urbano**. De 86 inscritos, **39 foram habilitados** — somando **511 municípios em 14 estados**. **A lista é pública e tem nome.**
+
+**Por que isso é grande:** um consórcio dessa lista já é, por definição, **organizado juridicamente**, **com escala** (mínimo 150 mil habitantes), **com dinheiro federal para contratar o projeto** e **comprometido a cobrar pelo serviço depois**. É exatamente o seu cliente — com nome e estado, numa lista de graça.
+
+> Nenhuma campanha de anúncio vai te entregar 39 clientes qualificados. **Essa lista entrega.**
+
 **Passo a passo:**
-1. **Abrir** → https://www.google.com/business/ → Sign in.
+1. Abrir → https://ppi.gov.br e procurar por "consórcios habilitados resíduos sólidos urbanos".
+2. Ver a lista e marcar os consórcios dos estados onde a SBA já tem parceiro/atuação.
+3. Me dizer quais te interessam — eu monto o material de abordagem em cima do que o site já tem.
+> **Isto não substitui o SEO:** o consórcio que você contatar **vai pesquisar a SBA no Google antes de responder**. As páginas precisam estar boas para sustentar a prospecção. São papéis diferentes.
+> **Pronto quando:** você me disser quais estados/consórcios quer atacar primeiro.
+
+## 6. 🟨 Perfil de Empresa no Google
+**O que é:** o card à direita do resultado quando alguém pesquisa "SBA Negócios". Gratuito, uma-vez-só.
+**Passo a passo:**
+1. Abrir → https://www.google.com/business/ → Sign in.
 2. **Add business → Add single business** → nome "SBA Negócios".
 3. **Categoria** → "Consultor de gestão" ou "Consultoria empresarial".
-4. **Endereço** → o mesmo que está no site: Rua XV de Novembro, 200 — 15º andar, Sé/SP. (Se preferir não expor endereço, escolher "atende clientes na área".)
-5. Provar por telefone ou carta (o Google escolhe).
-6. Preencher telefone, site, horário, logo e 2–3 fotos.
-> **Rec.:** depois da V2. É uma-vez-só.
+4. Endereço → o que está no site (Rua XV de Novembro, 200 — 15º andar, Sé/SP). Se preferir não expor, escolher "atende clientes na área".
+5. Provar por telefone ou carta. Preencher telefone, site, horário, logo e 2–3 fotos.
 > **Pronto quando:** o card aparecer ao pesquisar "SBA Negócios".
 
-## 4. 🟨 V5 · Pedir ao parceiro CSTR um link de volta para o site
-**O que é:** hoje a sua página de resíduos linka para o CSTR. Se o CSTR linkar de volta, o Google entende que os dois se reconhecem — e empresta reputação. É o link mais fácil que você tem à mão.
+## 7. 🟨 Pedir ao CSTR o link de volta
+**O que é:** sua página de resíduos linka para o CSTR. Se o CSTR linkar de volta, o Google entende que os dois se reconhecem e empresta reputação. É o link mais fácil que você tem à mão.
 **Passo a passo:**
-1. **Abrir** → https://cstr.eco.br
-2. Procurar "Parceiros" ou "Sobre" e ver se a SBA já está lá.
-3. Mandar ao contato do CSTR: *"Vocês teriam como incluir a SBA Negócios (https://sbanegocios.com.br) na página de parceiros? Fortalece o Google dos dois lados."*
-> **Rec.:** mande esta semana.
+1. Abrir → https://cstr.eco.br e ver se a SBA já está em "Parceiros".
+2. Mandar ao contato: *"Vocês teriam como incluir a SBA Negócios (https://sbanegocios.com.br) na página de parceiros? Fortalece o Google dos dois lados."*
 > **Pronto quando:** aparecer o nome ou o logo da SBA em alguma página do CSTR.
 
-## 5. 🟨 V7 · Aprovar (ou não) 3 páginas novas para o tema Resíduos
-**O que é:** hoje "resíduos" é uma página só. Quem procura digita coisa específica. Cada busca dessas merece uma página própria — é assim que se multiplica a chance de aparecer.
-**As 3 propostas:**
-- `/residuos/consorcio-intermunicipal-residuos` — grupos de municípios (o modelo mais viável no interior).
-- `/residuos/rsu-prefeitura` — prefeituras pequenas e médias procurando destinação legal.
-- `/residuos/usina-biometano-municipal` — prefeituras que já têm coleta seletiva.
-Cada uma reaproveita o layout que já existe. Pouco código novo, bastante ganho.
-> **Rec.:** **aprovar as 3.** Se quiser fatiar, começo pela **de consórcio** — é o tema mais quente das prefeituras.
-> **Pronto quando:** você responder "vai as 3" ou "vai só a de consórcio". Começo no mesmo turno.
+## 8. 🟨 Aprovar (ou não) as 3 páginas novas de resíduos
+**O que é:** hoje "resíduos" é uma página só, mas quem procura digita coisa específica. Cada busca dessas merece página própria.
+- `/residuos/consorcio-intermunicipal-residuos` — grupos de municípios (**conversa direto com o item 5**)
+- `/residuos/rsu-prefeitura` — prefeituras pequenas e médias
+- `/residuos/usina-biometano-municipal` — quem já tem coleta seletiva
+> **Rec.:** aprovar as 3. Se quiser fatiar, **começo pela de consórcio** — é a que casa com a lista dos 39.
+> **Pronto quando:** você responder "vai as 3" ou "vai só a de consórcio".
+
+---
+
+# ⏸️ ANÚNCIOS PAGOS — minha recomendação é ESPERAR, e explico por quê
+
+Você levantou a campanha de Ads. Estudei e **recomendo não começar agora**. Não é "não" — é "ainda não", por quatro motivos concretos:
+
+1. **Você compraria sem saber o preço.** Anúncio captura procura existente. Não sabemos se ela existe — e o **item 2 (Search Console) responde isso de graça em ~2 semanas.**
+2. **O público é minúsculo por natureza.** São 5.570 municípios, com 2 ou 3 decisores cada. Isso não é mercado de volume de busca — é mercado de **lista nominal**. Daí o item 5 valer tanto.
+3. **O clique não encurta a licitação.** Compra de prefeitura passa pela Lei 14.133. O anúncio, no máximo, gera o pedido de estudo — que a página já oferece de graça.
+4. **⚠️ Tem uma questão de OAB que precisa da sua atenção.** A página diz que o estudo é *"conduzido por advogados e contadores especializados"*. Isso liga o serviço à advocacia, e publicidade de advocacia é regulada: o **Provimento 205/2021 da OAB permite** anunciar no Google, mas **proíbe prometer resultado** e exige tom informativo. *"Recupere milhões para sua cidade"* seria problema; *"Estudo sem custo sobre o Tema 1130 para municípios"* é informativo.
+   > **Eu não sou advogado e isto não é parecer.** É um alerta para você **mostrar o texto do anúncio aos advogados que já trabalham com você** antes de publicar. Barato perguntar, caro errar.
+
+**Quando revisitar:** assim que o Search Console tiver ~30 dias de dado. Aí eu volto com número real e a decisão fica fácil. Se você quiser testar antes mesmo assim, o desenho de menor risco (orçamento, palavras negativas, o que desligar) está pronto em `docs/ESTUDO-SEO-ADS-2026-08-25.md` §4.
 
 ---
 
@@ -86,40 +126,40 @@ Cada uma reaproveita o layout que já existe. Pouco código novo, bastante ganho
 
 | id | o que é | estado |
 |---|---|---|
-| M3 | Página `/residuos/consorcio-intermunicipal-residuos` | ⏳ depende da V7 |
-| M4 | Página `/residuos/rsu-prefeitura` | ⏳ depende da V7 |
-| M5 | Página `/residuos/usina-biometano-municipal` | ⏳ depende da V7 |
-| M6 | Imagem de compartilhamento própria do tema Resíduos (hoje usa a da home) | ⏳ posso fazer, baixa prioridade |
-| M7 | Data de atualização automática no mapa do site (`sitemap.xml`) | ⏳ posso fazer |
-| M8 | Ligar o Google Analytics no site | ⏸️ **em espera pela V3 nova** — pode não ser mais necessário |
+| M12 | Trocar o texto de abertura (H1) das 2 landings | ⏳ depende do item 3 |
+| M13 | FAQ da página do Tema 1130 (6 perguntas do setor) | ⏳ depende do item 3 |
+| M14 | Dado estruturado na página do Tema 1130 (reusa o que já existe) | ⏳ depende do item 3 |
+| M15 | Prioridade de `/residuos` no mapa do site | ⏳ depende do item 3 |
+| M16 | Versão pública resumida do guia de etapas | ⏳ depende do item 4 |
+| M3/M4/M5 | As 3 páginas novas de resíduos | ⏳ depende do item 8 |
+| M6 | Imagem de compartilhamento própria do tema Resíduos | ⏳ posso fazer, baixa prioridade |
+| M7 | Data de atualização automática no mapa do site | ⏳ posso fazer |
+| M8 | Ligar o Google Analytics | ⏸️ em espera pelo item 1 — pode não ser necessário |
 | M9 | Medir a velocidade do site e corrigir as 3 piores coisas | ⏳ posso fazer |
-| M11 | Aterrissar (ou descartar) a economia de CI presa num galho morto — ver "Limites" | ⏳ depende do escritório |
-
-_(M1, M2 e M10 saíram: feitos ou reclassificados. Vivem no git.)_
+| M11 | Economia de CI presa num galho morto (decisão do escritório) | ⏳ depende do escritório |
 
 ---
 
 # 📌 LIMITES DECLARADOS — não são pendência, e não se apagam
 
-- **Robô "chega na main" (D170) não existe neste repo.** Instalar exige um segredo de Actions configurado no próprio repositório = 1 clique seu. Pela régua de 25/08, **clique de uma casa só não vira pendência sua** — fica aqui declarado, e **o escritório decide** se vale o clique. Nada trava por causa disso.
-- **Galho morto com trabalho dentro.** O galho `claude/instance-concurrency-94pbeg` carrega 1 commit que **nunca aterrissou**: tira o gatilho de "pull request" do robô de checagem, cortando ~50% do consumo de Actions. **Não apliquei** porque reduz a checagem automática nos PRs — é decisão de esteira, e esteira é do escritório. **Não apagar esse galho** enquanto não for decidido (é o M11).
-- **Não mexo em produto sem sua ordem** — conteúdo, design e texto do site ficaram intocados nesta passada. V7 é a via limpa para você despachar mais produto.
-- **Não toco Supabase nem Vercel** por esta sessão. A V3 nova é você olhando um painel — eu não mexo lá.
-- **Se um dia eu achar senha ou chave dentro do git aqui**, a ação é sua (rotacionar), não minha. Nesta passada **varri e não achei nada** — detalhe no relatório ao escritório.
-- **A chave do Supabase que aparece no código é pública de propósito** (`sb_publishable_…`). Ela vai embutida no site por desenho; quem protege o banco é a regra de acesso (RLS), não o segredo dessa chave. **Não é vazamento e não deve ser "consertada"** — trocar isso quebraria o formulário do site sem ganho de segurança.
+- **Não inventei nenhum número de busca.** Não tenho ferramenta de volume nesta sessão. Quem responde "quantas pessoas procuram isso" é o Search Console (dado real) e o Planejador de Palavras-chave (faixas). **É por isso que o item 2 vem antes de tudo.**
+- **Não abri o site nem os concorrentes ao vivo** — a saída de internet desta sessão é bloqueada pelo proxy. A leitura de concorrentes veio de busca, não de medição de posição.
+- **Não mexi em nenhuma página.** O estudo é lente, não execução. Nada de produto foi alterado — espero o seu "vai" no item 3.
+- **Não toco Supabase nem Vercel.** O item 1 é você olhando um painel; eu não entro lá.
+- **Não sou advogado.** A observação sobre OAB é sinalização de risco para validar com os seus, não parecer jurídico.
+- **A chave do Supabase que aparece no código é pública de propósito** (`sb_publishable_`). Protegida por regra de acesso (RLS). **Não é vazamento e não deve ser "consertada"** — mexer nela quebra o formulário sem ganho de segurança.
 
 ---
 
-# 📮 O que mandei para o escritório (o que passou na régua de admissão)
-> Estes **saíram** do seu mapa porque não são clique seu — são coisa do escritório, e afetam mais de uma casa.
+# 📮 O que mandei para o escritório (passou na régua de admissão)
 
 | o que | por que sobe |
 |---|---|
-| **Ponteiro fantasma:** o mapa do portfólio chama este repo de `site-sba-negocios` — nome que nunca existiu. **Alvo correto e final: `sba-negocios-site`** (avisei o escritório em carta própria, para ele não corrigir para `sba-site`, que também já é passado) | Faz sessão irmã montar o repo errado. Atrapalha outras casas. |
-| **Regra sem arquivo:** a régua de admissão de 25/08 não existe como arquivo no escritório | É **regra para todas** as casas; sem arquivo, cada sessão inventa a sua. |
-| **Vacina nova:** repo carregou por ~7 semanas um `CLAUDE.md` que apontava o alvo de deploy errado | Vale como regra para todas: quem sela um repo tem que **medir** onde o site mora, não acreditar no que o doc diz. |
+| **Ponteiro fantasma:** o mapa do portfólio chama este repo de `site-sba-negocios`, nome que nunca existiu. **Alvo correto e final: `sba-negocios-site`** | Faz sessão irmã montar o repo errado |
+| **Regra sem arquivo:** a régua de admissão de 25/08 não existe como arquivo no escritório | É regra para **todas** as casas |
+| **Vacina:** o repo carregou ~7 semanas um alvo de deploy errado com gate verde o tempo todo | Regra para todas: quem sela **mede** onde o site mora |
+| **Esteira:** robô de CI que nunca funcionou (0 de 29) foi silenciado, não consertado | Decisão de esteira é do escritório |
 
 ---
 
-> **Regras deste mapa:** tudo que você pede e tudo que eu descubro entra aqui na hora · ação sua = link direto, um por passo · resolvido **sai** (vive no git) · nada aqui cobra pendência morta.
-> **Onde mora o detalhe:** governança = `CLAUDE.md` · o que é o site = `USO.md` · stack = `README.md` · o apagão de 17/08 = `docs/INCIDENTE-2026-08-17-loop-redirect-apex.md` · buscas = `src/lib/seo-routes.json`.
+> **Onde mora o detalhe:** o estudo completo = `docs/ESTUDO-SEO-ADS-2026-08-25.md` · governança = `CLAUDE.md` · o que é o site = `USO.md` · o apagão de 17/08 = `docs/INCIDENTE-2026-08-17-loop-redirect-apex.md` · buscas = `src/lib/seo-routes.json`.
