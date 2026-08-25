@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/.claude/rules/ordem-normativa.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica.
+
 # Regra — ORDEM NORMATIVA da casa (C36) + régua do rótulo "SSOT" (C120)
 > **Vigência:** ATIVO desde 2026-08-18 (moagem da banca). Módulo referido pelo `CLAUDE.md`.
 

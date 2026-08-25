@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/processos/PREVENCAO-DE-PERDAS.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica (regra em `processos/HERDADO-DO-ESCRITORIO.md`).
+
 # COMISSÃO — Como EVITAR as perdas recorrentes do escritório (estudo + projeto para a próxima instância)
 > **Vigência:** ATIVO — processo/referência vivo do escritório. Revisar sob mudança material; mover a `_legado/` se aposentado.
 

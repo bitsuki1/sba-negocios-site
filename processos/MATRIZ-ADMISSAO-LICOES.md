@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/referencia/MATRIZ-ADMISSAO-LICOES.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica (regra em `processos/HERDADO-DO-ESCRITORIO.md`).
+
 # MATRIZ DE ADMISSÃO DE LIÇÕES — onde cada aprendizado MORA (fim da confusão das 3 casas)
 
 > **Vigência:** ATIVO desde 2026-06-27 (A-209 — auditoria multi-ótica dos projetos).
