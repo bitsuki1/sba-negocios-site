@@ -12,12 +12,12 @@
 - **Pronto quando:** você me passa 1 ou os 2 aqui, ou responde "não tenho, seguir sem" (a página já está publicada sem esses; T-002 fecha).
 - **Estado:** ⏳ opcional (não bloqueia nada)
 
-### T-001 · Confirmar rename para `sba-negocios-site` (raiz primeiro, D186)
-- **Pedido por:** escritório (proposta técnica) · **decide:** o dono · **Data:** 2026-08-22
-- **O quê:** a regra viva D186 (`escritorio-do-mou/.claude/rules/nomenclatura-repos.md`) manda o padrão `<unidade>-<projeto>-<tipo>` com a raiz sempre primeiro — o nome atual `sba-site` não carrega a raiz. Nome proposto: **`sba-negocios-site`** (raiz `sba-negocios` = a unidade SBA Negócios; tipo `-site`). Rename é seguro para o espelho Lovable (V-LOVABLE-RENAME); NUNCA desconectar/reconectar.
-- **Só o dono decide:** o rename cria dependência de atualização em ponteiros vivos (CLAUDE.md da unidade SBA, USO.md deste repo, `portfolio/MAPA-DO-PORTFOLIO.md`, cofre `ACESSOS-FERRAMENTAS.md`, `GOVERNANCA-REPOS-APP.md`) — o dono aceita a quebra e a onda seguinte varre e corrige todos no mesmo commit (regra E-055 dos 3 tempos).
-- **Pronto quando:** o dono OK-a o novo nome (ou recusa) — se OK, abre-se uma tarefa T-002 para o rename + varredura de ponteiros no mesmo commit; se recusa, esta tarefa fecha com o motivo.
-- **Estado:** ⏳ aguarda o dono
-
-## ✅ Rastro (feitas)
+## ✅ Rastro (feitas / encerradas)
 _(as tarefas concluídas descem para cá com a data e o commit)_
+
+### T-001 · Confirmar rename para `sba-negocios-site` — **ENCERRADA AQUI por RECLASSIFICAÇÃO** (não por conclusão)
+- **Data:** 2026-08-25 · **Commit:** (esta passada de regularização)
+- **⚠️ Atenção — o rename NÃO foi feito.** O repositório **continua `sba-site`**. Quem ler "T-001 encerrada" e concluir "já renomearam" está errado.
+- **Por que saiu daqui:** este arquivo é a caixa de **ENTRADA** (unidade/dono → app manda TAREFA para o app executar). T-001 não é tarefa para o app executar — é **decisão + clique do dono**, e decisão do dono mora no `MAPA-DE-PENDENCIAS.md`. Estava duplicada nos dois lugares (aqui como T-001, lá como V1): duas superfícies cobrando a mesma coisa é o ruído que o próprio padrão do mapa manda eliminar.
+- **Onde vive agora (casa única):** `MAPA-DE-PENDENCIAS.md` → **V1**, com o link direto para a tela do rename.
+- **Nota de fato (2026-08-25):** a ordem de abertura do escritório supôs que T-001 "provavelmente já foi cumprida, porque o repo se chama `sba-site`". **A suposição está invertida:** `sba-site` é o nome **antigo**; o nome proposto pelo D186 é **`sba-negocios-site`**. A tarefa está aberta e continua dependendo de 1 clique do dono.

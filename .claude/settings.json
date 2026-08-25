@@ -1,13 +1,26 @@
 {
-  "//": "settings do repo-app sba-site (kit D196). Deny: nao escreve fora do proprio repo nem em repos de outra governanca. Escritorio (PMO) e keepee-facilities (DEV, D187 - so o Atlas escreve) sao intocaveis por esta sessao.",
+  "//": "settings do repo-app sba-site (kit D196). Endurecido em 2026-08-25 (porta P5 do fecho para o selo). Esta sessao NAO escreve fora do proprio repo: o escritorio (PMO) e SSOT de processo, o keepee-facilities e territorio do Atlas (D187), e o repo de NEGOCIO da unidade SBA nao se co-monta com o auxiliar (D201) — se um dia for co-montado por engano, a escrita fica bloqueada por caminho. Canal correto para todos eles: deposito em caixa-de-saida/para-escritorio/ (D144).",
   "permissions": {
     "deny": [
+      "Edit(**/escritorio-do-mou/**)",
+      "Write(**/escritorio-do-mou/**)",
+      "MultiEdit(**/escritorio-do-mou/**)",
+      "NotebookEdit(**/escritorio-do-mou/**)",
+
       "Edit(**/keepee-facilities*/**)",
       "Write(**/keepee-facilities*/**)",
       "MultiEdit(**/keepee-facilities*/**)",
-      "Edit(**/escritorio-do-mou/**)",
-      "Write(**/escritorio-do-mou/**)",
-      "MultiEdit(**/escritorio-do-mou/**)"
+      "NotebookEdit(**/keepee-facilities*/**)",
+
+      "Edit(**/sba-unidades-de-negocios/**)",
+      "Write(**/sba-unidades-de-negocios/**)",
+      "MultiEdit(**/sba-unidades-de-negocios/**)",
+      "NotebookEdit(**/sba-unidades-de-negocios/**)",
+
+      "Edit(**/portfolio-automacoes/**)",
+      "Write(**/portfolio-automacoes/**)",
+      "MultiEdit(**/portfolio-automacoes/**)",
+      "NotebookEdit(**/portfolio-automacoes/**)"
     ]
   }
 }
