@@ -22,6 +22,7 @@ caixa-de-saida/para-escritorio/
 README.md
 package.json
 index.html
+docs/INCIDENTE-2026-08-17-loop-redirect-apex.md
 src/lib/seo-routes.json
 src/lib/seo.ts
 src/pages/Residuos.tsx
@@ -47,6 +48,19 @@ processos/PREVENCAO-DE-PERDAS.md
 processos/MATRIZ-ADMISSAO-LICOES.md
 processos/CASACO-POR-TEMA.md
 processos/templates/TEMPLATE-MAPA-DE-PENDENCIAS.md
+
+# ══════ REGRAS MODULARES (lidas no boot — 6 desde 2026-08-25) ══════
+.claude/rules/README.md
+.claude/rules/linguagem-e-ferramentas.md
+.claude/rules/ordem-normativa.md
+.claude/rules/nomenclatura-repos.md
+.claude/rules/instanciacao-por-repo.md
+.claude/rules/decisao-e-alcada.md
+.claude/rules/regua-de-admissao.md
+
+# ══════ FECHO PARA O SELO (2026-08-25) ══════
+caixa-de-saida/processados/
+caixa-de-saida/para-escritorio/2026-08-25_sba-site_fecho-para-selo.md
 
 # ══════ REPOS EXTERNOS RELEVANTES (não co-montados nesta sessão) ══════
 # Se precisar de CONTEÚDO do site (números, textos jurídicos, cases): co-monte com bitsuki1/sba-unidades-de-negocios

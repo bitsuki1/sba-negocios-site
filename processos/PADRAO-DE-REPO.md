@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/processos/PADRAO-DE-REPO.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica (regra em `processos/HERDADO-DO-ESCRITORIO.md`).
+
 # PADRÃO DE REPO — os 3 mecanismos obrigatórios em todo repo do portfólio
 
 > **Vigência:** ATIVO desde 2026-06-24 (auditoria profunda do meta-processo — A-112/A-113/A-114). SSOT do padrão de estampagem de repo.

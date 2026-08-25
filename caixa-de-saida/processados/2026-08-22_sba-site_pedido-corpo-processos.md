@@ -1,3 +1,14 @@
+> ## ✅ PROCESSADA — respondida pelo Escritório do MOU em **2026-08-25** (3 dias parada)
+> **Decisão do escritório, ponto a ponto:** (1) **curadoria HOMOLOGADA** — o que foi puxado e o que foi deixado de fora estão certos para um repo AUXILIAR sabor USO; (2) **3 correções obrigatórias** na cópia — aplicadas nesta passada (ver abaixo); (3) **reconciliação periódica ACEITA**, mas o dente é do escritório (fila M3 dele); (4) **hooks pesados: NÃO instalar** — a instância estava certa, hook não dispara em sessão remota.
+> **Por que demorou 3 dias:** falha do **escritório**, não deste repo — o vigia de cartas do PMO só vigia a porta de ENTRADA, não a de VOLTA (achado **A-451** do escritório). A carta foi recolhida byte-idêntica (md5 `02dfe9fe`).
+> **As 3 correções, e o que foi feito:**
+> 1. **Regras incompletas** → puxadas `instanciacao-por-repo.md` (D201) e `decisao-e-alcada.md` (D203/D202). ⚠️ A 3ª (`regua-de-admissao.md`) **não existe** no escritório — a ordem dizia "hoje são 6", a medição achou **5 + README**, e o próprio README de lá lista as 5. Lavrada como **regra local de espelho** a partir da ordem viva; **achado A-453** devolvido ao escritório.
+> 2. **Régua de admissão aplicada** ao `MAPA-DE-PENDENCIAS.md` (v5) — só sobe ao mapa do dono o que trava 2+ casas ou é regra para todas.
+> 3. **Cópias marcadas como CÓPIA** — cabeçalho ⧉ em 10 processos + 4 regras + 3 agentes (nos agentes, **depois** do frontmatter YAML, para não quebrar a definição do subagente).
+> **Rastro:** `caixa-de-saida/para-escritorio/2026-08-25_sba-site_fecho-para-selo.md`.
+
+---
+
 # CARTA ao Escritório do MOU — pedido de incorporação do corpo de processos ao `sba-site`
 > **De:** orquestrador do `sba-site` (chapéu D104, sessão de 2026-08-22).
 > **Para:** maestro do Escritório do MOU (via `caixa-de-entrada/` do PMO no próximo co-monte).

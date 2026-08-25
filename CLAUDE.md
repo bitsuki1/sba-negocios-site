@@ -10,13 +10,17 @@ Você é o **orquestrador do repo `sba-site`** (chapéu de PROJETO auxiliar, D10
 ## §2 — Contrato D195 — o app DESENVOLVE, a unidade só PLANEJA
 - **Quem manda a tarefa:** a unidade SBA (ou o dono direto). Ela **NÃO escreve código** aqui e **NÃO deve empurrar o produto** por fora — deposita a demanda em `TAREFAS-DO-DONO.md` (a "API/caixa" única de entrada).
 - **Quem executa:** este repo — lê a tarefa, executa, marca ✅ e desce para o rastro no fim do arquivo com data e commit.
-- **Estado de deploy** (rastro operacional, não substitui `README.md`): PRODUÇÃO no ar em `https://sbanegocios.com.br` (GitHub Pages via `gh-pages`, HTTPS forçado, DNS no GoDaddy feito; deploy manual por `scripts/deploy-producao.sh`).
+- **Estado de deploy** (rastro operacional, não substitui `README.md`) — **corrigido em 2026-08-25, era o dado mais desatualizado do repo**:
+  - **PRODUÇÃO no ar em `https://sbanegocios.com.br`, hospedada na VERCEL** (projeto `site-sba-negocios`, time `bitsuki`), com **deploy automático a cada push na `main`**. Não há passo manual para publicar.
+  - **Prova (2026-08-25):** o apex resolve para **`216.198.79.1`**, que é exatamente o IP da Vercel documentado em `scripts/deploy-producao.sh` e no laudo `docs/INCIDENTE-2026-08-17-loop-redirect-apex.md` (que fechou com "apex → 200, `server: Vercel`"). DNS na GoDaddy: `A @ → 216.198.79.1` + `CNAME www → a6cc1438ad279349.vercel-dns-017.com`.
+  - **`gh-pages` e `scripts/deploy-producao.sh` são LEGADO** desde o cutover de 2026-07-03 — ficam como fallback histórico, **não** são a via de publicação. O workflow `deploy-pages.yml` teve o gatilho de push removido em 2026-08-13 justamente para não haver dois deploys concorrentes da `main`.
+  - **Fonte da confusão anterior:** o `CLAUDE.md` e o `USO.md` descreviam o estado de ANTES do cutover. O laudo de 17/08 já registrava a nota de higiene ("`USO.md` está desatualizado; o hosting real é Vercel"), mas o laudo vivia preso num galho morto — só aterrissou na `main` nesta passada.
 
 ## §3 — Espelho de builder (Lovable) — regras invioláveis
 - **git = SSOT.** Toda mudança de produto entra por commit em branch, sob o gate.
-- **NUNCA** `git push --force` / `rebase` / `reset --hard` em branch publicada (`main`/`gh-pages`) — reescrever história publicada quebra o histórico e pode corromper o deploy do GitHub Pages. Em conflito, reconcilie por UNIÃO (merge).
+- **NUNCA** `git push --force` / `rebase` / `reset --hard` em branch publicada (`main`/`gh-pages`) — reescrever história publicada quebra o histórico. A `main` é o **gatilho de deploy da Vercel**: reescrevê-la republica o site a partir de uma história falsificada. A `gh-pages` é legado, mas segue publicada — mesma proibição. Em conflito, reconcilie por UNIÃO (merge).
 - **NUNCA desconectar/reconectar** o repo do Lovable (E-055/V-LOVABLE-RENAME) — desconectar+reconectar cria repo novo. Renomear é seguro; desconectar não é. Docs de governança (este arquivo, TAREFAS, REGISTRO, SELO, `.claude/`) são inertes ao Lovable — escrevê-los é seguro.
-- Deploy é pelo `scripts/deploy-producao.sh` (manual, intencional). Não automatizar force-push.
+- **Publicar = dar merge na `main`** (a Vercel republica sozinha). O `scripts/deploy-producao.sh` é **legado** (GitHub Pages, sem tráfego desde o cutover de 2026-07-03) — não rodar sem ordem explícita. Não automatizar force-push.
 
 ## §4 — Doutrina herdada (espelho do escritório, NÃO reescrever)
 - **Perna (a) da D106 REVOGADA por D200 (MOU 2026-08-21):** credencial em git **não é mais aceita**. Se achar segredo em git aqui, é ação do dono (não sua) — depositar em `TAREFAS-DO-DONO.md` com estado "a apurar/dono" e seguir. Prevenção nova = varredura de segredos no diff do envio (precedente `bitsuki1/profinders-hub`).

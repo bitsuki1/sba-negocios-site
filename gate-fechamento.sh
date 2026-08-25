@@ -24,7 +24,9 @@ fi
 [ $FAIL -eq 0 ] && ok "[1/4] caixa-de-entrada sem carta pendente"
 
 # [2/4] saída staged — aviso (o ESCRITÓRIO carrega no próximo co-monte; não trava)
-out=$(find "$DIR/caixa-de-saida" -type f -name '*.md' ! -path '*/processados/*' 2>/dev/null | wc -l)
+# B.8 (2026-08-25): exclui README.md — o [1/4] ja excluia, o [2/4] nao, e o README da pasta
+# era contado como "carta staged". Contador inflado = aviso que ninguem confia (falso sinal).
+out=$(find "$DIR/caixa-de-saida" -type f -name '*.md' ! -path '*/processados/*' ! -name 'README.md' 2>/dev/null | wc -l)
 [ "$out" -gt 0 ] && echo "⚠️  [2/4] $out carta(s) staged em caixa-de-saida/ — o escritório carrega no próximo co-monte (não trava)" || ok "[2/4] caixa-de-saida limpa"
 
 # [3/4] REGISTRO-DE-INSTANCIAS — linha ABERTA da PRÓPRIA branch TRAVA; de OUTRA branch só AVISA

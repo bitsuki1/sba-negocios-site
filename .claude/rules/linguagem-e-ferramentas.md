@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/.claude/rules/linguagem-e-ferramentas.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica.
+
 # Regra — Linguagem humana · Ferramentas de todos · Mapa co-mantido (D159/D160/D161)
 > Módulo de regra do escritório (referido no `CLAUDE.md`). Vigência: ATIVO desde 2026-07-07.
 > **⚠️ SUPERSEÇÃO (D175, 2026-08-11):** o **Mapa Vivo do Portfólio** (D161 · D161-FIX · D169 — **NÃO o D170**, ver retificação abaixo) foi **APOSENTADO** pelo MOU ("esse mapa não deu certo"). No lugar: **cada projeto tem o SEU mapa de pendências** (padrão D172), como **Artifact sob demanda** (por frente ou projeto inteiro). As seções D161/D161-FIX/D169 abaixo ficam como **rastro histórico** — NÃO são mais regra viva; não recriar robô/agregador de fragmento. Rastro: `processos/_legado/mapa-vivo-aposentado-2026-08-11/`. D159 e D160 seguem ATIVAS.

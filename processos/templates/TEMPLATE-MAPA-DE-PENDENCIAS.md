@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/processos/templates/TEMPLATE-MAPA-DE-PENDENCIAS.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica (regra em `processos/HERDADO-DO-ESCRITORIO.md`).
+
 # MAPA DE PENDÊNCIAS — <Unidade>
 > **🌐 URL para o dono olhar (padrão D172):** <URL-do-Artifact> — republicada no MESMO endereço a cada mudança (é foto do SSOT deste arquivo, não um 2º original; republicar SEMPRE com o parâmetro `url=` — sem ele nasce duplicata, C130). Fonte HTML: `<caminho-do-html-no-repo>`.
 > **Atualizado: AAAA-MM-DD (v<N> — <motivo desta versão>)** · **Só pendência.** O que já foi feito vive em <ledger/handoff> — não se repete aqui.

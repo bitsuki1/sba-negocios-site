@@ -1,94 +1,90 @@
 # MAPA DE PENDÊNCIAS — sba-site (site institucional da SBA Negócios)
-> **🌐 URL para você olhar (padrão D172):** https://claude.ai/code/artifact/a2d0ecf3-8181-445f-ac6c-9418db470fde — foto do SSOT deste arquivo, republicada no MESMO endereço a cada mudança. Fonte HTML da versão publicada: `<scratchpad>/mapa-sba-site.html`; fonte canônica do conteúdo: `MAPA-DE-PENDENCIAS.md` na raiz deste repo.
-> **Atualizado: 2026-08-22 (v4 — handoff sem perdas D66 aplicado: HANDOFF-ULTIMO + HANDOFF-SURFACES criados; achado A-1 do ponteiro fantasma no escritório amarrado à V1; ponto cego declarado sobre `sba-unidades-de-negocios` não co-montado; Tema 1130 destravado como potencial próxima onda).** · **Só pendência.** O que já foi feito vive no git — não se repete aqui.
-> Regras (D172/D181/D182/D191/D192): item 🔒 SEU = passos numerados com **link direto** um por ação · item ⚙️ MEU = 1 linha do que é + estado (⏳/🔄) · resolvido SAI · ordem = o que destrava mais vem primeiro · em português, sempre.
+> **🌐 URL para você olhar (padrão D172):** https://claude.ai/code/artifact/a2d0ecf3-8181-445f-ac6c-9418db470fde — foto deste arquivo, republicada no MESMO endereço a cada mudança.
+> **Atualizado: 2026-08-25 (v5 — passada de regularização e fecho para o selo).** · **Só pendência.** O que já foi feito vive no git — não se repete aqui.
+> **Régua de admissão (ordem do dono, 25/08):** *"as pendências são de problemas que atrapalham os demais projetos"*. Item que é **clique ou decisão de uma casa só** fica **neste** mapa. Só sobe ao **mapa do portfólio** o que **trava 2+ casas** ou é **regra para todas** — a lista do que subiu está no fim, em "O que mandei para o escritório".
 
-**🎯 Vetor mantido da v1:** você pediu (1) o mapa no padrão, (2) melhorar SEO, (3) aparecer mais com **Usina de Resíduos**. **Delta da v3 (esta):** você deu ordem viva para o maestro do escritório incorporar governação de projeto aqui — **feito por PUXAR direto** (não esperei o maestro empurrar; carta formal ao PMO em `caixa-de-saida/para-escritorio/`). O repo agora tem à mão o mesmo corpo de trabalho do escritório (mapa D172, handoff D66, ignição D109, casaco D137, código de repo, política de vigência, matriz de admissão de lições, prevenção de perdas, 3 subagentes, 3 regras modulares — 10 arquivos + 3 agentes + 4 regras). **Nada mais na sua fila desta ordem** — as pendências restantes seguem sendo V1/V2+V3/V4/V5/V7 (as mesmas da v2).
+**🎯 O que mudou nesta passada:** o escritório mandou **selar** este repo. Foi uma passada de **arrumação**, não de produto — não encostei em conteúdo, design nem texto do site. Achei e consertei **um erro grande de documentação**: o repo dizia que o site era publicado no GitHub Pages, e faz quase 2 meses que ele roda na **Vercel**. Detalhe no bloco ⚠️ logo abaixo, porque isso muda uma das suas pendências.
+
+---
+
+## ⚠️ Leia isto primeiro — corrigi um dado errado que estava te custando dinheiro à toa
+
+O `CLAUDE.md` e o `USO.md` deste repo diziam: *"produção no GitHub Pages, deploy manual"*. **Está errado desde 3 de julho.** O site roda na **Vercel** e se publica sozinho a cada merge na `main`.
+
+**Como eu provei:** o endereço `sbanegocios.com.br` aponta hoje para o número **216.198.79.1** — que é exatamente o número da Vercel escrito dentro do seu próprio script de deploy. O laudo do apagão de 17/08 também fechou com *"apex → 200, servidor: Vercel"*.
+
+**O que isso muda para você, na prática:**
+- **Publicar é dar merge na `main`.** Ninguém precisa rodar script nenhum.
+- **A sua pendência de medição (era a V3) encolheu.** O motivo dela era *"o medidor da Vercel não funciona no GitHub Pages"*. Como o site **está** na Vercel, e o medidor **já está ligado no código**, é bem provável que você **já esteja medindo** e não saiba. Virou a **V3 nova** abaixo: 1 conferida de 2 minutos antes de você gastar tempo montando o Google Analytics.
 
 ---
 
 # 🔒 SUAS — só você faz (cada passo já traz o link do lugar exato)
 
-## 1. 🟧 V1 · Renomear o repo para `sba-negocios-site` (padrão D186 — você aprovou; agora é executar)
-**O que é:** você já disse "sim, renomear agora" na caixa de decisão. Falta o clique no GitHub — depois eu abro a onda de varredura de ponteiros no mesmo turno.
-**Placar:** 1 clique seu + ~8 ponteiros que eu corrijo depois no mesmo commit (era 7; +1 pelo achado A-1 da varredura de handoff).
+## 1. 🟧 V1 · Renomear o repositório para `sba-negocios-site`
+**O que é:** você já disse "sim, renomear agora". Falta o clique. O padrão da casa é a unidade vir na frente (`sba-negocios`) e o tipo no fim (`-site`).
+**Placar:** 1 clique seu + ~8 ponteiros que eu corrijo depois, no mesmo commit.
 **Passo a passo:**
-1. **Abrir Settings do repo** → https://github.com/bitsuki1/sba-site/settings (aba geral). *(NÃO clicar em "Transfer" ou "Delete" — só o campo "Repository name" no topo.)*
-2. **Trocar `sba-site` para `sba-negocios-site`** → Save. O GitHub segura o redirect do nome antigo (não eterno).
-3. Me avisar aqui — abro a varredura completa.
-> **🆕 Achado A-1 (handoff 2026-08-22):** o `escritorio-do-mou/portfolio/MAPA-DO-PORTFOLIO.md` chama este repo de **`site-sba-negocios`** (invertido do padrão D186 — tipo→raiz→projeto). Isso é ponteiro **fantasma**: não bate com o nome atual (`sba-site`) nem com o proposto (`sba-negocios-site`). A varredura que eu abrir ao seu OK vai corrigir isso junto — no escritório, via caixa D144.
-> **Pronto quando:** https://github.com/bitsuki1/sba-negocios-site abrir o repo.
+1. **Abrir as configurações do repositório** → https://github.com/bitsuki1/sba-site/settings *(NÃO clicar em "Transfer" nem "Delete" — só o campo "Repository name", no topo.)*
+2. **Trocar `sba-site` por `sba-negocios-site`** → Rename. O GitHub segura o redirecionamento do nome antigo por um tempo (não é eterno).
+3. Me avisar aqui — abro a varredura dos ponteiros no mesmo turno.
+> **Renomear é seguro para o espelho do Lovable** (já foi provado em outro repo). O que **nunca** se faz é desconectar/reconectar — isso cria repo novo.
+> **Pronto quando:** https://github.com/bitsuki1/sba-negocios-site abrir o repositório.
 
-## 2. 🟧 V2 · Google Search Console — provar que o site é seu e mandar o mapa do site (você aprovou; executar)
-**O que é:** você disse "vou fazer os dois agora" (GSC + GA4). GSC é o primeiro degrau — sem ele, o resto da onda de SEO fica cego.
-**Placar:** 1 verificação + 1 sitemap submetido (~5 min).
+## 2. 🟩 V3 (nova) · Conferir se a Vercel já está medindo as visitas — 2 minutos, antes de montar qualquer outra coisa
+**O que é:** o medidor da Vercel (`@vercel/analytics`) **já está instalado e ligado** no código do site. Antes, ele não servia para nada porque o site estava no GitHub Pages. Agora que está na Vercel, provavelmente **já está coletando**. Vale conferir antes de você montar o Google Analytics do zero.
 **Passo a passo:**
-1. **Abrir o GSC** → https://search.google.com/search-console (login com a conta Google dona do domínio, provavelmente `eduardo@saobentoservicos.com.br`).
-2. **Add property** (menu esquerdo) → escolher **Domain** (não URL prefix) → digitar `sbanegocios.com.br` → Continue.
-3. O Google mostra um valor `google-site-verification=...` — copiar.
-4. **Colar o TXT no GoDaddy** → https://dcc.godaddy.com/manage/sbanegocios.com.br/dns → Add record → Type **TXT**, Name **@**, Value = o valor copiado → Save.
-5. Voltar ao GSC → **Verify**. Se disser "não achei", esperar 15 min (DNS propaga) e tentar de novo.
+1. **Abrir o projeto na Vercel** → https://vercel.com/bitsuki/site-sba-negocios
+2. Clicar na aba **Analytics** (no topo).
+3. **Se aparecer gráfico com visitas** → você já está medindo. Me avisa e eu **fecho a pendência do Google Analytics** (economiza seu tempo).
+4. **Se aparecer um botão "Enable"** → clicar. É 1 clique, e passa a medir a partir dali.
+5. **Se disser que precisa de plano pago** → me avisa, aí sim vale montar o Google Analytics (gratuito) e eu sigo o plano antigo.
+> **Rec.:** **faça esta antes da V2.** É a mais barata e pode apagar uma pendência inteira.
+> **Pronto quando:** você me disser qual das 3 telas apareceu.
+
+## 3. 🟧 V2 · Google Search Console — provar que o site é seu e mandar o mapa do site
+**O que é:** sem isso o Google não te conta o que as pessoas pesquisaram para chegar no site. É o primeiro degrau de qualquer trabalho de busca.
+**Placar:** 1 verificação + 1 sitemap enviado (~5 min).
+**Passo a passo:**
+1. **Abrir** → https://search.google.com/search-console (com a conta Google dona do domínio).
+2. **Add property** → escolher **Domain** (não "URL prefix") → digitar `sbanegocios.com.br` → Continue.
+3. O Google mostra um valor `google-site-verification=…` — copiar.
+4. **Colar na GoDaddy** → https://dcc.godaddy.com/manage/sbanegocios.com.br/dns → Add record → Tipo **TXT**, Nome **@**, Valor = o que você copiou → Save.
+   ⚠️ **Só adicione o TXT. Não encoste no registro `A` do `@`** (o `216.198.79.1`) — foi exatamente mexer ali que derrubou o site em 17/08.
+5. Voltar ao Search Console → **Verify**. Se disser que não achou, esperar ~15 min e tentar de novo.
 6. **Sitemaps** → New sitemap → digitar `sitemap.xml` → Submit.
-7. Me avisar quando aparecer "Success".
-> **Pronto quando:** card do domínio ficar verde no GSC e o sitemap com status "Success".
+> **Pronto quando:** o card do domínio ficar verde e o sitemap aparecer como "Success".
 
-## 3. 🟧 V3 · Google Analytics 4 — medir de verdade (você aprovou; executar)
-**O que é:** o `@vercel/analytics` não roda em GitHub Pages (vácuo de medição hoje). GA4 resolve.
-**Placar:** 1 propriedade criada + 1 Measurement ID (`G-XXXXXXX`) que você me cola aqui.
+## 4. 🟨 V4 · Perfil de Empresa no Google — aparecer no mapa e na busca local
+**O que é:** aquele card à direita do resultado quando alguém pesquisa o nome da empresa. Gratuito.
 **Passo a passo:**
-1. **Abrir o GA4** → https://analytics.google.com/analytics/web/ (mesma conta do GSC).
-2. **Admin** (engrenagem, canto inferior esquerdo) → **Create → Account** (se não tem conta SBA) → nome "SBA Negócios".
-3. Dentro da conta: **Create → Property** → nome "sbanegocios.com.br" → moeda BRL → time zone Brasil.
-4. **Data Streams → Web** → URL `https://sbanegocios.com.br` → Stream name "site institucional" → Create.
-5. Copiar o **Measurement ID** (formato `G-XXXXXXX`) e colar aqui na conversa.
-6. Eu cablo o snippet no `index.html` (M8) no mesmo turno.
-> **Pronto quando:** você colar aqui o `G-XXXXXXX`.
-
-## 4. 🟨 V4 · Perfil de Empresa no Google — aparecer no mapa/busca local
-**O que é:** card à direita do resultado do Google quando pesquisar "SBA Negócios" ou "consultoria resíduos". Gratuito, alto ROI.
-**Passo a passo:**
-1. **Abrir o Google Business Profile** → https://www.google.com/business/ → Sign in.
+1. **Abrir** → https://www.google.com/business/ → Sign in.
 2. **Add business → Add single business** → nome "SBA Negócios".
 3. **Categoria** → "Consultor de gestão" ou "Consultoria empresarial".
-4. Endereço → o do escritório (mesmo do `src/data/site.ts` `CONTATO`: Rua XV de Novembro, 200 — 15º andar, Sé/SP). Se preferir remoto, escolher "atende clientes na área".
-5. Provar por telefone ou carta (o Google escolhe o método).
-6. Preencher: telefone, site, horário, logo, 2–3 fotos.
-7. Me avisar quando estiver "Publicado" — adiciono a URL do perfil ao `sameAs` do JSON-LD Organization já instalado no `index.html`.
-> **Rec.:** **Depois de V2/V3.** Uma-vez-só.
-> **Pronto quando:** o card aparecer ao pesquisar "SBA Negócios" na sua conta Google.
+4. **Endereço** → o mesmo que está no site: Rua XV de Novembro, 200 — 15º andar, Sé/SP. (Se preferir não expor endereço, escolher "atende clientes na área".)
+5. Provar por telefone ou carta (o Google escolhe).
+6. Preencher telefone, site, horário, logo e 2–3 fotos.
+> **Rec.:** depois da V2. É uma-vez-só.
+> **Pronto quando:** o card aparecer ao pesquisar "SBA Negócios".
 
-## 5. 🟨 V5 · Pedir ao parceiro CSTR o link de volta para o site
-**O que é:** hoje `/residuos` linka para o CSTR. Se o CSTR também linkar de volta, é um backlink de qualidade — a autoridade dele empresta para a sua.
+## 5. 🟨 V5 · Pedir ao parceiro CSTR um link de volta para o site
+**O que é:** hoje a sua página de resíduos linka para o CSTR. Se o CSTR linkar de volta, o Google entende que os dois se reconhecem — e empresta reputação. É o link mais fácil que você tem à mão.
 **Passo a passo:**
-1. **Abrir o site do CSTR** → https://cstr.eco.br (do `PARCEIRO_CSTR.site` do `src/data/site.ts`). ⚠️ **Correção honesta:** a v1 apontava para `centrosustentavel.com.br`, mas o arquivo real diz `cstr.eco.br` — usar este.
-2. Achar "Parceiros" ou "Sobre" — se tem lista, ver se a SBA já está.
-3. Enviar ao contato do CSTR: _"Vocês teriam como incluir a SBA Negócios (https://sbanegocios.com.br) na página de parceiros? Fortalece o Google dos dois lados."_
-4. Me avisar quando aparecer.
-> **Rec.:** Mande esta semana. É o backlink mais fácil que você tem à mão.
-> **Pronto quando:** aparecer "SBA Negócios" ou o logo em alguma página do site do CSTR.
+1. **Abrir** → https://cstr.eco.br
+2. Procurar "Parceiros" ou "Sobre" e ver se a SBA já está lá.
+3. Mandar ao contato do CSTR: *"Vocês teriam como incluir a SBA Negócios (https://sbanegocios.com.br) na página de parceiros? Fortalece o Google dos dois lados."*
+> **Rec.:** mande esta semana.
+> **Pronto quando:** aparecer o nome ou o logo da SBA em alguma página do CSTR.
 
-## 6. 🟨 V7 · Aprovar o plano de 3 sub-páginas long-tail (novas rotas)
-**O que é:** hoje `/residuos` é uma página só. Quem busca digita coisa específica: "usina de biometano municipal", "RSU prefeitura pequena", "consórcio intermunicipal resíduos". Cada uma merece página própria — multiplica a superfície de rankeamento.
+## 6. 🟨 V7 · Aprovar (ou não) 3 páginas novas para o tema Resíduos
+**O que é:** hoje "resíduos" é uma página só. Quem procura digita coisa específica. Cada busca dessas merece uma página própria — é assim que se multiplica a chance de aparecer.
 **As 3 propostas:**
-- `/residuos/usina-biometano-municipal` — foca prefeituras que já têm coleta seletiva.
-- `/residuos/rsu-prefeitura` — foca prefeituras pequenas/médias (até 100 mil hab) buscando destinação legal.
-- `/residuos/consorcio-intermunicipal-residuos` — foca grupos de municípios (o modelo mais viável no interior).
-Cada uma reusa o layout de landing (`PaginaSolucao`). Pouco código novo, muito ganho de SEO. Todas apontam para `/contato`.
-**Rec.:** **Aprovar as 3.** Se quiser fatiar por prioridade, começo pela **consórcio intermunicipal** (tema quente das prefeituras 2026 pós-Novo Marco).
-> **Pronto quando:** você responder "vai as 3" ou "vai só a de consórcio primeiro"; começo no mesmo turno.
-
----
-
-# 📅 PRÓXIMA INSTÂNCIA — a fila já combinada (você não precisa fazer nada agora)
-> O que abro na próxima sessão, na ordem, quando os itens acima destravarem:
-
-1. **Assim que você fizer V1** → varredura de ~7 ponteiros do nome antigo em 1 commit; sessão nova monta com o nome novo.
-2. **Assim que colar o `G-XXXXXXX` (V3)** → executo M8 (cabla GA4 no `index.html`). Em paralelo, decido com você o destino do `@vercel/analytics` (remover ou manter para migração futura à Vercel).
-3. **Assim que aprovar V7** → executo M3/M4/M5 (as 3 sub-páginas) — 1 commit por sub-página para leitura em blocos.
-4. **T-002 (opcional, no `TAREFAS-DO-DONO.md`):** se você tiver 1 foto do canteiro Congonhas do Campo e/ou 1 link para notícia externa, me passa — dou upgrade no bloco projeto-farol. Se não tiver, T-002 fecha com "seguir sem" e o bloco já publicado permanece (é honesto e funcional).
-5. **Depois de tudo acima:** onda 2 — blog/notícias, calculadora "quanto vale meu resíduo?" (lead magnet integrado ao n8n do hub), OG image específica por página-produto (M6).
-6. **Se quiser escalar rápido:** Google Ads B2G ("usina de tratamento de resíduos", "aterro sanitário destinação") e LinkedIn Ads mirando secretários/prefeitos. Decisão sua de budget.
-7. **🆕 Onda análoga para o Tema 1130** (rota `/recuperacao-tributaria`) — esta sessão só tocou o eixo Resíduos por sua ordem específica. O outro projeto ativo da SBA (Tema 1130 · recuperação de IRRF municipal) tem a mesma anatomia: title/description otimizáveis, sem FAQ, sem JSON-LD, sem sub-páginas long-tail. Aguarda seu "vai" — o padrão do V6 replica direto (aprovo pacote a-e, executo M1-like). Requer co-montar `sba-unidades-de-negocios` para não inventar números/dados (o dossiê PMO fica em `escritorio-do-mou/portfolio/sba/MAPA-DA-UNIDADE.md`; SSOT vivo em `sba-unidades-de-negocios/START-HERE-ORQUESTRADOR-TEMA-1130.md` régua v5.12).
+- `/residuos/consorcio-intermunicipal-residuos` — grupos de municípios (o modelo mais viável no interior).
+- `/residuos/rsu-prefeitura` — prefeituras pequenas e médias procurando destinação legal.
+- `/residuos/usina-biometano-municipal` — prefeituras que já têm coleta seletiva.
+Cada uma reaproveita o layout que já existe. Pouco código novo, bastante ganho.
+> **Rec.:** **aprovar as 3.** Se quiser fatiar, começo pela **de consórcio** — é o tema mais quente das prefeituras.
+> **Pronto quando:** você responder "vai as 3" ou "vai só a de consórcio". Começo no mesmo turno.
 
 ---
 
@@ -96,27 +92,40 @@ Cada uma reusa o layout de landing (`PaginaSolucao`). Pouco código novo, muito 
 
 | id | o que é | estado |
 |---|---|---|
-| M3 | Criar sub-página `/residuos/usina-biometano-municipal` (rota + landing + `seo-routes.json` + `sitemap.xml`) | ⏳ posso fazer (depende de V7) |
-| M4 | Criar sub-página `/residuos/rsu-prefeitura` (idem) | ⏳ posso fazer (depende de V7) |
-| M5 | Criar sub-página `/residuos/consorcio-intermunicipal-residuos` (idem) | ⏳ posso fazer (depende de V7) |
-| M6 | Gerar OG image específica de Resíduos (hoje é a mesma da home) | ⏳ posso fazer (independente; baixa prioridade) |
-| M7 | Sitemap com `<lastmod>` automático (gerado pelo `prerender-og.mjs` a partir do mtime) e `changefreq` diferenciado por tipo de página | ⏳ posso fazer (independente) |
-| M8 | Cablar Google Analytics 4 no `index.html` (snippet oficial, sem cookies extras) e decidir com você o destino do `@vercel/analytics` | ⏳ posso fazer (depende de V3) |
-| M9 | Auditoria de Core Web Vitals (LCP/CLS/INP) — rodar Lighthouse local, listar as 3 maiores oportunidades e fazer 1 PR de correção | ⏳ posso fazer (independente) |
-| M10 | Robô "chega na main" (D170) — adicionar `.github/workflows/consolidar.yml` + `consolidar.sh` (mesma nota do `rotary-roteiro-site`) | ⏳ posso fazer (independente) |
+| M3 | Página `/residuos/consorcio-intermunicipal-residuos` | ⏳ depende da V7 |
+| M4 | Página `/residuos/rsu-prefeitura` | ⏳ depende da V7 |
+| M5 | Página `/residuos/usina-biometano-municipal` | ⏳ depende da V7 |
+| M6 | Imagem de compartilhamento própria do tema Resíduos (hoje usa a da home) | ⏳ posso fazer, baixa prioridade |
+| M7 | Data de atualização automática no mapa do site (`sitemap.xml`) | ⏳ posso fazer |
+| M8 | Ligar o Google Analytics no site | ⏸️ **em espera pela V3 nova** — pode não ser mais necessário |
+| M9 | Medir a velocidade do site e corrigir as 3 piores coisas | ⏳ posso fazer |
+| M11 | Aterrissar (ou descartar) a economia de CI presa num galho morto — ver "Limites" | ⏳ depende do escritório |
 
-_(M1 e M2 SAÍRAM — regra "resolvido SAI" do D191. Ficaram no git como commit da onda de 2026-08-22.)_
+_(M1, M2 e M10 saíram: feitos ou reclassificados. Vivem no git.)_
 
 ---
 
 # 📌 LIMITES DECLARADOS — não são pendência, e não se apagam
-- **NÃO mexo em produto sem sua ordem explícita** (trilho duro do CLAUDE.md desta sessão). V7 e T-002 são a via limpa para você despachar mais produto.
-- **NÃO toco Supabase nem Vercel** por esta sessão. Se algo de SEO exigir mudança em Edge Function (`submit-lead`) ou na config da Vercel, abro pedido a você.
-- **Perna (a) da D106 REVOGADA por D200:** se um dia eu achar credencial em git aqui, é ação sua (não minha) — deposito em `TAREFAS-DO-DONO.md` e sigo.
-- **Perna (b) LGPD/PII segue amoral (MOU 2026-06-20):** não vira ação nem cobrança.
-- **Anúncios pagos (Google/LinkedIn)** — mencionei na fila da próxima instância porque impacta a mesma agulha, mas é decisão sua de investimento.
+
+- **Robô "chega na main" (D170) não existe neste repo.** Instalar exige um segredo de Actions configurado no próprio repositório = 1 clique seu. Pela régua de 25/08, **clique de uma casa só não vira pendência sua** — fica aqui declarado, e **o escritório decide** se vale o clique. Nada trava por causa disso.
+- **Galho morto com trabalho dentro.** O galho `claude/instance-concurrency-94pbeg` carrega 1 commit que **nunca aterrissou**: tira o gatilho de "pull request" do robô de checagem, cortando ~50% do consumo de Actions. **Não apliquei** porque reduz a checagem automática nos PRs — é decisão de esteira, e esteira é do escritório. **Não apagar esse galho** enquanto não for decidido (é o M11).
+- **Não mexo em produto sem sua ordem** — conteúdo, design e texto do site ficaram intocados nesta passada. V7 é a via limpa para você despachar mais produto.
+- **Não toco Supabase nem Vercel** por esta sessão. A V3 nova é você olhando um painel — eu não mexo lá.
+- **Se um dia eu achar senha ou chave dentro do git aqui**, a ação é sua (rotacionar), não minha. Nesta passada **varri e não achei nada** — detalhe no relatório ao escritório.
+- **A chave do Supabase que aparece no código é pública de propósito** (`sb_publishable_…`). Ela vai embutida no site por desenho; quem protege o banco é a regra de acesso (RLS), não o segredo dessa chave. **Não é vazamento e não deve ser "consertada"** — trocar isso quebraria o formulário do site sem ganho de segurança.
 
 ---
 
-> **Regras deste mapa (leis do dono):** D176 — tudo que você pede e tudo que eu descubro entra AQUI no instante · D181 — ação sua = LINK direto um a um · D182 — nada aqui cobra pendência morta.
-> **Onde mora o detalhe:** SSOT do SEO = `src/lib/seo-routes.json`; injeção de structured data por rota = `src/lib/seo.ts` (`applyPageSchema`); Organization schema constante = `index.html`; rotas = `src/App.tsx`; conteúdo produto = `src/pages/Residuos.tsx`; stack e regras de conteúdo = `README.md`; governança = `CLAUDE.md`. Esta é a sua vista; eu a atualizo a cada mudança.
+# 📮 O que mandei para o escritório (o que passou na régua de admissão)
+> Estes **saíram** do seu mapa porque não são clique seu — são coisa do escritório, e afetam mais de uma casa.
+
+| o que | por que sobe |
+|---|---|
+| **Ponteiro fantasma:** o mapa do portfólio chama este repo de `site-sba-negocios` — nome que não existe (o real é `sba-site`) | Faz sessão irmã montar o repo errado. Atrapalha outras casas. |
+| **Regra sem arquivo:** a régua de admissão de 25/08 não existe como arquivo no escritório | É **regra para todas** as casas; sem arquivo, cada sessão inventa a sua. |
+| **Vacina nova:** repo carregou por ~7 semanas um `CLAUDE.md` que apontava o alvo de deploy errado | Vale como regra para todas: quem sela um repo tem que **medir** onde o site mora, não acreditar no que o doc diz. |
+
+---
+
+> **Regras deste mapa:** tudo que você pede e tudo que eu descubro entra aqui na hora · ação sua = link direto, um por passo · resolvido **sai** (vive no git) · nada aqui cobra pendência morta.
+> **Onde mora o detalhe:** governança = `CLAUDE.md` · o que é o site = `USO.md` · stack = `README.md` · o apagão de 17/08 = `docs/INCIDENTE-2026-08-17-loop-redirect-apex.md` · buscas = `src/lib/seo-routes.json`.

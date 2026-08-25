@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/.claude/rules/nomenclatura-repos.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica.
+
 # Regra — NOMENCLATURA DE REPOSITÓRIO (D186, revisada 2026-08-21)
 > Módulo de regra do escritório, **lido no boot de toda sessão** (referido no `CLAUDE.md`). Vigência: ATIVO desde 2026-08-21.
 > **Por que é regra de boot e não só decisão:** o dono pediu ("tenho medo de vc se perder na compactação"). Regra de boot é lida a cada abertura — sobrevive à compactação. SSOT do padrão = `processos/PADRAO-DE-REPO.md §Nomenclatura`; esta regra é o espelho de boot.

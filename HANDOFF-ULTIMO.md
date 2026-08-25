@@ -1,74 +1,66 @@
-# HANDOFF-ÚLTIMO — delta da sessão de 2026-08-22 (padrão D139 do escritório)
-> **Este é o PRIMEIRO documento operacional que uma sessão nova neste repo deve ler**, DEPOIS do `CLAUDE.md`. Antes do `ESTADO`/`REGISTRO` extensos. Delta puro: FEITO · PENDENTE · INCERTO. Nada aqui repete o `CLAUDE.md` — só o que mudou.
-> **Sessão:** `claude/governanca-sba-negocios-d4ec7i` (branch única, 3 ondas encadeadas em 2026-08-22). **Estado ao encerrar:** `main` == branch (FF limpo), gate 🟩 verde, tudo empurrado. Modo autônomo (D191), método de mapa por caixas (D191/E-064).
+# HANDOFF ÚLTIMO — `sba-site` · delta puro da última sessão (padrão D139/D66)
+> **Para quem abrir este repo depois de mim.** Isto é **delta**, não resumo do repo: só o que **mudou** e o que **você precisa saber para não repetir trabalho nem acreditar em dado velho**.
+> **Sessão:** 2026-08-25 · branch `claude/sba-site-fecho-selo-2026-08-25` · chapéu: orquestrador do `sba-site` (D104).
+> **Ordem que me abriu:** o Escritório do MOU mandou **regularizar e fechar para o selo** — "o site vamos selar apenas". Passada de **arrumação**, **não** de produto.
 
 ---
 
-## ✅ FEITO — provado no git (tudo na `main`)
+## 1. A coisa mais importante que você precisa saber
 
-### Onda 1 · Governança kit-repo-app (D196)
-- Aplicado o **kit-repo-app** (`escritorio-do-mou/processos/kit-repo-app/`) ao `sba-site`: `CLAUDE.md`, `SELO.md` (**TAG do kit D196**, não selo de fecho de onda D194 — a unidade SBA ainda está em fila em `SELOS-DE-FECHO.md`), `TAREFAS-DO-DONO.md` (T-001 rename D186), `REGISTRO-DE-INSTANCIAS.md`, `.claude/settings.json` (deny anti-escrita fora do escopo).
-- **Gate universal ᵁ** (já herdado do kit-clone A-206) mantido — variância aceita pelo `GOVERNANCA-REPOS-APP.md` (é governança a MAIS, não a menos).
-- Linha `sba-site` adicionada em `escritorio-do-mou/portfolio/GOVERNANCA-REPOS-APP.md` com variâncias ᵁ + ᴷ (ᴷ = SELO=TAG do kit, não de onda).
-- ACK depositado em `escritorio-do-mou/caixa-de-entrada/sba/2026-08-22_sba-site_kit-d196-provisionado.md`.
+**O repo estava mentindo sobre onde o site mora.** `CLAUDE.md` e `USO.md` diziam *"PRODUÇÃO no GitHub Pages via `gh-pages`, deploy manual por `scripts/deploy-producao.sh`"*. **Errado desde 2026-07-03.**
 
-### Onda 2 · SEO + eixo Usina de Resíduos (V6 aprovado pelo dono nas caixas · a-e todos)
-- **`src/lib/seo-routes.json` `/residuos`:** title e description reescritos com 6 palavras-chave-alvo (usina, RSU, prefeituras, consórcios, biometano, Novo Marco/PNRS). Novo title: _"Usina de Resíduos Sólidos Urbanos (RSU) para prefeituras e consórcios | SBA Negócios"_.
-- **`src/pages/Residuos.tsx`:**
-  - Bloco **projeto-farol Congonhas do Campo — MG** ampliado (correção honesta ao mapa v1: "Volta Redonda" era invenção minha — puxar sempre do `PARCEIRO_CSTR.projeto`, nunca da memória). Destaque para a tecnologia de explosão a vapor + prêmio Startup do Ano 2025 + link ao parceiro.
-  - **Seção FAQ** com 6 perguntas do setor (aterro × usina · biometano municipal · consórcio intermunicipal · quem paga · escala município pequeno · Novo Marco), respostas curtas, factuais, com fonte pública (SNIS/MDR).
-  - **JSON-LD Service + FAQPage** injetados via novo helper `applyPageSchema()` em `src/lib/seo.ts` (usa `data-page-schema`, limpa ao trocar de rota).
-- **`index.html`:** JSON-LD **Organization** com `data-site-schema` (constante do site — nome, logo, endereço, telefone, email da SBA).
-- **Build `npm run build` 🟩 verde** — 18 rotas prerender-og geradas; `dist/residuos/index.html` estático já traz o title novo (WhatsApp/LinkedIn preview corretos para robôs sem JS).
-- **Vercel auto-deploy:** o push na `main` dispara publicação (o `scripts/deploy-producao.sh` é LEGADO desde 2026-07-03; host oficial é Vercel).
+**A verdade, medida em 25/08:** o site roda na **Vercel** (projeto `site-sba-negocios`, time `bitsuki`) e **republica sozinho a cada push na `main`**.
 
-### Onda 3 · Corpo de processos do escritório incorporado (ordem viva MOU 2026-08-22)
-- Estratégia **HÍBRIDO/PUXAR** (MOU 2026-06-28) — não esperei o maestro empurrar; puxei o kit curado direto.
-- **10 processos** em `processos/`: HANDOFF-SEM-PERDAS (D66), IGNICAO-PADRAO (D109), CASACO-POR-TEMA (D137), PADRAO-DE-REPO, PADRAO-OURO-MAPA-DE-PENDENCIAS, PLAYBOOK-ARRUMACAO-PROJETO, POLITICA-VIGENCIA, PREVENCAO-DE-PERDAS, MATRIZ-ADMISSAO-LICOES (A-209), TEMPLATE-MAPA-DE-PENDENCIAS.
-- **3 subagentes** em `.claude/agents/`: `documentador`, `escrutinador` (D108), `curador`.
-- **4 regras modulares** em `.claude/rules/`: README + linguagem-e-ferramentas (D159/D160) + ordem-normativa (C36/C120) + nomenclatura-repos (D186).
-- **Canais D144 nos dois sentidos:** `caixa-de-saida/para-escritorio/` + `caixa-de-entrada/do-escritorio/processados/` com READMEs.
-- **Índice + regra de manutenção:** `processos/HERDADO-DO-ESCRITORIO.md`.
-- **`CLAUDE.md` §8 (corpo herdado) + §9 (canais D144).**
-- **CARTA formal ao maestro** em `caixa-de-saida/para-escritorio/2026-08-22_sba-site_pedido-corpo-processos.md` — pede homologação da curadoria + virar padrão do kit-repo-app D196.
-- **ACK depositado** em `escritorio-do-mou/caixa-de-entrada/sba/2026-08-22_sba-site_corpo-processos-puxado.md`.
+- **Prova:** `sbanegocios.com.br` resolve para **`216.198.79.1`** — o IP da Vercel escrito dentro do próprio `scripts/deploy-producao.sh`.
+- **Convergem:** `deploy-pages.yml` ("produção real = Vercel", gatilho de push removido em 13/08) · `vercel.json` vivo · o laudo de 17/08 ("apex → 200, `server: Vercel`").
+- **Já corrigido** em `CLAUDE.md` §2/§3 e `USO.md` (a)/(c).
 
-### Mapa D172 + Artifact
-- `MAPA-DE-PENDENCIAS.md` **v1→v2→v3→v4** (esta edição inclui achados da varredura de handoff).
-- Artifact D172 publicado e republicado no **MESMO endereço** (regra do padrão): https://claude.ai/code/artifact/a2d0ecf3-8181-445f-ac6c-9418db470fde — design honra a marca SBA (Poppins + Inter · azul institucional `#2E5AAC` · traços dourados · light + dark).
+**Consequência prática para você:** **publicar = dar merge na `main`.** Não rode `scripts/deploy-producao.sh` — é legado, publica no Pages, que não recebe mais tráfego.
+
+> **Como isso durou 7 semanas:** o laudo do incidente de 17/08 **já trazia** a nota *"`USO.md` está desatualizado; o hosting real é Vercel"* — mas o laudo vivia num **galho que nunca aterrissou** (`claude/sba-instancia-pagina-sistema-sxb9wu`). Achado morto em galho morto. Aterrissei o laudo em `docs/INCIDENTE-2026-08-17-loop-redirect-apex.md`.
 
 ---
 
-## 🔒 PENDENTE — o que a próxima instância vai encontrar aberto
+## 2. O que mudou nesta sessão (delta)
 
-**Do dono** (mapa v4 · caixas de decisão já feitas na sessão · sem cobrança):
-1. **V1** · Renomear repo `sba-site` → `sba-negocios-site` no GitHub Settings (você já disse "sim, renomear agora"). Assim que fizer, a próxima instância abre a onda de varredura de ~7 ponteiros — **inclui agora o ponteiro fantasma A-1 no escritório** (`portfolio/MAPA-DO-PORTFOLIO.md` chama de `site-sba-negocios`, invertido do D186; nem casa com o nome atual nem com o proposto).
-2. **V2** · Google Search Console (verificar domínio + submeter sitemap).
-3. **V3** · Google Analytics 4 (criar propriedade e colar `G-XXXXXXX` na conversa). Assim que colar, próxima instância cabla (M8).
-4. **V4** · Perfil de Empresa no Google (baixo esforço, uma-vez-só).
-5. **V5** · Pedir ao parceiro CSTR (`cstr.eco.br`) o link de volta para o site.
-6. **V7** · Aprovar as 3 sub-páginas long-tail (`/residuos/usina-biometano-municipal` · `/residuos/rsu-prefeitura` · `/residuos/consorcio-intermunicipal-residuos`).
-7. **T-002 (opcional, em `TAREFAS-DO-DONO.md`):** foto do canteiro Congonhas + link para notícia externa. Não bloqueia.
+### Corpo de processos — reconciliado com o escritório
+- **Regras: 3 → 6.** Puxadas `instanciacao-por-repo.md` (D201) e `decisao-e-alcada.md` (D203/D202).
+- ⚠️ **`regua-de-admissao.md` não existe no escritório.** A ordem afirmava 6 regras lá; a medição achou **5 + README**, e o README de lá lista as 5. Lavrei como **regra local de espelho** (a substância veio verbatim na ordem viva, que é C36 nível 1). **Achado A-453** devolvido ao escritório.
+- **Toda cópia herdada agora carrega cabeçalho ⧉** "CÓPIA DE LEITURA — SSOT no escritório" (10 processos + 4 regras + 3 agentes). **Nos agentes o cabeçalho vai DEPOIS do frontmatter YAML** — pôr antes quebra a definição do subagente (errei e consertei; não repita).
 
-**Do maestro do escritório** (na caixa `escritorio-do-mou/caixa-de-entrada/sba/`, aguarda o próximo co-monte dele):
-- Homologar a curadoria do corpo puxado (Onda 3) — ou pedir ajuste via `sba-site/caixa-de-entrada/do-escritorio/`.
-- Considerar virar padrão do kit-repo-app D196 (seção "Corpo estendido opcional") para outros repos AUXILIARES USO/APP que o dono pedir governança extendida.
-- Corrigir o ponteiro fantasma A-1 (`portfolio/MAPA-DO-PORTFOLIO.md` — trocar `site-sba-negocios` pelo nome real).
+### Superfícies do dono
+- **`MAPA-DE-PENDENCIAS.md` v4 → v5** com a **régua de admissão de 25/08** aplicada (só sobe ao mapa do dono o que trava 2+ casas ou é regra para todas).
+- **V3 foi reescrita, não só reordenada.** A premissa velha era *"`@vercel/analytics` não roda em GitHub Pages → vácuo de medição"*. Caiu junto com a correção de deploy: o site **está** na Vercel e o medidor **já está montado** em `src/App.tsx:69`. A V3 virou *"olhe o painel da Vercel por 2 minutos"* — pode apagar a pendência do GA4 inteira. **M8 ficou em espera, não em execução.**
+- **T-001 saiu do `TAREFAS-DO-DONO.md`** por reclassificação (estava duplicada com a V1 do mapa). ⚠️ **O rename NÃO foi feito** — o repo segue `sba-site`; `sba-negocios-site` é o nome **proposto**. A ordem de abertura supôs o contrário.
 
-**Da máquina (⚙️ Minhas, todas destravadas):**
-- M3/M4/M5 aguardam V7 · M8 aguarda V3 · M6/M7/M9/M10 independentes (posso disparar quando você quiser).
-
----
-
-## ⚠️ INCERTO / PONTOS CEGOS DECLARADOS (regra D24 — melhor declarado que oculto)
-
-1. **`sba-unidades-de-negocios` NÃO está co-montado nesta sessão.** É o repo canônico da unidade SBA (SSOT do dossiê da unidade). O que existe lá relevante para meu trabalho: `START-HERE-ORQUESTRADOR-TEMA-1130.md` (régua v5.12), `MESTRE-TEMA-1130.md`, `MESTRE-RESIDUOS.md`, `CODEX-TEMA-1130.md`, `DO_ESCRITORIO.md`, `HANDOFF-SURFACES.txt`. **Não perdi nada nesta onda** porque o produto que toquei (site) tem SSOT AQUI e não lá — mas a próxima sessão que trabalhar CONTEÚDO do site (números, textos jurídicos, cases) deve co-montar `sba-unidades-de-negocios` para não inventar.
-2. **Onda de SEO tocou SÓ o eixo Resíduos.** O outro projeto da SBA — **Tema 1130 (rota `/recuperacao-tributaria`)** — não foi trabalhado nesta sessão. Se o dono pedir uma onda análoga para Tema 1130, seguir o mesmo padrão (V6-like: aprovar em bloco a-e; M1-like: executar meta + FAQ + JSON-LD + case).
-3. **`sba-unidades-de-negocios` tem `HANDOFF-SURFACES.txt` mas eu criei o meu só nesta sessão** — se o formato do meu divergir do canônico da unidade, o certo é o da unidade (leio quando co-montar).
-4. **`scripts/deploy-producao.sh` é LEGADO** (Vercel auto-deploy oficial desde 2026-07-03). O `USO.md` deste repo ainda diz "PRODUÇÃO no GitHub Pages" — desalinhamento pequeno, não urgente. Fica para próxima onda de arrumação.
-5. **Bloqueio B5 da SBA** (solver de captcha SICOM, mencionado no dossiê PMO) — **fora do escopo deste repo**. O escritório já arbitrou. Só cito para a próxima instância não achar que é dela.
+### Higiene
+- `REGISTRO-DE-INSTANCIAS.md`: consertada **linha corrompida** (10 colunas — dois registros colados numa linha só).
+- `gate-fechamento.sh` [2/4]: parou de contar `README.md` como "carta staged" (contador inflado = aviso que ninguém confia).
+- `.claude/settings.json`: somados denies de `sba-unidades-de-negocios` (D201) e `portfolio-automacoes`; cobre `NotebookEdit`.
+- Carta de 22/08 ao escritório → `caixa-de-saida/processados/` com o carimbo da resposta.
 
 ---
 
-## 🎯 REGISTRO DA ONDA (sessão FECHADA em 2026-08-22)
-Onda de 3 ciclos encadeados na mesma branch: **governança kit D196** → **SEO+Resíduos (V6 aprovado)** → **corpo herdado do escritório (ordem viva)**. Gate 🟩 verde em cada ciclo antes do merge. Nenhuma pendência silenciosa. Nenhum "achado órfão" — todos os achados desta sessão fizeram fan-out para as superfícies obrigatórias (mapa D172, TAREFAS-DO-DONO, REGISTRO, ACK ao PMO, HANDOFF).
+## 3. O que eu NÃO fiz (e por quê) — leia antes de "terminar" por mim
+
+| não fiz | por quê |
+|---|---|
+| **Não apaguei nenhum galho** | Medi os 10: **8 estão 100% na `main`** (seguros para apagar), **2 carregam commit fora dela**. Apagar é ato do escritório/dono — eu meço e declaro, não apago. |
+| **Não apliquei a economia de CI** do galho `claude/instance-concurrency-94pbeg` | 1 commit que tira o gatilho de `pull_request` do linter (−50% de Actions). **Reduz checagem nos PRs** = decisão de esteira, e esteira é do escritório. Virou **M11** no mapa. **Não apague esse galho** antes da decisão. |
+| **Não instalei o robô `consolidar` (D170)** | Precisa de segredo de Actions neste repo = clique do dono. Pela régua de 25/08, clique de uma casa só **não vira pendência do dono**. Fica como **limite declarado**. |
+| **Não renomeei `SELO.md`** | Colisão viva `SELO.md` × `SELO-DE-FECHO.md`; o escritório arbitra na onda NORMAS. Dúvida registrada dentro do próprio `SELO.md`. |
+| **Não toquei em produto** | `src/`, `index.html`, `package.json`, configs — intocados. Trilho duro do `CLAUDE.md` §5 e escopo da ordem ("selar apenas"). |
+| **Não me auto-selei** | **E-071: quem produz não certifica.** O selo é da torre, depois de verificar na `main`. |
+| **Não co-montei `sba-unidades-de-negocios`** | D201. Se precisar de conteúdo da unidade (números, textos jurídicos), peça pela caixa. |
+
+---
+
+## 4. Estado ao sair
+
+- **Segredos:** varri o HEAD inteiro **e** as 85 revisões do histórico. **Nada.** A única chave no código é `sb_publishable_…` do Supabase — **pública por desenho (D206)**, protegida por RLS. **Não é vazamento e não deve ser "consertada"**: mexer nela quebra o formulário sem ganho de segurança.
+- **CI:** verde. `linter-estado` passou nas últimas 11 execuções. As 3 falhas de "Deploy de produção" (07/08) eram do workflow **legado** do Pages e foram resolvidas na raiz em 13/08, quando o gatilho de push foi removido. **Não há CI vermelho pendente.**
+- **Gate:** 🟩 nos 4 checks · **linter:** 🟩.
+- **Relatório ao escritório:** `caixa-de-saida/para-escritorio/2026-08-25_sba-site_fecho-para-selo.md`.
+
+## 5. Por onde começar (boot)
+1. Este arquivo. 2. `CLAUDE.md`. 3. `MAPA-DE-PENDENCIAS.md` (v5). 4. `TAREFAS-DO-DONO.md`. 5. `caixa-de-entrada/do-escritorio/` — **vazia** ao meu fechamento.

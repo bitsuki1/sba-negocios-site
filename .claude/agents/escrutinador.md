@@ -5,6 +5,8 @@ tools: Read, Grep, Glob
 model: opus
 ---
 
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/.claude/agents/escrutinador.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica.
+
 > **C56/C58 (banca 2026-08-18):** papel READ-ONLY de verdade — sem `Write`/`Bash` (o laudo volta no RETORNO; o maestro grava). Modelo FORTE pinado (vacina D11: adversarial em sonnet degrada — as 3 intermediárias em sonnet passaram batido no que a L17 em opus pegou).
 
 > **Vigência:** ATIVO desde 2026-06-20 — criado para destravar P-010 Entregável 3 (separação obrigatória de papel auditor ≠ produtor) e materializar o escrutinador que o MAESTRO.md §3 só descrevia como "papel lógico sob demanda".

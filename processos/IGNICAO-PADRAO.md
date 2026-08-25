@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/processos/IGNICAO-PADRAO.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica (regra em `processos/HERDADO-DO-ESCRITORIO.md`).
+
 # IGNIÇÃO PADRÃO — o que cada chapéu lê ao abrir sessão (ordem fixa)
 
 > **Vigência:** ATIVO desde 2026-06-20 — D109 (P-011 E4). SSOT do método de ignição.

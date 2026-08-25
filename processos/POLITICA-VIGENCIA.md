@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/processos/POLITICA-VIGENCIA.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica (regra em `processos/HERDADO-DO-ESCRITORIO.md`).
+
 # POLÍTICA DE VIGÊNCIA — anti-regressão por esquecimento
 
 > **Vigência:** ATIVO desde 2026-06-20 — cravado pelo MOU como princípio inegociável: "tudo que não for usar é EXCLUÍDO ou TAGUEADO INATIVO; nada esquecido entre os vivos".

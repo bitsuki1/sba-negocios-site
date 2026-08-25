@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/processos/PLAYBOOK-ARRUMACAO-PROJETO.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica (regra em `processos/HERDADO-DO-ESCRITORIO.md`).
+
 # Playbook de Arrumação de Projeto — o escritório ENTRA no projeto e regulariza
 
 > **Vigência:** ATIVO desde 2026-06-28 (MOU: *"vamos gravar esse processo; nas próximas instâncias botamos

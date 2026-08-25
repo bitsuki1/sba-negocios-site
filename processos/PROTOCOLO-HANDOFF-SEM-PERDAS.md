@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/processos/PROTOCOLO-HANDOFF-SEM-PERDAS.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica (regra em `processos/HERDADO-DO-ESCRITORIO.md`).
+
 # PROTOCOLO DE HANDOFF SEM PERDAS
 > **Vigência:** ATIVO — processo/referência vivo do escritório. Revisar sob mudança material; mover a `_legado/` se aposentado.
 > Processo do Escritório do MOU — **aplica-se a TODOS os projetos do portfólio** (D23).

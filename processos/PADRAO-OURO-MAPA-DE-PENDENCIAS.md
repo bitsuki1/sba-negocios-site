@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/processos/PADRAO-OURO-MAPA-DE-PENDENCIAS.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica (regra em `processos/HERDADO-DO-ESCRITORIO.md`).
+
 # PADRÃO-OURO do MAPA DE PENDÊNCIAS (D172 + D159 + D181 + D182) — a NORMA
 > **Vigência:** ATIVO desde 2026-08-20 (ordem do MOU: "quero que lance lentes… para termos um padrão ouro aqui"). Nasce da lente C (censo completo + anti-padrões punidos: `processos/estudos-2026-08-20/03-LENTE-C-padrao-ouro-mapa.md`). **Template pronto para copiar: `processos/templates/TEMPLATE-MAPA-DE-PENDENCIAS.md`** (T1). Vale para TODO projeto do portfólio; propaga na fase 3 (kit item 18, emendado).
 

@@ -1,3 +1,5 @@
+> ⧉ **CÓPIA DE LEITURA** do `escritorio-do-mou` — **SSOT lá** (`escritorio-do-mou/processos/CASACO-POR-TEMA.md`); puxada em **2026-08-22**. Não editar aqui: mudança se faz no escritório e se republica (regra em `processos/HERDADO-DO-ESCRITORIO.md`).
+
 # CASACO POR TEMA — índice e doutrina (D137)
 
 > **Vigência:** ATIVO desde 2026-06-22 — D137. SSOT do índice tema→casaco.
