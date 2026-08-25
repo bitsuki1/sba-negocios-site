@@ -1,5 +1,5 @@
 # TAREFAS DO DONO — a "API/caixa" deste app (D195)
-> **Como funciona (D195):** este repo-app `sba-site` DESENVOLVE; a unidade SBA e/ou o dono só PLANEJAM. Quando a unidade
+> **Como funciona (D195):** este repo-app `sba-negocios-site` DESENVOLVE; a unidade SBA e/ou o dono só PLANEJAM. Quando a unidade
 > (ou o dono) tem uma **tarefa** ou uma **atualização de documentação** para este site, ela deposita AQUI —
 > não escreve código na unidade nem empurra produto por fora. O app lê, executa e marca feito.
 > É o canal ÚNICO entrada→app. Português sempre. Uma tarefa por bloco. O que está feito desce para o rastro no fim.
@@ -15,9 +15,10 @@
 ## ✅ Rastro (feitas / encerradas)
 _(as tarefas concluídas descem para cá com a data e o commit)_
 
-### T-001 · Confirmar rename para `sba-negocios-site` — **ENCERRADA AQUI por RECLASSIFICAÇÃO** (não por conclusão)
+### T-001 · Confirmar rename para `sba-negocios-site` — ✅ **CUMPRIDA pelo dono em 2026-08-25**
 - **Data:** 2026-08-25 · **Commit:** (esta passada de regularização)
-- **⚠️ Atenção — o rename NÃO foi feito.** O repositório **continua `sba-site`**. Quem ler "T-001 encerrada" e concluir "já renomearam" está errado.
-- **Por que saiu daqui:** este arquivo é a caixa de **ENTRADA** (unidade/dono → app manda TAREFA para o app executar). T-001 não é tarefa para o app executar — é **decisão + clique do dono**, e decisão do dono mora no `MAPA-DE-PENDENCIAS.md`. Estava duplicada nos dois lugares (aqui como T-001, lá como V1): duas superfícies cobrando a mesma coisa é o ruído que o próprio padrão do mapa manda eliminar.
-- **Onde vive agora (casa única):** `MAPA-DE-PENDENCIAS.md` → **V1**, com o link direto para a tela do rename.
-- **Nota de fato (2026-08-25):** a ordem de abertura do escritório supôs que T-001 "provavelmente já foi cumprida, porque o repo se chama `sba-site`". **A suposição está invertida:** `sba-site` é o nome **antigo**; o nome proposto pelo D186 é **`sba-negocios-site`**. A tarefa está aberta e continua dependendo de 1 clique do dono.
+- **✅ FEITO.** O dono renomeou em 2026-08-25. O repositório é **`bitsuki1/sba-negocios-site`** — confirmado pela API do GitHub (`id 1282269823`, mesmo repo criado em 2026-06-27, portanto **renomeado, não recriado**: histórico, issues e o espelho do Lovable preservados, como a regra V-LOVABLE-RENAME previa).
+- **Varredura de ponteiros (E-055, 3º tempo):** feita no mesmo turno — 39 ponteiros de identidade corrigidos em 13 arquivos + o `git remote` local + carta ao escritório para ele corrigir o lado dele. Nomes REAIS de branch (`claude/sba-site-…`) e de arquivos de carta já existentes (`_sba-site_`) **não** foram tocados: existem com aquele nome, trocá-los criaria ponteiro quebrado.
+- **Nota histórica — por que ela tinha saído daqui em 25/08:** este arquivo é a caixa de **ENTRADA** (unidade/dono → app manda TAREFA para o app executar). T-001 não é tarefa para o app executar — é **decisão + clique do dono**, e decisão do dono mora no `MAPA-DE-PENDENCIAS.md`. Estava duplicada nos dois lugares (aqui como T-001, lá como V1): duas superfícies cobrando a mesma coisa é o ruído que o próprio padrão do mapa manda eliminar.
+- **Onde vivia:** `MAPA-DE-PENDENCIAS.md` → **V1**. Agora que está feito, a V1 **saiu do mapa** (regra "resolvido SAI").
+- **Nota de fato:** a ordem de abertura do escritório supôs, de manhã, que T-001 já estivesse cumprida "porque o repo se chama `sba-site`". Naquele momento a suposição estava **invertida** (`sba-site` era o nome ANTIGO). O dono fez o clique no fim do dia, e aí sim ficou cumprida. Registro os dois momentos para o rastro não sugerir que a ordem estava certa desde o início.

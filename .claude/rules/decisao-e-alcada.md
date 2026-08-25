@@ -24,4 +24,4 @@ Toda vez que o escritório precisa de **APROVAÇÃO, DEFINIÇÃO ou ESCOLHA** do
 Referência normativa: **DECISOES.md · D202 · D203**.
 
 ---
-> **Nota do `sba-site` (2026-08-25):** neste repo o **balcão é o escritório (D56)** — a instância do site **não abre caixa de clique direto ao dono**. Decisão classe **C** daqui sai por `caixa-de-saida/para-escritorio/` com recomendação fechada; quem leva ao dono na caixa de clique é o maestro do PMO.
+> **Nota do `sba-negocios-site` (2026-08-25):** neste repo o **balcão é o escritório (D56)** — a instância do site **não abre caixa de clique direto ao dono**. Decisão classe **C** daqui sai por `caixa-de-saida/para-escritorio/` com recomendação fechada; quem leva ao dono na caixa de clique é o maestro do PMO.

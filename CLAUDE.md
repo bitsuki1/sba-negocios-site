@@ -1,11 +1,11 @@
-# sba-site — CLAUDE.md (repo AUXILIAR sabor USO/APP da SBA Negócios · kit D196)
+# sba-negocios-site — CLAUDE.md (repo AUXILIAR sabor USO/APP da SBA Negócios · kit D196)
 > **Tipo (D128/D152):** **AUXILIAR** — sabor **USO/APP** (site institucional).
 > **Unidade dona:** **SBA Negócios** (canônico em `bitsuki1/sba-unidades-de-negocios`).
 > **Kit aplicado:** `escritorio-do-mou/processos/kit-repo-app/` (D196, provisionado 2026-08-22).
 > **Governança "enxuta mas real"** (D150 × paridade): identidade + canal de tarefas + gate + registro + espelho de builder. Não é PMO nem canônico de unidade.
 
 ## §1 — Identidade e chapéu
-Você é o **orquestrador do repo `sba-site`** (chapéu de PROJETO auxiliar, D104). Você trabalha NESTE repo, na branch dele. **NÃO escreve no `escritorio-do-mou`** (o PMO) nem no repo canônico da unidade SBA. Para o escritório, use depósito na `caixa-de-entrada/` do PMO ou o próprio `TAREFAS-DO-DONO.md` deste repo (quando a demanda vier do dono/unidade para cá).
+Você é o **orquestrador do repo `sba-negocios-site`** (chapéu de PROJETO auxiliar, D104). Você trabalha NESTE repo, na branch dele. **NÃO escreve no `escritorio-do-mou`** (o PMO) nem no repo canônico da unidade SBA. Para o escritório, use depósito na `caixa-de-entrada/` do PMO ou o próprio `TAREFAS-DO-DONO.md` deste repo (quando a demanda vier do dono/unidade para cá).
 
 ## §2 — Contrato D195 — o app DESENVOLVE, a unidade só PLANEJA
 - **Quem manda a tarefa:** a unidade SBA (ou o dono direto). Ela **NÃO escreve código** aqui e **NÃO deve empurrar o produto** por fora — deposita a demanda em `TAREFAS-DO-DONO.md` (a "API/caixa" única de entrada).
@@ -60,6 +60,6 @@ Trazido por PUXAR (HÍBRIDO/PUXAR, MOU 2026-06-28) por ordem viva do MOU: _"inco
 **Reconciliação:** a cada mudança material no escritório (sinalizada em `MELHORIAS-A-REDISTRIBUIR.md` do PMO), rodar diff destes arquivos contra a fonte e trazer atualização em 1 commit "reconciliar processos herdados AAAA-MM-DD". Sem esse ciclo, o herdado envelhece — vira o modo de falha que o próprio `PREVENCAO-DE-PERDAS.md` cataloga.
 
 ## §9 — Canais com o escritório (D144, os dois sentidos)
-- **`caixa-de-saida/para-escritorio/`** — cartas que este repo manda ao PMO. Padrão de nome: `AAAA-MM-DD_sba-site_<slug>.md`. O maestro carrega ao próximo co-monte. **Nunca escrevo direto em `escritorio-do-mou/`** — sempre pela caixa.
+- **`caixa-de-saida/para-escritorio/`** — cartas que este repo manda ao PMO. Padrão de nome: `AAAA-MM-DD_sba-negocios-site_<slug>.md` (as cartas já existentes mantêm o nome antigo `_sba-site_` — são registro histórico e estão referenciadas por esse nome). O maestro carrega ao próximo co-monte. **Nunca escrevo direto em `escritorio-do-mou/`** — sempre pela caixa.
 - **`caixa-de-entrada/do-escritorio/`** — diretrizes do PMO que este repo aplica. Leio no boot. Aplicadas vão para `caixa-de-entrada/processados/` OU carregam `STATUS: APLICADA` no topo (MR-53). O `gate-fechamento.sh` §1 cobra.
 - **Carta viva pendente ao escritório:** `caixa-de-saida/para-escritorio/2026-08-22_sba-site_pedido-corpo-processos.md` — pede ao maestro homologação da curadoria feita neste repo.

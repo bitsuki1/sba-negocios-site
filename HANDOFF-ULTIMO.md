@@ -1,6 +1,6 @@
-# HANDOFF ÚLTIMO — `sba-site` · delta puro da última sessão (padrão D139/D66)
+# HANDOFF ÚLTIMO — `sba-negocios-site` · delta puro da última sessão (padrão D139/D66)
 > **Para quem abrir este repo depois de mim.** Isto é **delta**, não resumo do repo: só o que **mudou** e o que **você precisa saber para não repetir trabalho nem acreditar em dado velho**.
-> **Sessão:** 2026-08-25 · branch `claude/sba-site-fecho-selo-2026-08-25` · chapéu: orquestrador do `sba-site` (D104).
+> **Sessão:** 2026-08-25 · branch `claude/sba-site-fecho-selo-2026-08-25` · chapéu: orquestrador do `sba-negocios-site` (D104).
 > **Ordem que me abriu:** o Escritório do MOU mandou **regularizar e fechar para o selo** — "o site vamos selar apenas". Passada de **arrumação**, **não** de produto.
 
 ---
@@ -31,7 +31,13 @@
 ### Superfícies do dono
 - **`MAPA-DE-PENDENCIAS.md` v4 → v5** com a **régua de admissão de 25/08** aplicada (só sobe ao mapa do dono o que trava 2+ casas ou é regra para todas).
 - **V3 foi reescrita, não só reordenada.** A premissa velha era *"`@vercel/analytics` não roda em GitHub Pages → vácuo de medição"*. Caiu junto com a correção de deploy: o site **está** na Vercel e o medidor **já está montado** em `src/App.tsx:69`. A V3 virou *"olhe o painel da Vercel por 2 minutos"* — pode apagar a pendência do GA4 inteira. **M8 ficou em espera, não em execução.**
-- **T-001 saiu do `TAREFAS-DO-DONO.md`** por reclassificação (estava duplicada com a V1 do mapa). ⚠️ **O rename NÃO foi feito** — o repo segue `sba-site`; `sba-negocios-site` é o nome **proposto**. A ordem de abertura supôs o contrário.
+- **T-001 saiu do `TAREFAS-DO-DONO.md`** por reclassificação (estava duplicada com a V1 do mapa) e, **no fim do mesmo dia, foi CUMPRIDA**: o dono renomeou o repositório.
+
+### 🔁 O RENAME ACONTECEU — `sba-site` → `sba-negocios-site` (2026-08-25, fim do dia)
+- **Nome atual:** `bitsuki1/sba-negocios-site`. Confirmado pela API (`id 1282269823`, criado em 2026-06-27) — **renomeado, não recriado**: histórico, issues e espelho do Lovable preservados (V-LOVABLE-RENAME confirmada na prática).
+- **Varredura E-055 (3º tempo) feita no mesmo turno:** 39 ponteiros de identidade em 13 arquivos + `git remote` local + `package.json` (`name`) + comentário do `vite.config.ts`.
+- **O que NÃO foi renomeado, de propósito:** nomes **reais** de branch (`claude/sba-site-fecho-selo-2026-08-25`) e nomes **reais** de cartas já existentes (`2026-08-22_sba-site_…`, `2026-08-25_sba-site_…`). Esses objetos existem com aquele nome — trocá-los no texto criaria ponteiro quebrado, que é justamente o que a varredura serve para evitar. Cartas **novas** usam `_sba-negocios-site_`.
+- **A URL antiga ainda redireciona** (o GitHub segura por um tempo, não para sempre). Se algo apontar para `bitsuki1/sba-site` e funcionar, é o redirect — corrija mesmo assim.
 
 ### Higiene
 - `REGISTRO-DE-INSTANCIAS.md`: consertada **linha corrompida** (10 colunas — dois registros colados numa linha só).

@@ -1,10 +1,10 @@
 # Corpo de processos herdado do Escritório do MOU
-> **Índice + rastreabilidade** do que foi trazido do `escritorio-do-mou` para este repo em 2026-08-22, por **ordem viva do MOU** ("chame o maestro do escritório e peça para incorporar toda governança de projeto aqui nesse repo do site"). Curadoria feita pelo orquestrador do `sba-site` (chapéu D104) via **estratégia HÍBRIDO/PUXAR** (MOU 2026-06-28) — o repo puxa o que precisa em vez de esperar o escritório empurrar.
+> **Índice + rastreabilidade** do que foi trazido do `escritorio-do-mou` para este repo em 2026-08-22, por **ordem viva do MOU** ("chame o maestro do escritório e peça para incorporar toda governança de projeto aqui nesse repo do site"). Curadoria feita pelo orquestrador do `sba-negocios-site` (chapéu D104) via **estratégia HÍBRIDO/PUXAR** (MOU 2026-06-28) — o repo puxa o que precisa em vez de esperar o escritório empurrar.
 > **A CARTA formal** deste pedido vive em `caixa-de-saida/para-escritorio/2026-08-22_sba-site_pedido-corpo-processos.md` — SSOT do pedido; o maestro do escritório vê ao próximo co-monte e homologa/complementa se necessário.
 
 ## Regra de manutenção (D111 — codex dos processos)
 - **Cada cópia carrega cabeçalho ⧉** (desde 2026-08-25): a 1ª linha de todo arquivo herdado diz que é cópia de leitura, aponta o SSOT no escritório e a data da puxada. Sem isso ninguém distingue original de cópia daqui a um mês (modo de falha vacinado pelo E-055).
-- **Não editar aqui.** Todo arquivo abaixo é **cópia 1:1** do escritório na data indicada. Se você achar que precisa mudar, edite no **escritório** (via `caixa-de-entrada/PEDIDOS_DO_ESCRITORIO.md` do PMO) e depois republique aqui — o SSOT do processo é do escritório, não do sba-site.
+- **Não editar aqui.** Todo arquivo abaixo é **cópia 1:1** do escritório na data indicada. Se você achar que precisa mudar, edite no **escritório** (via `caixa-de-entrada/PEDIDOS_DO_ESCRITORIO.md` do PMO) e depois republique aqui — o SSOT do processo é do escritório, não do sba-negocios-site.
 - **Reconciliação recomendada:** a cada 30 dias (ou quando o escritório sinalizar mudança material em `MELHORIAS-A-REDISTRIBUIR.md`), rodar um diff destes arquivos contra a fonte no escritório e trazer a atualização em bloco (1 commit "reconciliar processos herdados AAAA-MM-DD").
 - **O que NÃO foi trazido, por decisão de curadoria** (fica como PONTEIRO — leitura no repo co-montado):
   - `processos/AUDITORIA-TRIPLO-LIMPO.md` (31KB) — método pesado de auditoria por convergência de lentes. Overkill para site institucional; se algum dia precisar, leio no escritório.
@@ -12,7 +12,7 @@
   - `referencia/CODEX-DOS-PROCESSOS.md` (69KB!!) — é o codex do escritório; leio in-place, não copio.
   - `referencia/GLOSSARIO.md` (25KB) — jargão do portfólio como um todo; leio in-place.
   - `.claude/agents/bibliotecario` (cuida da biblioteca do PMO) e `inventariante` (só serve na ENTRADA; passou).
-  - `.claude/skills/` do escritório — quase todos apontam para o próprio repo do escritório; não fazem sentido no sba-site.
+  - `.claude/skills/` do escritório — quase todos apontam para o próprio repo do escritório; não fazem sentido no sba-negocios-site.
 
 ## Índice do trazido (2026-08-22)
 
@@ -24,7 +24,7 @@
 | `CASACO-POR-TEMA.md` | 4KB | `escritorio-do-mou/processos/` | **D137** — chapéu (papel) × casaco (tema). Aqui o repo é mono-tema (o site), mas a doutrina orienta como trocar de frente sem trocar de identidade. |
 | `PADRAO-DE-REPO.md` | 10KB | `escritorio-do-mou/processos/` | SSOT do padrão de repo (nomenclatura, kit-clone, gates). Referência ao meu `SELO.md` e ao meu `CLAUDE.md`. |
 | `PADRAO-OURO-MAPA-DE-PENDENCIAS.md` | 8KB | `escritorio-do-mou/processos/` | Evolução curada do padrão D172 do mapa (o "padrão-ouro" — o que amadureceu). Complementa o `TEMPLATE-MAPA-DE-PENDENCIAS.md`. |
-| `PLAYBOOK-ARRUMACAO-PROJETO.md` | 6KB | `escritorio-do-mou/processos/` | Playbook do MOU 2026-06-28 — "regulariza o projeto X". Se você me pedir "arruma o sba-site", eu sigo isto. |
+| `PLAYBOOK-ARRUMACAO-PROJETO.md` | 6KB | `escritorio-do-mou/processos/` | Playbook do MOU 2026-06-28 — "regulariza o projeto X". Se você me pedir "arruma o sba-negocios-site", eu sigo isto. |
 | `POLITICA-VIGENCIA.md` | 6KB | `escritorio-do-mou/processos/` | Regra viva vs. legado — fundamental para o agnosticismo. Antes de reafirmar qualquer regra, verifico se não está aposentada em `APOSENTADORIAS.md` do escritório. |
 | `PREVENCAO-DE-PERDAS.md` | 10KB | `escritorio-do-mou/processos/` | 9 modos de falha do escritório + comissão M-57. Vale como cheklist quando eu for escrever ata/handoff/mapa aqui. |
 | `MATRIZ-ADMISSAO-LICOES.md` | 3KB | `escritorio-do-mou/referencia/` | **A-209** — onde cada lição mora (codex E-NN, aprendizado V, modo-de-falha F, achado A). Entrada única para eu não perder aprendizado. |

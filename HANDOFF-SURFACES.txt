@@ -1,5 +1,5 @@
 # HANDOFF-SURFACES — manifesto das superfícies de retomada deste repo (padrão D66 do escritório)
-# Uma sessão nova que abrir SÓ o `sba-site` (sem co-monte com o escritório) tem que achar TUDO abaixo.
+# Uma sessão nova que abrir SÓ o `sba-negocios-site` (sem co-monte com o escritório) tem que achar TUDO abaixo.
 # Um handoff "verde" precisa que cada superfície esteja atualizada com a data do dia OU aponte para o marco mais recente.
 # Formato: um caminho por linha (relativo à raiz do repo). Linhas em branco e as que começam com # são ignoradas.
 # Ordem = ordem de leitura recomendada para uma sessão nova.
@@ -61,6 +61,7 @@ processos/templates/TEMPLATE-MAPA-DE-PENDENCIAS.md
 # ══════ FECHO PARA O SELO (2026-08-25) ══════
 caixa-de-saida/processados/
 caixa-de-saida/para-escritorio/2026-08-25_sba-site_fecho-para-selo.md
+caixa-de-saida/para-escritorio/2026-08-25_sba-negocios-site_rename-executado.md
 
 # ══════ REPOS EXTERNOS RELEVANTES (não co-montados nesta sessão) ══════
 # Se precisar de CONTEÚDO do site (números, textos jurídicos, cases): co-monte com bitsuki1/sba-unidades-de-negocios

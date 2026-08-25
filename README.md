@@ -85,7 +85,7 @@ e-mail** (`mailto` para `eduardo@saobentoservicos.com.br`) caso o envio falhe, e
 
 ## Como conectar no Lovable
 
-1. Este repositório já está no GitHub: `bitsuki1/sba-site`.
+1. Este repositório já está no GitHub: `bitsuki1/sba-negocios-site`.
 2. No Lovable, use **"Import from GitHub"** / conecte o repositório existente.
    - O Lovable reconhece o stack (Vite + React + TS + Tailwind + shadcn/ui).
 3. Edite visualmente pelo chat do Lovable. O alias `@/` e a estrutura de pastas
