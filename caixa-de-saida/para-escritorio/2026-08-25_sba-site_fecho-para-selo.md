@@ -71,11 +71,33 @@ Os 3 casamentos são todos **nome de variável ou prosa**, nunca valor:
 - **Perna (b) — LGPD/PII:** varri e **não achei PII de terceiro** no repo versionado. Nada a declarar, nada a cobrar.
 
 ### P3 · Estado do CI declarado
-**✅ VERDE. Não há CI vermelho pendente.**
-- **103 execuções** no total. As **11 mais recentes** do `linter-estado` (única esteira ativa hoje): **todas `success`**, incluindo as 2 do HEAD atual `58f25dd`.
-- **Houve vermelho, e está explicado e resolvido na raiz:** o workflow **"Deploy de produção (GitHub Pages)"** falhou **3 vezes na `main`** em 07/08 (`31215471393`, `31140488877`, `31138644196`). **Causa:** era o deploy **legado** do Pages disparando no push, concorrendo com o deploy real da Vercel. **Correção (13/08):** o gatilho `on: push` foi **removido** — o workflow ficou só em `workflow_dispatch`. Desde então **não houve mais nenhuma execução dele**, e portanto nenhuma falha.
-- **Comparo com o A-450 da casa irmã:** lá o repo foi selado com o robô reprovando desde a primeira execução. **Aqui não é o caso** — o vermelho é histórico, tem causa conhecida e foi corrigido na raiz 12 dias antes deste fecho.
-- **Não reformatei nada** por causa de CI.
+**Hoje: ✅ VERDE. Historicamente: 🔴 um workflow que NUNCA funcionou — 0 de 29.**
+
+**O que roda hoje (`linter-estado.yml`, única esteira ativa):**
+- **Verde**, incluindo os 2 merges desta passada: run `32902043178` (`b479637`) e `32902096983` (`e519939`) → ambos **`success`**.
+- As 11 execuções mais recentes na `main`: todas `success`.
+
+**O que eu subnotifiquei numa primeira leitura — e corrijo aqui:**
+Meu primeiro rascunho dizia *"o deploy do Pages falhou 3 vezes em 07/08"*. **Está errado.** Fui medir o histórico completo do workflow:
+
+| `deploy-pages.yml` — história inteira | |
+|---|---|
+| execuções totais | **29** |
+| sucessos | **0** |
+| falhas | **29 — 100%** |
+| primeira | 2026-06-27 (run #1) → `failure` |
+| última | 2026-08-07 (run #29) → `failure` |
+| desfecho | gatilho `on: push` **removido em 2026-08-13** → nunca mais rodou |
+
+**Esse workflow nunca publicou nada. Nem uma vez.** Falhou na estreia e em todas as 28 seguintes. Durante todo esse período o Pages era publicado **à mão** pelo `scripts/deploy-producao.sh` — o robô era decorativo.
+
+**É o A-450 da casa irmã, na mesma família.** Lá o repo foi selado com o robô reprovando desde a primeira execução, e ninguém escreveu uma linha. Aqui **quase aconteceu o mesmo**: eu ia declarar "3 falhas pontuais" e seguir. A porta P3 pegou.
+
+**Diferença material a favor desta casa:** o workflow era o deploy **legado** do Pages, e a produção real (Vercel) **nunca dependeu dele**. O desligamento em 13/08 foi a decisão certa. **Mas o desfecho foi silenciar, não consertar** — e isso nunca foi registrado em lugar nenhum. Fica registrado agora.
+
+**Não reformatei nada** por causa de CI. **Não reativei** o workflow.
+
+**Recomendação (classe B, do escritório):** o `deploy-pages.yml` deveria ser **removido do repo**, não apenas silenciado — 0/29 e substituído pela Vercel. Enquanto existir, um `workflow_dispatch` distraído republica o site num host que não recebe tráfego. **Não removi** porque mexer em `.github/workflows/` de deploy encosta na esteira de publicação, e esteira é decisão do escritório, não minha.
 
 ### P4 · Higiene de galhos — medido, **nada apagado**
 **Comando:** `git log origin/main..<galho> --oneline` em cada um dos 10.
