@@ -34,12 +34,23 @@ A ordem afirma: *"Hoje são **6**: … `regua-de-admissao.md` (nova, 25/08) … 
 ### P1 · Tudo na `main`, provado de FORA do gate
 **Prova (comando e saída, rodados após o merge):**
 ```
-$ git merge-base --is-ancestor f6497a4 origin/main && echo "ANCESTRAL: sim"
-<<P1_RESULTADO>>
 $ git rev-parse origin/main
-<<P1_MAIN>>
+b47963761f74ce36e0f315a65dd1d44873b1511a
+
+$ for c in 12a9f85 abb5d1b 0cf0db9 f6497a4 aa79f9e; do
+      git merge-base --is-ancestor $c origin/main && echo "OK $c"; done
+OK 12a9f85     (processos herdados reconciliados)
+OK abb5d1b     (estado de deploy corrigido + laudo aterrissado)
+OK 0cf0db9     (mapa v5 + tarefas + registro + settings)
+OK f6497a4     (handoff + SELO + surfaces + gate)
+OK aa79f9e     (este relatorio + linha FECHADA)
+
+$ git log origin/main..claude/sba-site-fecho-selo-2026-08-25 --oneline | wc -l
+0             <- ZERO commits desta passada fora da main
 ```
-Merge por **UNIÃO** (sem force-push, sem rebase — regra do espelho Lovable). **4 commits** desta passada: `12a9f85` · `abb5d1b` · `0cf0db9` · `f6497a4`.
+Merge por **UNIÃO** com `--no-ff` (sem force-push, sem rebase — regra do espelho Lovable). `origin/main`: **`58f25dd` → `b479637`**.
+**Presença dos arquivos-chave conferida direto em `origin/main`** (`git cat-file -e origin/main:<caminho>`): as 3 regras novas ✅ · o laudo do incidente ✅ · este relatório ✅ · a carta de 22/08 em `processados/` ✅.
+> **Por que provei assim:** a vacina `V-GATE-VERDE-NAO-E-MAIN` (A-447). Gate verde não prova nada sobre a `main` — este repo, aliás, é a prova viva do contrário: passou 7 semanas com gate verde e um alvo de deploy errado no `CLAUDE.md`, e um laudo com o achado preso num galho morto.
 
 ### P2 · Varredura de segredos — repo PÚBLICO, varredura séria
 **Escopo:** HEAD inteiro (todos os arquivos versionados) **+** as **85 revisões** do histórico (`git log -p --all`).
