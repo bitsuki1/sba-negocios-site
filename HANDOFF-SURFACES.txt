@@ -63,6 +63,15 @@ caixa-de-saida/processados/
 caixa-de-saida/para-escritorio/2026-08-25_sba-site_fecho-para-selo.md
 caixa-de-saida/para-escritorio/2026-08-25_sba-negocios-site_rename-executado.md
 
+# ══════ CANAL COM O COMERCIAL DA SBA (D144, criado 2026-08-26) ══════
+caixa-de-saida/para-unidade-sba/
+caixa-de-saida/para-unidade-sba/2026-08-26_sba-negocios-site_roteamento-comercial.md
+caixa-de-saida/para-unidade-sba/2026-08-26_sba-negocios-site_relatorio-anuncios.md
+
+# ══════ ESTUDO DE SEO/ADS (o porquê das decisões de 25-26/08) ══════
+docs/ESTUDO-SEO-ADS-2026-08-25.md
+docs/INCIDENTE-2026-08-17-loop-redirect-apex.md
+
 # ══════ REPOS EXTERNOS RELEVANTES (não co-montados nesta sessão) ══════
 # Se precisar de CONTEÚDO do site (números, textos jurídicos, cases): co-monte com bitsuki1/sba-unidades-de-negocios
 # (dossiê da unidade em escritorio-do-mou/portfolio/sba/MAPA-DA-UNIDADE.md quando o escritório estiver co-montado).
