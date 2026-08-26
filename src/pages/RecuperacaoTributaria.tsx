@@ -1,10 +1,52 @@
+import { useEffect } from "react";
 import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { PASSOS_TRIBUTARIO } from "@/data/site";
+import { applyPageSchema } from "@/lib/seo";
 import heroTributario from "@/assets/fotos/tributario.jpg";
+
+
+// Perguntas frequentes desta rota. Ficavam embutidas no JSX; foram extraídas para
+// cá em 2026-08-26 para alimentarem TAMBÉM o FAQPage (JSON-LD abaixo) — o conteúdo
+// é o mesmo de antes, palavra por palavra. Sem o schema, o Google lê as perguntas
+// como texto comum e não pode usá-las como resultado enriquecido.
+const FAQS: { q: string; a: string }[] = [
+              {
+                q: "Isso é seguro juridicamente?",
+                a: "Sim. Parte de uma decisão definitiva do STF sobre o IRRF dos municípios (registrada como Tema 1130 / processo RE 1.293.453). Não é uma tese em discussão: é o que a Corte já decidiu.",
+              },
+              {
+                q: "Quanto custa para o município?",
+                a: "Nada antecipado. Você só paga sobre o que for de fato recuperado — os honorários incidem apenas sobre o valor que realmente entrar no caixa da prefeitura.",
+              },
+              {
+                q: "De onde vem o valor apresentado?",
+                a: "De dado público das contas do município e de um método que pode ser auditado. É sempre uma estimativa mínima e conservadora (um piso), confirmada documento a documento na fase seguinte.",
+              },
+              {
+                q: "Quem faz a apuração documental?",
+                a: "A SBA faz a apuração a partir de cópias de documentos que o município já tem, entregues por servidor designado — sem sistema, senha ou procuração. A recuperação segue pela via administrativa, junto à Receita Federal, com a orientação e o acompanhamento da SBA em cada etapa.",
+              },
+              {
+                q: "Como a prefeitura contrata a SBA legalmente?",
+                a: "A contratação segue a legislação de licitações e contratos (Lei 14.133/2021), no modelo adequado a cada município. A remuneração é paga apenas no êxito — ou seja, só sobre o valor efetivamente recuperado, sem nenhuma despesa antes disso no orçamento. A SBA apoia a procuradoria com toda a fundamentação.",
+              },
+              {
+                q: "A Câmara ou o Tribunal de Contas podem questionar?",
+                a: "Trata-se de recuperar receita própria do município, com base em decisão definitiva do STF e num método que pode ser auditado. Deixar de buscar receita que pertence ao município é que contraria o dever de boa gestão fiscal. Todo o trabalho é documentado para a prestação de contas ao Tribunal de Contas do Estado (TCE).",
+              },
+              {
+                q: "Recuperar isso é boa gestão?",
+                a: "Sim. Zelar pelas receitas próprias do município é dever de boa gestão fiscal — recuperar o IRRF que é dele é aderente a esse dever.",
+              },
+              {
+                q: "Quanto tempo leva?",
+                a: "O estudo inicial é rápido. A recuperação costuma ser buscada pela via administrativa, junto à Receita Federal; o caminho e o prazo exatos variam caso a caso. E o que deixa de ser retido daqui em diante passa a ficar com a cidade desde cedo — nada prometido sem base.",
+              },
+];
 
 const HONESTIDADE = [
   "Os honorários são pagos apenas no êxito: você só paga sobre o que for de fato recuperado — nada é cobrado antes.",
@@ -15,13 +57,58 @@ const HONESTIDADE = [
 ];
 
 const RecuperacaoTributaria = () => {
+  // Structured data (JSON-LD) desta rota — Service (o que a SBA oferece) + FAQPage
+  // (as perguntas acima). Mesma mecânica já usada em /residuos; o helper limpa o
+  // script anterior ao trocar de rota (data-page-schema).
+  useEffect(() => {
+    applyPageSchema({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Service",
+          serviceType:
+            "Recuperação do Imposto de Renda Retido na Fonte (IRRF) por municípios — Tema 1130 do STF",
+          provider: {
+            "@type": "Organization",
+            name: "SBA Negócios",
+            url: "https://sbanegocios.com.br",
+          },
+          areaServed: { "@type": "Country", name: "Brasil" },
+          audience: [
+            { "@type": "Audience", audienceType: "Prefeituras municipais" },
+            { "@type": "Audience", audienceType: "Procuradorias municipais" },
+            { "@type": "Audience", audienceType: "Secretarias municipais de finanças" },
+          ],
+          description:
+            "Estruturação da recuperação do IRRF retido pelo município nos pagamentos a fornecedores, com base na decisão definitiva do STF no Tema 1130 (RE 1.293.453). Estudo inicial sem custo antecipado; honorários apenas sobre o valor efetivamente recuperado.",
+          offers: {
+            "@type": "Offer",
+            name: "Estudo da cidade sem custo antecipado",
+            price: "0",
+            priceCurrency: "BRL",
+            availability: "https://schema.org/InStock",
+          },
+        },
+        {
+          "@type": "FAQPage",
+          mainEntity: FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        },
+      ],
+    });
+    return () => applyPageSchema(null);
+  }, []);
+
   return (
     <Layout>
       <Hero
         compacto
-        eyebrow="Recuperação Tributária · Decisão definitiva do STF (Tema 1130)"
-        titulo="O IRRF retido pelo município é do município."
-        subtitulo="O STF decidiu, em definitivo, que o Imposto de Renda Retido na Fonte (IRRF) descontado nos pagamentos do município aos seus fornecedores pertence ao próprio município — e não à União. A SBA ajuda a sua cidade a recuperar e a passar a receber o que é dela."
+        eyebrow="Decisão definitiva do STF · Tema 1130"
+        titulo="Recuperação do IRRF do município — Tema 1130 do STF"
+        subtitulo="O IRRF retido pelo município é do município. O STF decidiu, em definitivo, que o Imposto de Renda Retido na Fonte (IRRF) descontado nos pagamentos do município aos seus fornecedores pertence ao próprio município — e não à União. A SBA ajuda a sua cidade a recuperar e a passar a receber o que é dela."
         ctaPrincipal={{
           label: "Solicitar estudo da minha cidade",
           href: "/contato",
@@ -155,40 +242,7 @@ const RecuperacaoTributaria = () => {
               Perguntas frequentes
             </h2>
             <dl className="mt-10 divide-y divide-border">
-              {[
-                {
-                  q: "Isso é seguro juridicamente?",
-                  a: "Sim. Parte de uma decisão definitiva do STF sobre o IRRF dos municípios (registrada como Tema 1130 / processo RE 1.293.453). Não é uma tese em discussão: é o que a Corte já decidiu.",
-                },
-                {
-                  q: "Quanto custa para o município?",
-                  a: "Nada antecipado. Você só paga sobre o que for de fato recuperado — os honorários incidem apenas sobre o valor que realmente entrar no caixa da prefeitura.",
-                },
-                {
-                  q: "De onde vem o valor apresentado?",
-                  a: "De dado público das contas do município e de um método que pode ser auditado. É sempre uma estimativa mínima e conservadora (um piso), confirmada documento a documento na fase seguinte.",
-                },
-                {
-                  q: "Quem faz a apuração documental?",
-                  a: "A SBA faz a apuração a partir de cópias de documentos que o município já tem, entregues por servidor designado — sem sistema, senha ou procuração. A recuperação segue pela via administrativa, junto à Receita Federal, com a orientação e o acompanhamento da SBA em cada etapa.",
-                },
-                {
-                  q: "Como a prefeitura contrata a SBA legalmente?",
-                  a: "A contratação segue a legislação de licitações e contratos (Lei 14.133/2021), no modelo adequado a cada município. A remuneração é paga apenas no êxito — ou seja, só sobre o valor efetivamente recuperado, sem nenhuma despesa antes disso no orçamento. A SBA apoia a procuradoria com toda a fundamentação.",
-                },
-                {
-                  q: "A Câmara ou o Tribunal de Contas podem questionar?",
-                  a: "Trata-se de recuperar receita própria do município, com base em decisão definitiva do STF e num método que pode ser auditado. Deixar de buscar receita que pertence ao município é que contraria o dever de boa gestão fiscal. Todo o trabalho é documentado para a prestação de contas ao Tribunal de Contas do Estado (TCE).",
-                },
-                {
-                  q: "Recuperar isso é boa gestão?",
-                  a: "Sim. Zelar pelas receitas próprias do município é dever de boa gestão fiscal — recuperar o IRRF que é dele é aderente a esse dever.",
-                },
-                {
-                  q: "Quanto tempo leva?",
-                  a: "O estudo inicial é rápido. A recuperação costuma ser buscada pela via administrativa, junto à Receita Federal; o caminho e o prazo exatos variam caso a caso. E o que deixa de ser retido daqui em diante passa a ficar com a cidade desde cedo — nada prometido sem base.",
-                },
-              ].map((item) => (
+              {FAQS.map((item) => (
                 <div key={item.q} className="py-5">
                   <dt className="font-display text-lg font-semibold text-primary-dark">
                     {item.q}

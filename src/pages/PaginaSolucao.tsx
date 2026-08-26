@@ -4,13 +4,29 @@ import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { SecaoCTA } from "@/components/SecaoCTA";
 import { LANDINGS, PROCESSO_SBA } from "@/data/landings";
+import type { Landing } from "@/data/landings";
 import { FaixaConfianca } from "@/components/FaixaConfianca";
 
-const PaginaSolucao = () => {
-  const { slug } = useParams();
-  const dados = slug ? LANDINGS[slug] : undefined;
+/**
+ * Renderiza uma landing orientada a dados.
+ * `mapa` permite reusar este mesmo componente para outro conjunto de páginas
+ * (ex.: as sub-páginas de /residuos) SEM que o mesmo conteúdo passe a existir
+ * em dois endereços — cada mapa é lido por uma rota só. Ver LANDINGS_RESIDUOS.
+ */
+interface PaginaSolucaoProps {
+  mapa?: Record<string, Landing>;
+  /** Para onde mandar quem chegar com um slug inexistente. */
+  voltarPara?: string;
+}
 
-  if (!dados) return <Navigate to="/solucoes" replace />;
+const PaginaSolucao = ({
+  mapa = LANDINGS,
+  voltarPara = "/solucoes",
+}: PaginaSolucaoProps) => {
+  const { slug } = useParams();
+  const dados = slug ? mapa[slug] : undefined;
+
+  if (!dados) return <Navigate to={voltarPara} replace />;
 
   return (
     <Layout>

@@ -76,6 +76,18 @@
       "title": "Guia do Processo — Recuperação do IRRF (Tema 1130) | SBA Negócios",
       "description": "Guia completo para parceiros e municípios: o que o STF decidiu no Tema 1130, os quatro caminhos do dinheiro retido, as 13 etapas do processo, o que se assina e quanto custa.",
       "noindex": true
+    },
+    "/residuos/consorcio-intermunicipal-residuos": {
+      "title": "Consórcio intermunicipal de resíduos sólidos: como viabilizar a usina | SBA Negócios",
+      "description": "Como um consórcio intermunicipal (Lei 11.107/2005) viabiliza uma usina de resíduos que nenhum município pequeno sustenta sozinho: escala, investimento dividido e modelo de contrato definido antes de assinar. Primeira leitura sem custo."
+    },
+    "/residuos/rsu-prefeitura": {
+      "title": "Destinação de resíduos sólidos urbanos para prefeituras (RSU) | SBA Negócios",
+      "description": "O Novo Marco do Saneamento (Lei 14.026/2020) acabou com os lixões: o município irregular arrisca repasse federal bloqueado e crédito fechado. Alternativas de destinação adequada, da usina à taxa de lixo. Primeira leitura sem custo."
+    },
+    "/residuos/usina-biometano-municipal": {
+      "title": "Usina de biometano municipal: do lixo orgânico ao gás | SBA Negócios",
+      "description": "Biometano municipal é o biogás do resíduo orgânico da cidade, purificado até virar equivalente ao gás natural — para a frota da prefeitura, a rede de gás ou a indústria vizinha. Quem investe e como se remunera, definido no estudo."
     }
   }
 }

@@ -276,3 +276,130 @@ export const LANDINGS: Record<string, Landing> = {
     },
   },
 };
+
+// ============================================================================
+// Sub-páginas do eixo RESÍDUOS — rota própria `/residuos/:slug` (2026-08-26).
+//
+// POR QUE UM MAPA SEPARADO (e não entrar em LANDINGS):
+// se estas entrassem em LANDINGS, a MESMA página existiria em dois endereços
+// (`/solucoes/x` e `/residuos/x`) = conteúdo duplicado, que divide a força e
+// confunde o buscador. Mapa separado => um conteúdo, um endereço.
+//
+// REGRA DE CONTEÚDO: cada uma responde algo que as outras NÃO respondem, com
+// base legal própria (consórcio = Lei 11.107/2005 · prefeitura = Lei 14.026/2020
+// · biometano = modelo de investimento). Três páginas quase iguais seriam
+// "doorway pages", que o buscador pune. Nenhum número novo foi inventado: tudo
+// vem do FAQ de `/residuos`, das leis citadas ou é "sob consulta" (regra do README).
+// ============================================================================
+export const LANDINGS_RESIDUOS: Record<string, Landing> = {
+  "consorcio-intermunicipal-residuos": {
+    id: "consorcio-intermunicipal-residuos",
+    eyebrow: "Resíduos & Aproveitamento · Consórcios",
+    titulo: "Consórcio intermunicipal de resíduos sólidos: como viabilizar a usina",
+    subtitulo:
+      "Sozinho, um município pequeno raramente tem volume para uma usina. Em consórcio, quase sempre tem. A SBA organiza o projeto que atende todos os municípios do arranjo — da parte técnica ao modelo de contrato.",
+    imagem: floresta,
+    oQueE: {
+      titulo: "O que é um consórcio intermunicipal de resíduos",
+      paragrafos: [
+        "Municípios vizinhos se unem por lei (Lei 11.107/2005) e passam a operar como uma pessoa jurídica única na destinação dos resíduos. Assim é possível construir UMA usina que atende TODOS os municípios do consórcio, dividindo o investimento e a operação.",
+        "É o que resolve o problema da escala. Um município de 30 mil habitantes gera algo entre 24 e 30 toneladas por dia (a referência pública de geração é de 0,8 a 1 kg por habitante por dia). Isso está na faixa mínima dos sistemas do parceiro CSTR para resíduo urbano, que trabalham entre 50 e 300 toneladas por dia. Um arranjo de três a cinco municípios da mesma região facilmente ultrapassa o piso.",
+        "A SBA não constrói a usina e não opera o sistema: ela organiza o projeto e reúne o consórcio, o operador, a tecnologia e o jurídico até o contrato.",
+      ],
+    },
+    beneficios: [
+      { titulo: "Escala que nenhum município tem sozinho", texto: "O volume somado do arranjo viabiliza um sistema que, isolado, não fecharia conta em quase nenhuma prefeitura pequena ou média." },
+      { titulo: "Investimento dividido", texto: "O custo do sistema e da operação se reparte entre os municípios do consórcio, em vez de pesar no orçamento de um só." },
+      { titulo: "Uma solução legal para todos de uma vez", texto: "O arranjo resolve a destinação adequada exigida pelo Novo Marco do Saneamento (Lei 14.026/2020) para todos os municípios participantes." },
+      { titulo: "Modelo de contrato definido antes de assinar", texto: "A SBA estuda o caso e ajuda a definir quem investe e como se remunera — antes do contrato, não depois." },
+    ],
+    aplicacoes: [
+      "Consórcios públicos já constituídos que precisam estruturar a destinação final",
+      "Grupos de municípios vizinhos que ainda não formalizaram o arranjo",
+      "Arranjos regionais que buscam apoio federal para estruturar a concessão",
+      "Municípios que precisam encerrar lixão e não têm escala isolada",
+    ],
+    faq: [
+      { q: "Como funciona um consórcio intermunicipal de resíduos?", a: "Municípios vizinhos se unem por lei (Lei 11.107/2005) e operam como uma pessoa jurídica única na destinação dos resíduos. Assim é possível construir UMA usina que atende TODOS os municípios do consórcio, dividindo o investimento e a operação — dá escala mesmo para prefeituras pequenas, que sozinhas não teriam volume." },
+      { q: "Município pequeno tem escala para participar?", a: "Em consórcio, quase sempre sim. Um município de 30 mil habitantes gera cerca de 24 a 30 toneladas por dia (referência pública: 0,8 a 1 kg por habitante por dia). Um arranjo de três a cinco municípios da mesma região facilmente ultrapassa o piso dos sistemas, que fica na faixa de 50 a 300 toneladas por dia." },
+      { q: "O consórcio precisa estar formalizado antes de falar com a SBA?", a: "Não. A conversa pode começar antes: parte do trabalho é justamente entender qual arranjo faz sentido e o que precisa existir juridicamente para o projeto ser possível." },
+      { q: "Quem paga a usina no modelo de consórcio?", a: "Depende do modelo escolhido. Nos três mais comuns: o consórcio paga direto, com recurso público e financiamento; o operador privado investe e cobra tarifa por tonelada tratada (concessão); ou um modelo híbrido, em que o poder público entra com a área e a coleta e o operador entra com capital e tecnologia. A SBA estuda o caso antes do contrato." },
+    ],
+    parceiro: { nota: "A tecnologia de tratamento é do parceiro CSTR. A SBA organiza o projeto; o operador executa.", href: "https://cstr.eco.br" },
+    cta: { titulo: "Vamos avaliar o seu arranjo regional", texto: "A primeira leitura da oportunidade é sem custo e serve para saber se faz sentido seguir." },
+  },
+
+  "rsu-prefeitura": {
+    id: "rsu-prefeitura",
+    eyebrow: "Resíduos & Aproveitamento · Prefeituras",
+    titulo: "Destinação de resíduos sólidos urbanos para prefeituras",
+    subtitulo:
+      "O Novo Marco do Saneamento acabou com os lixões. O município que ainda depende de um está fora da lei — e o risco não é só ambiental: é repasse federal bloqueado e crédito fechado nos bancos oficiais.",
+    imagem: floresta,
+    oQueE: {
+      titulo: "O que mudou para o seu município",
+      paragrafos: [
+        "A Lei 14.026/2020, o Novo Marco do Saneamento, exige o fim dos lixões e a destinação final ambientalmente adequada dos resíduos. O município que ainda usa lixão a céu aberto está fora da lei.",
+        "As consequências práticas não são abstratas: repasses federais podem ser bloqueados, o crédito nos bancos oficiais fecha e o município pode responder na justiça. A mesma lei incentiva soluções regionais e permite ao município cobrar taxa específica de coleta — a chamada taxa de lixo — que dá lastro financeiro ao projeto.",
+        "A alternativa ao aterro é a usina. Aterro é destino final: o resíduo fica enterrado e o município paga pelo transporte, pela área e pelo passivo ambiental. Na usina, o resíduo entra e sai transformado em energia, biometano, biofertilizante e recicláveis. O aterro é despesa; a usina, bem dimensionada, pode gerar receita nova ou pelo menos zerar o custo da destinação.",
+      ],
+    },
+    beneficios: [
+      { titulo: "Sai da irregularidade", texto: "Resolve a exigência de destinação ambientalmente adequada do Novo Marco do Saneamento." },
+      { titulo: "Destrava repasse e crédito", texto: "A irregularidade na destinação é o que bloqueia repasse federal e fecha crédito nos bancos oficiais." },
+      { titulo: "Troca despesa por receita", texto: "O que hoje é custo de transporte, área e passivo ambiental pode virar energia, biometano, biofertilizante e recicláveis." },
+      { titulo: "Lastro financeiro previsto em lei", texto: "A própria lei permite a cobrança de taxa específica de coleta, que sustenta o projeto financeiramente." },
+    ],
+    aplicacoes: [
+      "Prefeituras que ainda dependem de lixão a céu aberto",
+      "Municípios com repasse federal bloqueado por irregularidade na destinação",
+      "Prefeituras cujo contrato de aterro está vencendo ou ficou caro demais",
+      "Municípios que precisam estruturar a cobrança da taxa de lixo",
+    ],
+    faq: [
+      { q: "Como o Novo Marco do Saneamento muda a destinação de resíduos do meu município?", a: "O Marco exige o fim dos lixões e a destinação final ambientalmente adequada. O município que ainda usa lixão a céu aberto está fora da lei — e pode ter repasses federais bloqueados, ficar sem crédito nos bancos oficiais e responder na justiça. A mesma lei incentiva soluções regionais (consórcios) e permite ao município cobrar taxa específica de coleta, que dá lastro financeiro ao projeto." },
+      { q: "Qual a diferença entre aterro sanitário e usina de tratamento?", a: "Aterro é destino final: o resíduo fica enterrado e o município paga pelo transporte, pela área e pelo passivo ambiental. A usina é o oposto — o resíduo entra e sai transformado em energia, biometano, biofertilizante e materiais recicláveis. O aterro é despesa; a usina, quando bem dimensionada, pode gerar receita nova ou pelo menos zerar o custo da destinação." },
+      { q: "E se o meu município não tiver volume sozinho?", a: "É o caso mais comum em prefeituras pequenas, e a saída costuma ser o consórcio intermunicipal: municípios vizinhos se unem por lei e viabilizam uma usina que atende todos, dividindo investimento e operação." },
+      { q: "Quanto custa para a prefeitura?", a: "A primeira leitura da oportunidade é sem custo. O investimento do sistema depende do modelo escolhido — poder público, operador privado por concessão, ou híbrido — e os valores são sob consulta, definidos a partir do estudo do caso." },
+    ],
+    parceiro: { nota: "A tecnologia de tratamento é do parceiro CSTR. A SBA organiza o projeto; o operador executa.", href: "https://cstr.eco.br" },
+    cta: { titulo: "Solicite a primeira leitura da sua cidade", texto: "Sem custo e sem compromisso. Serve para entender se o projeto faz sentido no seu município." },
+  },
+
+  "usina-biometano-municipal": {
+    id: "usina-biometano-municipal",
+    eyebrow: "Resíduos & Aproveitamento · Biometano",
+    titulo: "Usina de biometano municipal: do lixo orgânico ao gás",
+    subtitulo:
+      "O resíduo orgânico do município vira biogás e, purificado, vira biometano — equivalente ao gás natural. Pode abastecer a frota da prefeitura, ser injetado na rede ou ser vendido para indústrias vizinhas.",
+    imagem: floresta,
+    oQueE: {
+      titulo: "O que é biometano municipal",
+      paragrafos: [
+        "Biometano é o biogás — produzido pela decomposição controlada do resíduo orgânico — que passou por purificação até ficar equivalente ao gás natural. Municipal significa que o insumo é o próprio lixo urbano da cidade.",
+        "Depois de purificado, o biometano pode ser injetado na rede de gás, virar combustível para a frota da prefeitura ou ser vendido a indústrias vizinhas. É o que transforma a destinação de resíduo, que hoje é uma linha de despesa, em um ativo com receita própria.",
+        "A pergunta que decide o projeto não é técnica, é de modelo: quem investe. A SBA estuda o caso e ajuda a definir isso antes do contrato.",
+      ],
+    },
+    beneficios: [
+      { titulo: "Receita, não só economia", texto: "O gás purificado pode ser vendido ou substituir combustível comprado — é ativo, não apenas corte de custo." },
+      { titulo: "Três destinos possíveis para o gás", texto: "Injeção na rede, combustível da frota municipal ou venda para indústrias da região, conforme o que existe por perto." },
+      { titulo: "O modelo de investimento definido antes", texto: "Poder público com financiamento, operador privado por concessão, ou híbrido — decidido no estudo, não na assinatura." },
+      { titulo: "Aproveita quem já separa", texto: "Município que já tem coleta seletiva funcionando parte de uma posição melhor, porque o orgânico já chega mais limpo." },
+    ],
+    aplicacoes: [
+      "Municípios que já têm coleta seletiva em operação",
+      "Cidades com indústria próxima que consome gás",
+      "Prefeituras com frota própria significativa",
+      "Consórcios que buscam receita para sustentar a operação",
+    ],
+    faq: [
+      { q: "O que é biometano municipal?", a: "Biometano é o biogás (produzido pela decomposição controlada do resíduo orgânico) que passou por purificação até ficar equivalente ao gás natural. Depois de purificado, pode ser injetado na rede de gás, virar combustível para a frota da prefeitura ou ser vendido a indústrias vizinhas. Municipal significa que o insumo é o próprio lixo urbano do município." },
+      { q: "Quem paga a usina — a prefeitura ou o operador?", a: "Depende do modelo. Nos três mais comuns: a prefeitura paga direto, com dinheiro público e financiamento; o operador privado paga tudo e cobra uma tarifa mensal por tonelada tratada (concessão); ou um modelo híbrido, em que a prefeitura entra com a área e a coleta e o operador entra com o capital e a tecnologia. A SBA estuda o caso e ajuda a definir o melhor modelo antes do contrato." },
+      { q: "Precisa ter coleta seletiva para funcionar?", a: "Ajuda bastante, porque o resíduo orgânico chega mais limpo e o rendimento melhora. Não ter coleta seletiva não inviabiliza o projeto, mas muda o dimensionamento e entra na conta do estudo." },
+      { q: "Existe algum projeto em andamento?", a: "Sim. O projeto-farol do parceiro CSTR fica em Congonhas do Campo, em Minas Gerais. É importante ser exato: ele está em construção, e não é um case operacional concluído." },
+    ],
+    parceiro: { nota: "A tecnologia de tratamento é do parceiro CSTR. A SBA organiza o projeto; o operador executa.", href: "https://cstr.eco.br" },
+    cta: { titulo: "Vamos ver se faz sentido na sua cidade", texto: "A primeira leitura é sem custo e indica se o volume e o contexto sustentam o projeto." },
+  },
+};
