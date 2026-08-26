@@ -181,7 +181,35 @@ Concorrente que publica um guia parecido **aberto** vai ranquear com ele.
 
 ---
 
-## §9 · FONTES
+## §9 · LENTES SOBRE AS 3 SUB-PÁGINAS DE RESÍDUOS (pedido do dono antes de produzir)
+> *"pode produzir, mas lance lentes para estrategiar antes"* — 2026-08-26. Cinco lentes rodadas antes de escrever uma linha.
+
+### Lente 1 — Canibalização: as filhas podem roubar a mãe
+**Risco:** 4 páginas disputando "resíduos" entre si. O Google escolhe uma e enterra as outras — ou pior, se confunde e não ranqueia nenhuma bem.
+**Como resolvi:** `/residuos` vira **mãe** e fica com o termo genérico e amplo ("usina de resíduos sólidos urbanos"). Cada filha fica com **uma intenção só** e **um público só**, e nenhuma repete o título da mãe. Mãe **linka para as filhas**, filhas **linkam de volta**. Sem link, página nova é órfã e invisível.
+
+### Lente 2 — Página fina: o erro que vira punição
+**Risco:** três páginas quase iguais, feitas só para pegar palavra-chave, são o que o Google chama de *doorway page*. Não é neutro — **prejudica** o site inteiro.
+**Régua que apliquei:** cada página tem que responder algo que as outras **não** respondem. Se eu não conseguisse escrever conteúdo genuinamente distinto, o certo seria fazer menos páginas. Consegui, porque cada público tem uma **base legal e um problema diferentes**:
+| página | terreno próprio |
+|---|---|
+| consórcio intermunicipal | **Lei 11.107/2005** · o problema é **escala** — sozinho não fecha conta |
+| RSU prefeitura | **Lei 14.026/2020** · o problema é **estar fora da lei** (lixão) e o risco de repasse bloqueado |
+| usina de biometano | **o que é e quem paga** · o problema é **modelo de contrato e investimento** |
+
+### Lente 3 — Alinhamento com a ação comercial
+A página de **consórcio** é a que sustenta a lista dos 39 consórcios do PPI. Quando o comercial contatar um consórcio, ele vai pesquisar a SBA — e vai cair numa página que fala **a língua dele**, não a do gerador privado. Por isso ela é a mais completa das três.
+
+### Lente 4 — Honestidade (a que mais restringe)
+**Nenhum número novo foi inventado.** Tudo o que está nas 3 páginas já existia no site, no FAQ de `/residuos` ou nas leis citadas: as faixas de geração (0,8–1 kg/hab/dia), a faixa dos sistemas do parceiro (50–300 t/dia), os 3 modelos de pagamento e o projeto-farol de Congonhas do Campo (declarado **em construção**, não case operacional). Onde faltaria número, fica "sob consulta" — que é a regra de conteúdo do próprio `README.md`.
+
+### Lente 5 — Não criar rota duplicada
+**Risco técnico:** reusar o componente de landing pela rota `/solucoes/:slug` faria a mesma página existir em **dois endereços** (`/solucoes/x` e `/residuos/x`) = conteúdo duplicado, que divide a força e confunde o Google.
+**Como resolvi:** um mapa separado (`LANDINGS_RESIDUOS`), lido só pela rota `/residuos/:slug`. Os slugs novos **não existem** em `/solucoes/:slug` — quem tentar cai no redirecionamento que já havia. Um conteúdo, um endereço.
+
+---
+
+## §10 · FONTES
 - STF — Tema 1130 (tese e andamento): `portal.stf.jus.br`
 - STF — notícia "IR retido na fonte é de estados e municípios": `portal.stf.jus.br/noticias`
 - ConJur — recuperação do IR das contratações públicas dos últimos 5 anos (2024)

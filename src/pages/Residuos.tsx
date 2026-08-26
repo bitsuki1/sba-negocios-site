@@ -118,8 +118,8 @@ const Residuos = () => {
       <Hero
         compacto
         eyebrow="Resíduos & Aproveitamento"
-        titulo="Resíduo não é só custo. Bem aproveitado, vira receita."
-        subtitulo="A SBA não constrói usinas: ela organiza o projeto e reúne cliente, operador, tecnologia e jurídico — do primeiro contato ao contrato. Atendemos o lixo urbano do município, as empresas que geram grande volume e o setor hospitalar."
+        titulo="Usina de resíduos sólidos urbanos para prefeituras e consórcios"
+        subtitulo="Resíduo não é só custo — bem aproveitado, vira receita. A SBA não constrói usinas: ela organiza o projeto e reúne cliente, operador, tecnologia e jurídico — do primeiro contato ao contrato. Atendemos o lixo urbano do município, as empresas que geram grande volume e o setor hospitalar."
         ctaPrincipal={{ label: "Conversar sobre um projeto", href: "/contato" }}
         imagem={{
           src: heroResiduos,
@@ -465,6 +465,64 @@ const Residuos = () => {
             Capacidades técnicas informadas pelo parceiro {PARCEIRO_CSTR.nome}.
             O tamanho e o custo de cada projeto a SBA calcula com você.
           </p>
+        </div>
+      </section>
+
+      {/* Sub-páginas do eixo (2026-08-26). Esta seção NÃO é decorativa: sem link
+          da página-mãe, página nova nasce órfã e o buscador não a encontra.
+          Cada filha trata UM público e UMA base legal distintos — ver
+          LANDINGS_RESIDUOS em src/data/landings.ts. */}
+      <section className="border-t border-border bg-muted/40">
+        <div className="container-sba py-16 md:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto mb-5 rule-gold" />
+            <h2 className="font-display text-3xl font-bold text-primary-dark">
+              Encontre o seu caso
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              O caminho muda conforme quem procura. Escolha o que descreve a sua
+              situação — cada página trata das regras e do modelo daquele caso.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                href: "/residuos/consorcio-intermunicipal-residuos",
+                titulo: "Somos um grupo de municípios",
+                texto:
+                  "Consórcio intermunicipal (Lei 11.107/2005): como a união de municípios vizinhos dá a escala que nenhum deles tem sozinho.",
+              },
+              {
+                href: "/residuos/rsu-prefeitura",
+                titulo: "Sou uma prefeitura",
+                texto:
+                  "Novo Marco do Saneamento (Lei 14.026/2020): o fim dos lixões, o risco de repasse bloqueado e as alternativas de destinação adequada.",
+              },
+              {
+                href: "/residuos/usina-biometano-municipal",
+                titulo: "Quero saber do biometano",
+                texto:
+                  "Do lixo orgânico ao gás equivalente ao natural: os três destinos possíveis e, principalmente, quem investe no projeto.",
+              },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="group flex flex-col rounded-lg border border-border bg-card p-6 transition-shadow hover:shadow-lg"
+              >
+                <h3 className="font-display text-lg font-semibold text-primary-dark">
+                  {item.titulo}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  {item.texto}
+                </p>
+                <span className="mt-4 text-sm font-medium text-primary underline-offset-4 group-hover:underline">
+                  Ver esta página &rarr;
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

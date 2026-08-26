@@ -17,9 +17,15 @@ import { useState, type FormEvent, type ReactNode } from "react";
 
 // Trocada em 2026-08-07 a pedido do MOU. A anterior tinha sido enviada só no chat e,
 // como aqui mora apenas o hash, não havia como recuperá-la — o desenho está certo, mas
-// a consequência é esta: senha que só existe numa conversa some com a conversa.
+// senha que só existe numa conversa some com a conversa.
+// 2026-08-26: aconteceu de novo — o dono pediu a senha e ela não existia mais em
+// lugar algum (só o hash mora aqui, e SHA-256 não tem volta). Como estava perdida
+// para TODOS, o portão já estava de fato revogado: definir uma nova não tirou
+// acesso de ninguém. A nova senha foi entregue ao dono e deve viver no GERENCIADOR
+// DE SENHAS dele — não no git, não no chat, não num documento. Só ASCII, de
+// propósito: senha com acento quebra na digitação e o hash não bate.
 const HASH_SENHA =
-  "4f694d7a02eef65d24e01a57b1abd8875a50688eed8275a6c27d05af3ada449a";
+  "eb2ab3e2ef4132f40833e26e0bb92534e362755a1fd46241ff231e7c574b759d";
 const CHAVE_SESSAO = "sba-guia-liberado";
 
 async function sha256Hex(texto: string): Promise<string> {

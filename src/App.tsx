@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LANDINGS_RESIDUOS } from "@/data/landings";
 import { Suspense, lazy } from "react";
 // Web Analytics da Vercel — mede visitas/rotas sem cookies e sem PII, e
 // não roda em desenvolvimento (o componente já se auto-desliga fora de prod).
@@ -50,6 +51,15 @@ const App = () => {
           <Route path="/residuos-hospitalares" element={<ResiduosHospitalares />} />
           <Route path="/estabilizador-de-solo" element={<EstabilizadorSolo />} />
           <Route path="/solucoes/:slug" element={<PaginaSolucao />} />
+          {/* Sub-páginas do eixo Resíduos. Mapa PRÓPRIO (LANDINGS_RESIDUOS) para
+              que o mesmo conteúdo não exista também em /solucoes/:slug — conteúdo
+              duplicado divide a força no buscador. Slug inexistente volta p/ /residuos. */}
+          <Route
+            path="/residuos/:slug"
+            element={
+              <PaginaSolucao mapa={LANDINGS_RESIDUOS} voltarPara="/residuos" />
+            }
+          />
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/seja-um-parceiro" element={<SejaParceiro />} />
           <Route path="/contato" element={<Contato />} />

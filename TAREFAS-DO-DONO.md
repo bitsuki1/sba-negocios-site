@@ -6,6 +6,13 @@
 
 ## ⏳ Abertas (o app trabalha)
 
+### T-003 · Guardar a nova senha do portão de parceiros no gerenciador
+- **Pedido por:** app (auto) · **Data:** 2026-08-26
+- **O quê:** o dono pediu a senha do `/guia-etapas`. Ela **não existia mais** — o repositório guarda só o hash SHA-256, que é de mão única, então não havia o que recuperar. Como estava perdida para **todos**, o portão já estava de fato revogado e definir uma nova **não tirou acesso de ninguém**. A senha nova foi entregue ao dono **no chat, uma vez**.
+- **Por que isto é uma tarefa:** é exatamente assim que a anterior se perdeu — *"senha que só existe numa conversa some com a conversa"*, lição já registrada dentro do próprio `PortaoParceiros.tsx`. Se ela ficar só no chat, o ciclo se repete.
+- **Pronto quando:** a senha estiver salva no **gerenciador de senhas** do dono (ele tem um). **Não** em documento, **não** no git, **não** no chat.
+- **Estado:** ⏳ aguarda o dono
+
 ### T-002 · Insumos opcionais para o bloco Congonhas do Campo (projeto-farol da CSTR)
 - **Pedido por:** app (auto) · **Data:** 2026-08-22
 - **O quê:** o pacote V6 do MAPA-DE-PENDENCIAS foi entregue e o bloco do projeto-farol Congonhas do Campo — MG ficou ampliado. Ele funciona sozinho, mas fica ainda mais forte com dois insumos que só o dono/parceiro consegue: **(i)** 1 foto ou render do canteiro (JPG/PNG, mín. 1200×800) — se você tiver do parceiro CSTR; **(ii)** 1 link para notícia externa sobre o projeto (Portal do Município de Congonhas, jornal local, G1, etc.) — para prova externa.

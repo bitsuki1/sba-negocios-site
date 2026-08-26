@@ -103,7 +103,16 @@ export const Hero = ({
                 src={imagem.src}
                 alt={imagem.alt}
                 className="h-full w-full object-cover"
+                /* Esta é a imagem do topo — quase sempre o maior elemento da
+                   primeira tela, e portanto a que define a nota de velocidade
+                   (LCP). `eager` já evitava o adiamento; `fetchPriority=high`
+                   manda o navegador buscá-la ANTES dos outros downloads, que é
+                   o ganho que faltava. `decoding=async` tira a decodificação do
+                   caminho de renderização. O recorte 4/3 do contêiner já segura
+                   o espaço, então não há salto de layout. (2026-08-26) */
                 loading="eager"
+                fetchPriority="high"
+                decoding="async"
               />
             </div>
           )}
