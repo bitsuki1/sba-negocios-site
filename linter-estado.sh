@@ -29,7 +29,14 @@ if [ -d "$ROOT/caixa-de-entrada" ]; then
     base="$(basename "$f")"; dir="$(dirname "$f")"
     case "$base" in README.md) continue;; esac
     [ -f "$dir/processados/$base" ] && continue
-    grep -qE '^STATUS:[[:space:]]*(APLICADA|ROTEADA|RESPONDIDA|RECUSADA|CONTRAPROPOSTA)' "$f" 2>/dev/null && continue
+    # ⚠️ ROTEADA REMOVIDA (achado da unidade ROTARY, carta 2026-08-20 — trazido pelo Escritório do MOU 2026-08-27).
+    # Régua DUPLA real: o `gate-fechamento.sh` tirou ROTEADA em 13/07 e ESTE linter ficou 45 dias
+    # aceitando-a. E é o lado que mais importa: em sessão remota o linter é a ÚNICA rede automática
+    # (Action a cada push; hooks não disparam, A-291). Pior, `STATUS: ROTEADA` é carimbado SOZINHO
+    # pelo `sync-caixas.py:deliver_out()` na ENTREGA, nunca no tratamento — logo, carta
+    # entregue-e-nunca-aplicada passava VERDE. Prova de tratamento = status de AÇÃO, ou mover para
+    # `processados/`. (Codex E-063: "ROTEADA não é APLICADA".)
+    grep -qE '^STATUS:[[:space:]]*(APLICADA|RESPONDIDA|RECUSADA|CONTRAPROPOSTA)' "$f" 2>/dev/null && continue
     paradas=$((paradas+1))
   done < <(find "$ROOT/caixa-de-entrada" -type f -name '*.md' ! -path '*/processados/*' \( -path '*/do-escritorio/*' -o -path '*/de-*/*' \) 2>/dev/null)
   [ "$paradas" -gt 0 ] && yel "[3] $paradas carta(s) na caixa sem processar (aplicar+mover OU STATUS)" || grn "[3] caixa-de-entrada sem carta pendente"
