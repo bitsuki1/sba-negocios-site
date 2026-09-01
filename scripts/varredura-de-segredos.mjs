@@ -126,6 +126,11 @@ const REGRAS = [
     id: "chave-privada",
     categoria: "chave privada (PEM/OpenSSH) em texto puro",
     re: /-----BEGIN (?:RSA |DSA |EC |OPENSSH |PGP |ENCRYPTED )?PRIVATE KEY-----/g,
+    // 01/09: o parser de chave de conta de serviço (`ferramentas/workspace-leitura/**/_shared/*.ts`) cita o
+    // marcador dentro de `.replace(/-----BEGIN…/)` / de uma regex — é CÓDIGO que trata a chave, não a chave.
+    // Falso positivo ×4 medido na caixa de ferramentas; a chave real vem SEMPRE seguida de base64 na
+    // linha de baixo, nunca dentro de `.replace(` ou de uma literal de regex.
+    proibeContexto: /\.replace\s*\(|new RegExp|\/-----BEGIN|['"`]-----BEGIN[^-]*-----['"`]\s*[,)]/,
   },
   {
     id: "aws",
@@ -231,8 +236,11 @@ const REGRAS = [
     re: /\b(?:[0-9a-f]{40}|[0-9a-f]{64})\b/g,
     exigeContexto: /\b(?:token|chave|key|bearer|auth|secret|segredo|senha|password|credencial)/i,
     janela: true,
+    // 01/09 (v2.2): `merge`/`mesclad`/`pull request` entram no proibido — "**Merge na main:** `<sha>` — PR #85
+    // (mesclado)" numa carta de encerramento é SHA de merge, não token (falso positivo medido em
+    // `portfolio-automacoes/caixa-de-saida/…/2026-08-24_…-hashes.md:6`).
     proibeContexto:
-      /\b(?:commit|sha-?1|sha-?256|sha-?512|hash|md5|checksum|digest|impress|integrity|manifest|revis|\brev\b|pin(?:ado|ned)?|uses:|actions\/|blob|tree|merge-base|rev-parse)|@[0-9a-f]{40}/i,
+      /\b(?:commit|sha-?1|sha-?256|sha-?512|hash|md5|checksum|digest|impress|integrity|manifest|revis|\brev\b|pin(?:ado|ned)?|uses:|actions\/|blob|tree|merge-base|rev-parse|merge|mesclad|pull request|\bPR\b)|@[0-9a-f]{40}/i,
   },
 ];
 
@@ -269,7 +277,9 @@ function ehPlaceholder(v, fraca) {
   // tem número nenhum e nem por isso deixa de ser segredo.
   if (/^[^A-Za-z0-9]*$/.test(v)) return true; // sem letra nem número
   if (/^(.)\1+$/.test(v)) return true; // um caractere repetido
-  if (/^[A-Z_]{4,}$/.test(v)) return true; // NOME_DE_VARIAVEL em caixa alta
+  // NOME_DE_VARIAVEL em caixa alta — com dígito também (`N8N_ENCRYPTION_KEY` numa coluna "Secret" é o
+  // NOME do segredo, não o valor; 3º falso positivo, `portfolio-automacoes/docs/CONECTAR-CONTAS.md:16`).
+  if (/^[A-Z][A-Z0-9_]{3,}$/.test(v)) return true;
   return false;
 }
 
@@ -286,6 +296,11 @@ const IGNORADOS_SEMPRE = [
   // casas (CCEV, EDU, AVC, bitrix-aux), onde `cofre/ACESSOS-FERRAMENTAS.md` é VERSIONADO e carregava
   // a senha-mestra (L2-01). O scanner dava ✅ na casa exata em que a lente dizia 🟥. Regra: o que o
   // `.gitignore` já tira, `git ls-files` não lista; o que ele não tira, o scanner OLHA.
+  // 01/09 (v2.2, achado G-03 do executor dos auxiliares): `.lovable/` é GERADO pelo builder a cada sync —
+  // o `system.md` traz a tabela "Color Tokens" do sistema de design (cabeçalho "Token" + valores como
+  // `--primary-500`), que a regra de coluna lia como credencial (5 falsos positivos em
+  // `profinders-apresentacao`). Marcador `segredo-ok` não sobrevive lá (o builder reescreve). Ignorado.
+  /^\.lovable\//,
   /(^|\/)package-lock\.json$/,
   /(^|\/)bun\.lock$/,
   /(^|\/)yarn\.lock$/,
@@ -293,6 +308,9 @@ const IGNORADOS_SEMPRE = [
   // Os próprios instrumentos: eles CARREGAM os padrões, então achariam a si
   // mesmos. Vale para o script, para o workflow e para as cópias no kit.
   /varredura-de-segredos\.(mjs|yml)$/,
+  // …e os CASOS DE TESTE do instrumento (`processos/testes/fixtures/varredura-caso-V.md` é feito para
+  // acusar — a bateria o varre por `--arquivo`; a árvore não pode ficar vermelha por causa dele).
+  /(^|\/)testes\/fixtures\/varredura-caso-[A-Z]\.md$/,
   /\.(png|jpe?g|gif|webp|svg|ico|woff2?|ttf|eot|pdf|zip|gz|mp4|mp3|pyc|xlsx?|docx?)$/i,
 ];
 
