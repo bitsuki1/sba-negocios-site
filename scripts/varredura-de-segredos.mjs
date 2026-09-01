@@ -156,6 +156,20 @@ const REGRAS = [
     heuristicaFraca: true,
   },
   {
+    // 01/09 (EX-F): a forma em que o COFRE HUMANO escreve — célula de tabela markdown com rótulo de
+    // credencial numa célula e o valor opaco em outra da MESMA linha (`| Senha | ‹valor› |`). Nenhuma
+    // regra acima casava isso (a `senha-literal` exige `=`/`:` + aspas): o scanner deu ✅ no cofre da
+    // CCEV com a senha-mestra dentro. Valor = token sem espaço, ≥8, com pelo menos 2 classes de
+    // caractere; placeholders (‹…›, <…>, xxx, SEU_/SUA_) caem na peneira `heuristicaFraca`.
+    id: "senha-em-celula-de-tabela",
+    categoria: "credencial em célula de tabela markdown (rótulo senha/token/chave na mesma linha)",
+    // Valor = letra E dígito, sem `/` (caminho de arquivo em minúsculas com `-`/`/` NÃO é senha — foi o
+    // 1º falso positivo, `cadastro/bitsuki/INVENTARIO.md:111`), sem `*`/`` ` `` de ênfase markdown.
+    re: /^\s*\|[^|\n]*\b(?:senha|password|passwd|secret|segredo|token|api[_ -]?key|apikey|chave|client[_ -]?secret|service[_ -]?role)\b[^|\n]*\|(?:[^|\n]*\|)*?\s*((?=[^\s|]*[A-Za-z])(?=[^\s|]*[0-9])[^\s|/*`]{8,})\s*\|/gi,
+    valor: (m) => m[1],
+    heuristicaFraca: true,
+  },
+  {
     id: "onsuite",
     categoria: "senha do OnSuite embutida (ONSUITE_SENHA=…)",
     re: /\bONSUITE_SENHA\b\s*[:=]\s*['"]?([^'"\s]{4,})/g,
@@ -268,7 +282,10 @@ const IGNORADOS_SEMPRE = [
   /^node_modules\//,
   /^dist\//,
   /^\.git\//,
-  /(^|\/)cofre\//, // espelho local do cofre — fora do git por .gitignore
+  // ⚰️ 01/09 (EX-F): `cofre/` NÃO é mais ignorado. A entrada presumia ".gitignore cobre" — falso em 4
+  // casas (CCEV, EDU, AVC, bitrix-aux), onde `cofre/ACESSOS-FERRAMENTAS.md` é VERSIONADO e carregava
+  // a senha-mestra (L2-01). O scanner dava ✅ na casa exata em que a lente dizia 🟥. Regra: o que o
+  // `.gitignore` já tira, `git ls-files` não lista; o que ele não tira, o scanner OLHA.
   /(^|\/)package-lock\.json$/,
   /(^|\/)bun\.lock$/,
   /(^|\/)yarn\.lock$/,
@@ -354,12 +371,50 @@ function examinarLinha(caminho, numero, texto, achados, janela) {
   }
 }
 
+// 01/09 (EX-F): a OUTRA forma do cofre humano — a credencial numa COLUNA (cabeçalho "Senha"/"Token")
+// e o valor várias linhas abaixo, em cada linha da tabela. Nenhuma regra por linha vê isso: o rótulo
+// não está na linha do valor. O motor lembra as colunas-de-credencial da tabela em curso.
+const ROTULO_DE_CREDENCIAL =
+  /\b(?:senha|password|passwd|secret|segredo|token|api[_ -]?key|apikey|chave|client[_ -]?secret|service[_ -]?role)\b/i;
+const LINHA_SEPARADORA = /^\s*\|?\s*:?-{3,}/;
+function celulasDe(l) {
+  return l.replace(/^\s*\|/, "").replace(/\|\s*$/, "").split("|");
+}
+function examinarColunasDeTabela(caminho, numero, l, colunas, achados) {
+  if (!colunas || !colunas.length || LINHA_SEPARADORA.test(l) || MARCADOR_DE_EXCECAO.test(l)) return;
+  const cs = celulasDe(l);
+  for (const k of colunas) {
+    // tira ênfase markdown (`**Supabase**` tem 12 caracteres e parecia opaco — 2º falso positivo,
+    // `processos/ESTRATEGIA-CONTAS-E-COFRE-2026-08-11.md:60`); exige letra E dígito; recusa caminho.
+    const v = (cs[k] || "").trim().replace(/^[*_`]+|[*_`]+$/g, "");
+    if (!/^[^\s|/]{8,}$/.test(v)) continue;
+    if (!/[A-Za-z]/.test(v) || !/[0-9]/.test(v)) continue;
+    if (CHAVE_PUBLICAVEL.test(v) || (JWT.test(v) && ehCrachaPublico(v))) continue;
+    if (ehPlaceholder(v, true)) continue;
+    achados.push({
+      caminho, numero, id: "senha-em-coluna-de-tabela",
+      categoria: "credencial em coluna de tabela markdown (cabeçalho senha/token/chave)",
+    });
+  }
+}
+
 function examinarTexto(caminho, conteudo, achados) {
   const linhas = conteudo.split("\n");
   const janela = criarJanela();
+  let colunas = null; // índices das colunas-de-credencial da tabela em curso (null = fora de tabela)
   for (let i = 0; i < linhas.length; i += 1) {
     janela.empurrar(linhas[i]);
     examinarLinha(caminho, i + 1, linhas[i], achados, janela);
+    const l = linhas[i];
+    if (/^\s*\|/.test(l)) {
+      if (LINHA_SEPARADORA.test(linhas[i + 1] || "")) {
+        colunas = celulasDe(l).map((c, k) => (ROTULO_DE_CREDENCIAL.test(c) ? k : -1)).filter((k) => k >= 0);
+        continue;
+      }
+      examinarColunasDeTabela(caminho, i + 1, l, colunas, achados);
+    } else {
+      colunas = null;
+    }
   }
 }
 
