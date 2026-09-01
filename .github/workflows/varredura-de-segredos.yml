@@ -1,0 +1,73 @@
+name: varredura-de-segredos
+#
+# Porta de entrada de credenciais: a cada envio e a cada pedido de junção, o que
+# ESTE envio acrescentou é conferido antes de entrar. Credencial não entra no
+# repositório — e o jeito de garantir isso é conferir na porta, não depois.
+#
+# ⚠️ Este repositório é PÚBLICO. Os comentários daqui ficam propositalmente
+# genéricos: descrevem o que o passo faz, nunca o desenho interno da verificação.
+#
+# A REGRA DURA DA SAÍDA
+#   O log mostra `caminho:linha` + a CATEGORIA. NUNCA o valor — nem mascarado,
+#   nem o trecho da linha. Log de execução é lido por qualquer um, e segredo
+#   pela metade ainda é pista.
+#
+# O QUE PASSA DE PROPÓSITO
+#   As chaves do Supabase que são públicas por desenho (a `publishable` e o
+#   crachá de papel `anon`) vão embutidas no navegador de quem visita o site;
+#   quem protege o dado ali é o RLS. Barrá-las seria gritar lobo — e quem grita
+#   lobo não é ouvido.
+
+on:
+  push:
+    branches: ['**']
+  pull_request: {}
+  workflow_dispatch: {}
+
+# Mínimo possível: este job só faz checkout e lê arquivo. Zero escrita.
+permissions:
+  contents: read
+
+jobs:
+  varredura-de-segredos:
+    name: Varredura de segredos
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o repositório com o histórico inteiro
+        uses: actions/checkout@v4
+        with:
+          # A porta compara o que ESTE envio acrescentou com o que já existia.
+          # Para isso precisa do histórico, não só do topo.
+          fetch-depth: 0
+
+      - name: Preparar o Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Credencial NOVA neste envio (a porta — reprova)
+        # Só as linhas ACRESCENTADAS. O passivo antigo não entra aqui: senão a
+        # porta reprovaria para sempre por causa de coisa que só o dono resolve,
+        # e porta que reprova todo dia é porta que alguém desliga.
+        # Branch nova / envio forçado manda 40 zeros — o próprio script trata.
+        env:
+          BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          TOPO: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        run: node scripts/varredura-de-segredos.mjs --intervalo "${BASE}..${TOPO}"
+
+      - name: Credencial VIVA na árvore inteira (só relatório, NÃO reprova)
+        # Nasce em MODO AVISO de propósito: o repositório pode ter coisa antiga
+        # já versionada esperando o dono, e travar por causa dela empurraria todo
+        # mundo para o `--no-verify`. Porteiro desligado protege menos que
+        # porteiro nenhum, porque dá a sensação de estar protegido. Este passo
+        # existe para que o passivo APAREÇA em toda execução, em vez de sumir do
+        # radar por já ser "coisa antiga".
+        #
+        # COMO TORNAR BLOQUEANTE: apague a linha `continue-on-error: true`
+        #   abaixo. FAÇA ISSO QUANDO AS DUAS condições valerem:
+        #     (a) `node scripts/varredura-de-segredos.mjs --arvore` devolver ZERO; e
+        #     (b) o passo tiver passado ~2 semanas em modo aviso sem nenhum falso
+        #         positivo (confira nos avisos das execuções).
+        if: always()
+        continue-on-error: true
+        run: node scripts/varredura-de-segredos.mjs --arvore

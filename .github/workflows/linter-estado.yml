@@ -1,7 +1,7 @@
 name: linter-estado
-# WIRE REMOTO-SAFE do linter (kit A9 do Escritório do MOU). Hooks locais não disparam em sessão remota
-# (V-HOOK-REMOTO) — a Action roda no SERVIDOR a cada push, então o check de estado vale mesmo em remoto.
-# Falha (❌) só em 🟥 (ex.: CLAUDE.md/AGENTS.md inchado). Os 🟨 aparecem no log como aviso, não travam.
+# Verificação de estado do repositório, no servidor, a cada envio e a cada pedido de junção.
+# Existe porque verificação que só roda na máquina de quem edita não roda sempre.
+# Falha (❌) apenas em bloqueio; os avisos aparecem no log sem travar.
 on:
   push:
     branches: ['**']
