@@ -24,8 +24,14 @@ import { useState, type FormEvent, type ReactNode } from "react";
 // acesso de ninguém. A nova senha foi entregue ao dono e deve viver no GERENCIADOR
 // DE SENHAS dele — não no git, não no chat, não num documento. Só ASCII, de
 // propósito: senha com acento quebra na digitação e o hash não bate.
+// segredo-ok — NAO e credencial: e o SHA-256 (hash, mao unica) da senha do portao.
+// A varredura de segredos acusa "token hexadecimal de 64 caracteres perto de rotulo
+// de credencial" e, aqui, isso e o desenho CERTO: o que mora no git e o hash, e hash
+// nao volta a ser senha. A senha em si vive no gerenciador de senhas do dono.
+// (Marcado pelo Escritorio do MOU em 2026-09-01, ao instalar a porta de segredos —
+//  porteiro que acusa sempre e porteiro que alguem desliga.)
 const HASH_SENHA =
-  "eb2ab3e2ef4132f40833e26e0bb92534e362755a1fd46241ff231e7c574b759d";
+  "eb2ab3e2ef4132f40833e26e0bb92534e362755a1fd46241ff231e7c574b759d";  // segredo-ok
 const CHAVE_SESSAO = "sba-guia-liberado";
 
 async function sha256Hex(texto: string): Promise<string> {
