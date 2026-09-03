@@ -1,27 +1,24 @@
 {
   "//": "settings do repo-app sba-negocios-site (kit D196). Endurecido em 2026-08-25 (porta P5 do fecho para o selo) e de novo em 2026-09-01 (achado L1: 0 denies de Bash — a deny de Edit/Write NAO cobre Bash, e `git -C` escapa dela). Esta sessao NAO escreve fora do proprio repo: o escritorio (PMO) e SSOT de processo, o keepee-facilities e territorio do Atlas (D187), e o repo de NEGOCIO da unidade SBA nao se co-monta com o auxiliar (D201) — se um dia for co-montado por engano, a escrita fica bloqueada por caminho. Canal correto para todos eles: deposito em caixa-de-saida/para-escritorio/ (D144).",
+  "_permissoes_D215": "D215 (2026-09-03): permissions.allow carrega o PISO de escritorio-do-mou/processos/templates/permissoes-kit.json (união; denies desta casa ficam e vencem). Trazido pelo Escritório do MOU.",
   "permissions": {
     "deny": [
       "Edit(**/escritorio-do-mou/**)",
       "Write(**/escritorio-do-mou/**)",
       "MultiEdit(**/escritorio-do-mou/**)",
       "NotebookEdit(**/escritorio-do-mou/**)",
-
       "Edit(**/keepee-facilities*/**)",
       "Write(**/keepee-facilities*/**)",
       "MultiEdit(**/keepee-facilities*/**)",
       "NotebookEdit(**/keepee-facilities*/**)",
-
       "Edit(**/sba-unidades-de-negocios/**)",
       "Write(**/sba-unidades-de-negocios/**)",
       "MultiEdit(**/sba-unidades-de-negocios/**)",
       "NotebookEdit(**/sba-unidades-de-negocios/**)",
-
       "Edit(**/portfolio-automacoes/**)",
       "Write(**/portfolio-automacoes/**)",
       "MultiEdit(**/portfolio-automacoes/**)",
       "NotebookEdit(**/portfolio-automacoes/**)",
-
       "Bash(rm -rf*)",
       "Bash(git push*--force*)",
       "Bash(git reset --hard*)",
@@ -29,6 +26,47 @@
       "Bash(git -C *keepee-facilities*)",
       "Bash(git -C *sba-unidades-de-negocios*)",
       "Bash(git -C *portfolio-automacoes*)"
-    ]
+    ],
+    "allow": [
+      "Bash",
+      "Read",
+      "Glob",
+      "Grep",
+      "Edit",
+      "Write",
+      "MultiEdit",
+      "NotebookEdit",
+      "WebFetch",
+      "WebSearch",
+      "Skill",
+      "Workflow",
+      "Agent",
+      "TaskCreate",
+      "TaskUpdate",
+      "TaskList",
+      "TaskGet",
+      "Artifact",
+      "mcp__github",
+      "mcp__Google_Drive",
+      "mcp__Google_Calendar",
+      "mcp__Gmail",
+      "mcp__Supabase",
+      "mcp__supabase",
+      "mcp__Lovable",
+      "mcp__Base44",
+      "mcp__Vercel",
+      "mcp__GoDaddy",
+      "mcp__Figma",
+      "mcp__Canva",
+      "mcp__Gamma",
+      "mcp__Miro",
+      "mcp__Swagger",
+      "mcp__Atlassian_Rovo",
+      "mcp__Claude_Code_Remote",
+      "mcp__ROBO_DO_DRIVE",
+      "mcp__ROBO_DO_GMAIL",
+      "mcp__Bitwarden"
+    ],
+    "defaultMode": "acceptEdits"
   }
 }
