@@ -142,6 +142,11 @@ def parse(md_text):
     for s in ("🔒", "📅", "⚙️", "📌"):
         if s not in doc["secoes"]: erro(f"faltou a seção `# {s} …` (as 4 são obrigatórias, nesta ordem: 🔒 📅 ⚙️ 📌)")
     if ordem != ["🔒", "📅", "⚙️", "📌"]: erro(f"ordem das seções é {ordem}; a norma manda 🔒 📅 ⚙️ 📌")
+    # regra 1 do molde (C128, A-526 03/09): o que foi FEITO sai do mapa — ✅ ou linha riscada em ⚙️/🔒 é recusado
+    for ln, l in doc["secoes"]["⚙️"]["linhas"]:
+        if l.startswith("|") and ("✅" in l or "~~" in l): erro(f"linha {ln}: item ✅/riscado em ⚙️ MINHAS — regra 1 do molde: o que foi feito SAI do mapa (vive no git/HANDOFF)")
+    for ln, l in doc["secoes"]["🔒"]["linhas"]:
+        if l.startswith("## ") and ("✅" in l or l.startswith("## ~~")): erro(f"linha {ln}: item ✅/riscado em 🔒 SEUS — regra 1 do molde: o que foi feito SAI do mapa")
     # rodapé = blockquotes ao fim da 📌
     lim = doc["secoes"]["📌"]["linhas"]
     while lim and (lim[-1][1].startswith(">") or not lim[-1][1].strip()):
