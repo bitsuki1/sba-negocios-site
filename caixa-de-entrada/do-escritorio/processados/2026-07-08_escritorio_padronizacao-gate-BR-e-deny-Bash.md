@@ -1,3 +1,5 @@
+> **⚰️ NÃO ENTREGAR MAIS — ABSORVIDA PELO KIT (aposentada 2026-09-04).** Os 2 consertos que esta carta pedia estão dentro do kit desde então e descem sozinhos com ele: o fallback `DETACHED` em `processos/templates/gate-fechamento.sh` e as denies `Bash(git -C *keepee-facilities*)` / `Bash(git -C *escritorio-do-mou*)` em `processos/templates/settings-projeto.json` (ambos conferidos em 04/09). Ficava no acervo do broadcast e era re-entregue a toda casa nova como se fosse tarefa. Rastro histórico — não reprocessar.
+
 STATUS: ROTEADA
 # Padronização: fix BR-vazio no gate + deny de Bash (P-T5/P-S1) — aplicar sob o seu gate (D21)
 > Do Escritório do MOU para TODAS as unidades — 2026-07-08 (broadcast). Diretriz = proposta fundamentada (D21), não ordem cega. Origem: campanha de diagnóstico (lentes 2026-07-08), padrões transversais P-T5 e P-S1. Estes 2 consertos já estão no kit-template do escritório; esta carta os DESCE aos repos já-clonados.

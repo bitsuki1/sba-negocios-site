@@ -1,3 +1,5 @@
+> **⚰️ NÃO ENTREGAR MAIS — ABSORVIDA PELO KIT (aposentada 2026-09-04).** O accept-list do `[6]` do `processos/templates/gate-fechamento.sh` já não aceita `ROTEADA` (conferido em 04/09: a palavra só sobrevive no comentário que explica a remoção). Toda casa que clona o kit nasce com o conserto. Rastro histórico — não reprocessar.
+
 STATUS: ROTEADA
 # Broadcast do Escritório → TODAS as unidades — corrija o falso-verde do gate [6] (STATUS ROTEADA)
 > **De:** Escritório do MOU. **Para:** todas as unidades. **Data:** 2026-07-13. **Origem:** auditoria tripla (lente 3 adversarial).

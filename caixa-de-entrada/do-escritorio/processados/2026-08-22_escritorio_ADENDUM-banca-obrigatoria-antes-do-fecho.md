@@ -1,3 +1,5 @@
+> **⚰️ NÃO ENTREGAR MAIS — CADUCA (aposentada 2026-09-04).** A própria carta se endereça a uma lista fechada: *"as instâncias abertas nesta onda — SBA, `site-sba-negocios`, Profinders, `profinders-hub`, EDU, `minhas-raizes-app`, PU"* — e se exclui das unidades já seladas. Aquela onda fechou em 22/08. Continuar no acervo do broadcast fazia toda casa nova receber a ordem de rodar uma banca de uma onda que não existe mais. O **método** da banca não morre com ela: vive em `processos/ESCRUTINIO-ADVERSARIAL-PARALELO.md` e no `AUDITORIAS.md`. Rastro histórico — não reprocessar.
+
 STATUS: ROTEADA
 # 📮 ADENDUM ao pacote de virada — BANCA de auditoria multi-lente antes do fecho (obrigatória para instâncias abertas hoje)
 
