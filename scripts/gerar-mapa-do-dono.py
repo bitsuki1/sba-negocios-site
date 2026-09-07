@@ -147,6 +147,29 @@ def parse(md_text):
         if l.startswith("|") and ("✅" in l or "~~" in l): erro(f"linha {ln}: item ✅/riscado em ⚙️ MINHAS — regra 1 do molde: o que foi feito SAI do mapa (vive no git/HANDOFF)")
     for ln, l in doc["secoes"]["🔒"]["linhas"]:
         if l.startswith("## ") and ("✅" in l or l.startswith("## ~~")): erro(f"linha {ln}: item ✅/riscado em 🔒 SEUS — regra 1 do molde: o que foi feito SAI do mapa")
+    # MR-77 (prometida em 22/08, construída em 04/09): código repetido no mapa faz o dono responder "resolve o P3"
+    # e duas coisas diferentes atenderem. Aborta com as duas linhas.
+    vistos = {}
+    for ln, l in doc["secoes"]["🔒"]["linhas"]:
+        m = re.match(r"^## ((?:P|Q|N|M-?)?\d+)\s*[.·]", l)
+        if not m: continue
+        if m.group(1) in vistos: erro(f"linha {ln}: o código {m.group(1)} já foi usado na linha {vistos[m.group(1)]} — cada item do dono tem um código só (MR-77)")
+        vistos[m.group(1)] = ln
+    # E4 (pedido da SBA, 04/09): item roteado à PRÓXIMA INSTÂNCIA sem GATILHO é esquecimento com data
+    # marcada — ninguém sabe o que faz o item acordar. A coluna existe no molde desde o início e vinha
+    # sendo preenchida com "—". Casa com a ordem do dono de 04/09 (rotear o que é da casa PARA a casa):
+    # roteamento só é roteamento se o item acorda sozinho lá.
+    for ln, l in doc["secoes"]["📅"]["linhas"]:
+        if not l.startswith("|"):
+            continue
+        cels = [c.strip() for c in l.strip().strip("|").split("|")]
+        if len(cels) < 3 or set(cels[0]) <= set("-: ") or cels[0].lower() in ("código", "codigo"):
+            continue
+        if not cels[2] or cels[2] in ("—", "-", "?", "a definir", "A DEFINIR"):
+            erro(f"linha {ln}: item da pista 📅 sem GATILHO — diga o que faz este item acordar "
+                 f"(uma data, um evento, 'quando a casa X abrir'). Item roteado sem gatilho é "
+                 f"esquecimento com data marcada (E4, pedido da SBA 04/09)", ln)
+
     # rodapé = blockquotes ao fim da 📌
     lim = doc["secoes"]["📌"]["linhas"]
     while lim and (lim[-1][1].startswith(">") or not lim[-1][1].strip()):
