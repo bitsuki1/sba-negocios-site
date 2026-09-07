@@ -35,30 +35,6 @@ out=$(find "$DIR/caixa-de-saida" -type f -name '*.md' ! -path '*/processados/*' 
 REG="$DIR/REGISTRO-DE-INSTANCIAS.md"
 if [ -f "$REG" ]; then
   BR=$(git -C "$DIR" branch --show-current 2>/dev/null || echo "?")
-  # B.6 (2026-07-05, achado E2 na CCEV): regex TOLERANTE. Antes exigia '\| ABERTA \|' isolado + branch entre crases —
-  #   ficava CEGO ao formato colado ('| ABERTA — confirmar chapéu |') e sem-crase (falso-controle: parecia gate, não travava).
-  #   Agora casa ABERTA como PALAVRA (| ABERTA |, | ABERTA — nota, **ABERTA**), exclui FECHADA, e o branch por substring.
-  # B.7 (2026-07-05, achado convergente CCEV+Keepee+Profinders no sweep): ancorar em `^\|` (linhas de TABELA).
-  #   Sem isso, a PROSA do cabeçalho/how-to ("Linha ABERTA órfã = instância perdida") casava `-w ABERTA` = falso-positivo.
-  minha=$(grep -E '^\|' "$REG" 2>/dev/null | grep -F "$BR" | grep -w ABERTA | grep -vw FECHADA)
-  if [ -n "$minha" ]; then
-    fail "[3/4] sua linha no REGISTRO-DE-INSTANCIAS ainda está ABERTA — marque FECHADA + handoff antes de sair"
-  else
-    ok "[3/4] sem linha ABERTA da sua branch no REGISTRO"
-  fi
-  outras=$(grep -E '^\|' "$REG" 2>/dev/null | grep -w ABERTA | grep -vw FECHADA | grep -vF "$BR" | wc -l)
-  [ "$outras" -gt 0 ] && echo "⚠️  [3/4] $outras linha(s) ABERTA de OUTRA(s) branch(es) no REGISTRO — instância órfã? investigue/feche se puder (não trava)"
-fi
-
-# [4/4] ata-viva roteada — item da ATA-VIVA-SESSAO.md ainda não-roteado só AVISA (não trava: a ata é rede,
-# o roteamento é do gen). Sem este aviso, fala do dono capturada morre sem virar DECISÃO/AGENDA/tarefa.
-ATA="$DIR/ATA-VIVA-SESSAO.md"
-if [ -f "$ATA" ]; then
-  # B.7: SEM `|| echo 0` — grep -c já imprime "0" em zero-match; o `|| echo 0` concatenava "0\n0" → `[: integer expression expected`.
-  naoroteado=$(grep -cE '^> \[ \] ROTEADO' "$ATA" 2>/dev/null); naoroteado=${naoroteado:-0}
-  [ "$naoroteado" -gt 0 ] && echo "⚠️  [4/4] $naoroteado item(ns) da ATA-VIVA ainda NÃO-ROTEADO(s) — roteie ao lar canônico (DECISOES/AGENDA/tarefa) antes de sair (não trava)" || ok "[4/4] ata-viva sem item pendente de roteamento"
-fi
-
 
 # ── [conteúdo] O MAPA MENTE? — 1º dente de CONTEÚDO do portfólio (Escritório do MOU, 2026-09-07) ──
 # O DIAGNÓSTICO DO DONO: os gates provam que a carta CHEGOU, que o arquivo EXISTE, que o espelho
@@ -149,4 +125,29 @@ __GC_PY__
 fi
 [ "${_GC_FALHOU:-0}" = "1" ] && exit 1
 # ── fim do dente de conteúdo ──────────────────────────────────────────────────────────────────
+  # B.6 (2026-07-05, achado E2 na CCEV): regex TOLERANTE. Antes exigia '\| ABERTA \|' isolado + branch entre crases —
+  #   ficava CEGO ao formato colado ('| ABERTA — confirmar chapéu |') e sem-crase (falso-controle: parecia gate, não travava).
+  #   Agora casa ABERTA como PALAVRA (| ABERTA |, | ABERTA — nota, **ABERTA**), exclui FECHADA, e o branch por substring.
+  # B.7 (2026-07-05, achado convergente CCEV+Keepee+Profinders no sweep): ancorar em `^\|` (linhas de TABELA).
+  #   Sem isso, a PROSA do cabeçalho/how-to ("Linha ABERTA órfã = instância perdida") casava `-w ABERTA` = falso-positivo.
+  minha=$(grep -E '^\|' "$REG" 2>/dev/null | grep -F "$BR" | grep -w ABERTA | grep -vw FECHADA)
+  if [ -n "$minha" ]; then
+    fail "[3/4] sua linha no REGISTRO-DE-INSTANCIAS ainda está ABERTA — marque FECHADA + handoff antes de sair"
+  else
+    ok "[3/4] sem linha ABERTA da sua branch no REGISTRO"
+  fi
+  outras=$(grep -E '^\|' "$REG" 2>/dev/null | grep -w ABERTA | grep -vw FECHADA | grep -vF "$BR" | wc -l)
+  [ "$outras" -gt 0 ] && echo "⚠️  [3/4] $outras linha(s) ABERTA de OUTRA(s) branch(es) no REGISTRO — instância órfã? investigue/feche se puder (não trava)"
+fi
+
+# [4/4] ata-viva roteada — item da ATA-VIVA-SESSAO.md ainda não-roteado só AVISA (não trava: a ata é rede,
+# o roteamento é do gen). Sem este aviso, fala do dono capturada morre sem virar DECISÃO/AGENDA/tarefa.
+ATA="$DIR/ATA-VIVA-SESSAO.md"
+if [ -f "$ATA" ]; then
+  # B.7: SEM `|| echo 0` — grep -c já imprime "0" em zero-match; o `|| echo 0` concatenava "0\n0" → `[: integer expression expected`.
+  naoroteado=$(grep -cE '^> \[ \] ROTEADO' "$ATA" 2>/dev/null); naoroteado=${naoroteado:-0}
+  [ "$naoroteado" -gt 0 ] && echo "⚠️  [4/4] $naoroteado item(ns) da ATA-VIVA ainda NÃO-ROTEADO(s) — roteie ao lar canônico (DECISOES/AGENDA/tarefa) antes de sair (não trava)" || ok "[4/4] ata-viva sem item pendente de roteamento"
+fi
+
+
 exit $FAIL
