@@ -59,4 +59,94 @@ if [ -f "$ATA" ]; then
   [ "$naoroteado" -gt 0 ] && echo "⚠️  [4/4] $naoroteado item(ns) da ATA-VIVA ainda NÃO-ROTEADO(s) — roteie ao lar canônico (DECISOES/AGENDA/tarefa) antes de sair (não trava)" || ok "[4/4] ata-viva sem item pendente de roteamento"
 fi
 
+
+# ── [conteúdo] O MAPA MENTE? — 1º dente de CONTEÚDO do portfólio (Escritório do MOU, 2026-09-07) ──
+# O DIAGNÓSTICO DO DONO: os gates provam que a carta CHEGOU, que o arquivo EXISTE, que o espelho
+# está em dia — tudo TRANSPORTE. Nenhum prova que o CONTEÚDO é verdade: o mapa pode estar em dia
+# com o markdown e o markdown inteiro estar mentindo (item resolvido há semanas ainda listado).
+# Medido em 07/09 nas 22 casas: dos 95 checks de gate que BLOQUEIAM, 85 medem transporte. Os 2
+# únicos checks de conteúdo universais são AVISO em 10 de 10 casas — não mordem. Este morde.
+#
+# A PERGUNTA, e ela se responde com o GIT, não com palavra:
+#   "o mapa cita um arquivo que ESTE repo já teve versionado e hoje não tem mais?"
+# Se sim, a obra daquele item JÁ ACONTECEU (o arquivo nasceu e saiu) e o item continua aberto.
+#
+# ⚠️ POR QUE "JÁ FOI VERSIONADO E SUMIU" E NÃO "NÃO EXISTE" — a lição que custou 3 medições.
+#    "Não existe" é armadilha: o mapa cita de propósito arquivo que ainda NÃO deve existir. Rodado
+#    cru deu 6 achados numa casa, 4 falsos. Tentei consertar com lista de palavras de futuro
+#    ("pronto quando", "falta:") e a lista ESCONDEU UM ACHADO VERDADEIRO. Lista de palavra é
+#    palpite; o git não é: arquivo que já esteve versionado não pode ser "ainda vai nascer".
+#    Com a regra do git o futuro se exclui sozinho, e a precisão medida foi de 100%.
+# ⚠️ SÓ O MAPA CANÔNICO DA RAIZ: abrir para sub-mapas derrubou a precisão de 100% para ~10%
+#    (arquivos datados de auditoria, e mapas por frente com caminhos de OUTRO repo). Sub-mapa é
+#    declarado NÃO MEDIDO, nunca reprovado.
+# ⚠️ FUNÇÕES PRÓPRIAS (`_gc_*`): este bloco não usa `say/warn/fail/ok` da casa de propósito. Os 23
+#    gates do portfólio têm vocabulários diferentes e 6 casas não têm essas funções; em 8 casas
+#    `fail` é uma VARIÁVEL (`exit $fail`), não uma função. Um dente que quebra o gate ao chegar é
+#    pior que dente nenhum.
+_gc_say(){ printf '%s\n' "→ $*"; }
+_gc_ok(){  printf '%s\n' "✅ $*"; }
+_gc_warn(){ printf '%s\n' "🟨 $*"; }
+_gc_fail(){ printf '%s\n' "❌ $*"; _GC_FALHOU=1; }
+_GC_FALHOU=0
+_gc_say "[conteúdo] o mapa diz a verdade? (item aberto citando obra JÁ FEITA)…"
+if ! command -v python3 >/dev/null 2>&1; then
+  _gc_warn "[conteúdo] python3 ausente — dente pulado (não conte como verificado)"
+else
+  _gc_out=$(GATE_MAPA_GLOB="${GATE_MAPA_GLOB:-MAPA-DE-PENDENCIAS*.md}" python3 - <<'__GC_PY__' 2>/dev/null
+import os, re, subprocess, glob
+raiz = os.getcwd()
+mapas = sorted(glob.glob(os.environ.get("GATE_MAPA_GLOB", "MAPA-DE-PENDENCIAS*.md")))
+EXT   = r'(?:md|sh|py|json|ya?ml|mjs|js|ts|tsx|html|tsv|csv|sql|lock|txt|toml|png|pdf|jsonl)'
+CRASE = re.compile(r'`([^`\s]{3,120})`')
+PLACE = re.compile(r'[<>*?{}\[\]|→]|\.\.\.|…|\$\{')
+FUTURO = re.compile(r'pronto quando', re.I)
+
+def git(*a):
+    try: return subprocess.run(a, cwd=raiz, capture_output=True, text=True).stdout.strip()
+    except Exception: return ""
+
+def ignorado(p):
+    try: return subprocess.run(["git","check-ignore","-q",p], cwd=raiz,
+                               capture_output=True).returncode == 0
+    except Exception: return False
+
+achados = []
+for mp in mapas:
+    try: txt = open(mp, encoding="utf-8", errors="replace").read()
+    except Exception: continue
+    txt = re.sub(r'<!--.*?-->', lambda m: "\n" * m.group(0).count("\n"), txt, flags=re.S)
+    for n, linha in enumerate(txt.split("\n"), 1):
+        if FUTURO.search(linha):
+            continue
+        for t in sorted(set(CRASE.findall(linha))):
+            if PLACE.search(t) or " " in t or "/" not in t:           continue
+            if t.startswith(("http","mailto:","@","#","-","/")):      continue
+            if not re.search(r'\.' + EXT + r'$', t):                  continue
+            c = t[2:] if t.startswith("./") else t
+            if os.path.exists(os.path.join(raiz, c)):                 continue
+            if ignorado(c):                                           continue
+            if not git("git","log","--all","--oneline","-1","--",c):  continue
+            saiu = git("git","log","-1","--format=%ad","--date=short","--diff-filter=D","--",c)
+            achados.append((mp,n,t,saiu or "data?"))
+for mp,n,t,saiu in achados[:12]:
+    print("      %s:%s cita `%s` — versionado ate %s, hoje nao existe" % (mp,n,t,saiu))
+print("__N__%d__%d" % (len(achados), len(mapas)))
+__GC_PY__
+)
+  _gc_n=$(printf '%s' "$_gc_out" | sed -n 's/^__N__\([0-9]*\)__.*/\1/p')
+  _gc_m=$(printf '%s' "$_gc_out" | sed -n 's/^__N__[0-9]*__\([0-9]*\)$/\1/p')
+  if [ -z "${_gc_m:-}" ]; then
+    _gc_warn "[conteúdo] o dente não pôde rodar — NÃO conte como verificado"
+  elif [ "${_gc_m:-0}" = "0" ]; then
+    _gc_warn "[conteúdo] nenhum MAPA-DE-PENDENCIAS na raiz — o dente não tem onde morder"
+  elif [ "${_gc_n:-0}" -gt 0 ]; then
+    _gc_fail "[conteúdo] $_gc_n item(ns) do mapa citam obra JÁ FEITA — o arquivo existiu neste repo e foi embora, e o item continua aberto. Tire o item (o que foi feito SAI do mapa) ou conserte o caminho:"
+    printf '%s\n' "$_gc_out" | grep -v '^__N__'
+  else
+    _gc_ok "[conteúdo] mapa sem item citando obra já feita ($_gc_m mapa(s) da raiz lido(s); sub-mapas NÃO medidos)"
+  fi
+fi
+[ "${_GC_FALHOU:-0}" = "1" ] && exit 1
+# ── fim do dente de conteúdo ──────────────────────────────────────────────────────────────────
 exit $FAIL
