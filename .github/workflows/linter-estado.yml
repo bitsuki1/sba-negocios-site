@@ -7,9 +7,23 @@ on:
     branches: ['**']
   pull_request:
   workflow_dispatch: {}
+# Piso de custo do portfolio (2026-09-07). Sem isto, cada push empilha uma execucao
+# a mais e as antigas seguem gastando minuto ate terminar sozinhas.
+# este workflow VERIFICA: cancelar o anterior nao perde nada, porque o que importa
+# e o estado ATUAL do codigo.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   linter-estado:
     runs-on: ubuntu-latest
+    # Piso de custo do portfolio (2026-09-07): sem teto, um job travado so para
+    # no limite de 6h do GitHub — foi assim que 11 execucoes de um teste queimaram
+    # ~66h de runner numa manha. 60 min = 1,7x a mais demorada que ja deu certo no
+    # portfolio (36,2 min, medido em 253 execucoes). Precisa de mais? levante AQUI,
+    # com o motivo na linha: reprovar aparece, travar seis horas nao.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - name: Linter de estado
