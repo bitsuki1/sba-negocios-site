@@ -9,6 +9,7 @@ Pasta reservada para regras modulares (referidas no `CLAUDE.md`). Toda regra aqu
 - `ordem-normativa.md` (C36/C120 — hierarquia normativa; régua do rótulo "SSOT")
 - `nomenclatura-repos.md` (D186 — nome de repo `<unidade>-<projeto>-<tipo>`, raiz primeiro)
 - **`instanciacao-por-repo.md`** (D201 — hub/site/app NÃO se co-montam com o repo de NEGÓCIO da unidade dona) · *puxada 25/08*
+- **`credencial-vazada-e-do-dono.md`** (D219, ordem do dono 07/09 — credencial vazada: a instância ALERTA e DÁ O RISCO; a decisão de trocar é do dono e somente dele; nunca mandar fazer, nunca executar; vale para TODO repo do portfólio)
 - **`decisao-e-alcada.md`** (D203/D202 — decisão do dono em CAIXA DE CLIQUE, nunca prosa; classes de alçada A/B/C, prazo B = 3 dias) · *puxada 25/08*
 - **`regua-de-admissao.md`** (2026-08-25 — só sobe ao mapa do DONO o que trava 2+ casas ou é regra para todas) · ⚠️ *regra LOCAL de espelho: o arquivo-fonte ainda **não existe** no escritório; ver o cabeçalho do próprio arquivo*
 
