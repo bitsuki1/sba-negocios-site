@@ -82,6 +82,29 @@ if [ -f "$ROOT/MAPA-DE-PENDENCIAS.md" ]; then
   else yel "[espelho] falta scripts/gerar-mapa-do-dono.py (kit D216) — o HTML do mapa não pode ser feito à mão"; fi
 fi
 
+# ── [segredo-declarado] CATRACA: ponto NOVO que lê segredo diz para que serve (M31/D-segredo) ────
+# A dor é do dono, verbatim (25/08): *"toda hora alguém pede, eu vou lá apago e refaço e prejudico
+# outro projeto, NINGUÉM OLHA SE MAIS ALGUÉM USA O SEGREDO"*. A regra `segredo-e-consumidor.md`
+# manda: todo lugar que LÊ um segredo carrega uma linha dizendo para que serve e de que casa é.
+# Medido no portfólio em 07/09: 573 pontos de leitura, ZERO declaram.
+# É CATRACA, não cobrança geral: só cobra o que ENTRA ou MUDA no envio. Um dente que reprovasse os
+# 573 de uma vez seria desligado no dia seguinte — e dente desligado protege zero.
+# A linha, no formato fechado:  # segredo: NOME — para que serve — casa: <casa>
+# Bateria: python3 scripts/gate-segredo-declarado.py --prova (8 casos)
+if [ -f "$ROOT/scripts/gate-segredo-declarado.py" ] && command -v python3 >/dev/null 2>&1; then
+  _sd=$(cd "$ROOT" && python3 scripts/gate-segredo-declarado.py 2>/dev/null)
+  if echo "$_sd" | grep -q '^🟥'; then
+    red "[segredo-declarado] ponto NOVO lendo segredo sem dizer para que serve:"
+    echo "$_sd" | grep -v '^🟥' | head -5
+  elif echo "$_sd" | grep -q '^🟨'; then
+    yel "[segredo-declarado] a catraca não pôde comparar — não conte como verificado"
+  else
+    grn "[segredo-declarado] nenhum ponto novo de leitura de segredo sem declaração (catraca)"
+  fi
+else
+  yel "[segredo-declarado] scripts/gate-segredo-declarado.py ausente — a catraca não existe"
+fi
+
 echo "─────────────────────────────────────────────"
 [ "$FAIL" -eq 0 ] && echo "RESULTADO: 🟩 sem 🟥 · $WARN aviso(s) 🟨" || echo "RESULTADO: 🟥 há bloqueio — corrija antes de fechar"
 exit $FAIL
