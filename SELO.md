@@ -33,4 +33,25 @@
 
 ## Estado do fecho de 2026-08-25
 - **Relatório entregue:** `caixa-de-saida/para-escritorio/2026-08-25_sba-site_fecho-para-selo.md` (as 7 portas com prova, o que ficou aberto, os limites e a recomendação).
-- **Selo de onda:** ⬜ **ainda não emitido** — depende da torre verificar na `main` o que foi declarado. Este arquivo ganha a seção "Selo de Onda" quando isso acontecer.
+- **Selo de onda:** ✅ **EMITIDO em 2026-09-09** — ver a seção abaixo.
+
+## 🏅 Selo de Onda — **Selo Vitrine em Ordem** (2026-09-09)
+
+**Emitido pelo Escritório do MOU**, por ordem do dono de 25/08 (*"vamos abrir SBA e Site sba… o site vamos selar apenas"*), e registrado em `escritorio-do-mou/SELOS-DE-FECHO.md`.
+
+**Verificado na `main` remota ANTES do carimbo (E-071 — o selo não sai por relato), contra o padrão CERTO — o `kit-repo-app`, não o de unidade:**
+
+| medido | resultado |
+|---|---|
+| `CLAUDE.md` · `README.md` · `REGISTRO-DE-INSTANCIAS.md` · `TAREFAS-DO-DONO.md` · `MAPA-DE-PENDENCIAS.md` · `SELO.md` · `linter-estado.sh` · `.claude/settings.json` · `scripts/gerar-mapa-do-dono.py` · `scripts/varredura-de-segredos.mjs` · `.github/workflows/varredura-de-segredos.yml` | **11 de 11 presentes** |
+| `gate-app.sh` | ausente — **variância ᵁ declarada**: esta casa carrega o `gate-fechamento.sh`, que é governança **a mais**, não a menos |
+| regra de boot `credencial-vazada-e-do-dono.md` (D219) | presente |
+
+**O que o selo trava:** selado = **não se reabre nem se re-audita sem ordem do dono**. Vale para a casa e para o escritório.
+**O que o selo NÃO diz:** ele **não sela a unidade** `sba-unidades-de-negocios`, que segue na fila.
+**Resíduo declarado, não bloqueante:** o robô *"chega na main"* (D170) pede um segredo de Actions **neste** repo — 1 clique de uma casa só, que pela régua de admissão não sobe ao mapa do dono. Esta casa já o classificou como limite, e está correto.
+
+⚠️ **O selo saiu com 15 dias de atraso, e a culpa é do escritório:** a ordem do dono virou linha de FILA sem dono e sem data no registro central, e quem cobrou foi esta casa (o `M8` do mapa). Achado **A-620**, vacina `V-ORDEM-REBAIXADA-A-ITEM-DE-FILA`. _(Confissão de método: a primeira medição do escritório deu 3 faltas porque conferiu um repo-app contra o padrão de UNIDADE. Remedido com a régua certa, deu 11 de 11.)_
+
+_Trazido pelo Escritório do MOU — 2026-09-09._
+
