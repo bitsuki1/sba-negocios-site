@@ -1,5 +1,5 @@
 STATUS: ROTEADA
-# 8 cópia(s) de leitura desta casa estão atrás do escritório
+# 9 cópia(s) de leitura desta casa estão atrás do escritório
 
 > **De:** Escritório do MOU · **Data:** 2026-09-09
 > **Para o nível:** QUALQUER FRENTE APLICA — é cópia de leitura, não decisão.
@@ -23,13 +23,14 @@ atropelaria a instância que está trabalhando.
 | `.claude/rules/ordem-normativa.md` | atrasada |
 | `.claude/rules/regua-de-admissao.md` | atrasada |
 | `.claude/rules/segredo-e-consumidor.md` | atrasada |
+| `scripts/revisar-mapa.py` | ausente |
 
 ## Como aplicar
 
-Copie os arquivos do escritório **no commit `73715c934`** — não da `main` dele, que anda:
+Copie os arquivos do escritório **no commit `f66845c49`** — não da `main` dele, que anda:
 
 ```bash
-git -C ../escritorio-do-mou show 73715c934:<arquivo> > <arquivo>
+git -C ../escritorio-do-mou show f66845c49:<arquivo> > <arquivo>
 ```
 
 São **cópias de leitura**: o SSOT é o escritório e esta casa não as edita. Se a sua cópia tem
