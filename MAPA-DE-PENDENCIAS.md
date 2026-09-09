@@ -70,7 +70,6 @@ A página de resíduos mostra o projeto-farol do parceiro CSTR em Congonhas do C
 | M5 | **Trazer o linter novo do kit** — o de lá confere sozinho se a página do mapa está em dia com este arquivo (aviso amarelo quando defasar); o daqui é de 27/08 e não confere | ⏳ |
 | M6 | **Faxina de rastro** — 2 linhas defasadas no `CLAUDE.md` (o §5 ainda trata o rename como pendente; o §9 chama de "viva" a carta de 22/08 já processada) + carimbar como processadas as 4 cartas que já chegaram ao destino (2 ao escritório em 25/08, 2 ao comercial em 26/08) | ⏳ |
 | M7 | **O escritório corrige o que as superfícies dele dizem errado sobre esta casa** — a regra de boot ainda diz `site-sba-negocios` (nome que nunca existiu: é o projeto na Vercel), e o mapa do portfólio e o registro de apps dizem "GitHub Pages" (é Vercel desde 03/07) | ⏳ |
-| M8 | ⚰️ **Selo de onda EMITIDO em 09/09** — 🏅 *Selo Vitrine em Ordem*, verificado na main antes do carimbo; ver `SELO.md`. Você cobrou e tinha razão: eram 15 dias. | ✅ |
 
 ---
 
