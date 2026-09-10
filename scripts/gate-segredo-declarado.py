@@ -32,34 +32,55 @@ vocabulário fechado e falha real.
 
 ─────────────────────────────────────────────────────────────────────────────────────────────
 USO
-    python3 scripts/gate-segredo-declarado.py                 # o diff contra origin/main
-    python3 scripts/gate-segredo-declarado.py --contra HEAD~1
-    python3 scripts/gate-segredo-declarado.py --arquivo X     # um arquivo inteiro (auditoria)
-    python3 scripts/gate-segredo-declarado.py --prova         # a bateria
+    python3 processos/gate-segredo-declarado.py                 # o diff contra origin/main
+    python3 processos/gate-segredo-declarado.py --contra HEAD~1
+    python3 processos/gate-segredo-declarado.py --arquivo X     # um arquivo inteiro (auditoria)
+    python3 processos/gate-segredo-declarado.py --prova         # a bateria
 
 Sai 1 se houver ponto novo sem declaração. Sai 0 quando não há nada novo — inclusive quando o
 diff está vazio, que é o caso comum e silencioso de propósito.
 """
-import os, re, subprocess, sys
+
+import os
+import re
+import subprocess
+import sys
 
 # Como um segredo é LIDO. Não inclui `.env.example` (é declaração, não leitura) nem string
 # solta: o que interessa é o gesto de buscar o valor.
 LEITURAS = [
-    re.compile(r"secrets\.([A-Z][A-Z0-9_]{2,})"),                       # GitHub Actions
-    re.compile(r"Deno\.env\.get\(\s*[\"']([A-Z][A-Z0-9_]{2,})[\"']"),   # edge function
-    re.compile(r"process\.env\.([A-Z][A-Z0-9_]{2,})"),                  # node
-    re.compile(r"import\.meta\.env\.([A-Z][A-Z0-9_]{2,})"),             # vite
+    re.compile(r"secrets\.([A-Z][A-Z0-9_]{2,})"),  # GitHub Actions
+    re.compile(r"Deno\.env\.get\(\s*[\"']([A-Z][A-Z0-9_]{2,})[\"']"),  # edge function
+    re.compile(r"process\.env\.([A-Z][A-Z0-9_]{2,})"),  # node
+    re.compile(r"import\.meta\.env\.([A-Z][A-Z0-9_]{2,})"),  # vite
     re.compile(r"os\.environ(?:\.get)?[\[\(]\s*[\"']([A-Z][A-Z0-9_]{2,})[\"']"),
     re.compile(r"os\.getenv\(\s*[\"']([A-Z][A-Z0-9_]{2,})[\"']"),
 ]
 # A declaração, no formato fechado da regra. O `—` pode ser hífen simples (teclado do dono).
-DECLARACAO = re.compile(r"#\s*segredo:\s*([A-Z][A-Z0-9_]{2,})\s*[—–-]\s*(.+?)\s*[—–-]\s*casa:\s*(\S+)",
-                        re.I)
+DECLARACAO = re.compile(
+    r"#\s*segredo:\s*([A-Z][A-Z0-9_]{2,})\s*[—–-]\s*(.+?)\s*[—–-]\s*casa:\s*(\S+)", re.I
+)
 # Nomes que NÃO são segredo: variável de ambiente pública do próprio CI.
 NAO_E_SEGREDO = {
-    "GITHUB_TOKEN", "GITHUB_REPOSITORY", "GITHUB_REF", "GITHUB_SHA", "GITHUB_ACTOR",
-    "GITHUB_WORKSPACE", "GITHUB_EVENT_NAME", "GITHUB_RUN_ID", "GITHUB_OUTPUT", "GITHUB_ENV",
-    "CI", "HOME", "PATH", "PWD", "LANG", "TZ", "NODE_ENV", "PYTHONPATH", "RUNNER_OS",
+    "GITHUB_TOKEN",
+    "GITHUB_REPOSITORY",
+    "GITHUB_REF",
+    "GITHUB_SHA",
+    "GITHUB_ACTOR",
+    "GITHUB_WORKSPACE",
+    "GITHUB_EVENT_NAME",
+    "GITHUB_RUN_ID",
+    "GITHUB_OUTPUT",
+    "GITHUB_ENV",
+    "CI",
+    "HOME",
+    "PATH",
+    "PWD",
+    "LANG",
+    "TZ",
+    "NODE_ENV",
+    "PYTHONPATH",
+    "RUNNER_OS",
 }
 # Onde a declaração é exigida (a regra enumera estes escopos).
 ESCOPOS = (".github/workflows/", "supabase/functions/", "tools/", "scripts/")
@@ -74,16 +95,16 @@ def sh(*a):
 def pontos_no_texto(linhas, so_linhas=None):
     """Devolve [(n, nome_do_segredo, texto)] dos pontos de leitura. `so_linhas` restringe."""
     achados = []
-    for n, l in enumerate(linhas, 1):
+    for n, lin in enumerate(linhas, 1):
         if so_linhas is not None and n not in so_linhas:
             continue
-        if l.lstrip().startswith("#") and "segredo:" in l:
-            continue                                    # a própria declaração não é leitura
+        if lin.lstrip().startswith("#") and "segredo:" in lin:
+            continue  # a própria declaração não é leitura
         for rx in LEITURAS:
-            for nome in rx.findall(l):
+            for nome in rx.findall(lin):
                 if nome in NAO_E_SEGREDO:
                     continue
-                achados.append((n, nome, l.strip()))
+                achados.append((n, nome, lin.strip()))
     return achados
 
 
@@ -100,8 +121,8 @@ def linhas_novas(arquivo, contra):
     """Números de linha ADICIONADAS/alteradas no diff — a catraca só olha para elas."""
     d = sh("git", "diff", "-U0", contra, "--", arquivo)
     novas, alvo = set(), 0
-    for l in d.split("\n"):
-        m = re.match(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@", l)
+    for lin in d.split("\n"):
+        m = re.match(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@", lin)
         if m:
             alvo = int(m.group(1))
             n = int(m.group(2) or 1)
@@ -115,10 +136,19 @@ def varre(contra=None, arquivo=None):
         alvos = [(arquivo, None)]
     else:
         mudados = [f for f in sh("git", "diff", "--name-only", contra).split("\n") if f.strip()]
-        alvos = [(f, contra) for f in mudados
-                 if any(f.startswith(e) or ("/" + e) in f for e in ESCOPOS)]
+        alvos = [
+            (f, contra) for f in mudados if any(f.startswith(e) or ("/" + e) in f for e in ESCOPOS)
+        ]
     for f, ctr in alvos:
         if not os.path.isfile(f):
+            continue
+        # A-593 (achado da Potencial Urbano, 08/09): o dente mordia a si mesmo. Os exemplos da
+        # bateria --prova vivem DENTRO deste arquivo (os.environ["RESEND_API_KEY"], Deno.env.get
+        # ("SUPABASE_SERVICE_ROLE_KEY")) e sao fixture, nao consumo. Toda casa que recebesse o
+        # script por BRANCH reprovaria no primeiro linter, porque ai o script e um arquivo novo
+        # no diff. Na main passou verde — mas por diff VAZIO, nao por acerto: a catraca nao
+        # olhou nada. E a mesma armadilha que este dente existe para pegar, e ela me pegou.
+        if os.path.basename(f) == os.path.basename(__file__):
             continue
         try:
             linhas = open(f, encoding="utf-8", errors="replace").read().split("\n")
@@ -134,6 +164,7 @@ def varre(contra=None, arquivo=None):
 def prova():
     """A bateria. Um dente sem prova é promessa."""
     import tempfile
+
     ok = True
 
     def caso(rotulo, conteudo, espera_falta):
@@ -146,31 +177,61 @@ def prova():
             open(p, "w", encoding="utf-8").write(conteudo)
             r = varre(arquivo=p)
             bom = (len(r) > 0) == espera_falta
-            print(f'{"✅" if bom else "🟥"} {rotulo}')
+            print(f"{'✅' if bom else '🟥'} {rotulo}")
             if not bom:
                 print("      obtido:", r)
             ok &= bom
 
-    caso("leitura SEM declaração reprova",
-         'import os\nk = os.environ["RESEND_API_KEY"]\n', True)
-    caso("leitura COM declaração passa",
-         '# segredo: RESEND_API_KEY — envia o aviso de acesso ao acervo — casa: ccev\n'
-         'import os\nk = os.environ["RESEND_API_KEY"]\n', False)
-    caso("declaração de OUTRO segredo não vale para este",
-         '# segredo: OUTRA_KEY — faz outra coisa — casa: x\n'
-         'import os\nk = os.environ["RESEND_API_KEY"]\n', True)
-    caso("declaração longe demais (fora da janela) não vale",
-         '# segredo: RESEND_API_KEY — envia — casa: ccev\n' + "\n" * 9 +
-         'import os\nk = os.environ["RESEND_API_KEY"]\n', True)
-    caso("variável pública do CI não é segredo",
-         'import os\nk = os.environ["GITHUB_TOKEN"]\n', False)
-    caso("a própria linha de declaração não conta como leitura",
-         '# segredo: X_KEY — algo — casa: y\n', False)
-    caso("hífen simples no lugar do travessão é aceito (o teclado do dono)",
-         '# segredo: RESEND_API_KEY - envia o aviso - casa: ccev\n'
-         'import os\nk = os.environ["RESEND_API_KEY"]\n', False)
-    caso("Deno.env.get sem declaração reprova",
-         'const k = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")\n', True)
+    caso("leitura SEM declaração reprova", 'import os\nk = os.environ["RESEND_API_KEY"]\n', True)
+    caso(
+        "leitura COM declaração passa",
+        "# segredo: RESEND_API_KEY — envia o aviso de acesso ao acervo — casa: ccev\n"
+        'import os\nk = os.environ["RESEND_API_KEY"]\n',
+        False,
+    )
+    caso(
+        "declaração de OUTRO segredo não vale para este",
+        "# segredo: OUTRA_KEY — faz outra coisa — casa: x\n"
+        'import os\nk = os.environ["RESEND_API_KEY"]\n',
+        True,
+    )
+    caso(
+        "declaração longe demais (fora da janela) não vale",
+        "# segredo: RESEND_API_KEY — envia — casa: ccev\n"
+        + "\n" * 9
+        + 'import os\nk = os.environ["RESEND_API_KEY"]\n',
+        True,
+    )
+    caso(
+        "variável pública do CI não é segredo", 'import os\nk = os.environ["GITHUB_TOKEN"]\n', False
+    )
+    caso(
+        "a própria linha de declaração não conta como leitura",
+        "# segredo: X_KEY — algo — casa: y\n",
+        False,
+    )
+    caso(
+        "hífen simples no lugar do travessão é aceito (o teclado do dono)",
+        "# segredo: RESEND_API_KEY - envia o aviso - casa: ccev\n"
+        'import os\nk = os.environ["RESEND_API_KEY"]\n',
+        False,
+    )
+    caso(
+        "Deno.env.get sem declaração reprova",
+        'const k = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")\n',
+        True,
+    )
+
+    # 9º caso (A-593): o dente NÃO pode morder a si mesmo. Os fixtures acima vivem dentro deste
+    # arquivo; sem a guarda, toda casa que recebesse o script por BRANCH reprovaria no primeiro
+    # linter. Este caso é o único da bateria que aponta para um arquivo REAL — de propósito: os
+    # outros 8 provam o que o dente pega, e só este prova o que ele tem de deixar passar.
+    r_self = varre(arquivo=os.path.abspath(__file__))
+    bom = len(r_self) == 0
+    print(f"{'✅' if bom else '🟥'} o próprio script não é mordido pelos seus fixtures")
+    if not bom:
+        print("      obtido:", r_self)
+    ok &= bom
 
     print("\nPROVA DA CATRACA:", "passou" if ok else "FALHOU")
     return 0 if ok else 1
@@ -185,18 +246,24 @@ def main():
     contra = "origin/main"
     if "--contra" in sys.argv:
         contra = sys.argv[sys.argv.index("--contra") + 1]
-    if not arquivo and subprocess.run(["git", "rev-parse", "--verify", contra],
-                                      capture_output=True).returncode:
-        print(f"🟨 [segredo-declarado] não consigo comparar contra `{contra}` — "
-              f"a catraca não rodou (não conte como verificado)")
+    if (
+        not arquivo
+        and subprocess.run(["git", "rev-parse", "--verify", contra], capture_output=True).returncode
+    ):
+        print(
+            f"🟨 [segredo-declarado] não consigo comparar contra `{contra}` — "
+            f"a catraca não rodou (não conte como verificado)"
+        )
         return 0
 
     faltando = varre(contra=None if arquivo else contra, arquivo=arquivo)
     if not faltando:
         return 0
-    print("🟥 [segredo-declarado] %d ponto(s) NOVO(s) lêem segredo sem dizer para que serve:"
-          % len(faltando))
-    for f, n, nome, txt in faltando[:10]:
+    print(
+        f"🟥 [segredo-declarado] {len(faltando)} ponto(s) NOVO(s) lêem segredo "
+        f"sem dizer para que serve:"
+    )
+    for f, n, nome, _txt in faltando[:10]:
         print(f"      {f}:{n} lê `{nome}` — sem a linha de declaração acima")
     print("      A linha, no formato fechado da regra `segredo-e-consumidor.md`:")
     print("        # segredo: NOME_DA_CHAVE — para que serve, em linguagem de gente — casa: <casa>")

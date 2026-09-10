@@ -156,8 +156,20 @@ const REGRAS = [
   {
     id: "senha-literal",
     categoria: "senha/segredo atribuído a um valor literal",
-    re: /\b(?:senha|password|passwd|pwd|secret|segredo|api[_-]?key|apikey|token|access[_-]?key|client[_-]?secret|private[_-]?key)[a-z0-9_]*\s*[:=]\s*(['"])([^'"\n]{6,})\1/gi,
-    valor: (m) => m[2],
+    // ⚠️ CONSERTO 2026-09-09 (banca do `portfolio-comercial`, achado C-01 — apontado por DUAS lentes
+    // independentes e CONFIRMADO por execução aqui). A âncora era `\b`, e `_` é caractere de palavra:
+    // em `WAALAXY_API_KEY` não existe fronteira antes de `API`, então **toda variável com prefixo de
+    // serviço escapava** — e prefixo de serviço é a convenção dominante de `.env` no portfólio inteiro.
+    // Matriz medida antes do conserto: `API_KEY_WAALAXY=` era pego; `WAALAXY_API_KEY=` NÃO era.
+    // Dois consertos numa linha: (a) a âncora aceita começo, não-alfanumérico OU `_`; (b) o valor pode
+    // vir SEM aspas — a forma de todo `.env`. ⚠️ A 1ª versão do (b) aceitava qualquer 6+ caracteres e
+    // acendeu **31 falsos** só no escritório, todos prosa ou código: `var token = props.getProperty(…)`,
+    // `X-API-Key: your-key-here`, `senha = risco aceito`, `token = rótulo + hash-prefixo`. Scanner que
+    // acusa tudo é scanner que ninguém lê. Agora o valor sem aspas só conta se **parecer** segredo:
+    // ≥12 caracteres, sem espaço, com letra E dígito, sem os sinais de código/prosa (parêntese, `+`,
+    // vírgula, barra). O valor ENTRE ASPAS segue com a régua antiga (≥6), que já era calibrada.
+    re: /(?:^|[^A-Za-z0-9]|_)(?:senha|password|passwd|pwd|secret|segredo|api[_-]?key|apikey|token|access[_-]?key|client[_-]?secret|private[_-]?key)[a-z0-9_]*\s*[:=]\s*(?:(['"])([^'"\n]{6,})\1|((?=[^\s'"\n]*[A-Za-z])(?=[^\s'"\n]*[0-9])[A-Za-z0-9_.:@~=-]{12,}))/gi,
+    valor: (m) => m[2] || m[3],
     heuristicaFraca: true,
   },
   {
@@ -311,6 +323,26 @@ const IGNORADOS_SEMPRE = [
   // …e os CASOS DE TESTE do instrumento (`processos/testes/fixtures/varredura-caso-V.md` é feito para
   // acusar — a bateria o varre por `--arquivo`; a árvore não pode ficar vermelha por causa dele).
   /(^|\/)testes\/fixtures\/varredura-caso-[A-Z]\.md$/,
+  // 09/09 (v2.3) — PROPOSTA DO ATLAS, ACEITA COMO ESTÁ. Instalando a porta nos 4 repositórios do
+  // OnSuite, o repositório dos APLICATIVOS acusou 16 achados e os 16 eram a mesma coisa: chaves de
+  // CLIENTE do Firebase e do Maps, que viajam DENTRO do aplicativo publicado — quem baixa da loja
+  // extrai qualquer uma em um minuto. São públicas por desenho, mesma família da `anon` do Supabase
+  // (D206). Dois danos: 16 vermelhos que ninguém pode nem deve consertar ensinam a ignorar o
+  // vermelho; e o passo que REPROVA olha linhas acrescentadas, então uma proposta que só
+  // REGENERASSE estes arquivos (o FlutterFire faz isso sozinho) ficaria vermelha sem motivo — aí o
+  // porteiro não é só ignorado, ele atrapalha, e vira candidato a ser removido pelo time.
+  //
+  // A RÉGUA — e ela é a parte que vale generalizar, não a exceção (V-EXCECAO-DE-ARQUIVO-x-DE-LINHA):
+  // não se pergunta *"é falso positivo?"*, pergunta-se **"QUEM ESCREVE ESTA LINHA?"**
+  //   · ferramenta reescreve  → exceção de ARQUIVO (o marcador `segredo-ok` não sobrevive à regeração)
+  //   · gente escreve         → marcador na LINHA, assinado e visível ao revisor
+  // Por isso `AndroidManifest.xml` e `AppDelegate.swift` **NÃO** entram, mesmo carregando a MESMA
+  // chave do Maps: são fonte escrita à mão, onde alguém pode colar outra coisa amanhã.
+  // Mesmo precedente do `.lovable/` acima. Medido pelo Atlas: 16→0, 3→0, 2→0; o `backend_onsuite`
+  // mantém os achados, porque credencial de SERVIDOR é outra natureza e é decisão do dono (D219).
+  /(^|\/)google-services\.json$/,
+  /(^|\/)GoogleService-Info\.plist$/,
+  /(^|\/)firebase_options\.dart$/,
   /\.(png|jpe?g|gif|webp|svg|ico|woff2?|ttf|eot|pdf|zip|gz|mp4|mp3|pyc|xlsx?|docx?)$/i,
 ];
 
