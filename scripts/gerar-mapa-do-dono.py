@@ -262,7 +262,7 @@ def parse(md_text):
         # dono
         # vetou. Aceita-se como sinônimo, com aviso e rota de saída, igual à 📌 e à 📅.
         SINONIMOS = {"🤖": "⚙️"}
-        m = re.match(r"^# (🔒|📅|⚙️|📌|💬|🤖)\s*(.*)$", lin)
+        m = re.match(r"^# (🔒|📅|⚙️|📌|💬|🧊|🤖)\s*(.*)$", lin)
         if m:
             sec = SINONIMOS.get(m.group(1), m.group(1))
             if m.group(1) in SINONIMOS:
@@ -338,7 +338,12 @@ def parse(md_text):
     def forma(seq):
         return [("miolo" if s in MIOLO else s) for s in seq]
 
-    esperada = [s for s in ("🔒", "📅", "⚙️", "💬", "📌") if s in doc["secoes"]]
+    # 🧊 CONGELADO entra por ORDEM DO DONO (09/09, verbatim: *"lugar próprio para congelado deve
+    # ser dentro do mapa, tudo que é pendência deve estar no mapa, nada deve ficar perdido"*).
+    # A SBA a escreveu no mesmo dia e mediu que a MINHA versão do gerador REPROVAVA o mapa dela
+    # ("seção desconhecida `# 🧊 CONGELADO`") — copiar o meu por cima derrubaria o painel do dono.
+    # Ela pediu o molde absorver, na ordem 🔒 · 🧊 · 💬 · ⚙️ · 📌; é o que está aqui. Crédito dela.
+    esperada = [s for s in ("🔒", "🧊", "📅", "⚙️", "💬", "📌") if s in doc["secoes"]]
     if forma(ordem) != forma(esperada):
         erro(
             f"ordem das seções é {ordem}; a norma manda 🔒 primeiro e 📌 por último "
@@ -399,7 +404,7 @@ def parse(md_text):
 
     # rodapé = blockquotes ao fim da ÚLTIMA pista (era sempre a 📌; no molde v2 ela pode não
     # existir, e aí o rodapé fecha a 💬 ou a ⚙️ — a última que a casa escreveu)
-    ultima = next((s for s in ("📌", "💬", "⚙️", "📅", "🔒") if s in doc["secoes"]), None)
+    ultima = next((s for s in ("📌", "💬", "⚙️", "📅", "🧊", "🔒") if s in doc["secoes"]), None)
     if ultima:
         lim = doc["secoes"][ultima]["linhas"]
         while lim and (lim[-1][1].startswith(">") or not lim[-1][1].strip()):
@@ -564,6 +569,34 @@ def render(doc, casa_kicker):
         )
     else:
         out.append('  <p class="empty">nada rodando.</p>')
+    # 🧊 CONGELADO — ORDEM DO DONO (09/09): *"lugar próprio para congelado deve ser dentro do mapa,
+    # tudo que é pendência deve estar no mapa, nada deve ficar perdido"*. Nasceu na SBA no mesmo dia, e
+    # a versão do escritório REPROVAVA o mapa dela ("seção desconhecida") — copiar o meu por cima
+    # derrubaria o painel dele. Absorvido a pedido dela, com o crédito. Renderiza tabela OU prosa,
+    # conforme o que a casa escrever: congelado é estado, não formato.
+    if "🧊" in S:
+        out.append(
+            '  <h2 class="sec">🧊 ' + inline(S["🧊"]["titulo"] or "Congelado")
+            + ' <span class="n">parado por decisão, não por esquecimento</span></h2>'
+        )
+        linhas_c = [lin for ln, lin in S["🧊"]["linhas"] if lin.strip()]
+        if any(x.strip().startswith("|") for x in linhas_c):
+            cels = [[c.strip() for c in x.strip().strip("|").split("|")]
+                    for x in linhas_c if x.strip().startswith("|")
+                    and not re.match(r"^\s*\|[\s:|-]+\|\s*$", x)]
+            if cels:
+                cab, corpo_c = cels[0], cels[1:]
+                out.append(
+                    '  <table class="mach"><thead><tr>'
+                    + "".join(f"<th>{inline(c)}</th>" for c in cab)
+                    + "</tr></thead><tbody>"
+                    + "".join("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>"
+                              for r in corpo_c)
+                    + "</tbody></table>"
+                )
+        else:
+            for x in linhas_c:
+                out.append(f'  <p class="sec-note">{inline(x.strip())}</p>')
     # 💬 RESPOSTAS (molde v2): a pista que ele pediu — "as mensagens e respostas se perdem nas
     # conversas". Renderiza a prosa como está: aqui não há tabela nem card, é conversa registrada.
     if "💬" in S:
@@ -739,6 +772,38 @@ def prova_frente():
                     "MUTAÇÃO: recorte no --out padrão REPROVA (não apaga o mapa da casa)",
                     r.returncode != 0,
                 )
+
+    # ── 🧊 CONGELADO: o molde ACEITA a pista que o dono mandou criar (10/09, pedido da SBA) ──────
+    # A SBA mediu que a versão anterior REPROVAVA o mapa dela com "seção desconhecida `# 🧊 CONGELADO`"
+    # — copiar o gerador do escritório por cima derrubaria o painel do dono. Absorvido; este caso é a
+    # prova por mutação, com a forma real que ela usa (cabeçalho + blockquote + tabela).
+    with tempfile.TemporaryDirectory() as d:
+        p_gelo = os.path.join(d, "gelo.md")
+        open(p_gelo, "w", encoding="utf-8").write(
+            "# MAPA DE PENDÊNCIAS — Casa de Teste\n"
+            "> **🌐 Sua página:** https://claude.ai/code/artifact/0000\n"
+            "> **Atualizado: 2026-09-10 (v1 — caso do congelado)**\n\n"
+            "# 🔒 SUAS — nada agora\n\n"
+            "## P1 · 🟢 Item\n\n**Decisão:** nada. **Rec.:** nada. **Pronto quando:** nunca.\n\n"
+            "1. passo\n\n"
+            "# 🧊 CONGELADO — 2 praças\n\n"
+            "> Não é fila de ninguém.\n\n"
+            "| onde | quantas | por quê |\n|---|---|---|\n| Sul | 2 | espera cliente |\n\n"
+            "# ⚙️ MINHAS — nada\n\n| # | o quê | estado |\n|---|---|---|\n| M-1 | nada | ⏳ |\n"
+        )
+        r = subprocess.run(
+            [sys.executable, os.path.abspath(__file__), "--md", p_gelo,
+             "--out", os.path.join(d, "gelo.html")],
+            capture_output=True, text=True)
+        saida_g = (r.stdout or "") + (r.stderr or "")
+        caso("a pista 🧊 CONGELADO é ACEITA (ordem do dono, 09/09)",
+             r.returncode == 0 and "seção desconhecida" not in saida_g)
+        html_g = ""
+        cam = os.path.join(d, "gelo.html")
+        if os.path.isfile(cam):
+            html_g = open(cam, encoding="utf-8").read()
+        caso("MUTAÇÃO: o CONTEÚDO da 🧊 chega ao HTML (não basta não reprovar)",
+             "espera cliente" in html_g and "🧊" in html_g)
 
     # ── o CAMINHO DE ERRO também se executa (09/09) ──────────────────────────────────────────────
     # POR QUE: ao arrumar o lint deste arquivo eu renomeei uma variável por TOKEN, e o tokenizador

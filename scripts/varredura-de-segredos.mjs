@@ -168,8 +168,30 @@ const REGRAS = [
     // acusa tudo é scanner que ninguém lê. Agora o valor sem aspas só conta se **parecer** segredo:
     // ≥12 caracteres, sem espaço, com letra E dígito, sem os sinais de código/prosa (parêntese, `+`,
     // vírgula, barra). O valor ENTRE ASPAS segue com a régua antiga (≥6), que já era calibrada.
-    re: /(?:^|[^A-Za-z0-9]|_)(?:senha|password|passwd|pwd|secret|segredo|api[_-]?key|apikey|token|access[_-]?key|client[_-]?secret|private[_-]?key)[a-z0-9_]*\s*[:=]\s*(?:(['"])([^'"\n]{6,})\1|((?=[^\s'"\n]*[A-Za-z])(?=[^\s'"\n]*[0-9])[A-Za-z0-9_.:@~=-]{12,}))/gi,
+    re: /(?:^|[^A-Za-z0-9]|_)(?:senha|password|passwd|pwd|secret|segredo|api[_-]?key|apikey|token|access[_-]?key|client[_-]?secret|private[_-]?key)[a-z0-9_]*\s*[:=]\s*(?:(['"])([^'"\n]{6,})\1|([^\s'"\n;,)\]}]{12,}))/gi,
     valor: (m) => m[2] || m[3],
+    // ── 2ª calibragem (10/09) — REFINAMENTO DA POTENCIAL URBANO, medido por ela em 4.485.580 linhas ──
+    // Ela escreveu esta regra a meu pedido e a apontou para a árvore inteira: **33 achados**, e 3
+    // FAMÍLIAS de falso positivo que a minha régua de valor (12+ chars, letra E dígito) mordia:
+    //   `# Estimativa de tokens: caracteres/3,5`  → prosa com número
+    //   `TOKEN_PATH = "/oauth2/v3/token"`         → caminho de URL
+    //   `aws_access_key_id=S3_ACCESS_KEY`         → o valor é o NOME de outra variável
+    // A régua dela, melhor que a minha: **segredo de fornecedor é string SORTEADA**, e string sorteada
+    // mistura minúscula + MAIÚSCULA + dígito, ou é uma corrida longa de hex/base64. Prosa não tem
+    // maiúscula no meio; caminho não tem; `NOME_DE_VARIAVEL` não tem minúscula.
+    // Estreita de propósito: *"varredura que grita sobre o legítimo é desligada pelo primeiro que se
+    // cansa, e aí não guarda mais nada"*. E o preço foi pago por ela: no dia em que a regra nasceu,
+    // achou 2 segredos REAIS na casa dela — um token de sessão de 88 caracteres colado num teste.
+    aceita: (v) => {
+      if (!v) return false;
+      const limpo = v.trim();
+      const temMin = /[a-z]/.test(limpo), temMai = /[A-Z]/.test(limpo), temNum = /[0-9]/.test(limpo);
+      if (/^[A-Z0-9_]+$/.test(limpo)) return false;          // NOME_DE_OUTRA_VARIAVEL
+      if (/\//.test(limpo) && !(temMin && temMai && temNum)) return false;  // caminho de URL
+      if (temMin && temMai && temNum) return true;           // string sorteada
+      if (/[A-Fa-f0-9]{20,}|[A-Za-z0-9+/=_-]{24,}/.test(limpo)) return true; // corrida hex/base64
+      return temNum && limpo.length >= 8;                    // senha fraca em aspas ainda é senha
+    },
     heuristicaFraca: true,
   },
   {
@@ -266,7 +288,12 @@ const PLACEHOLDER_INICIO =
 
 /** Aparece em QUALQUER posição e já denuncia modelo (o que o EX-D pediu). */
 const PLACEHOLDER_CONTEM =
-  /(?:SEU_|SUA_|MEU_|xxxx|XXXX|‹[^›]*›|«[^»]*»|<[A-Za-z0-9_.\- ]{2,}>|\$\{[^}]+\}|\{\{[^}]+\}\}|REDACTED|TARJAD|\*{4,}|…{1,}|COLE_AQUI|PREENCHA)/;
+  // ⚠️ 10/09 — `REMOVID`/`_D200`/`_D208` entraram aqui porque a varredura acusou **a própria tarja do
+  // escritório**. Quando uma credencial sai de um arquivo, a linha vira algo como `Password=REMOVIDO_D200`
+  // — e o scanner, que existe para achar credencial, passou a apontar para o lugar onde a credencial JÁ
+  // NÃO ESTÁ. Foi a régua refinada pela Potencial Urbano que expôs isto ao ser apontada para a árvore
+  // inteira: o instrumento não conhecia a convenção de tarja da própria casa que o escreveu.
+  /(?:SEU_|SUA_|MEU_|xxxx|XXXX|‹[^›]*›|«[^»]*»|<[A-Za-z0-9_.\- ]{2,}>|\$\{[^}]+\}|\{\{[^}]+\}\}|REDACTED|TARJAD|REMOVID|_D20[08]\b|\*{4,}|…{1,}|COLE_AQUI|PREENCHA)/;
 
 /**
  * Valores que NUNCA são senha de verdade — são a senha que se escreve num
@@ -405,6 +432,10 @@ function examinarLinha(caminho, numero, texto, achados, janela) {
     while ((m = regra.re.exec(limpa)) !== null) {
       const valor = regra.valor ? regra.valor(m) : m[0];
       if (ehPlaceholder(valor, regra.heuristicaFraca)) continue;
+      // `aceita` é a 2ª peneira, por VALOR (refinamento da Potencial Urbano, 10/09): a 1ª pergunta
+      // "isto é placeholder?", esta pergunta "isto PARECE uma string sorteada?". Regra sem `aceita`
+      // passa direto — só quem declara a peneira a usa.
+      if (regra.aceita && !regra.aceita(valor)) continue;
       achados.push({ caminho, numero, id: regra.id, categoria: regra.categoria });
     }
   }
