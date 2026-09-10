@@ -168,7 +168,17 @@ const REGRAS = [
     // acusa tudo é scanner que ninguém lê. Agora o valor sem aspas só conta se **parecer** segredo:
     // ≥12 caracteres, sem espaço, com letra E dígito, sem os sinais de código/prosa (parêntese, `+`,
     // vírgula, barra). O valor ENTRE ASPAS segue com a régua antiga (≥6), que já era calibrada.
-    re: /(?:^|[^A-Za-z0-9]|_)(?:senha|password|passwd|pwd|secret|segredo|api[_-]?key|apikey|token|access[_-]?key|client[_-]?secret|private[_-]?key)[a-z0-9_]*\s*[:=]\s*(?:(['"])([^'"\n]{6,})\1|([^\s'"\n;,)\]}]{12,}))/gi,
+    // ── 3ª calibragem (10/09, A-645) — A CRASE É MARCAÇÃO, NÃO VALOR ────────────────────────────
+    // A CI do escritório ficou vermelha por 2 linhas de carta que citam, dentro de um `code span`
+    // markdown, o PRÓPRIO exemplo de falso positivo que a Potencial Urbano me mandou:
+    // «`aws_access_key_id=S3_ACCESS_KEY`». O valor capturado veio com a CRASE DE FECHAMENTO colada
+    // — 14 caracteres em vez de 13 — e assim deixava de casar `^[A-Z0-9_]+$`, a peneira que existe
+    // exatamente para dizer *"isto é NOME DE VARIÁVEL, não segredo"*. A marcação do documento
+    // entrou no valor e desarmou a peneira.
+    // O agravante: a OUTRA regra deste mesmo arquivo (`senha-em-celula-de-tabela`) já sabia disso —
+    // o comentário dela diz "sem `*`/crase de ênfase markdown". A lição existia e não atravessou de
+    // uma regra para a vizinha. Agora a crase é DELIMITADOR nos dois ramos, como as aspas.
+    re: /(?:^|[^A-Za-z0-9]|_)(?:senha|password|passwd|pwd|secret|segredo|api[_-]?key|apikey|token|access[_-]?key|client[_-]?secret|private[_-]?key)[a-z0-9_]*\s*[:=]\s*(?:(['"`])([^'"`\n]{6,})\1|([^\s'"`\n;,)\]}]{12,}))/gi,
     valor: (m) => m[2] || m[3],
     // ── 2ª calibragem (10/09) — REFINAMENTO DA POTENCIAL URBANO, medido por ela em 4.485.580 linhas ──
     // Ela escreveu esta regra a meu pedido e a apontou para a árvore inteira: **33 achados**, e 3
