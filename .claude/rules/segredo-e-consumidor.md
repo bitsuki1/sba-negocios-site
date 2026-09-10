@@ -24,7 +24,11 @@ Trocar a senha da conta Resend
 Uma opção é sempre **"Adiar — quero ver quem usa primeiro"**.
 
 ## Onde mora a lista
-**`portfolio-automacoes/SEGREDOS-E-CONSUMIDORES.md`** — indexado por **SEGREDO**, não por ferramenta. O `portfolio-automacoes` é co-montado em toda sessão (D162), então toda casa lê sem pedir nada.
+**Duas metades, fronteira escrita** _(retificado 09/09, A-624: antes mandava usar só a 1ª, que a casa já provara errada em 6 linhas)_:
+- **medido pela máquina** → `portfolio/CONSUMIDORES-DE-SEGREDO-MEDIDO.md` (gerado por `processos/medir-consumidores-de-segredo.py`, com data e fonte) = *"quem JÁ usa"*. **Comece aqui.**
+- **fora do alcance da máquina** (painel Vercel/Supabase, conector claude.ai, Bitwarden) → `portfolio-automacoes/SEGREDOS-E-CONSUMIDORES.md`, por **SEGREDO**, marcado não-verificável. Co-montado em toda sessão (D162).
+
+⚠️ **Não revoga "consumidor tem UM lugar"**: são dois EIXOS (*medido* × *declarado porque a máquina não vê*), não duas listas do mesmo fato. Linha nos dois com valores diferentes = defeito, e o medido vence.
 ⚠️ **Não confundir com o cofre** (`ACESSOS-FERRAMENTAS.md`): o cofre é indexado por FERRAMENTA e responde *"como uso isto?"*. Este responde *"quem quebra se eu mexer?"*. Eixos diferentes, SSOTs diferentes (A-002).
 
 ## As 3 coisas que não se negociam
