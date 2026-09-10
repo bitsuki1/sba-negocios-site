@@ -67,6 +67,24 @@ LIMITE_QUE_E_PENDENCIA = re.compile(
     re.I,
 )
 
+# L4 — as 4 formas em que a palavra aparece SEM ser uma afirmação de pendência (reparo medido pela
+# Potencial Urbano, 10/09: *"a causa é casar PALAVRA em vez de AFIRMAÇÃO"*). Ela mediu 4 falsos
+# positivos na casa dela e mostrou o desenho brigando consigo mesmo: a doutrina manda **preservar o
+# fóssil** (⚰️, nada se joga fora) e a lente acende para sempre em cima do fóssil preservado — e a
+# saída fácil, apagar o fóssil, é justamente a que a doutrina proíbe.
+L4_NAO_E_AFIRMACAO = (
+    # (1) fóssil declarado ou texto tachado — é rastro, não estado
+    re.compile(r"⚰️|~~[^~]+~~"),
+    # (2) a palavra está DENTRO de aspas — é citação, não afirmação de quem escreve
+    re.compile(r"[\"“”']\s*[^\"“”']*\b(falta|precisa|bloqueado|pendente)\b", re.I),
+    # (3) enunciado UNIVERSAL — "todo X precisa de Y" é a REGRA, não um caso pendente
+    re.compile(r"\b(todo|toda|todos|todas|nenhum|nenhuma)\b[^.]{0,60}?\b"
+               r"(falta|precisa|bloqueado|pendente)\b", re.I),
+    # (4) o próprio bullet narra o desfecho — acender nele é cobrar o que já foi feito
+    re.compile(r"✅|\bRODOU\b|\bresolvid[oa]\b|\bj[áa] (chegou|veio|foi feito|entrou)\b|"
+               r"\bdeixou de ser\b|\bera s[óo]\b", re.I),
+)
+
 # L6 — código interno na cara do dono. Ele não lê código: ou some, ou vem glosado na mesma linha.
 CODIGO_INTERNO = re.compile(
     r"\b(?:D-?\d{2,3}|C-T-\d{1,4}|PM-\d{1,3}|PD-\d{1,3}|A-\d{2,4}|"
@@ -160,8 +178,13 @@ def revisar(texto):
     # ── L3 · pedido sem o material dentro do mapa (o erro do P3) ─────────────────────────────
     for it in itens_do_dono(sec.get("🔒", [])):
         corpo = "\n".join(lin for _, lin in it["corpo"])
+        # ⚠️ Reparo (b) medido pela Potencial Urbano (10/09): o gatilho aceitava `link` no SINGULAR,
+        # então um item com UM gesto e UM link medido acendia a lente — e a L3 existe para o caso
+        # oposto, o de mandar agir sobre VÁRIOS e deixar a lista fora do mapa. Agora o gatilho exige
+        # PLURAL MEDIDO: `links`, `lista`, `um a um`, `cada um`. Citar a palavra no singular não é
+        # mandar agir sobre uma lista — é a mesma doença de casar palavra em vez de afirmação.
         manda_agir_em_lista = re.search(
-            r"\b(lista|links?|um a um|uma por uma|link a link|cada (?:uma|um)|nominal)\b",
+            r"\b(lista|links|um a um|uma por uma|link a link|cada (?:uma|um)|nominal)\b",
             corpo,
             re.I,
         )
@@ -184,7 +207,7 @@ def revisar(texto):
         if not lin.strip().startswith("- "):
             continue
         m = LIMITE_QUE_E_PENDENCIA.search(lin)
-        if m:
+        if m and not any(r.search(lin) for r in L4_NAO_E_AFIRMACAO):
             achados.append(
                 (
                     "L4 limite é pendência",
@@ -324,6 +347,59 @@ def prova():
             "L5 sem passo",
             bom.replace('1. Clicar em cada link e usar a lixeira.\n2. Me dizer "P1 apaguei".', ""),
             "L5",
+        ),
+        # ── Reparos medidos pela Potencial Urbano (10/09): a lente casava PALAVRA, não AFIRMAÇÃO ──
+        # Os 4 casos abaixo são os 4 falsos positivos que ela mediu na casa dela, um a um.
+        (
+            "L4 · fóssil ⚰️ preservado NÃO é pendência (a doutrina manda preservá-lo)",
+            bom.replace(
+                "O cofre é magnitude modelada, nunca reconciliada com dinheiro recebido.",
+                "⚰️ a frase que estava aqui — “quem falta é o CDC” — caiu: o corpo chegou.",
+            ),
+            None,
+        ),
+        (
+            "L4 · a palavra DENTRO DE ASPAS é citação, não afirmação de quem escreve",
+            bom.replace(
+                "O cofre é magnitude modelada, nunca reconciliada com dinheiro recebido.",
+                "o “bloqueado” era só desta conversa, e deixou de ser.",
+            ),
+            None,
+        ),
+        (
+            "L4 · enunciado UNIVERSAL é a REGRA, não um caso pendente",
+            bom.replace(
+                "O cofre é magnitude modelada, nunca reconciliada com dinheiro recebido.",
+                "todo “não dá” precisa de uma frente com passos — é a régua desta pista.",
+            ),
+            None,
+        ),
+        (
+            "L4 · bullet que narra o desfecho não é cobrança do que já foi feito",
+            bom.replace(
+                "O cofre é magnitude modelada, nunca reconciliada com dinheiro recebido.",
+                "o texto precisa de OCR para ser lido — e RODOU, nesta rodada.",
+            ),
+            None,
+        ),
+        (
+            "L4 · MUTAÇÃO: a pendência CRUA, sem fóssil nem aspas nem universal, SEGUE acendendo",
+            bom.replace(
+                "O cofre é magnitude modelada, nunca reconciliada com dinheiro recebido.",
+                "Faltam 8 UFs sem coletor.",
+            ),
+            "L4",
+        ),
+        (
+            "L3 · UM link medido com a palavra no singular NÃO acende (reparo (b) da PU)",
+            bom.replace(
+                "> As três, uma por linha:\n> - https://github.com/x/y/branches/all?query=a\n"
+                "> - https://github.com/x/y/branches/all?query=b\n"
+                "> - https://github.com/x/y/branches/all?query=c",
+                "> O link está aqui: https://github.com/x/y/branches/all?query=a — e o "
+                "detalhe em `docs/governanca/P3-BRANCHES.md`.",
+            ),
+            None,
         ),
         (
             "L6 código",
