@@ -7,6 +7,42 @@ name: varredura-de-segredos
 # ⚠️ Este repositório é PÚBLICO. Os comentários daqui ficam propositalmente
 # genéricos: descrevem o que o passo faz, nunca o desenho interno da verificação.
 #
+#
+# ⚠️ ESTA PORTA PODE MORRER CALADA — E O TESTE NÃO É LER ESTE ARQUIVO, É LER O HISTÓRICO
+#   Medido em 14/09/2026, no `portfolio-automacoes`: **145 execuções deste workflow, 135
+#   `startup_failure`**. Ele nunca rodou uma única vez na `main` daquela casa, desde que
+#   o kit o instalou em 01/09 — treze dias com o dente da D200 inerte.
+#
+#   O QUE TORNA ISTO PERIGOSO NÃO É A FALHA, É O SILÊNCIO: `startup_failure` acontece
+#   ANTES do job, então **não gera check no pull request**. O PR fica verde, o mapa fica
+#   verde, e a porta da D200 está inerte. Foi assim que passou 13 dias — e a instância que
+#   diagnosticou escreveu o conserto numa branch, mas ele nunca chegou à `main`, e a onda
+#   seguinte do kit apagou o próprio aviso que ela tinha deixado no arquivo.
+#
+#   POR QUE MORREU, com a explicação CORRIGIDA no mesmo dia: naquela casa, ação com tag
+#   (`@v4`) é recusada antes do job; fixada por SHA, roda (provado: execuções #146 e #147,
+#   11 s). A 1ª versão desta nota dizia que a causa era *"a casa fixa tudo por SHA"* — isso
+#   é correlação de UM caso, e o segundo caso a derruba: a `sba-unidades-de-negocios` fixa
+#   61 ações por SHA, tem as MESMAS duas tags neste mesmo arquivo, e roda verde (423
+#   execuções). Convenção não recusa nada; quem recusa é um ajuste do repositório. A ordem
+#   real: a casa fixa por SHA PORQUE o repositório recusa tag — e ela já sabia disso desde
+#   22/08 (commit `74c29e3`: *"fix: pin actions/checkout ao SHA … (startup_failure)"*),
+#   noutro workflow. A onda do kit trouxe de volta um defeito que a casa já tinha curado.
+#
+#   AO INSTALAR — o teste que vale (o arquivo mente, o histórico não): abra as execuções
+#   deste workflow na `main` da sua casa. Se TODAS derem `startup_failure`, é isto: fixe as
+#   linhas `uses:` abaixo pelo SHA completo que a sua casa já confia
+#   (`grep -rh 'uses:' .github/workflows/ | grep -v '@[0-9a-f]\{40\}'` mostra o que falta) —
+#   e deixe a nota escrita AQUI, senão a próxima onda do kit a apaga. Fixar por SHA é bom
+#   em qualquer casa (cadeia de suprimento) e não quebra nenhuma. `setup-node` pode SAIR em
+#   vez de ser fixado: o script importa só `node:child_process` e `node:fs`, e uma asserção
+#   de versão (`node -p process.versions.node`) resolve.
+#
+#   VACINA `V-PORTA-QUE-NAO-ABRE-NAO-APARECE`: gate que mede se a porta EXISTE e se alguém
+#   a INVOCA não mede se ela ABRE. As três coisas são diferentes, e o portfólio já errou nas
+#   três camadas, uma por vez.
+#   VACINA `V-CAUSA-POR-CONTRASTE-DE-UM-CASO-SO`: o vizinho que passa dá hipótese, não causa.
+#   Antes de escrever "a causa é X", procure a casa que tem X e NÃO tem o sintoma.
 # A REGRA DURA DA SAÍDA
 #   O log mostra `caminho:linha` + a CATEGORIA. NUNCA o valor — nem mascarado,
 #   nem o trecho da linha. Log de execução é lido por qualquer um, e segredo
