@@ -714,6 +714,38 @@ def recorta(doc, frente):
 
 # ── bateria por mutação do RECORTE (DE-83) — gate que nunca reprova não é dente
 # ────────────────────
+def recado_de_publicacao(url):
+    """O que a instância tem de fazer para a página do dono NÃO trocar de endereço.
+
+    ### A-681 (14/09) — a cura estava escrita e faltava metade do gesto
+
+    Desde a C130 este gerador mandava *"republicar com `url=`"*, e as casas obedeciam. Mesmo assim,
+    em 14/09, **21 dos 24 endereços declarados nos mapas não existiam na conta** — o dono clicava e
+    não achava nada, em quase todo o portfólio.
+
+    A causa não é a que eu tinha escrito (A-678 dizia *"os endereços têm meia-vida de 4 dias"*;
+    **falso** — a conta tem páginas vivas de 09/07). É que **publicar com `url=` numa conversa que
+    não LEU aquela página é recusado**. A instância então caía no caminho sem `url=`, ganhava um
+    endereço novo — e o do dono, no cabeçalho, virava um link morto.
+
+    Prova do padrão: o Eduardo tem escrito, no próprio CLAUDE.md, que `8a285f6d` *"morreu"* e foi
+    substituído por `58f9c2a8`. Medido: **`8a285f6d` está vivo** e `58f9c2a8` nunca existiu. A
+    Moderação tinha o inverso exato documentado. O cabeçalho registrava o que a instância lembrava,
+    e a instância seguinte lia como fato — e, sendo um uuid, ninguém confere a olho.
+
+    Por isso o recado são DOIS gestos numerados, e não uma recomendação.
+    """
+    return (
+        "   📍 Página do dono: %s\n"
+        "   Para republicar NO MESMO endereço são DOIS gestos, nesta ordem (C130 + A-681):\n"
+        "     1. Artifact  action:\"read\"  url:\"<a URL acima>\"   ← sem este, o passo 2 é RECUSADO\n"
+        "     2. Artifact  file_path:\"<o html>\"  url:\"<a MESMA URL>\"\n"
+        "   Se o passo 1 responder *not found*, o endereço morreu: publique SEM url= e **grave o\n"
+        "   endereço devolvido na linha 2 deste mapa, no mesmo commit** — endereço que só existe na\n"
+        "   memória da instância é o que matou 21 mapas do portfólio em 14/09." % url
+    )
+
+
 def prova_frente():
     import subprocess
     import tempfile
@@ -725,6 +757,16 @@ def prova_frente():
         if not cond:
             falhas.append(nome)
 
+    # A-681: o recado de publicação são DOIS gestos. Encurtar para "republique com url=" é o que
+    # deixou 21 mapas com endereço morto — o caso reprova se alguém voltar à versão de uma linha.
+    r = recado_de_publicacao("https://claude.ai/code/artifact/abc")
+    caso("o recado manda LER a página antes (sem isso a republicação é recusada)",
+         'action:"read"' in r)
+    caso("o recado manda republicar com a MESMA url no passo 2", r.count("url") >= 3)
+    caso("MUTAÇÃO: o recado tem a saída do endereço morto — publicar sem url E GRAVAR no mapa",
+         "SEM url=" in r and "mesmo commit" in r)
+    caso("o recado mostra o endereço de verdade, não um genérico",
+         "https://claude.ai/code/artifact/abc" in r)
     caso(
         "a marca exige crase — prosa com 'frente:' no meio NÃO vira tag",
         RX_FRENTE.search("Mapa por FRENTE: você pediu em 02/09 e o molde atropelou") is None,
@@ -903,9 +945,8 @@ def main():
     os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
     open(a.out, "w", encoding="utf-8").write(novo)
     n = len(itens_suas(doc["secoes"]["🔒"]["linhas"])[1])
-    print(
-        f"✅ {a.out} gerado ({len(novo)} B) — {n} item(ns) 🔒 · URL do Artifact: {doc['url']} · republicar com url= (C130)."
-    )
+    print(f"✅ {a.out} gerado ({len(novo)} B) — {n} item(ns) 🔒")
+    print(recado_de_publicacao(doc["url"]))
     # Aviso que ninguém lê é o mesmo que aviso que não existe — e a rota de saída da 📅 depende
     # de a casa VER que ela vai virar erro. Sai na tela, e no --check também.
     for av in AVISOS:

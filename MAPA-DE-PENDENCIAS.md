@@ -1,6 +1,7 @@
 # MAPA DE PENDÊNCIAS — SBA · Site (sba-negocios-site)
-> **🌐 Sua página:** https://claude.ai/code/artifact/8bf55b35-ffa5-4c03-9257-67c3fa94f09d — republicada no MESMO endereço a cada mudança. Fonte: `scratchpad/mapa-pendencias.html`.
-> **Atualizado: 2026-09-03 (v9 — mapa posto no molde único do portfólio; 3 pendências suas, 8 minhas, 3 combinadas)** Desde 26/08 o site não mudou — o que andou foi governança (porta de segredos, permissões pré-liberadas, este molde). Tudo o que você decidiu em 26/08 está no ar e saiu daqui. Sobram três coisas suas: guardar a senha do guia (1 minuto), o Search Console quando você disser, e um insumo opcional.
+> **🌐 Sua página:** https://claude.ai/code/artifact/b68922ed-318d-4a98-a5f3-e198e944d614 — republicada no MESMO endereço a cada mudança (**dois gestos**: ler por ele antes, publicar passando ele).
+> _⚰️ **2026-09-14 — o endereço anterior (`8bf55b35-ffa5-4c03-9257-67c3fa94f09d`) sumiu.** Não foi renome: a conta tem 42 páginas publicadas e ele não está entre elas. Foi conferido um a um; o mesmo aconteceu com as páginas de outras nove casas no mesmo dia. O conteúdo nunca esteve em risco — a fonte é o `MAPA-DE-PENDENCIAS.md` no git, e a página é a foto dele._
+> **Atualizado: 2026-09-14 (v10 — regras de boot em dia, varredor de segredos atualizado, a pista de 'próxima instância' aposentada — os 3 combinados voltaram como pendência minha)** Desde 26/08 o site não mudou — o que andou foi governança (porta de segredos, permissões pré-liberadas, este molde). Tudo o que você decidiu em 26/08 está no ar e saiu daqui. Sobram três coisas suas: guardar a senha do guia (1 minuto), o Search Console quando você disser, e um insumo opcional.
 > **Como responder:** cite o código (*"resolve o P2"*) ou clique na caixa quando eu trouxer. 🔒 = você faz · ⚙️ = eu faço, é só para você ver.
 > **Régua desta casa (sua ordem, 26/08):** aqui só o que é 100% do site — código, SEO, conteúdo, publicação. Comercial e negócio moram na unidade `sba-unidades-de-negocios`; o que trava outras casas sobe ao mapa do escritório.
 
@@ -49,16 +50,6 @@ A página de resíduos mostra o projeto-farol do parceiro CSTR em Congonhas do C
 
 ---
 
-# 📅 PRÓXIMA INSTÂNCIA — combinado com você, não é cobrança
-
-| código | o quê | gatilho |
-|---|---|---|
-| **N1** | Ligar ao site o **Perfil de Empresa no Google** e o **link de volta do parceiro CSTR** — as 2 cartas chegaram ao comercial da SBA em 26/08 (entregues pelo escritório); ele ainda não devolveu os endereços | depois que o comercial da SBA devolver os 2 endereços pela caixa da unidade |
-| **N2** | Reler os números do painel da Vercel (visitas · páginas vistas · rejeição) e comparar com os **15 · 22 · 87%** de 26/08 — para saber se as correções seguraram quem chega | a partir de **26/09** (30 dias depois das correções); eu peço o print ou leio pela ferramenta da Vercel, se ela mostrar |
-| **N3** | Ler o Search Console e dizer **por qual busca** cada visita chegou — o veredito do trabalho de SEO | 2 semanas depois de você fazer o **P2** |
-
----
-
 # ⚙️ MINHAS — só para você ver
 
 | # | o quê | estado |
@@ -70,6 +61,10 @@ A página de resíduos mostra o projeto-farol do parceiro CSTR em Congonhas do C
 | M5 | **Trazer o linter novo do kit** — o de lá confere sozinho se a página do mapa está em dia com este arquivo (aviso amarelo quando defasar); o daqui é de 27/08 e não confere | ⏳ |
 | M6 | **Faxina de rastro** — 2 linhas defasadas no `CLAUDE.md` (o §5 ainda trata o rename como pendente; o §9 chama de "viva" a carta de 22/08 já processada) + carimbar como processadas as 4 cartas que já chegaram ao destino (2 ao escritório em 25/08, 2 ao comercial em 26/08) | ⏳ |
 | M7 | **O escritório corrige o que as superfícies dele dizem errado sobre esta casa** — a regra de boot ainda diz `site-sba-negocios` (nome que nunca existiu: é o projeto na Vercel), e o mapa do portfólio e o registro de apps dizem "GitHub Pages" (é Vercel desde 03/07) | ⏳ |
+| M8 | **Ligar ao site o Perfil de Empresa no Google e o link de volta do parceiro CSTR** — as 2 cartas chegaram ao comercial da SBA em 26/08 (entregues pelo escritório); ele ainda não devolveu os endereços. Faço assim que a devolução chegar pela caixa da unidade. _(estava fora da fila, esperando um gatilho; a pista que o guardava foi aposentada — volta como pendência)_ | ⏳ aguarda a devolução |
+| M9 | **Reler os números do painel da Vercel** (visitas · páginas vistas · rejeição) e comparar com os **15 · 22 · 87%** de 26/08 — para saber se as correções seguraram quem chega. A partir de **26/09** (30 dias depois das correções); peço o print ou leio pela ferramenta da Vercel, se ela mostrar. _(estava fora da fila, esperando um gatilho; a pista que o guardava foi aposentada — volta como pendência)_ | ⏳ a partir de 26/09 |
+| M10 | **Ler o Search Console e dizer por qual busca cada visita chegou** — o veredito do trabalho de SEO. Duas semanas depois de você fazer o **P2**. _(estava fora da fila, esperando um gatilho; a pista que o guardava foi aposentada — volta como pendência)_ | ⏳ aguarda o P2 |
+| M11 | **Conferir se 3 publicações ficaram travadas em silêncio na Vercel** — o `CLAUDE.md` §2b avisa que a Vercel recusa publicar commit cujo e-mail o GitHub não reconhece, e ela marca `Blocked` sem derrubar o site (fica servindo o anterior). Medi o histórico em 14/09: **3 commits do escritório entraram com `noreply@anthropic.com`**. Não medi a Vercel — só o git. Se ficaram travados, o que está no ar é mais antigo que a `main`. Conferir na aba Deployments e, se for o caso, refazer a publicação com o e-mail certo | ⏳ 14/09 |
 
 ---
 
