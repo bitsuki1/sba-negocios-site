@@ -35,6 +35,7 @@ Sai 0 = passou · 1 = há defeito (a saída diz a linha e o conserto) · 2 = nã
 import argparse
 import os
 import re
+import subprocess
 import sys
 
 TETO_CABECALHO_PALAVRAS = 70  # v9 tinha ~430: era o "muita informação inútil"
@@ -83,6 +84,18 @@ L4_NAO_E_AFIRMACAO = (
     # (4) o próprio bullet narra o desfecho — acender nele é cobrar o que já foi feito
     re.compile(r"✅|\bRODOU\b|\bresolvid[oa]\b|\bj[áa] (chegou|veio|foi feito|entrou)\b|"
                r"\bdeixou de ser\b|\bera s[óo]\b", re.I),
+    # (5) o bullet CONTRAPÕE — diz, na mesma linha, o que aquilo NÃO é. Quem explica uma leitura
+    # ("é falta de dado, NÃO resultado ruim") não está abrindo item de trabalho; está impedindo
+    # que se leia o número como defeito. Acender aí é o oposto do que a lente quer: empurra a casa
+    # a apagar justamente a frase que protege o dono de concluir errado.
+    # ⚰️ FALSO POSITIVO MEDIDO — `portfolio-comercial`, 14/09. A casa tem 1 resposta em 23
+    # mensagens, e o mapa dizia *"É falta de dado, não resultado ruim"*. A lente leu a palavra
+    # `falta` e cobrou pendência. Contornei NA CASA (reescrevi para "É ausência de amostra") e
+    # isso estava errado como conserto: a régua ficaria de pé para a próxima casa que escrevesse
+    # a frase certa em português. É o mesmo diagnóstico que a Potencial Urbano deu em 10/09 —
+    # *"a causa é casar PALAVRA em vez de AFIRMAÇÃO"* — reincidindo numa 5ª forma.
+    re.compile(r",\s*n[ãa]o\s+\S|\bn[ãa]o\s+(?:é|e|significa|quer dizer|representa|implica)\b",
+               re.I),
 )
 
 # L6 — código interno na cara do dono. Ele não lê código: ou some, ou vem glosado na mesma linha.
@@ -136,6 +149,27 @@ def itens_do_dono(linhas):
 # "nesta rodada"; foi o 2º falso-positivo da L2 no mesmo dia (o 1º casava "conferi" dentro de
 # "conferida"). Lente que grita à toa é lente que alguém desliga.
 GERADAS = ("_Nada aqui nesta rodada._",)
+
+
+def _base_do_repo():
+    """A URL de blob DESTE repositório, MEDIDA no `git remote` — nunca cravada.
+
+    ⚠️ 14/09. A sugestão da L9 nascia com `bitsuki1/escritorio-do-mou` CRAVADO, e o item da fila
+    mandava *"cada casa ajusta a URL do seu repositório"*. Ajuste à mão em arquivo que desce por
+    propagação é ajuste que morre no próximo conserto: o propagador sobrescreve, a casa volta a
+    sugerir o link do escritório, e a instância cola um endereço que abre a casa errada. Medir o
+    remote resolve nos dois sentidos — desce igual para as 22 e sai certo em cada uma.
+    """
+    raiz = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    try:
+        u = subprocess.run(["git", "-C", raiz, "remote", "get-url", "origin"],
+                           capture_output=True, text=True, timeout=5).stdout.strip()
+    except Exception:
+        u = ""
+    m = re.search(r"github\.com[:/]([^/]+/[^/\s]+?)(?:\.git)?$", u)
+    if not m:
+        return ""            # sem remote legível: sugere o caminho sem inventar dono
+    return "https://github.com/%s/blob/main/" % m.group(1)
 
 
 def revisar(texto):
@@ -282,7 +316,41 @@ def revisar(texto):
                 "de novo” (09/09)",
             )
         )
+
+    # ── L9 · arquivo citado pelo NOME, sem link que abra — COLHEITA DA SBA (carta de 10/09) ───────
+    # Ordem do dono, 2026-09-09, verbatim: *"me traga aqui o script ou no mapa de pendencias
+    # inteiros ou o link direto, nunca assim no nome, pois quando pesquiso nao acho"*. Caminho em
+    # crase é endereço para quem tem o repositório aberto; para ele, no celular, é texto morto —
+    # copia, procura, não acha. A SBA escreveu esta lente primeiro, mediu na casa dela e me mandou
+    # por carta com a sugestão de virar molde do kit. Adotada aqui (classe A: é o meu instrumento);
+    # descer às 22 é classe B e foi para a fila datada.
+    # ⚠️ COLISÃO DE NUMERAÇÃO, declarada: lá esta lente é a **L8** e a minha (pista 📅) é a **L9**;
+    # aqui é o contrário, porque a minha nasceu antes nesta casa e já está citada em achado. Os dois
+    # números existem e a conciliação está escrita nos dois lados — não "consertar" renumerando.
+    CAMINHO = re.compile(r"`([A-Za-z0-9_./-]+\.(?:py|sh|md|csv|tsv|yml|yaml|json|xlsx|txt|mjs))`")
+    for s in ("🔒", "🧊", "💬"):
+        for i, l in sec.get(s, []):
+            for m in CAMINHO.finditer(l):
+                alvo = m.group(1)
+                if ("[`%s`](" % alvo) in l or ("](%s" % alvo) in l:
+                    continue            # já é rótulo de link: vale
+                achados.append(
+                    ("L9 arquivo sem link em %s" % s, i,
+                     "cita “%s” pelo nome, sem link que abra" % alvo,
+                     "troque por link: %s%s — nome de arquivo ele copia, procura e não "
+                     "acha (ordem dele, 09/09)" % (_base_do_repo(), alvo)))
     return achados
+
+
+def _n_lentes():
+    """Quantas lentes existem, MEDIDO no próprio arquivo. ⚠️ até 11/09 o número vivia CRAVADO em
+    3 lugares e eu acabei de acrescentar a 8ª (a do link, colheita da SBA) — a frase diria "7 lentes"
+    para sempre, que é o instrumento mentindo sobre si mesmo. Conta os cabeçalhos `# ── L<n> ·`."""
+    try:
+        corpo = open(os.path.abspath(__file__), encoding="utf-8").read()
+    except Exception:
+        return 0
+    return len({m for m in re.findall(r"#\s+──\s+(L\d+)\s+·", corpo)})
 
 
 def prova():
@@ -383,6 +451,27 @@ def prova():
             None,
         ),
         (
+            # A-687 (14/09, falso positivo medido no `portfolio-comercial`): a casa tinha 1 resposta
+            # em 23 mensagens e o mapa dizia *"É falta de dado, não resultado ruim"* — a frase que
+            # impede o dono de ler o número como defeito. A lente cobrou pendência por causa da
+            # palavra `falta`. Quem CONTRAPÕE ("X, não Y") está explicando uma leitura, não abrindo
+            # item de trabalho; acender aí empurra a casa a apagar a proteção.
+            "L4 · bullet que CONTRAPÕE ('é falta de dado, NÃO resultado ruim') é leitura, não item",
+            bom.replace(
+                "O cofre é magnitude modelada, nunca reconciliada com dinheiro recebido.",
+                "1 resposta em 23 mensagens: é falta de amostra, não resultado ruim.",
+            ),
+            None,
+        ),
+        (
+            "L4 · MUTAÇÃO: a MESMA palavra SEM a contraposição volta a acender",
+            bom.replace(
+                "O cofre é magnitude modelada, nunca reconciliada com dinheiro recebido.",
+                "1 resposta em 23 mensagens: falta amostra para concluir.",
+            ),
+            "L4",
+        ),
+        (
             "L4 · MUTAÇÃO: a pendência CRUA, sem fóssil nem aspas nem universal, SEGUE acendendo",
             bom.replace(
                 "O cofre é magnitude modelada, nunca reconciliada com dinheiro recebido.",
@@ -396,8 +485,13 @@ def prova():
                 "> As três, uma por linha:\n> - https://github.com/x/y/branches/all?query=a\n"
                 "> - https://github.com/x/y/branches/all?query=b\n"
                 "> - https://github.com/x/y/branches/all?query=c",
+                # ⚠️ 11/09: este fixtura citava `docs/governanca/P3-BRANCHES.md` em crase solta e,
+                # com a L9 nova (arquivo sem link), passou a acender DUAS lentes — o caso reprovava
+                # por medir o que não era o seu assunto. A citação virou link, que é justamente o
+                # que a L9 exige: a fixtura passou a obedecer o padrão que o instrumento cobra.
                 "> O link está aqui: https://github.com/x/y/branches/all?query=a — e o "
-                "detalhe em `docs/governanca/P3-BRANCHES.md`.",
+                "detalhe em [`docs/governanca/P3-BRANCHES.md`]"
+                "(https://github.com/x/y/blob/main/docs/governanca/P3-BRANCHES.md).",
             ),
             None,
         ),
@@ -447,7 +541,7 @@ def prova():
         print(f"  {'✅' if ok else '🟥'} {nome}{detalhe}")
         falhou += 0 if ok else 1
     veredito = (
-        "🟩 as 7 lentes provadas por mutação" if not falhou else f"🟥 {falhou} caso(s) falharam"
+        ("🟩 as %d lentes provadas por mutação" % _n_lentes()) if not falhou else f"🟥 {falhou} caso(s) falharam"
     )
     print(f"\n{veredito}")
     return 0 if not falhou else 1
@@ -467,7 +561,8 @@ def main():
         sys.exit(2)
     ach = revisar(open(a.md, encoding="utf-8").read())
     if not ach:
-        print(f"🟩 lentes de revisão: {a.md} está no padrão do dono (7 lentes, 0 defeito)")
+        print("🟩 lentes de revisão: %s está no padrão do dono (%d lentes, 0 defeito)"
+              % (a.md, _n_lentes()))
         sys.exit(0)
     print(f"🟥 lentes de revisão: {len(ach)} defeito(s) em {a.md} — NÃO publique assim\n")
     for lente, ln, defeito, conserto in ach:
