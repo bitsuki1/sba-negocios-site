@@ -37,10 +37,17 @@ Uma opção é sempre **"Adiar — quero ver quem usa primeiro"**.
 3. **O que a máquina não vê, declara-se.** Painel da Vercel, conector do claude.ai, Bitwarden, painel do Supabase: o gerador não alcança. A coluna dessas fontes é manual **e marcada como não-verificável**, nunca omitida.
 
 ## Declaração no ponto de consumo (o que alimenta a lista)
-Todo lugar que LÊ um segredo carrega uma linha, no formato fechado:
+Todo lugar que LÊ um segredo carrega uma linha, no formato fechado — **no comentário da linguagem
+daquele arquivo**:
 ```
-# segredo: RESEND_API_KEY — envia o aviso de acesso ao acervo — casa: ccev
+# segredo: RESEND_API_KEY — envia o aviso de acesso ao acervo — casa: ccev     ← shell, Python, YAML
+// segredo: RESEND_API_KEY — envia o aviso de acesso ao acervo — casa: ccev    ← TypeScript, Deno, JS
 ```
+_(⚰️ **14/09, A-680 — achado da CCEV-site, medido por ela em 11/09.** Esta regra exigia só o `#`, e a
+catraca exigia o `#` literal. **Em TypeScript `#` não é comentário** — e é justamente nas funções Deno
+que moram as credenciais de verdade. A casa tinha de escolher entre **a função parar de compilar** ou
+**a catraca não ver e ficar verde**. Nos arquivos que mais importavam, a regra não tinha como ser
+cumprida, e o silêncio passava por acerto. A linha tem de estar ACIMA da leitura, dentro de 6 linhas.)_
 Exigida em: `.github/workflows/*.yml` · `supabase/functions/**` · `tools/**` · `scripts/**` · `.env.example`.
 _(O precedente existe e morde: `portfolio-automacoes/tools/ci/gate_runner_declarado.py` já obriga todo workflow a declarar por que usa o runner `brasil`, com vocabulário fechado e falha real.)_
 
@@ -58,7 +65,7 @@ _(O precedente existe e morde: `portfolio-automacoes/tools/ci/gate_runner_declar
 1. **`V-PORTA-DE-ENTRADA-SEM-PORTA-DE-SAIDA`** — o portfólio instrumentou *"está entrando segredo no git?"* em 7 repos e **nunca** instrumentou *"posso mexer neste segredo?"*. São perguntas opostas; **o dano passa pela saída**.
 2. **`V-CAMPO-QUEM-USA-ESCRITO-DE-CABECA`** — coluna de consumidor escrita à mão infla nos dois sentidos: nomes a mais fazem preservar o morto, nomes a menos fazem apagar o vivo.
 3. **`V-MODELO-CERTO-COM-DENOMINADOR-DE-1`** — quando uma linha resolve bem um problema de classe, medir **quantos itens da classe ela cobre** antes de dar o problema por resolvido. 1 de 25 é protótipo, não solução.
-4. **`V-LACUNA-DECLARADA-NAO-E-LACUNA-TRATADA`** — este buraco foi declarado pelo próprio escritório em **19/06** como `[A VERIFICAR]` e ficou **67 dias** sem dono enquanto os incidentes aconteciam. Todo `[A VERIFICAR]` em superfície canônica nasce com **dono + data de revisão**, ou o linter o conta como ABERTO.
+4. **`V-LACUNA-DECLARADA-NAO-E-LACUNA-TRATADA`** — este buraco foi declarado pelo próprio escritório em **19/06** como `[A VERIFICAR]` e ficou **67 dias** sem dono enquanto os incidentes aconteciam. Todo `[A VERIFICAR]` em superfície canônica nasce com **dono + data de revisão** — e desde **10/09** isto tem dente: o check `[lacuna]` do `linter-estado.sh` (`processos/gate-lacuna-declarada.py`, 9 casos) varre as 17 superfícies vivas e acusa o marcador órfão. _(Até 10/09 esta frase prometia um mecanismo que **não existia** — grep em todo `.sh`/`.py`/`.yml` dava zero, e a regra ensinava a promessa vazia em todo boot: AUD-6.)_
 5. **`V-DESCOBRIR-O-DANO-PELO-ESTRAGO`** — o procedimento de rotação escrito no cofre era *"robô que falhar: pedir o valor novo"*. Esperar quebrar **é** o método que o dono está reclamando; não escrever isso como se fosse processo.
 
 Referência normativa: **D200 · D202 · D203 · D206 · D208 · D71** · achados da lente de segredos (2026-08-25).

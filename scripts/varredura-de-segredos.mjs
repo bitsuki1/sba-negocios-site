@@ -178,7 +178,18 @@ const REGRAS = [
     // O agravante: a OUTRA regra deste mesmo arquivo (`senha-em-celula-de-tabela`) já sabia disso —
     // o comentário dela diz "sem `*`/crase de ênfase markdown". A lição existia e não atravessou de
     // uma regra para a vizinha. Agora a crase é DELIMITADOR nos dois ramos, como as aspas.
-    re: /(?:^|[^A-Za-z0-9]|_)(?:senha|password|passwd|pwd|secret|segredo|api[_-]?key|apikey|token|access[_-]?key|client[_-]?secret|private[_-]?key)[a-z0-9_]*\s*[:=]\s*(?:(['"`])([^'"`\n]{6,})\1|([^\s'"`\n;,)\]}]{12,}))/gi,
+    // ── 4ª calibragem (COLHEITA DA SBA, 10/09 — adotada aqui em 11/09, D23) ──────────────────────
+    // A lista de corte do ramo SEM ASPAS excluía `)` `]` `}` e **não** excluía os de ABERTURA. A SBA
+    // mediu, no `tools/gt_fetch.py:98` dela:
+    //     token = tok_match.group(1) if tok_match else ''
+    // O valor capturado virou `tok_match.group(1` — 17 caracteres, com dígito e letra — e passou a
+    // peneira. É CÓDIGO: uma chamada de função, não uma atribuição de chave. Quem abre parêntese
+    // está chamando algo. Colchete e chave idem, nos dois lados.
+    // ⚠️ A carta dela estava na minha caixa desde 10/09 e o conserto vivia SÓ no repositório dela —
+    // foi a CI deste PR que me obrigou a olhar, porque a mesma carta, guardada aqui, acendia a
+    // varredura daqui. Valor preso numa casa é valor perdido (D23), e o preço foi um build vermelho.
+    // Conferido nos dois sentidos: `WAALAXY_API_KEY=` sem aspas **continua** acendendo.
+    re: /(?:^|[^A-Za-z0-9]|_)(?:senha|password|passwd|pwd|secret|segredo|api[_-]?key|apikey|token|access[_-]?key|client[_-]?secret|private[_-]?key)[a-z0-9_]*\s*[:=]\s*(?:(['"`])([^'"`\n]{6,})\1|([^\s'"`\n;,()\[\]{}]{12,}))/gi,
     valor: (m) => m[2] || m[3],
     // ── 2ª calibragem (10/09) — REFINAMENTO DA POTENCIAL URBANO, medido por ela em 4.485.580 linhas ──
     // Ela escreveu esta regra a meu pedido e a apontou para a árvore inteira: **33 achados**, e 3
@@ -359,7 +370,12 @@ const IGNORADOS_SEMPRE = [
   /varredura-de-segredos\.(mjs|yml)$/,
   // …e os CASOS DE TESTE do instrumento (`processos/testes/fixtures/varredura-caso-V.md` é feito para
   // acusar — a bateria o varre por `--arquivo`; a árvore não pode ficar vermelha por causa dele).
-  /(^|\/)testes\/fixtures\/varredura-caso-[A-Z]\.md$/,
+  /(^|\/)testes\/fixtures\/varredura-caso-[A-Z][A-Z0-9]*\.md$/,
+  // ⚠️ 11/09: a régua era `[A-Z]` — **exatamente uma letra maiúscula**. A fixtura da 4ª
+  // calibragem nasceu `varredura-caso-C4.md` e o scanner acusou a própria fixtura, feita
+  // para ser acusada. A allowlist tem de cobrir a FAMÍLIA ("caso de teste deste scanner"),
+  // não um formato de nome de um caractere. Pego por rodar TODAS as baterias da CI antes de
+  // empurrar — que é a disciplina que faltou nos dois pushes anteriores deste PR (A-669).
   // 09/09 (v2.3) — PROPOSTA DO ATLAS, ACEITA COMO ESTÁ. Instalando a porta nos 4 repositórios do
   // OnSuite, o repositório dos APLICATIVOS acusou 16 achados e os 16 eram a mesma coisa: chaves de
   // CLIENTE do Firebase e do Maps, que viajam DENTRO do aplicativo publicado — quem baixa da loja
