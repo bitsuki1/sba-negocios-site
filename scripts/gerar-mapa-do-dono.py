@@ -289,8 +289,12 @@ def parse(md_text):
     if doc["titulo"] is None:
         erro("faltou o título `# MAPA DE PENDÊNCIAS — <Casa>`")
     if not doc["url"]:
-        erro(
-            "faltou a URL estável do Artifact no cabeçalho (`> **🌐 Sua página:** https://claude.ai/code/artifact/…`) — PADRAO-OURO §1"
+        # A-734: era ERRO e matava o mapa inteiro — inclusive o recorte por frente, que é o que
+        # a instância de frente lê. Casa sem página publicada ainda precisa do mapa dela.
+        AVISOS.append(
+            "sem a URL da página do dono no cabeçalho (`> **🌐 Sua página:** https://claude.ai/code/artifact/…`, "
+            "PADRAO-OURO §1). O mapa foi gerado assim mesmo; publique a página e grave o endereço na linha 2, "
+            "no MESMO commit."
         )
     if not doc["atualizado"]:
         erro("faltou `> **Atualizado: AAAA-MM-DD (vN — motivo)** …` no cabeçalho")
@@ -668,6 +672,64 @@ def render(doc, casa_kicker):
 RX_FRENTE = re.compile(r"`frente:\s*([^`\n|]{1,40}?)\s*`", re.I)
 
 
+# ── recorte no grão do CARTÃO + rota do CÓDIGO DO NÓ (A-734, 15/09) ────────────────────────────
+RX_NO_CRASE = re.compile(r"`([A-Za-z][A-Za-z0-9.]*-[A-Za-z0-9]+)`")
+RX_NO_INICIO = re.compile(r"^(?:\|\s*)?\*\*([A-Za-z][A-Za-z0-9.]*(?:-[A-Za-z0-9]+)*)\*\*")
+
+
+def codigos_da_linha(lin):
+    """Todo código de nó que a linha carrega: o que ABRE a linha (`| **A2.4.3-C02** |`) e os que
+    vêm entre crases no corpo do cartão (`caixa do nó \`A2.4.2-C07\``)."""
+    achados = []
+    m = RX_NO_INICIO.match(lin.strip())
+    if m:
+        achados.append(m.group(1))
+    achados += RX_NO_CRASE.findall(lin)
+    return achados
+
+
+def do_no(codigo, alvo):
+    """`A2.4` cobre `A2.4`, `A2.4.1-C03` e `A2.4-C09` — e NÃO cobre `A2.45`. Fronteira: `.` ou `-`."""
+    if not codigo:
+        return False
+    c, a = codigo.lower(), alvo.strip().lower()
+    return c == a or c.startswith(a + ".") or c.startswith(a + "-")
+
+
+def linha_casa(lin, alvo, por_codigo):
+    if por_codigo:
+        return any(do_no(c, alvo) for c in codigos_da_linha(lin))
+    m = RX_FRENTE.search(lin)
+    return bool(m) and m.group(1).strip().lower() == alvo
+
+
+def blocos_de_cartao(linhas):
+    """(preâmbulo, [cartões]) — um cartão começa em `## ` e vai até o próximo. Pista sem `## `
+    nenhum devolve `[]` de cartões: é tabela, e o recorte dela segue linha a linha."""
+    pre, cartoes, atual = [], [], None
+    for i, lin in linhas:
+        if lin.lstrip().startswith("## "):
+            if atual:
+                cartoes.append(atual)
+            atual = [(i, lin)]
+        elif atual is None:
+            pre.append((i, lin))
+        else:
+            atual.append((i, lin))
+    if atual:
+        cartoes.append(atual)
+    return pre, cartoes
+
+
+def codigos_de_no(doc):
+    """Os códigos que o recorte alcança — para o erro não mentir por omissão."""
+    vistos = set()
+    for sec in doc["secoes"].values():
+        for _, lin in sec["linhas"]:
+            vistos.update(codigos_da_linha(lin))
+    return vistos
+
+
 def frentes_declaradas(doc):
     """{nome_normalizado: nome_como_escrito} — toda frente que aparece em alguma linha do mapa."""
     achadas = {}
@@ -685,21 +747,42 @@ def recorta(doc, frente):
     página vazia é o defeito de denominador zero: sai verde dizendo que não há pendência."""
     alvo = frente.strip().lower()
     tem = frentes_declaradas(doc)
+    por_codigo = False
     if alvo not in tem:
-        nomes = ", ".join(sorted(tem.values())) or "nenhuma"
-        erro(
-            f"nenhum item do mapa declara `frente: {frente}`. As frentes declaradas hoje são: "
-            f"{nomes}. Marque os itens da frente com `frente: {frente}` no corpo — o recorte não "
-            f"adivinha por título nem por seção."
-        )
+        # A-734: antes de recusar, tenta a rota do CÓDIGO DO NÓ. Com tag declarada, a tag manda.
+        if any(
+            do_no(c, alvo)
+            for sec in doc["secoes"].values()
+            for _, lin in sec["linhas"]
+            for c in codigos_da_linha(lin)
+        ):
+            por_codigo = True
+            tem = dict(tem, **{alvo: frente.strip()})
+        else:
+            nomes = ", ".join(sorted(tem.values())) or "nenhuma"
+            cods = ", ".join(sorted(codigos_de_no(doc))[:12]) or "nenhum"
+            erro(
+                f"nenhum item do mapa declara `frente: {frente}`, e nenhum código de item começa "
+                f"por `{frente}`. Frentes declaradas: {nomes}. Códigos que o recorte alcança: "
+                f"{cods}. Marque os itens com `frente: {frente}` no corpo — o recorte não adivinha "
+                f"por título nem por seção."
+            )
     novo = {k: (dict(v) if isinstance(v, dict) else v) for k, v in doc.items()}
     novo["secoes"] = {}
     for pista, sec in doc["secoes"].items():
-        linhas = [
-            (i, lin)
-            for i, lin in sec["linhas"]
-            if RX_FRENTE.search(lin) and RX_FRENTE.search(lin).group(1).strip().lower() == alvo
-        ]
+        pre, cartoes = blocos_de_cartao(sec["linhas"])
+        if cartoes:
+            # Pista em CARTÕES: o cartão inteiro fica ou sai junto — manchete sem corpo é lixo.
+            linhas = list(pre)
+            for cartao in cartoes:
+                if any(linha_casa(l, alvo, por_codigo) for _, l in cartao):
+                    linhas += cartao
+            if len(linhas) == len(pre):  # só o preâmbulo sobrou = pista vazia nesta frente
+                linhas = []
+        else:
+            linhas = [
+                (i, lin) for i, lin in sec["linhas"] if linha_casa(lin, alvo, por_codigo)
+            ]
         # A 💬 RESPOSTAS não se recorta: resposta a pergunta DELE vale para a casa toda, e sumir
         # com ela numa folha de frente seria esconder a resposta de quem abriu justamente essa
         # folha.
