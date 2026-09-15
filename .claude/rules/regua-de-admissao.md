@@ -50,7 +50,7 @@ P3 ── (só se caiu em "A CASA" e há risco de se perder) A casa tem mapa viv
 - **A custódia vira mudança de endereço:** teto de **3 itens**, data de saída visível, e o item nº 1 da custódia é sempre *"abrir o mapa daquela casa"*.
 
 ## Vacinas
-1.5. **`V-ROTEAR-SEM-TIRAR-DA-FILA-DELE`** (ordem do dono, 04/09: *"apenas pendências do escritório, as dos projetos devem ser roteadas ao próprio projeto"*) — levar o item à casa é METADE do trabalho; a outra metade é **tirá-lo da fila dele no mesmo commit**. A onda de 04/09 levou 3 itens corretamente à casa e os deixou também aqui: virou duplicata, e duplicata é o que faz o dono perder o fio. **Dente:** check `[11]` do `processos/linter-estado.sh` varre as pistas 🔒 e 📅 do mapa do escritório e acende quando um item nomeia UMA casa só.
+1.5. **`V-ROTEAR-SEM-TIRAR-DA-FILA-DELE`** (ordem do dono, 04/09: *"apenas pendências do escritório, as dos projetos devem ser roteadas ao próprio projeto"*) — levar o item à casa é METADE do trabalho; a outra metade é **tirá-lo da fila dele no mesmo commit** — senão vira duplicata, e duplicata é o que faz o dono perder o fio. **Dente:** check `[11]` do `processos/linter-estado.sh` acende quando um item 🔒/📅 do mapa do escritório nomeia UMA casa só.
 1. **`V-ATO-DO-DONO-NAO-E-CRITERIO`** — *"é ele quem faz, logo é do escritório"*. Nunca foi. (A-424)
 2. **`V-AVISO-QUE-VIRA-SEGUNDA-VOZ`** — achou superfície errada numa unidade? **corrija a superfície da unidade**. Pôr o aviso no mapa do escritório não cala a voz errada: **cria uma segunda**, e o dono fica com duas ordens opostas. (A-425)
 3. **`V-CUSTODIA-SEM-PRAZO-VIRA-MUDANCA`** — item de casa entra como custódia com data, ou não entra.
