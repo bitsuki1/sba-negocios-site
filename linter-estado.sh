@@ -92,8 +92,22 @@ fi
 # A linha, no formato fechado:  # segredo: NOME — para que serve — casa: <casa>
 # Bateria: python3 scripts/gate-segredo-declarado.py --prova (8 casos)
 if [ -f "$ROOT/scripts/gate-segredo-declarado.py" ] && command -v python3 >/dev/null 2>&1; then
-  _sd=$(cd "$ROOT" && python3 scripts/gate-segredo-declarado.py 2>/dev/null)
-  if echo "$_sd" | grep -q '^🟥'; then
+  # ⚠️ A-738 (2026-09-15) — TRAZIDO PELO ESCRITÓRIO DO MOU. Este check acendia 🟩 COM A
+  # CATRACA DESTRUÍDA, e a catraca é a da **D200** (ordem viva do dono, 21/08: *"credencial em git
+  # não é mais aceito"*). O `2>/dev/null` engolia o traceback, o **código de saída era
+  # DESCARTADO**, e a decisão saía de um `grep '^🟥'` no stdout: gate morto ⇒ stdout vazio ⇒
+  # nenhum 🟥, nenhum 🟨 ⇒ caía no `else` e imprimia, palavra por palavra, *"nenhum ponto novo
+  # de leitura de segredo sem declaração"*. **Verde byte-a-byte idêntico ao verde saudável.**
+  _sd=$(cd "$ROOT" && python3 scripts/gate-segredo-declarado.py 2>&1); _sdrc=$?
+  # ⚠️ O sinal de vida é o **CÓDIGO DE SAÍDA**, nunca a presença de texto: a catraca SÃ é
+  # **SILENCIOSA** — sem ponto novo ela imprime **nada** e sai 0. A 1ª versão deste conserto, no
+  # escritório, decidiu por *"stdout sem veredito ⇒ morreu"* e acendeu 🟥 no caso saudável.
+  # Mutação sozinha prova que o dente morde — nunca que ele morde **só onde deve**. Por isso o PR
+  # que trouxe esta linha prova as duas direções nesta casa: saudável 🟩, mutilada 🟥, restaurada 🟩.
+  if [ "$_sdrc" != "0" ]; then
+    red "[segredo-declarado] a catraca da D200 NÃO RODOU (saiu $_sdrc) — isto não é verde, é cego:"
+    echo "$_sd" | tail -3 | sed 's/^/      /'
+  elif echo "$_sd" | grep -q '^🟥'; then
     red "[segredo-declarado] ponto NOVO lendo segredo sem dizer para que serve:"
     echo "$_sd" | grep -v '^🟥' | head -5
   elif echo "$_sd" | grep -q '^🟨'; then
