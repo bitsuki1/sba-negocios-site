@@ -43,11 +43,9 @@ daquele arquivo**:
 # segredo: RESEND_API_KEY — envia o aviso de acesso ao acervo — casa: ccev     ← shell, Python, YAML
 // segredo: RESEND_API_KEY — envia o aviso de acesso ao acervo — casa: ccev    ← TypeScript, Deno, JS
 ```
-_(⚰️ **14/09, A-680 — achado da CCEV-site, medido por ela em 11/09.** Esta regra exigia só o `#`, e a
-catraca exigia o `#` literal. **Em TypeScript `#` não é comentário** — e é justamente nas funções Deno
-que moram as credenciais de verdade. A casa tinha de escolher entre **a função parar de compilar** ou
-**a catraca não ver e ficar verde**. Nos arquivos que mais importavam, a regra não tinha como ser
-cumprida, e o silêncio passava por acerto. A linha tem de estar ACIMA da leitura, dentro de 6 linhas.)_
+**A linha vai ACIMA da leitura, dentro de 6 linhas.** _(⚰️ 14/09: a regra exigia só `#`, que em
+TypeScript não é comentário — justo nas funções Deno onde moram as credenciais. Achado da CCEV-site;
+história em ACHADOS § A-680.)_
 Exigida em: `.github/workflows/*.yml` · `supabase/functions/**` · `tools/**` · `scripts/**` · `.env.example`.
 _(O precedente existe e morde: `portfolio-automacoes/tools/ci/gate_runner_declarado.py` já obriga todo workflow a declarar por que usa o runner `brasil`, com vocabulário fechado e falha real.)_
 

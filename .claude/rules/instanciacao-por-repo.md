@@ -28,7 +28,7 @@ Um repo AUXILIAR sabor **USO/FERRAMENTA** (hub, site, app) **NÃO se co-monta** 
 
 ## O canal entre o par (unidade↔auxiliar)
 - **`caixa-de-saida/para-<auxiliar>/`** (na unidade) ↔ **`caixa-de-entrada/do-<auxiliar>/`** (no auxiliar) — depósito, nunca escrita cruzada. Exemplos MEDIDOS hoje: a CCEV usa `para-site/` ↔ `do-ccev/`; o `avc-sampa-valley-site` usa `para-avc/`.
-- _(⚰️ 10/09: ensinava **`para-hub/`** como nome do canal. Medido nas 22 casas: `do-hub/` existe (Profinders), **`para-hub/` existe em ZERO** — o canal do par está de UMA VIA, e a regra mandava depositar em pasta que não existe em repo nenhum. A-666.)_
+- _(⚰️ 10/09 ensinava `para-hub/`, medido em ZERO casa — história em ACHADOS § A-666.)_
 - Contexto da unidade para o auxiliar mora no **`USO.md`** do auxiliar (a unidade escreve no seu USO.md quando a relação muda; o auxiliar lê como dado).
 - O **escritório** é balcão único (D56) que despacha quando necessário.
 
