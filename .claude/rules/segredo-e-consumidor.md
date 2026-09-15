@@ -32,7 +32,7 @@ Uma opção é sempre **"Adiar — quero ver quem usa primeiro"**.
 ⚠️ **Não confundir com o cofre** (`ACESSOS-FERRAMENTAS.md`): o cofre é indexado por FERRAMENTA e responde *"como uso isto?"*. Este responde *"quem quebra se eu mexer?"*. Eixos diferentes, SSOTs diferentes (A-002).
 
 ## As 3 coisas que não se negociam
-1. **A coluna "quem usa" NUNCA se escreve de cabeça.** Gera-se por medição (grep/API), com data e fonte. _(A banca do portfólio já provou o oposto uma vez: pelo menos 4 das 10 linhas do Top-10 do cofre tinham "quem PODERIA usar" copiado para dentro de "quem JÁ usa". Coluna de consumidor sem data lê-se como "poderia".)_
+1. **A coluna "quem usa" NUNCA se escreve de cabeça.** Gera-se por medição (grep/API), com data e fonte. _(4 das 10 linhas do Top-10 do cofre já tinham "quem PODERIA usar" dentro de "quem JÁ usa": coluna sem data lê-se como "poderia".)_
 2. **Consumidor de segredo tem UM lugar.** Qualquer outra menção é ponteiro. Duas listas de consumidor para o mesmo segredo são piores que nenhuma — a errada faz agir.
 3. **O que a máquina não vê, declara-se.** Painel da Vercel, conector do claude.ai, Bitwarden, painel do Supabase: o gerador não alcança. A coluna dessas fontes é manual **e marcada como não-verificável**, nunca omitida.
 
@@ -47,7 +47,7 @@ daquele arquivo**:
 TypeScript não é comentário — justo nas funções Deno onde moram as credenciais. Achado da CCEV-site;
 história em ACHADOS § A-680.)_
 Exigida em: `.github/workflows/*.yml` · `supabase/functions/**` · `tools/**` · `scripts/**` · `.env.example`.
-_(O precedente existe e morde: `portfolio-automacoes/tools/ci/gate_runner_declarado.py` já obriga todo workflow a declarar por que usa o runner `brasil`, com vocabulário fechado e falha real.)_
+_(Precedente que morde: `portfolio-automacoes/tools/ci/gate_runner_declarado.py`.)_
 
 ## Alçada (D202)
 | peça | dono | classe |
@@ -63,7 +63,7 @@ _(O precedente existe e morde: `portfolio-automacoes/tools/ci/gate_runner_declar
 1. **`V-PORTA-DE-ENTRADA-SEM-PORTA-DE-SAIDA`** — o portfólio instrumentou *"está entrando segredo no git?"* em 7 repos e **nunca** instrumentou *"posso mexer neste segredo?"*. São perguntas opostas; **o dano passa pela saída**.
 2. **`V-CAMPO-QUEM-USA-ESCRITO-DE-CABECA`** — coluna de consumidor escrita à mão infla nos dois sentidos: nomes a mais fazem preservar o morto, nomes a menos fazem apagar o vivo.
 3. **`V-MODELO-CERTO-COM-DENOMINADOR-DE-1`** — quando uma linha resolve bem um problema de classe, medir **quantos itens da classe ela cobre** antes de dar o problema por resolvido. 1 de 25 é protótipo, não solução.
-4. **`V-LACUNA-DECLARADA-NAO-E-LACUNA-TRATADA`** — este buraco foi declarado pelo próprio escritório em **19/06** como `[A VERIFICAR]` e ficou **67 dias** sem dono enquanto os incidentes aconteciam. Todo `[A VERIFICAR]` em superfície canônica nasce com **dono + data de revisão** — e desde **10/09** isto tem dente: o check `[lacuna]` do `linter-estado.sh` (`processos/gate-lacuna-declarada.py`, 9 casos) varre as 17 superfícies vivas e acusa o marcador órfão. _(Até 10/09 esta frase prometia um mecanismo que **não existia** — grep em todo `.sh`/`.py`/`.yml` dava zero, e a regra ensinava a promessa vazia em todo boot: AUD-6.)_
+4. **`V-LACUNA-DECLARADA-NAO-E-LACUNA-TRATADA`** — este buraco ficou **67 dias** declarado como `[A VERIFICAR]` e sem dono enquanto os incidentes aconteciam. Todo `[A VERIFICAR]` em superfície canônica nasce com **dono + data de revisão** — e desde **10/09** tem dente: o check `[lacuna]` do `linter-estado.sh` (`processos/gate-lacuna-declarada.py`) varre as superfícies vivas e acusa o marcador órfão. _(Até 10/09 esta frase prometia mecanismo inexistente — AUD-6.)_
 5. **`V-DESCOBRIR-O-DANO-PELO-ESTRAGO`** — o procedimento de rotação escrito no cofre era *"robô que falhar: pedir o valor novo"*. Esperar quebrar **é** o método que o dono está reclamando; não escrever isso como se fosse processo.
 
 Referência normativa: **D200 · D202 · D203 · D206 · D208 · D71** · achados da lente de segredos (2026-08-25).

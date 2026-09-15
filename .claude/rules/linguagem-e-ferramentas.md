@@ -21,7 +21,6 @@ Morreram **D161 · D161-FIX · D169** (mapa vivo, robô, agregador, `portfolio-f
 recriar**; fragmento remanescente em unidade é lixo a remover. Vigente no lugar: **cada projeto tem o
 SEU `MAPA-DE-PENDENCIAS.md`** (D172), Artifact sob demanda, com "tudo → mapa" como lei (D176).
 Corpo integral e rastro: `processos/_legado/mapa-vivo-aposentado-2026-08-11/`.
-**⚠️ RETIFICAÇÃO (2026-08-20):** a lista de aposentadas citava **D170** por erro de numeração. O D170
-lavrado é o robô *"chega na main"* (auto-consolidar), **VIVO em 17 repos — não desligar
-`consolidar.sh`**.
+**⚠️ RETIFICAÇÃO (20/08):** a lista citava **D170** por erro de numeração. O D170 lavrado é o robô
+*"chega na main"* (auto-consolidar), **VIVO — não desligar `consolidar.sh`**.
 _(⚰️ 10/09 dizia a morte do Mapa Vivo 2× e apontava o DEV a D119/D145, revogadas — ACHADOS § A-666.)_
