@@ -109,6 +109,37 @@ GLOSA = re.compile(
     re.I,
 )
 
+# ── L6 · supressão quando a CASA DECLARA o código como protocolo de resposta dela ────────────
+# 17/09 — medido, depois de uma tentativa revertida. A lente acendia 74× no mapa da Keepee, que
+# declara no cabeçalho: *"Responda citando o código curto; a âncora longa (`A2.4.2-C06`) é só o
+# endereço na árvore"*. Ali o código NÃO é linguagem de máquina: é o nome que o dono digita para
+# responder. Acender nas 74 ensina a ignorar a lente (é o A-714 — regra barulhenta vira ruído).
+# A supressão exige as DUAS coisas, nunca uma só:
+#   (C) a casa DECLARA o protocolo no cabeçalho, E o código aparece dentro da âncora INTEIRA
+#       entre crases (`A2.4.2-C07`) — o endereço escrito por extenso, não o pedaço solto;
+#   (B) …ou dentro da instrução de resposta entre aspas (me diga "C07: pode baixar").
+# O que CONTINUA acendendo, medido na Keepee: fragmento solto (`C04`, "item C12 abaixo",
+# "(A6-C01)") e código de OUTRA casa (D24, D106, D129, D216) — 23 de 74. Esses ele não lê mesmo.
+DECLARA_CODIGO = re.compile(r"\bcit(?:e|ando|ar)\b[^.\n]{0,60}\bc[óo]digo\b", re.I)
+
+
+def _ancora_longa(lin, cod):
+    """O código está DENTRO de uma âncora maior entre crases (`A2.4.2-C07`)."""
+    for m in re.finditer(r"`([^`]+)`", lin):
+        t = m.group(1)
+        if cod in t and len(t) > len(cod):
+            return True
+    return False
+
+
+def _instrucao_de_resposta(lin, cod):
+    """O código É a resposta que ele digita: me diga "C07: pode baixar"."""
+    c = re.escape(cod)
+    return bool(
+        re.search(r'["\u201c\u201d]\s*' + c + r'\s*[:\uff1a]', lin)
+        or re.search(r"\b(?:diga|responda|escreva|digite|me mande)\b[^.\n]{0,24}" + c, lin, re.I)
+    )
+
 
 def secoes(texto):
     """Divide o markdown nas seções `# 🔒`, `# ⚙️`, `# 📌`, guardando o número da linha."""
@@ -266,11 +297,14 @@ def revisar(texto):
             )
 
     # ── L6 · código interno sem glosa na cara do dono ────────────────────────────────────────
+    _declara = any(DECLARA_CODIGO.search(l) for _, l in cab)
     for i, lin in sec.get("🔒", []):
         if lin.strip().startswith(">") or not lin.strip():
             continue
         for cod in CODIGO_INTERNO.findall(lin):
             trecho = lin[max(0, lin.find(cod) - 90) : lin.find(cod) + 90]
+            if _declara and (_ancora_longa(lin, cod) or _instrucao_de_resposta(lin, cod)):
+                continue
             if not GLOSA.search(trecho):
                 achados.append(
                     (
@@ -351,6 +385,15 @@ def _n_lentes():
     except Exception:
         return 0
     return len({m for m in re.findall(r"#\s+──\s+(L\d+)\s+·", corpo)})
+
+
+def _declarando(mapa):
+    """Devolve o mapa com a DECLARAÇÃO do protocolo de resposta no cabeçalho (o que a Keepee tem)."""
+    return mapa.replace(
+        "> **Atualizado:",
+        "> Responda citando o código curto; a âncora longa é só o endereço.\n> **Atualizado:",
+        1,
+    )
 
 
 def prova():
@@ -498,6 +541,32 @@ def prova():
         (
             "L6 código",
             bom.replace("## P1 · 🟧 Apagar as branches", "## P1 · 🟧 Apagar as branches (PM-121)"),
+            "L6",
+        ),
+        # L6 · os 3 casos da supressão de 17/09 — a régua do A-761: todo filtro novo roda nos DOIS
+        # sentidos antes de entrar (o que ele deixa passar E o que ele para de ver).
+        (
+            "L6 · casa que DECLARA o código + âncora INTEIRA não acende",
+            _declarando(bom).replace(
+                "## P1 · 🟧 Apagar as branches",
+                "## P1 · 🟧 Apagar as branches — endereço na árvore: `A2.4.2-C07`",
+            ),
+            None,
+        ),
+        (
+            "L6 · MUTAÇÃO: a MESMA âncora SEM a declaração no cabeçalho volta a acender",
+            bom.replace(
+                "## P1 · 🟧 Apagar as branches",
+                "## P1 · 🟧 Apagar as branches — endereço na árvore: `A2.4.2-C07`",
+            ),
+            "L6",
+        ),
+        (
+            "L6 · MUTAÇÃO: o FRAGMENTO solto (`C07`) acende mesmo com a declaração",
+            _declarando(bom).replace(
+                "## P1 · 🟧 Apagar as branches",
+                "## P1 · 🟧 Apagar as branches — veja o `C07`",
+            ),
             "L6",
         ),
         (

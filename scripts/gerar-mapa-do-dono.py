@@ -225,7 +225,12 @@ def parse(md_text):
             continue
         if sec is None and lin.startswith(">"):
             body = lin.lstrip("> ").strip()
-            m = re.search(r"(https://claude\.ai/code/artifact/[A-Za-z0-9-]+)", body)
+            # A-768 (17/09): a ferramenta de publicação devolve o endereço na forma CURTA
+            # (`https://claude.ai/artifact/<id>`) — foi o que ela devolveu hoje ao republicar
+            # o mapa desta casa. A regex só aceitava a forma `/code/artifact/`, então a casa
+            # que gravasse fielmente o que a ferramenta deu ouvia "faltou a URL" com a URL ali.
+            # Aceita as duas: é alargar, nunca apertar — nenhuma casa fica vermelha por isto.
+            m = re.search(r"(https://claude\.ai/(?:code/)?artifact/[A-Za-z0-9-]+)", body)
             if "Sua página" in body or (m and doc["url"] is None):
                 doc["url"] = m.group(1) if m else None
                 f = re.search(r"Fonte:\s*`([^`]+)`", body)
@@ -295,7 +300,7 @@ def parse(md_text):
         # A-734: era ERRO e matava o mapa inteiro — inclusive o recorte por frente, que é o que
         # a instância de frente lê. Casa sem página publicada ainda precisa do mapa dela.
         AVISOS.append(
-            "sem a URL da página do dono no cabeçalho (`> **🌐 Sua página:** https://claude.ai/code/artifact/…`, "
+            "sem a URL da página do dono no cabeçalho (`> **🌐 Sua página:** https://claude.ai/code/artifact/…` ou `https://claude.ai/artifact/…`, "
             "PADRAO-OURO §1). O mapa foi gerado assim mesmo; publique a página e grave o endereço na linha 2, "
             "no MESMO commit."
         )

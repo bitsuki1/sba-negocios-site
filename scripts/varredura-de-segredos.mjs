@@ -208,6 +208,22 @@ const REGRAS = [
       const limpo = v.trim();
       const temMin = /[a-z]/.test(limpo), temMai = /[A-Z]/.test(limpo), temNum = /[0-9]/.test(limpo);
       if (/^[A-Z0-9_]+$/.test(limpo)) return false;          // NOME_DE_OUTRA_VARIAVEL
+      // ── 5ª calibragem (15/09, A-704) — UMA FRASE NÃO É UM SEGREDO ─────────────────────────────
+      // O ramo COM ASPAS era o único deste arquivo que admitia ESPAÇO no valor — todos os outros
+      // (inclusive `senha-em-celula-de-tabela`) excluem `\s` por construção. E em markdown a crase
+      // de FECHAMENTO de um `code span` vira a crase de ABERTURA de uma "aspa": tudo que estivesse
+      // entre dois code spans da mesma linha era capturado como valor. A v2.6 (A-645) aprendeu que
+      // "a crase é marcação, não valor" — e aplicou a lição a UM lado só. A peneira não segurou
+      // porque uma FRASE também tem minúscula + MAIÚSCULA + dígito: a régua "string sorteada" da
+      // Potencial Urbano (v2.4) previu prosa sem maiúscula no meio, não prosa com nome próprio.
+      // MEDIDO em 15/09, apontando esta regra para 68 casas: 47 acusações em `.md`, das quais 12
+      // eram frases — em 7 casas — e NENHUMA era segredo. As 4 formas: `code span` citando o
+      // formato de declaração, ponteiro-ao-cofre `SENHA='‹no cofre…›'`, substituição de shell
+      // `TOKEN="$(… | …)"`, e célula de tabela com crase.
+      // ⚠️ O buraco, declarado: uma FRASE-SENHA de 5+ palavras dentro de aspas escapa deste ramo.
+      // É o preço que o resto do arquivo já paga, e é menor que o de gritar sobre 12 linhas certas
+      // — "varredura que grita sobre o legítimo é desligada pelo primeiro que se cansa".
+      if (limpo.split(/\s+/).length >= 5) return false;      // isto é uma FRASE, não um token
       if (/\//.test(limpo) && !(temMin && temMai && temNum)) return false;  // caminho de URL
       if (temMin && temMai && temNum) return true;           // string sorteada
       if (/[A-Fa-f0-9]{20,}|[A-Za-z0-9+/=_-]{24,}/.test(limpo)) return true; // corrida hex/base64
@@ -226,6 +242,27 @@ const REGRAS = [
     // Valor = letra E dígito, sem `/` (caminho de arquivo em minúsculas com `-`/`/` NÃO é senha — foi o
     // 1º falso positivo, `cadastro/bitsuki/INVENTARIO.md:111`), sem `*`/`` ` `` de ênfase markdown.
     re: /^\s*\|[^|\n]*\b(?:senha|password|passwd|secret|segredo|token|api[_ -]?key|apikey|chave|client[_ -]?secret|service[_ -]?role)\b[^|\n]*\|(?:[^|\n]*\|)*?\s*((?=[^\s|]*[A-Za-z])(?=[^\s|]*[0-9])[^\s|/*`]{8,})\s*\|/gi,
+    valor: (m) => m[1],
+    heuristicaFraca: true,
+  },
+  {
+    // ── REGRA NOVA (15/09) — trazida pela AVC, carta de 04/09, §3 ────────────────────────────────
+    // A casa mediu o buraco com todas as letras: `varredura-de-segredos.mjs --arvore` devolvia
+    // "nada encontrado" com **6 ocorrências da senha ainda no lugar**, em PROSA de laudo
+    // (`senha <palavra>@<dígitos>`). O porteiro só passou a "estar certo" depois da redação à mão.
+    // Por que nenhuma regra pegava: a `senha-literal` exige `:`/`=` depois do rótulo, e a
+    // `senha-em-celula-de-tabela` exige as barras da tabela markdown. Prosa não tem nem um nem outro.
+    // O agravante de CLASSE: esta porta desceu a ~20 casas, e a classe que ela não vê é **exatamente
+    // a que originou a D200** — credencial escrita no corpo de um documento.
+    // CALIBRAGEM (a dívida das vizinhas, já paga aqui): não basta "rótulo + palavra", senão toda
+    // frase do portfólio sobre senha acende ("trocar senhas vazadas é decisão minha", "senha nova",
+    // "senha do painel"). O valor só conta se tiver a FORMA de senha: sem espaço, ≥8, com letra E
+    // dígito E pelo menos um símbolo dos que quase não aparecem em prosa (@ # $ % & ! * + ?).
+    // O `@` sozinho não basta — e-mail depois de "senha" é comum (`senha do keepee@…com.br`) e não
+    // tem dígito. Fora `/` (caminho), crase e `*` (ênfase markdown) — lição que a vizinha já pagou.
+    id: "senha-em-prosa",
+    categoria: "credencial escrita no corpo do texto (rótulo senha/chave seguido do valor)",
+    re: /(?<!`)\b(?:senha|password|passwd|pwd|segredo|chave|token)\b(?:\s+(?:de|do|da|é|eh|atual|nova|novo|master|mestra|padr[ãa]o))*\s+((?=[^\s]*[A-Za-z])(?=[^\s]*[0-9])(?=[^\s]*[@#$%&!*+?])[^\s|\/*`'"]{8,})/gi,
     valor: (m) => m[1],
     heuristicaFraca: true,
   },
