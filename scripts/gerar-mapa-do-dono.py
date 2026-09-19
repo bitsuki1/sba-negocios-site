@@ -109,6 +109,9 @@ CSS = r"""
   p.resp-p{font-size:14.5px;color:var(--ink-soft);margin:0 0 10px;max-width:62ch}
   p.resp-p b{color:var(--ink);font-weight:600}
   .empty{font-size:14px;color:var(--ink-faint);font-style:italic}
+  .regras{margin:0 0 26px;padding:12px 0 2px 14px;border-left:2px solid var(--line)}
+  .regras p{font-size:13px;line-height:1.55;color:var(--ink-faint);margin:0 0 7px;max-width:70ch}
+  .regras p b{color:var(--ink-soft);font-weight:600}
 """
 FONTS = (
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
@@ -222,7 +225,12 @@ def parse(md_text):
             continue
         if sec is None and lin.startswith(">"):
             body = lin.lstrip("> ").strip()
-            m = re.search(r"(https://claude\.ai/code/artifact/[A-Za-z0-9-]+)", body)
+            # A-768 (17/09): a ferramenta de publicação devolve o endereço na forma CURTA
+            # (`https://claude.ai/artifact/<id>`) — foi o que ela devolveu hoje ao republicar
+            # o mapa desta casa. A regex só aceitava a forma `/code/artifact/`, então a casa
+            # que gravasse fielmente o que a ferramenta deu ouvia "faltou a URL" com a URL ali.
+            # Aceita as duas: é alargar, nunca apertar — nenhuma casa fica vermelha por isto.
+            m = re.search(r"(https://claude\.ai/(?:code/)?artifact/[A-Za-z0-9-]+)", body)
             if "Sua página" in body or (m and doc["url"] is None):
                 doc["url"] = m.group(1) if m else None
                 f = re.search(r"Fonte:\s*`([^`]+)`", body)
@@ -289,8 +297,12 @@ def parse(md_text):
     if doc["titulo"] is None:
         erro("faltou o título `# MAPA DE PENDÊNCIAS — <Casa>`")
     if not doc["url"]:
-        erro(
-            "faltou a URL estável do Artifact no cabeçalho (`> **🌐 Sua página:** https://claude.ai/code/artifact/…`) — PADRAO-OURO §1"
+        # A-734: era ERRO e matava o mapa inteiro — inclusive o recorte por frente, que é o que
+        # a instância de frente lê. Casa sem página publicada ainda precisa do mapa dela.
+        AVISOS.append(
+            "sem a URL da página do dono no cabeçalho (`> **🌐 Sua página:** https://claude.ai/code/artifact/…` ou `https://claude.ai/artifact/…`, "
+            "PADRAO-OURO §1). O mapa foi gerado assim mesmo; publique a página e grave o endereço na linha 2, "
+            "no MESMO commit."
         )
     if not doc["atualizado"]:
         erro("faltou `> **Atualizado: AAAA-MM-DD (vN — motivo)** …` no cabeçalho")
@@ -480,6 +492,30 @@ def st_class(txt):
     return "st-idle"
 
 
+def limpa_etiqueta_de_frente(doc):
+    """Consome e APAGA `\`frente: x\`` do texto que vai à tela (A-723 · D4).
+
+    A etiqueta é o contrato entre a casa e o recorte — mora no markdown e ali fica. Mas ela é
+    **marca de máquina**, e a D159 só admite código interno *como etiqueta pequena e glosada*.
+    Medido no produto em 15/09: `frente:` aparecia **5×** no mapa geral e **3×** na folha, cru, no
+    meio da frase que o dono lê (*"…a ficha da pessoa **frente: indicadores** Você mandou…"*).
+    Quem filtra já filtrou antes daqui; o desenho não precisa mais dela."""
+    limpo = {k: (dict(v) if isinstance(v, dict) else v) for k, v in doc.items()}
+    limpo["secoes"] = {}
+    for pista, sec in doc["secoes"].items():
+        # ⚠️ o aperto de espaço só vale para a linha que PERDEU a etiqueta. A 1ª versão disto
+        # rodava `.replace("  ", " ")` em TODA linha e colapsou o espaço duplo entre frases em 4
+        # células ⚙️ do mapa deste escritório — dano colateral silencioso, achado no diff antes de
+        # publicar. Quem limpa etiqueta limpa a etiqueta, não o texto da casa.
+        linhas = []
+        for ln, lin in sec["linhas"]:
+            if RX_FRENTE.search(lin):
+                lin = re.sub(r"[ \t]{2,}", " ", RX_FRENTE.sub("", lin)).rstrip()
+            linhas.append((ln, lin))
+        limpo["secoes"][pista] = {**sec, "linhas": linhas}
+    return limpo
+
+
 def render(doc, casa_kicker):
     S = doc["secoes"]
     prosa, itens = itens_suas(S["🔒"]["linhas"])
@@ -501,10 +537,41 @@ def render(doc, casa_kicker):
     )
     out.append("</header>")
     out.append('<main class="wrap">')
+    # ⚠️ A-712 — ATÉ 15/09 ESTE BLOCO NÃO EXISTIA E AS LINHAS DE RÉGUA DO CABEÇALHO SUMIAM.
+    # O parser as recolhia em `doc["regras"]` (linha ~254) e o desenho NUNCA as citava: `regras`
+    # aparecia 2× no arquivo, criação e preenchimento, zero renderização. Quem mediu foi a EDU
+    # (carta de 04/09): *"a linha que ensina o dono a responder — 'cite o código: resolve o P2' —
+    # estava no cabeçalho e nunca chegou à página dele"*. Medido aqui em 15/09 nas 24 casas
+    # montadas: **89 linhas, e as 24 perdiam pelo menos uma** — TODAS perdiam o "Como responder".
+    # A EDU recomendou a saída (b), *falhar* com a linha, argumentando que "silêncio é pior que
+    # erro". A medição mudou a resposta: falhar apagaria os 24 mapas de uma vez, e apagar o mapa
+    # do dono por defeito de grafia é exatamente o apagão que ele vetou (mesma razão pela qual o
+    # `Atualizado` sem `(vN)` e a pista `🤖` são ACEITOS acima, com aviso). Então rende-se — e
+    # rende-se no TOPO, não em rodapé, porque a linha que ela cobrou é instrução de leitura: o
+    # dono precisa dela antes das pendências, não depois.
+    if doc["regras"]:
+        out.append('  <div class="regras">')
+        for r in doc["regras"]:
+            out.append(f"    <p>{inline(r)}</p>")
+        out.append("  </div>")
+    # ⚠️ A-723 · D3 — A FOLHA DA FRENTE TEM DE SE DECLARAR RECORTE **NO CORPO**.
+    # O nome da frente ia para o `<title>` da aba e para o motivo interno; o dono opera no celular,
+    # onde a aba não se vê. Ele abria uma folha com 1 item e o total da casa inteira ao lado.
+    rec = doc.get("recorte")
+    if rec:
+        out.append(
+            '  <div class="regras"><p>📄 <strong>Esta é a folha de UMA frente — '
+            f'{html.escape(rec["frente"])}.</strong> Ela mostra '
+            f'<strong>{rec["itens_folha"]}</strong> de <strong>{rec["itens_casa"]}</strong> itens '
+            "seus — o resto da casa está no mapa inteiro, não sumiu.</p></div>"
+        )
     # 🔒
-    out.append(
-        f'  <h2 class="sec">🔒 Suas <span class="n">{inline(S["🔒"]["titulo"].split("—", 1)[1].strip() if "—" in S["🔒"]["titulo"] else "")}</span></h2>'
-    )
+    # ⚠️ A-723 · D2 — o `— N itens, contados pela cor…` do cabeçalho é PROSA da casa. No recorte
+    # ele não vale, e a máquina põe no lugar o que ela MEDE; no mapa geral, não se toca.
+    _n = inline(S["🔒"]["titulo"].split("—", 1)[1].strip() if "—" in S["🔒"]["titulo"] else "")
+    if rec:
+        _n = f'{rec["itens_folha"]} de {rec["itens_casa"]} itens — recorte da frente {html.escape(rec["frente"])}'
+    out.append(f'  <h2 class="sec">🔒 Suas <span class="n">{_n}</span></h2>')
     for p in prosa:
         out.append(f'  <p class="sec-note">{inline(p.lstrip("> ").strip())}</p>')
     if itens:
@@ -668,6 +735,42 @@ def render(doc, casa_kicker):
 RX_FRENTE = re.compile(r"`frente:\s*([^`\n|]{1,40}?)\s*`", re.I)
 
 
+# ── rota do CÓDIGO DO NÓ (A-734, 15/09 — nasceu nas casas e voltou ao canon em 17/09) ─────────
+# ⚠️ Esta máquina existia nas 21 casas e NÃO existia aqui: o canon do escritório era um galho que
+# nunca recebeu a A-734. Medido em 17/09, ao tentar propagar a A-754: propagar o canon como estava
+# teria APAGADO a A-734 de 21 casas. Bifurcação de gerador se conserta juntando, nunca escolhendo.
+RX_NO_CRASE = re.compile(r"`([A-Za-z][A-Za-z0-9.]*-[A-Za-z0-9]+)`")
+RX_NO_INICIO = re.compile(r"^(?:\|\s*)?\*\*([A-Za-z][A-Za-z0-9.]*(?:-[A-Za-z0-9]+)*)\*\*")
+
+
+def codigos_da_linha(lin):
+    """Todo código de nó que a linha carrega: o que ABRE a linha (`| **A2.4.3-C02** |`) e os que
+    vêm entre crases no corpo do cartão (`caixa do nó \`A2.4.2-C07\``)."""
+    achados = []
+    m = RX_NO_INICIO.match(lin.strip())
+    if m:
+        achados.append(m.group(1))
+    achados += RX_NO_CRASE.findall(lin)
+    return achados
+
+
+def do_no(codigo, alvo):
+    """`A2.4` cobre `A2.4`, `A2.4.1-C03` e `A2.4-C09` — e NÃO cobre `A2.45`. Fronteira: `.` ou `-`."""
+    if not codigo:
+        return False
+    c, a = codigo.lower(), alvo.strip().lower()
+    return c == a or c.startswith(a + ".") or c.startswith(a + "-")
+
+
+def codigos_de_no(doc):
+    """Os códigos que o recorte alcança — para o erro não mentir por omissão."""
+    vistos = set()
+    for sec in doc["secoes"].values():
+        for _, lin in sec["linhas"]:
+            vistos.update(codigos_da_linha(lin))
+    return vistos
+
+
 def frentes_declaradas(doc):
     """{nome_normalizado: nome_como_escrito} — toda frente que aparece em alguma linha do mapa."""
     achadas = {}
@@ -680,26 +783,82 @@ def frentes_declaradas(doc):
     return achadas
 
 
+def _e_da_frente(lin, alvo, por_codigo=False):
+    # A-734: quando a casa organiza por CÓDIGO DE NÓ (`A2.4`) em vez de etiqueta `frente:`, a
+    # linha pertence ao recorte se algum código dela descende do alvo.
+    if por_codigo:
+        return any(do_no(c, alvo) for c in codigos_da_linha(lin))
+    m = RX_FRENTE.search(lin)
+    return bool(m) and m.group(1).strip().lower() == alvo
+
+
+def _linhas_da_frente(linhas, alvo, por_codigo=False):
+    """As linhas da frente pedida — **por BLOCO**, não por linha.
+
+    ⚠️ D1 da carta da Moderação Profinders (13/09), MEDIDO aqui em 15/09 antes de acreditar
+    (A-723): a régua antiga filtrava linha a linha. Um item 🔒 é um BLOCO — `## S-1 · título`
+    seguido de parágrafos, passos numerados, *Pronto quando* e a recomendação — e só a linha do
+    TÍTULO carrega a etiqueta. Resultado medido no produto: a frase `Contar as abas` saía **2×**
+    no mapa geral e **0×** na folha da frente, e o `Eu recomendo` saía **0×**. A folha entregava
+    ao dono uma pendência **sem nenhuma instrução, com cara de completa** — pior que a página
+    congelada, que ao menos mente pela data. Agora: etiqueta no `## ` leva o bloco inteiro até o
+    próximo `## `; etiqueta numa linha solta (tabela ⚙️) leva só a linha, como antes."""
+    fora, i, n = [], 0, len(linhas)
+    while i < n:
+        ln, lin = linhas[i]
+        if lin.startswith("## "):
+            j = i + 1
+            while j < n and not linhas[j][1].startswith("## "):
+                j += 1
+            # ⚠️ A-754 (17/09, achado da KEEPEE): a versão de 15/09 só levava o bloco quando a
+            # etiqueta estava na linha do `## `. A Keepee marcou as fichas dela onde é natural
+            # marcar — dentro do `**Onde mora:**` — e a folha saiu com ZERO fichas e ✅. O bloco
+            # entra se **QUALQUER linha dele** declarar a frente; onde a casa põe a etiqueta
+            # dentro da ficha é escolha dela, não contrato meu.
+            if any(_e_da_frente(lb, alvo, por_codigo) for _lnb, lb in linhas[i:j]):
+                fora.extend(linhas[i:j])
+            i = j
+            continue
+        if _e_da_frente(lin, alvo, por_codigo):
+            fora.append((ln, lin))
+        i += 1
+    return fora
+
+
+def _conta_itens(sec_linhas):
+    """Quantos itens 🔒 (`## `) há numa lista de linhas — o denominador que a máquina SABE."""
+    return sum(1 for _ln, lin in sec_linhas if lin.startswith("## "))
+
+
 def recorta(doc, frente):
     """Devolve uma CÓPIA do doc com só as linhas da frente pedida. Levanta se a frente não existe —
     página vazia é o defeito de denominador zero: sai verde dizendo que não há pendência."""
     alvo = frente.strip().lower()
     tem = frentes_declaradas(doc)
+    por_codigo = False
     if alvo not in tem:
-        nomes = ", ".join(sorted(tem.values())) or "nenhuma"
-        erro(
-            f"nenhum item do mapa declara `frente: {frente}`. As frentes declaradas hoje são: "
-            f"{nomes}. Marque os itens da frente com `frente: {frente}` no corpo — o recorte não "
-            f"adivinha por título nem por seção."
-        )
+        # A-734: antes de recusar, tenta a rota do CÓDIGO DO NÓ. Com tag declarada, a tag manda.
+        if any(
+            do_no(c, alvo)
+            for sec in doc["secoes"].values()
+            for _, lin in sec["linhas"]
+            for c in codigos_da_linha(lin)
+        ):
+            por_codigo = True
+            tem = dict(tem, **{alvo: frente.strip()})
+        else:
+            nomes = ", ".join(sorted(tem.values())) or "nenhuma"
+            cods = ", ".join(sorted(codigos_de_no(doc))[:12]) or "nenhum"
+            erro(
+                f"nenhum item do mapa declara `frente: {frente}`, e nenhum código de item começa "
+                f"por `{frente}`. Frentes declaradas: {nomes}. Códigos que o recorte alcança: "
+                f"{cods}. Marque os itens com `frente: {frente}` no corpo — o recorte não adivinha "
+                f"por título nem por seção."
+            )
     novo = {k: (dict(v) if isinstance(v, dict) else v) for k, v in doc.items()}
     novo["secoes"] = {}
     for pista, sec in doc["secoes"].items():
-        linhas = [
-            (i, lin)
-            for i, lin in sec["linhas"]
-            if RX_FRENTE.search(lin) and RX_FRENTE.search(lin).group(1).strip().lower() == alvo
-        ]
+        linhas = _linhas_da_frente(sec["linhas"], alvo, por_codigo)
         # A 💬 RESPOSTAS não se recorta: resposta a pergunta DELE vale para a casa toda, e sumir
         # com ela numa folha de frente seria esconder a resposta de quem abriu justamente essa
         # folha.
@@ -709,6 +868,35 @@ def recorta(doc, frente):
     d, motivo = doc["atualizado"]
     novo["atualizado"] = (d, f"{motivo} · RECORTE DA FRENTE {tem[alvo]}")
     novo["titulo"] = f"{doc['titulo']} · frente {tem[alvo]}"
+    # ⚠️ D2 e D3 da mesma carta (A-723). **D2:** o total do cabeçalho da seção 🔒 é PROSA escrita
+    # à mão pela casa (medido no mapa da Moderação: `# 🔒 SEUS — 16 itens, contados pela cor…`),
+    # e o desenho o copia tal e qual — numa folha de UM pedaço isso vira um denominador da casa
+    # inteira ao lado de 1 item. A causa não é "o gerador não recontou": é **número recitado sem
+    # dono**, a família que esta casa já conhece. Na folha, a máquina **substitui** o que não pode
+    # honrar pelo que ela mede; no mapa GERAL o texto da casa não se toca (o mapa é dela, D172).
+    # **D3:** a folha precisa DIZER que é recorte no corpo — o dono lê no celular, onde o título
+    # da aba não aparece. Ele via 1 item e o total de 16, sem nada avisando que havia recorte.
+    novo["recorte"] = {
+        "frente": tem[alvo],
+        "itens_folha": _conta_itens(novo["secoes"].get("🔒", {}).get("linhas", [])),
+        "itens_casa": _conta_itens(doc["secoes"].get("🔒", {}).get("linhas", [])),
+    }
+    # ⚠️ A-754 (17/09) — o SEGUNDO dente, e o que importa mais: o guarda de "frente inexistente"
+    # acima cobre o caso em que ninguém declarou a etiqueta. Ele NÃO cobria o caso em que a
+    # etiqueta existe e o recorte **esvaziou mesmo assim** — e foi esse que a Keepee mediu:
+    # `✅ … 0 item(ns) 🔒` numa frente com dez pendências, oito com dinheiro na mesa. Página vazia
+    # que sai VERDE é a pior das saídas: quem abre lê "esta frente não tem pendência" e acredita,
+    # porque o ✅ é o carimbo de que a máquina conferiu. O denominador zero tem de GRITAR.
+    # A régua: se a casa tem ficha 🔒 e a folha não ficou com nenhuma, é defeito — nunca resposta.
+    if novo["recorte"]["itens_casa"] > 0 and novo["recorte"]["itens_folha"] == 0:
+        erro(
+            f"o recorte da frente {tem[alvo]} ficou com ZERO fichas 🔒, e a casa tem "
+            f"{novo['recorte']['itens_casa']}. A etiqueta `frente: {tem[alvo]}` existe no mapa "
+            f"(por isso o guarda anterior deixou passar), mas não caiu em ficha nenhuma — ela "
+            f"está solta numa linha de tabela ⚙️, ou a ficha usa outra grafia do nome. "
+            f"NÃO gero a folha: página vazia com ✅ é pior que página nenhuma, porque quem a "
+            f"abre lê 'esta frente não tem pendência' e acredita."
+        )
     return novo
 
 
@@ -847,6 +1035,167 @@ def prova_frente():
         caso("MUTAÇÃO: o CONTEÚDO da 🧊 chega ao HTML (não basta não reprovar)",
              "espera cliente" in html_g and "🧊" in html_g)
 
+    # ── 📄 O PRODUTO DO RECORTE (A-723 · o 5º achado da Moderação, e é o que mais importa) ──────
+    # A carta dela de 13/09: *"os dentes passam verdes com os 4 de pé — nenhum dos 7 casos olha o
+    # PRODUTO do recorte"*. Era verdade, e ela escreveu os 3 casos que teriam pego tudo. São estes,
+    # com o texto dela: (1) item 🔒 de 2+ linhas → a 2ª linha do corpo tem de aparecer no HTML da
+    # folha; (2) a contagem do cabeçalho tem de bater com o nº de itens DA FOLHA; (3) `frente:` não
+    # pode aparecer no texto visível de NENHUMA das duas páginas. Crédito dela, verbatim.
+    with tempfile.TemporaryDirectory() as d:
+        p_f = os.path.join(d, "f.md")
+        open(p_f, "w", encoding="utf-8").write(
+            "# MAPA DE PENDÊNCIAS — Casa de Teste\n"
+            "> **🌐 Sua página:** https://claude.ai/code/artifact/0000\n"
+            "> **Atualizado: 2026-09-15 (v1 — produto do recorte)**\n\n"
+            "# 🔒 SUAS — 2 itens, contados pela cor: 2 🟥\n\n"
+            "## S-1 · Item da frente `frente: alfa`\n\n"
+            "Corpo com a frase ANCORA-DO-CORPO que só existe aqui.\n\n"
+            "**Rec.:** a opção B.\n\n1. primeiro passo\n\n"
+            "## S-2 · Item de OUTRA frente `frente: beta`\n\n"
+            "Corpo do outro.\n\n"
+            "# ⚙️ MINHAS — nada\n\n| # | o quê | estado |\n|---|---|---|\n"
+            "| M-1 | coisa `frente: alfa` | ⏳ |\n"
+        )
+        exe = [sys.executable, os.path.abspath(__file__), "--md", p_f]
+        subprocess.run(exe + ["--out", os.path.join(d, "geral.html")],
+                       capture_output=True, text=True)
+        subprocess.run(exe + ["--frente", "alfa", "--out", os.path.join(d, "folha.html")],
+                       capture_output=True, text=True)
+
+        def _visivel(cam):
+            if not os.path.isfile(cam):
+                return ""
+            h = open(cam, encoding="utf-8").read()
+            h = re.sub(r"<(script|style)[^>]*>.*?</\1>", "", h, flags=re.S)
+            h = re.sub(r"<title>.*?</title>", "", h, flags=re.S)
+            return re.sub(r"<[^>]+>", " ", h)
+
+        v_geral, v_folha = _visivel(os.path.join(d, "geral.html")), _visivel(os.path.join(d, "folha.html"))
+        caso("A-723 D1: o CORPO do item 🔒 (2ª linha, não só o título) chega à folha da frente",
+             "ANCORA-DO-CORPO" in v_folha)
+        caso("A-723 D1 (mutação): a régua VELHA, linha a linha, NÃO o traria — só o título tem a "
+             "etiqueta, e é por isso que o dono via pendência sem instrução",
+             len(_linhas_da_frente([(1, "## S-1 · x `frente: alfa`"), (2, "corpo")], "alfa")) == 2)
+        caso("A-723 D2: a contagem do cabeçalho da folha bate com os itens DA FOLHA (1 de 2)",
+             "1 de 2 itens" in v_folha and "2 itens, contados pela cor" not in v_folha)
+        caso("A-723 D3: a folha se declara RECORTE no corpo (o dono lê no celular, sem a aba)",
+             "folha de UMA frente" in v_folha)
+        caso("A-723 D4: `frente:` não aparece no texto visível de NENHUMA das duas páginas",
+             "frente:" not in v_geral and "frente:" not in v_folha)
+        caso("A-723 (mutação): o item da OUTRA frente continua FORA da folha",
+             "S-2" not in v_folha and "Corpo do outro" not in v_folha)
+
+    # ── A-754 (17/09, achado da KEEPEE): etiqueta DENTRO da ficha, e o zero que grita ──────────
+    # A casa marcou a frente onde é natural marcar — no `**Onde mora:**` da ficha, não no `## ` —
+    # e a folha saiu com ZERO fichas e ✅. Dois dentes, os dois provados nos dois lados: (1) o
+    # bloco entra pela etiqueta em QUALQUER linha dele; (2) recorte que esvazia uma casa com
+    # fichas REPROVA — página vazia com ✅ é pior que página nenhuma.
+    caso("A-754: a etiqueta no CORPO da ficha (não no `## `) traz o bloco inteiro",
+         len(_linhas_da_frente(
+             [(1, "## P1 · 🟥 título sem etiqueta"),
+              (2, "**Onde mora:** A2 · `frente: cobranca`"),
+              (3, "1. passo")], "cobranca")) == 3)
+    # ── A-734, provada no canon pela 1ª vez (17/09) ──────────────────────────────────────
+    # A A-734 nasceu nas casas em 15/09 e voltou ao canon hoje, na fusão dos dois galhos. Ela
+    # chegou SEM bateria: 21 casas rodavam uma rota que nenhum caso cobria. Estes 4 casos são a
+    # dívida sendo paga — dente nos dois lados (o que deve passar e o que deve ficar de fora).
+    caso("A-734: recorte pelo CÓDIGO DO NÓ leva a linha do nó e as dos filhos",
+         _linhas_da_frente(
+             [(1, "| **A2.4** | o pai | ⏳ |"),
+              (2, "| **A2.4.1-C03** | o filho | ⏳ |")], "a2.4", True) ==
+         [(1, "| **A2.4** | o pai | ⏳ |"), (2, "| **A2.4.1-C03** | o filho | ⏳ |")])
+    caso("A-734 (mutação): `A2.45` NÃO é filho de `A2.4` — a fronteira é `.` ou `-`",
+         _linhas_da_frente([(1, "| **A2.45** | vizinho, não filho | ⏳ |")], "a2.4", True) == [])
+    caso("A-734: o código entre CRASES no corpo do cartão também conta",
+         _linhas_da_frente([(1, "texto citando a caixa do nó `A2.4.2-C07` no meio")], "a2.4", True)
+         == [(1, "texto citando a caixa do nó `A2.4.2-C07` no meio")])
+    caso("A-734 (mutação): sem a rota por código ligada, a MESMA linha fica de fora — "
+         "prova que quem traz é a rota nova, não o acaso",
+         _linhas_da_frente([(1, "| **A2.4** | o pai | ⏳ |")], "a2.4", False) == [])
+    caso("A-754 (mutação): ficha de OUTRA frente marcada no corpo continua FORA",
+         _linhas_da_frente(
+             [(1, "## P2 · 🟧 outro"),
+              (2, "**Onde mora:** A5 · `frente: comercial`")], "cobranca") == [])
+    with tempfile.TemporaryDirectory() as d:
+        p_z = os.path.join(d, "zero.md")
+        open(p_z, "w", encoding="utf-8").write(
+            "# MAPA DE PENDÊNCIAS — Casa de Teste\n"
+            "> **🌐 Sua página:** https://claude.ai/code/artifact/0000\n"
+            "> **Atualizado: 2026-09-17 (v1 — caso do zero)** e o estado em uma linha.\n\n"
+            "# 🔒 SUAS — 1 item\n\n"
+            "## P1 · 🟥 Item de outra frente\n\n"
+            "**Onde mora:** A2 · `frente: cobranca`\n\n**Rec.:** nada.\n\n"
+            "# ⚙️ MINHAS\n\n| # | o quê | estado |\n|---|---|---|\n"
+            "| M-1 | só na tabela `frente: faxina` | ⏳ |\n"
+        )
+        rz = subprocess.run(
+            [sys.executable, os.path.abspath(__file__), "--md", p_z,
+             "--frente", "faxina", "--out", os.path.join(d, "z.html")],
+            capture_output=True, text=True)
+        caso("A-754: frente declarada SÓ na tabela ⚙️ — o recorte REPROVA em vez de emitir "
+             "folha vazia com ✅", rz.returncode != 0 and "ZERO fichas" in (rz.stdout + rz.stderr))
+        rok = subprocess.run(
+            [sys.executable, os.path.abspath(__file__), "--md", p_z,
+             "--frente", "cobranca", "--out", os.path.join(d, "ok.html")],
+            capture_output=True, text=True)
+    with tempfile.TemporaryDirectory() as d:
+        p_su = os.path.join(d, "sem-url.md")
+        open(p_su, "w", encoding="utf-8").write(
+            "# MAPA DE PENDÊNCIAS — Casa Sem Página\n"
+            "> **Atualizado: 2026-09-17 (v1 — sem página publicada)** e o estado em uma linha.\n\n"
+            "# 🔒 SUAS — 1 item\n\n## P1 · 🟥 Uma pendência\n\n**Rec.:** nada.\n\n"
+            "# ⚙️ MINHAS\n\n| # | o quê | estado |\n|---|---|---|\n| M-1 | uma linha | ⏳ |\n"
+        )
+        rsu = subprocess.run(
+            [sys.executable, os.path.abspath(__file__), "--md", p_su,
+             "--out", os.path.join(d, "su.html")], capture_output=True, text=True)
+        caso("A-734 (outra metade): casa SEM página publicada ainda recebe o mapa dela — "
+             "avisa, não mata", rsu.returncode == 0 and os.path.exists(os.path.join(d, "su.html")))
+        caso("A-734 (outra metade, mutação): e o aviso APARECE — silêncio viraria página órfã "
+             "sem ninguém saber", "Sua página" in (rsu.stdout + rsu.stderr))
+        caso("A-754 (o outro lado): a frente que TEM ficha continua saindo — o dente novo não "
+             "reprova o caso bom", rok.returncode == 0)
+
+    # ── A-712: A LINHA DE RÉGUA DO CABEÇALHO CHEGA À PÁGINA ─────────────────────────────────────
+    # Até 15/09 não chegava: o parser a recolhia em `doc["regras"]` e o desenho nunca a citava.
+    # Medido nas 24 casas montadas: 89 linhas engolidas, e as 24 perdiam o "Como responder" —
+    # justamente a linha que ensina o dono a responder por código. Achado da EDU (04/09).
+    with tempfile.TemporaryDirectory() as d:
+        p_reg = os.path.join(d, "regua.md")
+        open(p_reg, "w", encoding="utf-8").write(
+            "# MAPA DE PENDÊNCIAS — Casa de Teste\n"
+            "> **🌐 Sua página:** https://claude.ai/code/artifact/0000\n"
+            "> **Como responder:** cite o código (*\"resolve o P1\"*) ou clique na caixa.\n"
+            "> **Régua desta casa:** aqui mora SENTINELA-DA-REGUA e mais nada.\n"
+            "> **Atualizado: 2026-09-15 (v1 — caso da régua)** e o estado em uma linha.\n\n"
+            "# 🔒 SUAS — nada agora\n\n"
+            "## P1 · 🟢 Item\n\n**Decisão:** nada. **Rec.:** nada. **Pronto quando:** nunca.\n\n"
+            "1. passo\n\n"
+            "# ⚙️ MINHAS — nada\n\n| # | o quê | estado |\n|---|---|---|\n| M-1 | nada | ⏳ |\n"
+        )
+        cam_r = os.path.join(d, "regua.html")
+        r = subprocess.run(
+            [sys.executable, os.path.abspath(__file__), "--md", p_reg, "--out", cam_r],
+            capture_output=True, text=True)
+        html_r = open(cam_r, encoding="utf-8").read() if os.path.isfile(cam_r) else ""
+        caso("o cabeçalho com linhas de régua é ACEITO (não vira apagão)", r.returncode == 0)
+        caso("MUTAÇÃO: a linha que ensina a responder CHEGA ao HTML (era engolida até 15/09)",
+             "cite o código" in html_r)
+        caso("MUTAÇÃO: a régua da casa CHEGA ao HTML", "SENTINELA-DA-REGUA" in html_r)
+        caso(
+            "a régua sai ANTES da 1ª pista, não no rodapé — é instrução de leitura",
+            ("SENTINELA-DA-REGUA" in html_r)
+            and html_r.index("SENTINELA-DA-REGUA") < html_r.index("🔒 Suas"),
+        )
+        caso(
+            "MUTAÇÃO: o balde de régua NÃO engole o `Atualizado` (ele vira a tarja de data)",
+            "Atualizado 15/09" in html_r and "v1" in html_r,
+        )
+        caso(
+            "MUTAÇÃO: o balde de régua NÃO engole a linha da página",
+            html_r.count("Sua página") == 0,
+        )
+
     # ── o CAMINHO DE ERRO também se executa (09/09) ──────────────────────────────────────────────
     # POR QUE: ao arrumar o lint deste arquivo eu renomeei uma variável por TOKEN, e o tokenizador
     # do Python 3.11 não vê dentro de f-string — duas referências ficaram apontando para um nome que
@@ -932,7 +1281,7 @@ def main():
     # O rótulo vem do PRÓPRIO markdown (título) — nunca de argumento — para que `--check` na CI
     # produza o mesmo byte.
     casa = doc["titulo"]
-    novo = render(doc, casa)
+    novo = render(limpa_etiqueta_de_frente(doc), casa)
     if a.check:
         atual = open(a.out, encoding="utf-8").read() if os.path.isfile(a.out) else ""
         if atual != novo:

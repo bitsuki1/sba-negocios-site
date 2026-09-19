@@ -64,8 +64,7 @@
       "mcp__Atlassian_Rovo",
       "mcp__Claude_Code_Remote",
       "mcp__ROBO_DO_DRIVE",
-      "mcp__ROBO_DO_GMAIL",
-      "mcp__Bitwarden"
+      "mcp__ROBO_DO_GMAIL"
     ],
     "defaultMode": "acceptEdits"
   }
