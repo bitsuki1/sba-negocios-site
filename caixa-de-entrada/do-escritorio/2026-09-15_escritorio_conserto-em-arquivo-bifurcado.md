@@ -1,3 +1,4 @@
+STATUS: ROTEADA
 # O escritório mudou 2 arquivo(s) que aqui tem versão SUA
 
 > **De:** Escritório do MOU · **Data:** 2026-09-15
