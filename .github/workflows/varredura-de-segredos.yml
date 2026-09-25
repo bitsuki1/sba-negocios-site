@@ -1,11 +1,26 @@
 name: varredura-de-segredos
 #
-# Porta de entrada de credenciais: a cada envio e a cada pedido de junção, o que
-# ESTE envio acrescentou é conferido antes de entrar. Credencial não entra no
-# repositório — e o jeito de garantir isso é conferir na porta, não depois.
+# ════════════════════════════════════════════════════════════════════════════
+# KIT — A PORTA DE ENTRADA DE SEGREDOS (o dente da D200) · versão UNIDADE/APP
+# ════════════════════════════════════════════════════════════════════════════
+# COMO SE INSTALA (dois arquivos, nada mais):
+#   1. copie `varredura-de-segredos.mjs` (ao lado deste) para `scripts/varredura-de-segredos.mjs`;
+#   2. copie ESTE arquivo para `.github/workflows/varredura-de-segredos.yml`.
+#   Não precisa de dependência, package.json, nem instalação — é Node puro.
+#   O script é CÓPIA BYTE-A-BYTE do que roda no escritório: a diferença entre
+#   escritório e unidade mora só neste yml (no passo da árvore, lá embaixo).
+#   Se um dia o `md5sum` dos dois .mjs divergir, alguém editou a cópia — é
+#   drift, e o conserto é trazer o do escritório de volta.
 #
-# ⚠️ Este repositório é PÚBLICO. Os comentários daqui ficam propositalmente
-# genéricos: descrevem o que o passo faz, nunca o desenho interno da verificação.
+# POR QUE EXISTE
+#   Ordem viva do MOU, 21/08/2026 (D200, verbatim): "credencial em git não é
+#   mais aceito, vamos arrumar a partir de agora e não deixarmos mais
+#   acontecer". A decisão tem duas metades — este workflow é só a SEGUNDA:
+#     · "arrumar o que já está lá"  → é ato do DONO (D208: o valor sai do HEAD
+#        e vira PONTEIRO ao cofre humano; ROTAÇÃO NÃO É EXIGIDA; o histórico
+#        FICA). Ninguém mais rotaciona, apaga chave ou reescreve histórico.
+#     · "não deixar acontecer de novo" → É ISTO AQUI.
+#   Precedente: bitsuki1/profinders-hub (verificacao.yml) e a Keepee.
 #
 #
 # ⚠️ ESTA PORTA PODE MORRER CALADA — E O TESTE NÃO É LER ESTE ARQUIVO, É LER O HISTÓRICO
@@ -45,14 +60,21 @@ name: varredura-de-segredos
 #   Antes de escrever "a causa é X", procure a casa que tem X e NÃO tem o sintoma.
 # A REGRA DURA DA SAÍDA
 #   O log mostra `caminho:linha` + a CATEGORIA. NUNCA o valor — nem mascarado,
-#   nem o trecho da linha. Log de execução é lido por qualquer um, e segredo
-#   pela metade ainda é pista.
+#   nem o trecho da linha. Log de Action é lido por qualquer um com acesso ao
+#   repositório, e segredo pela metade ainda é pista.
 #
-# O QUE PASSA DE PROPÓSITO
-#   As chaves do Supabase que são públicas por desenho (a `publishable` e o
-#   crachá de papel `anon`) vão embutidas no navegador de quem visita o site;
-#   quem protege o dado ali é o RLS. Barrá-las seria gritar lobo — e quem grita
-#   lobo não é ouvido.
+# O QUE PASSA DE PROPÓSITO (D206)
+#   A chave `publishable` do Supabase e o crachá JWT de papel `anon`: públicos
+#   por desenho, vão embutidos no navegador de quem visita. Quem protege o dado
+#   ali é o RLS. Barrá-los seria gritar lobo — e quem grita lobo não é ouvido.
+#
+# ANTES DE MEXER EM QUALQUER SEGREDO QUE ESTA PORTA ACUSAR
+#   A lista de QUEM QUEBRA vai junto (regra `segredo-e-consumidor`, 25/08):
+#   pedido de rotacionar/revogar/apagar SEM a lista de consumidores é pedido
+#   INVÁLIDO e volta para a casa. A lista mora em
+#   `portfolio-automacoes/SEGREDOS-E-CONSUMIDORES.md` e se MEDE, não se escreve
+#   de cabeça.
+# ════════════════════════════════════════════════════════════════════════════
 
 on:
   push:
@@ -64,24 +86,16 @@ on:
 permissions:
   contents: read
 
-# Piso de custo do portfolio (2026-09-07). Sem isto, cada push empilha uma execucao
-# a mais e as antigas seguem gastando minuto ate terminar sozinhas.
-# este workflow VERIFICA: cancelar o anterior nao perde nada, porque o que importa
-# e o estado ATUAL do codigo.
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   varredura-de-segredos:
-    name: Varredura de segredos
+    # TETO DE TEMPO (A-595, 09/09). Sem esta linha o robô roda até o corte de 6 HORAS do
+    # GitHub, e o GitHub cobra por minuto pendurado — foi assim que um navegador travado
+    # comeu ~US$ 200 numa semana. O conserto de 08/09 pôs teto em 109 robôs JÁ EXISTENTES
+    # e esqueceu o MOLDE: toda casa que instalasse o kit depois nascia sem teto de novo.
+    # Consertar cópia sem consertar molde é consertar pelo tempo que a próxima cópia leva.
+    timeout-minutes: 15
+    name: Varredura de segredos (D200)
     runs-on: ubuntu-latest
-    # Piso de custo do portfolio (2026-09-07): sem teto, um job travado so para
-    # no limite de 6h do GitHub — foi assim que 11 execucoes de um teste queimaram
-    # ~66h de runner numa manha. 60 min = 1,7x a mais demorada que ja deu certo no
-    # portfolio (36,2 min, medido em 253 execucoes). Precisa de mais? levante AQUI,
-    # com o motivo na linha: reprovar aparece, travar seis horas nao.
-    timeout-minutes: 60
     steps:
       - name: Baixar o repositório com o histórico inteiro
         uses: actions/checkout@v4
@@ -95,7 +109,7 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Credencial NOVA neste envio (a porta — reprova)
+      - name: Segredo NOVO neste envio (a porta — reprova)
         # Só as linhas ACRESCENTADAS. O passivo antigo não entra aqui: senão a
         # porta reprovaria para sempre por causa de coisa que só o dono resolve,
         # e porta que reprova todo dia é porta que alguém desliga.
@@ -105,19 +119,22 @@ jobs:
           TOPO: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
         run: node scripts/varredura-de-segredos.mjs --intervalo "${BASE}..${TOPO}"
 
-      - name: Credencial VIVA na árvore inteira (só relatório, NÃO reprova)
-        # Nasce em MODO AVISO de propósito: o repositório pode ter coisa antiga
-        # já versionada esperando o dono, e travar por causa dela empurraria todo
-        # mundo para o `--no-verify`. Porteiro desligado protege menos que
-        # porteiro nenhum, porque dá a sensação de estar protegido. Este passo
-        # existe para que o passivo APAREÇA em toda execução, em vez de sumir do
-        # radar por já ser "coisa antiga".
+      - name: Segredo VIVO na árvore inteira (só relatório, NÃO reprova)
+        # ⚠️ AQUI ESTÁ A ÚNICA DIFERENÇA PARA A VERSÃO DO ESCRITÓRIO.
+        #   Nasce em MODO AVISO de propósito. A casa quase sempre tem segredo
+        #   antigo já versionado esperando o dono; travar por causa dele
+        #   empurraria todo mundo para o `--no-verify` — e um porteiro
+        #   desligado protege menos que porteiro nenhum, porque dá a sensação
+        #   de estar protegido. Ele existe para que o passivo APAREÇA em toda
+        #   execução, em vez de sumir do radar por já ser "coisa antiga".
         #
         # COMO TORNAR BLOQUEANTE: apague a linha `continue-on-error: true`
         #   abaixo. FAÇA ISSO QUANDO AS DUAS condições valerem:
-        #     (a) `node scripts/varredura-de-segredos.mjs --arvore` devolver ZERO; e
-        #     (b) o passo tiver passado ~2 semanas em modo aviso sem nenhum falso
-        #         positivo (confira nos avisos das execuções).
+        #     (a) `node scripts/varredura-de-segredos.mjs --arvore` devolver
+        #         ZERO — ou seja, o dono já virou os valores em ponteiro (D208); e
+        #     (b) o passo tiver passado ~2 semanas em modo aviso sem nenhum
+        #         falso positivo (confira nos avisos das execuções).
+        #   O escritório já cumpriu as duas e lá o passo é bloqueante.
         if: always()
         continue-on-error: true
         run: node scripts/varredura-de-segredos.mjs --arvore
