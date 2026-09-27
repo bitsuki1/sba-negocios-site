@@ -93,7 +93,14 @@ CSS = r"""
   .ready{font-size:13px;color:var(--ink-faint);border-top:1px dashed var(--line-strong);padding-top:9px;margin-top:11px}.ready b{color:var(--done)}
   .warn{background:var(--gold-soft);color:var(--gold-ink);border-radius:10px;padding:9px 12px;font-size:13px;margin:9px 0 0}.warn.red{background:var(--alert-soft);color:var(--alert)}
   .mach{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}.mach td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-  .mach tr td:first-child{color:var(--ink-soft)}.mach tr td:last-child{white-space:nowrap;text-align:right;font-family:"JetBrains Mono",monospace;font-size:11.5px}
+  /* ⚠️ B17 (26/09) — o `white-space:nowrap` daqui foi escrito para um SELO curto ("no ar",
+     "esperando") e a coluna recebe PROSA. Medido na página dele nesta rodada: 65 células sob
+     a regra, a maior com 161 caracteres em monoespaçada de 11,5px dentro de uma tabela
+     `width:100%` — cerca de 1.100px num visor de 360px, e o dono opera no celular (D85).
+     `normal` não quebra selo curto (selo curto CABE); só deixa a prosa quebrar em vez de
+     arrastar a página de lado. A prova de que `normal` serve aqui já estava 4 linhas abaixo:
+     `.card .mach tr td:last-child` usa `normal` desde sempre. O `nowrap` só fazia mal. */
+  .mach tr td:first-child{color:var(--ink-soft)}.mach tr td:last-child{white-space:normal;overflow-wrap:anywhere;text-align:right;font-family:"JetBrains Mono",monospace;font-size:11.5px}
   .mach tr:last-child td{border-bottom:none}.mach b{color:var(--ink)}
   .card .mach{margin:4px 0 10px}
   .card .mach th{text-align:left;font-size:12px;color:var(--ink-faint);font-weight:600;padding:6px 10px;border-bottom:1px solid var(--line-strong)}
@@ -145,8 +152,7 @@ def paras_com_tabela(paras):
         eh_sep = i + 1 < len(paras) and re.fullmatch(r"\|[\s:|-]+\|", paras[i + 1].strip())
         if eh_cab and eh_sep:
 
-            def celulas(linha):
-                return [c.strip() for c in linha.strip().strip("|").split("|")]
+            celulas = celulas_md   # um só corte, que respeita o pipe escapado (A-785)
 
             cab = celulas(p)
             linhas, j = [], i + 2
@@ -169,24 +175,66 @@ def paras_com_tabela(paras):
 
 
 def inline(md):
-    """Markdown inline → HTML (negrito, itálico, código, link, riscado). Escapa o resto."""
-    s = html.escape(md, quote=False)
-    s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
+    """Markdown inline → HTML (negrito, itálico, código, link, riscado). Escapa o resto.
+
+    ⚠️ A ORDEM É O CONSERTO (A-785 · colheita da Keepee, 24/09). Antes, o negrito era aplicado
+    POR CIMA do que já tinha virado `<code>` ou link — e um glob comum no conteúdo,
+    `areas/**/_NO.md`, tinha os `**` lidos como abertura de negrito: virava `<code>areas/<b>/…`
+    e embaralhava o parágrafo INTEIRO em cascata, deixando `**` crus adiante. Medido lá: 12
+    `<b>` dentro de `<code>` e 5 `**` crus na tela do dono, no cabeçalho que ele lê primeiro.
+    Agora código e links são GUARDADOS antes, e só depois o negrito atravessa linha com `re.S`.
+    """
+    # NUL na entrada derrubaria a restauração (o sentinela usa `\x00`); tirar é mais barato
+    # que descobrir pelo IndexError — o gerador é o do mapa DELE.
+    s = html.escape(md.replace("\x00", ""), quote=False)
+    guarda: list[str] = []
+
+    def _guardar(pronto: str) -> str:
+        guarda.append(pronto)
+        return f"\x00{len(guarda) - 1}\x00"
+
+    s = re.sub(r"`([^`]+)`", lambda m: _guardar(f"<code>{m.group(1)}</code>"), s)
     s = re.sub(
         r"\[([^\]]+)\]\((https?://[^)\s]+)\)",
-        r'<a href="\2" target="_blank" rel="noopener">\1</a>',
+        lambda m: _guardar(f'<a href="{m.group(2)}" target="_blank" rel="noopener">{m.group(1)}</a>'),
         s,
     )
+    # `*` fora da classe da URL crua: sem isso, `**https://…**` engolia os `**` de fechamento
+    # e deixava o de abertura órfão na tela (medido na linha do Registrato).
     s = re.sub(
-        r"(?<![\w\"'>])(https?://[^\s<)\]]+)",
-        r'<a href="\1" target="_blank" rel="noopener">\1</a>',
+        r"(?<![\w\"'>])(https?://[^\s<)\]*]+)",
+        lambda m: _guardar(f'<a href="{m.group(1)}" target="_blank" rel="noopener">{m.group(1)}</a>'),
         s,
     )
-    s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)
+    # ⚠️ `re.S`: em markdown, linhas consecutivas são UM parágrafo e o `**negrito**` atravessa
+    # a quebra. Sem a flag, o asterisco saía CRU na tela dele — medido pelo
+    # `portfolio-automacoes` na página republicada em 18/09, na 1ª linha de uma resposta a ele.
+    # Só é seguro DEPOIS da guarda acima.
+    s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s, flags=re.S)
     s = re.sub(r"~~(.+?)~~", r"<s>\1</s>", s)
     s = re.sub(r"(?<![\w*])\*(?!\s)([^*\n]+?)\*(?![\w*])", r"<i>\1</i>", s)
     s = re.sub(r"(?<![\w_])_(?!\s)([^_\n]+?)_(?![\w_])", r"<i>\1</i>", s)
+
+    # Restaurar em LAÇO: código DENTRO de link é aninhado, e um passe só deixaria o sentinela
+    # interno cru na tela. Índice inválido devolve vazio em vez de estourar.
+    for _ in range(8):
+        anterior = s
+        s = re.sub(r"\x00(\d+)\x00",
+                   lambda m: guarda[int(m.group(1))] if int(m.group(1)) < len(guarda) else "", s)
+        if s == anterior:
+            break
     return s
+
+
+def celulas_md(linha: str) -> list[str]:
+    """Divide uma linha de tabela markdown em células respeitando o pipe ESCAPADO (`\\|`).
+
+    Achado da Keepee (24/09): `` `awk -F'\|'` `` dentro de uma célula estilhaçava a linha no
+    `split("|")` e partia o negrito ao meio. Eram CINCO pontos de corte idênticos no arquivo;
+    agora é um só, e o conserto vale nos cinco.
+    """
+    partes = re.split(r"(?<!\\)\|", linha.strip().strip("|"))
+    return [p.replace("\\|", "|").strip() for p in partes]
 
 
 def erro(msg, ln=None):
@@ -195,6 +243,11 @@ def erro(msg, ln=None):
 
 
 AVISOS = []  # molde v2: o que a casa ainda usa e vai sair (não é erro, é rota de saída)
+
+# ⚠️ B17 — a régua do que é recado DE MÁQUINA numa linha de régua: um trecho de `código` que
+# EXECUTA. Fechada de propósito (não é "toda linha com crase"): `pendencias/` entre crases é
+# endereço e continua passando; `python3 processos/gerar-mapa.py` é ordem a quem mantém o arquivo.
+RX_SO_PARA_A_MAQUINA = re.compile(r"`(python3|python|bash|sh|node|npx|deno|make|pytest|git)\s")
 
 
 def parse(md_text):
@@ -403,7 +456,7 @@ def parse(md_text):
     for ln, lin in doc["secoes"].get("📅", {"linhas": []})["linhas"]:
         if not lin.startswith("|"):
             continue
-        cels = [c.strip() for c in lin.strip().strip("|").split("|")]
+        cels = celulas_md(lin)
         if len(cels) < 3 or set(cels[0]) <= set("-: ") or cels[0].lower() in ("código", "codigo"):
             continue
         if not cels[2] or cels[2] in ("—", "-", "?", "a definir", "A DEFINIR"):
@@ -476,7 +529,7 @@ def tabela(linhas):
     for _ln, lin in linhas:
         if not lin.startswith("|"):
             continue
-        cells = [c.strip() for c in lin.strip().strip("|").split("|")]
+        cells = celulas_md(lin)
         if all(re.match(r"^:?-{3,}:?$", c) for c in cells if c):
             continue
         rows.append(cells)
@@ -549,9 +602,25 @@ def render(doc, casa_kicker):
     # `Atualizado` sem `(vN)` e a pista `🤖` são ACEITOS acima, com aviso). Então rende-se — e
     # rende-se no TOPO, não em rodapé, porque a linha que ela cobrou é instrução de leitura: o
     # dono precisa dela antes das pendências, não depois.
-    if doc["regras"]:
+    # ⚠️ B17 (26/09) — LINHA DE RÉGUA QUE FALA COM A MÁQUINA NÃO VAI PARA A TELA DELE.
+    # Desde o conserto do A-712 esta seção rende TODA linha `>` do cabeçalho, e uma delas é
+    # instrução de manutenção: *"Este arquivo é GERADO… Não editar à mão: `python3 …`"*. Ela é
+    # necessária no Markdown — é o que impede a próxima instância de editar o gerado à mão — e é
+    # ruído na primeira tela de quem só quer ver o que é dele (D224: na tela dele só o que é dele).
+    # A régua é o COMANDO, não uma lista de frases proibidas: linha cujo `código` executa algo é
+    # recado para quem mantém o arquivo. Medido nos 27 mapas montados: 177 linhas de régua, e o
+    # filtro alcança 2 (esta casa e a Keepee) — o item supunha 18, e supor não é medir.
+    # Nada se perde e nada fica calado: a linha continua no `.md` e o AVISO nomeia o que foi retido.
+    for r in [x for x in doc["regras"] if RX_SO_PARA_A_MAQUINA.search(x)]:
+        AVISOS.append(
+            "linha de régua retida da página do dono porque executa comando (recado de "
+            f"manutenção, não de leitura): {r.strip()[:90]}"
+        )
+    if [x for x in doc["regras"] if not RX_SO_PARA_A_MAQUINA.search(x)]:
         out.append('  <div class="regras">')
         for r in doc["regras"]:
+            if RX_SO_PARA_A_MAQUINA.search(r):
+                continue
             out.append(f"    <p>{inline(r)}</p>")
         out.append("  </div>")
     # ⚠️ A-723 · D3 — A FOLHA DA FRENTE TEM DE SE DECLARAR RECORTE **NO CORPO**.
@@ -648,7 +717,7 @@ def render(doc, casa_kicker):
         )
         linhas_c = [lin for ln, lin in S["🧊"]["linhas"] if lin.strip()]
         if any(x.strip().startswith("|") for x in linhas_c):
-            cels = [[c.strip() for c in x.strip().strip("|").split("|")]
+            cels = [celulas_md(x)
                     for x in linhas_c if x.strip().startswith("|")
                     and not re.match(r"^\s*\|[\s:|-]+\|\s*$", x)]
             if cels:
@@ -662,8 +731,12 @@ def render(doc, casa_kicker):
                     + "</tbody></table>"
                 )
         else:
-            for x in linhas_c:
-                out.append(f'  <p class="sec-note">{inline(x.strip())}</p>')
+            # ⚠️ Uma linha do markdown NÃO é um parágrafo. Este caminho abria um `<p>` por
+            # linha e partia a frase ao meio na tela dele (o `- ` do bullet aparecia como
+            # texto). O caminho da 💬 já dividia por BLOCO separado de linha em branco;
+            # os dois passam a usar a mesma divisão. Achado do `portfolio-automacoes`, 18/09.
+            for bloco in [b.strip() for b in "\n".join(linhas_c).split("\n\n") if b.strip()]:
+                out.append(f'  <p class="sec-note">{inline(bloco)}</p>')
     # 💬 RESPOSTAS (molde v2): a pista que ele pediu — "as mensagens e respostas se perdem nas
     # conversas". Renderiza a prosa como está: aqui não há tabela nem card, é conversa registrada.
     if "💬" in S:
@@ -677,7 +750,7 @@ def render(doc, casa_kicker):
                 out.append(f'  <h3 class="resp">{inline(bloco[3:].strip())}</h3>')
             elif bloco.startswith("|"):
                 linhas = [x for x in bloco.split("\n") if x.strip().startswith("|")]
-                cels = [[c.strip() for c in x.strip().strip("|").split("|")] for x in linhas]
+                cels = [celulas_md(x) for x in linhas]
                 cels = [c for c in cels if not (c and set("".join(c)) <= set("-: "))]
                 out.append(
                     '  <table class="mach">'
@@ -924,13 +997,13 @@ def recado_de_publicacao(url):
     Por isso o recado são DOIS gestos numerados, e não uma recomendação.
     """
     return (
-        "   📍 Página do dono: %s\n"
+        f"   📍 Página do dono: {url}\n"
         "   Para republicar NO MESMO endereço são DOIS gestos, nesta ordem (C130 + A-681):\n"
         "     1. Artifact  action:\"read\"  url:\"<a URL acima>\"   ← sem este, o passo 2 é RECUSADO\n"
         "     2. Artifact  file_path:\"<o html>\"  url:\"<a MESMA URL>\"\n"
         "   Se o passo 1 responder *not found*, o endereço morreu: publique SEM url= e **grave o\n"
         "   endereço devolvido na linha 2 deste mapa, no mesmo commit** — endereço que só existe na\n"
-        "   memória da instância é o que matou 21 mapas do portfólio em 14/09." % url
+        "   memória da instância é o que matou 21 mapas do portfólio em 14/09."
     )
 
 
@@ -1221,6 +1294,106 @@ def prova_frente():
             "o caminho de erro DIZ qual pista é, sem estourar em traceback",
             "Traceback" not in saida and "🧨" in saida,
         )
+
+    # ── B17 (26/09) · A SUPERFÍCIE QUE ELE LÊ ──────────────────────────────────────────────
+    # As duas metades do item, cada uma com o defeito plantado do lado. A 1ª é a única que pega
+    # um defeito de CSS: quem trocar `normal` de volta por `nowrap` reprova aqui, e não descobre
+    # pelo dono rolando a página de lado no celular.
+    caso(
+        "o selo da direita QUEBRA em vez de arrastar a página (`nowrap` não volta sem reprovar)",
+        ".mach tr td:last-child{white-space:normal" in CSS
+        and ".mach tr td:last-child{white-space:nowrap" not in CSS,
+    )
+    # ⚠️ este caso nasceu ERRADO e o defeito foi meu: eu o escrevi como
+    # `"overflow-wrap:anywhere" in CSS.split(".card .mach")[0]`, e o `split` cortava no COMENTÁRIO
+    # logo acima da regra, que cita `.card .mach` em prosa. A bateria reprovava a cura. A asserção
+    # certa é sobre a REGRA inteira, que é o que o navegador lê.
+    caso(
+        "e a quebra alcança palavra sem espaço (caminho/URL longa não estoura a largura)",
+        ".mach tr td:last-child{white-space:normal;overflow-wrap:anywhere;" in CSS,
+    )
+    # A 2ª metade: a régua do recado de máquina. Os dois sentidos, porque filtro que só sabe
+    # barrar engole a linha legítima — e a linha legítima aqui é a que ele USA para responder.
+    caso(
+        "a linha de manutenção (`python3 …`) é reconhecida como recado de máquina",
+        bool(RX_SO_PARA_A_MAQUINA.search(
+            "**Este arquivo é GERADO** de `pendencias/` — não editar à mão: "
+            "`python3 processos/gerar-mapa.py`."
+        )),
+    )
+    caso(
+        "MUTAÇÃO: a linha que ENSINA ELE A RESPONDER não é confundida com recado de máquina",
+        not RX_SO_PARA_A_MAQUINA.search(
+            '**Como responder:** cite o código (*"resolve o S-2"*) ou clique na caixa.'
+        ),
+    )
+    caso(
+        "MUTAÇÃO: crase que é ENDEREÇO (`pendencias/`) passa — a régua é o comando, não a crase",
+        not RX_SO_PARA_A_MAQUINA.search("o estado de cada item vive em `pendencias/`"),
+    )
+    # E a prova de ponta a ponta, no mapa REAL desta casa: a instrução some da página e o
+    # AVISO a nomeia. Sem esta, as 5 acima provariam só as peças.
+    with tempfile.TemporaryDirectory() as d:
+        real = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                            "MAPA-DE-PENDENCIAS.md")
+        if os.path.isfile(real):
+            saida = os.path.join(d, "dele.html")
+            r = subprocess.run(
+                [sys.executable, os.path.abspath(__file__), "--md", real, "--out", saida],
+                capture_output=True, text=True,
+            )
+            pag = open(saida, encoding="utf-8").read() if os.path.isfile(saida) else ""
+            log = (r.stdout or "") + (r.stderr or "")
+        else:
+            pag = log = ""
+        # ⚠️ 27/09: quando o mapa REAL da casa tem pista fora do molde, o gerador RECUSA (e está
+        # certo — esse dente é provado logo acima). Só que aí ele não produz página, e as 3 provas
+        # de ponta a ponta viravam 🟥 na bateria do KIT, acusando o CÓDIGO por um defeito do MD
+        # daquela casa. Medido no `profinders-apresentacao-completa`: o gerador DELES já recusava o
+        # mapa DELES desde 07/09 — a página do dono está congelada lá, e isso é achado da casa, que
+        # vai por carta. A bateria julga o gerador; o md tem outro juiz.
+        if "seção desconhecida" in log:
+            caso("no mapa REAL: o md desta casa tem pista FORA do molde e o gerador recusa (certo) — "
+                 "as 3 provas de ponta a ponta não correm aqui; é achado do MD, não do código",
+                 True)
+        elif os.path.isfile(real):
+            caso("no mapa REAL: a instrução de máquina NÃO aparece na página dele",
+                 "Não editar à mão" not in pag)
+            # ⚠️ 27/09: este caso era `"retida da página do dono" in log`, e SÓ PASSAVA onde o
+            # mapa tivesse pelo menos uma linha de máquina para retar. No escritório tem; nas casas
+            # que recebem esta cópia, muitas não têm — e a bateria do kit nascia VERMELHA nelas, por
+            # um defeito que não existia. A régua é *"nada fica calado"*, não *"tem de haver o que
+            # calar"*: o caso precisa do balde para o mapa que não tinha nada a reter (A-843/A-848).
+            texto_real = open(real, encoding="utf-8").read()
+            # ⚠️ 27/09, 3ª volta na mesma pedra: o `havia` nasceu procurando a instrução de máquina
+            # no TEXTO INTEIRO, e o gerador só retém as que estão em `doc["regras"]` (as linhas de
+            # régua do cabeçalho). Num mapa com `python3 …` no CORPO de um item — medido no
+            # `pu-consulta-plataforma` — o proxy dizia "havia" e o aviso, corretamente, não nomeava
+            # nada: a bateria acusava a casa por uma retenção que nunca devia acontecer. Mede-se
+            # CHAMANDO o parser do próprio módulo, na mesma superfície que o gerador retém (A-839).
+            havia = any(RX_SO_PARA_A_MAQUINA.search(x)
+                        for x in parse(texto_real).get("regras", []))
+            caso("no mapa REAL: %s" % ("o aviso NOMEIA a linha retida (nada fica calado)" if havia
+                                       else "não havia linha de máquina a reter — e o aviso fica quieto"),
+                 ("retida da página do dono" in log) if havia
+                 else ("retida da página do dono" not in log))
+            # ⚠️ 27/09, 2ª ocorrência da MESMA classe DUAS LINHAS ABAIXO da 1ª (A-848): escrevi a
+            # vacina para o caso de cima e não a apliquei ao vizinho. Este exigia que o mapa REAL
+            # da casa TIVESSE a linha de régua "Como responder". Medido na `main` das 25 casas com
+            # mapa do dono: 23 têm, **2 não** (`avc-unidade-de-negocios`, `potencial-urbano-…`).
+            # (A 1ª redação deste comentário dizia "4 casas" — eram as 4 que a onda acusou, e as
+            # outras 2 reprovavam por outro motivo. Número de comentário também apodrece: este saiu
+            # da medição, não da lista de sintomas.)
+            # A régua é *"a linha que existe no md CHEGA à página"* (A-712), não *"toda casa tem a
+            # linha"*. Mapa sem ela é achado DA CASA, roteado por carta — nunca bateria vermelha no
+            # kit dela.
+            tinha_resp = any(l.lstrip().startswith(">") and "Como responder" in l
+                             for l in texto_real.split("\n"))
+            caso("no mapa REAL: %s" % ("a linha de COMO RESPONDER continua na página"
+                                       if tinha_resp else
+                                       "o md desta casa não tem a linha de COMO RESPONDER — nada a "
+                                       "carregar, e o gerador não a inventa"),
+                 ("Como responder" in pag) if tinha_resp else True)
 
     marca = "🟥 BATERIA REPROVADA" if falhas else "🟩 bateria ok"
     print(f"\n{marca} — {len(falhas)} caso(s) falharam")
