@@ -117,6 +117,23 @@ else
   yel "[segredo-declarado] scripts/gate-segredo-declarado.py ausente — a catraca não existe"
 fi
 
+# ── [catraca-fiação] O CANÁRIO DO CHECK ACIMA (E-086 — todo check nasce com canário) ──────────────
+# A fiação do `[segredo-declarado]` errou dos DOIS lados em 2 dias: verde-cego (A-738, 15/09) e
+# vermelho-mentiroso (A-768, 17/09 — "NÃO RODOU" quando a catraca tinha ACHADO). O canário extrai
+# o bloco VIVO do próprio linter e o roda contra 4 dublês; testar uma cópia da fiação provaria a
+# cópia. Se ele reprovar, o veredito do check acima não vale hoje — não é detalhe de teste.
+if [ -f "$ROOT/scripts/prova-fiacao-catraca.sh" ]; then
+  _cfi=$( (cd "$ROOT" && bash scripts/prova-fiacao-catraca.sh 2>&1) ); _cfirc=$?
+  if [ "$_cfirc" != "0" ]; then
+    red "[catraca-fiação] o canário da fiação REPROVOU (saiu $_cfirc) — o veredito do [segredo-declarado] não vale hoje:"
+    printf '%s\n' "$_cfi" | grep '❌' | head -3 | sed 's/^/      /'
+  else
+    grn "$(printf '%s' "$_cfi" | tail -1 | sed 's/^🟩 //') [catraca-fiação]"
+  fi
+else
+  yel "[catraca-fiação] sem canário da fiação — o [segredo-declarado] fica sem quem prove que ele distingue catraca morta de catraca que achou"
+fi
+
 echo "─────────────────────────────────────────────"
 [ "$FAIL" -eq 0 ] && echo "RESULTADO: 🟩 sem 🟥 · $WARN aviso(s) 🟨" || echo "RESULTADO: 🟥 há bloqueio — corrija antes de fechar"
 exit $FAIL
