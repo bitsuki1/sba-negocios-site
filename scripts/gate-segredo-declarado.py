@@ -32,10 +32,10 @@ vocabulário fechado e falha real.
 
 ─────────────────────────────────────────────────────────────────────────────────────────────
 USO
-    python3 processos/gate-segredo-declarado.py                 # o diff contra origin/main
-    python3 processos/gate-segredo-declarado.py --contra HEAD~1
-    python3 processos/gate-segredo-declarado.py --arquivo X     # um arquivo inteiro (auditoria)
-    python3 processos/gate-segredo-declarado.py --prova         # a bateria
+    python3 scripts/gate-segredo-declarado.py                 # o diff contra origin/main
+    python3 scripts/gate-segredo-declarado.py --contra HEAD~1
+    python3 scripts/gate-segredo-declarado.py --arquivo X     # um arquivo inteiro (auditoria)
+    python3 scripts/gate-segredo-declarado.py --prova         # a bateria
 
 Sai 1 se houver ponto novo sem declaração. Sai 0 quando não há nada novo — inclusive quando o
 diff está vazio, que é o caso comum e silencioso de propósito.
@@ -58,7 +58,8 @@ LEITURAS = [
 ]
 # A declaração, no formato fechado da regra. O `—` pode ser hífen simples (teclado do dono).
 DECLARACAO = re.compile(
-    r"#\s*segredo:\s*([A-Z][A-Z0-9_]{2,})\s*[—–-]\s*(.+?)\s*[—–-]\s*casa:\s*(\S+)", re.I
+    r"(?:\#|//)\s*segredo:\s*([A-Z][A-Z0-9_]{2,})\s*[—–-]\s*(.+?)\s*[—–-]\s*casa:\s*(\S+)",
+    re.I,
 )
 # Nomes que NÃO são segredo: variável de ambiente pública do próprio CI.
 NAO_E_SEGREDO = {
@@ -81,6 +82,39 @@ NAO_E_SEGREDO = {
     "NODE_ENV",
     "PYTHONPATH",
     "RUNNER_OS",
+    # ⊕ A-768 (17/09) — FUSÃO: esta lista estava BIFURCADA em três, e o canon era o mais POBRE.
+    # Medido nas 23 casas: 21 tinham 19 nomes (esta cópia, a original), a caixa de ferramentas
+    # tinha 28 e a SBA 30. A união é 37. Duas casas foram fundo, cada uma no seu terreno, e
+    # NINGUÉM trouxe de volta — o mesmo desenho do A-756 (o gerador do mapa bifurcado em dois
+    # galhos meus). Aqui é pior num ponto: o canon, que é o que desce às outras 21, era o menor
+    # dos três. Nomes abaixo com a procedência, para ninguém desfazer sem saber de onde veio.
+    #
+    # — achado pela CAIXA DE FERRAMENTAS (`portfolio-automacoes`, 15/09), rodando o gate recém-
+    #   trazido contra a própria árvore: caminhos que o RUNNER entrega ao job para escrever.
+    "GITHUB_API_URL",
+    "GITHUB_EVENT_PATH",
+    "GITHUB_PATH",
+    "GITHUB_SERVER_URL",
+    "RUNNER_TEMP",
+    "RUNNER_TOOL_CACHE",
+    "RUNNER_WORKSPACE",
+    #
+    # — achado pela SBA: variáveis de PROXY e de bundle de certificado. O ambiente remoto injeta
+    #   `HTTPS_PROXY` e os `*_CA_BUNDLE` em toda sessão; cobrar declaração de segredo neles é
+    #   morder o que não é presa, e dente que morde o que não é presa acaba desligado.
+    "BB_CA_BUNDLE",
+    "CCR_CA_BUNDLE",
+    "GITHUB_BASE_REF",
+    "GITHUB_HEAD_REF",
+    "HTTPS_PROXY",
+    "HTTP_PROXY",
+    "NO_PROXY",
+    "REQUESTS_CA_BUNDLE",
+    "SSL_CERT_FILE",
+    #
+    # — as DUAS casas acharam, cada uma por seu lado (sinal de que o buraco era real):
+    "GITHUB_REF_NAME",
+    "GITHUB_STEP_SUMMARY",
 }
 # Onde a declaração é exigida (a regra enumera estes escopos).
 ESCOPOS = (".github/workflows/", "supabase/functions/", "tools/", "scripts/")
