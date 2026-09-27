@@ -45,12 +45,12 @@ P3 ── (só se caiu em "A CASA" e há risco de se perder) A casa tem mapa viv
 - **CANETA × DEPÓSITO (ordem do dono 25/08; régua medida na onda 01/09, LD-03).** O escritório **escreve por PR** (caneta) numa casa **FECHADA** e **só deposita na caixa** numa casa **VIVA**. *Viva* = **commit de INSTÂNCIA** (autor `noreply@anthropic.com` ou o dono) na `main` remota **nas últimas 24h**; push de runner/robô (`github-actions`, `lovable`, consolidar) **não conta**. Mede-se antes de escrever, não se lembra. Selada + sem instância = fechada.
 - **Perguntar sobre uma casa é permitido.** Se o dono pergunta *"e a AVC?"*, o escritório **abre o mapa dela e responde na hora**. O que não se faz é **copiar a lista para a fila dele aqui**. Responder ≠ hospedar.
 
-## Travas contra os 2 ralos conhecidos
-- **O galho "é regra" engole tudo** se ninguém segurar: só entra por ele se a frase da regra puder ser escrita **sem citar o nome de nenhuma casa**. Precisou dizer "a AVC"? é caso, não regra.
-- **A custódia vira mudança de endereço:** teto de **3 itens**, data de saída visível, e o item nº 1 da custódia é sempre *"abrir o mapa daquela casa"*.
+## Travas contra os 2 ralos
+- **"É regra" engole tudo:** só entra por aí se a frase puder ser escrita **sem citar casa nenhuma**. Precisou dizer "a AVC"? é caso, não regra.
+- **Custódia vira endereço novo:** teto de **3 itens**, data de saída visível, item nº 1 = *"abrir o mapa daquela casa"*.
 
 ## Vacinas
-1.5. **`V-ROTEAR-SEM-TIRAR-DA-FILA-DELE`** (ordem do dono, 04/09: *"apenas pendências do escritório, as dos projetos devem ser roteadas ao próprio projeto"*) — levar o item à casa é METADE do trabalho; a outra metade é **tirá-lo da fila dele no mesmo commit** — senão vira duplicata, e duplicata é o que faz o dono perder o fio. **Dente:** check `[11]` do `processos/linter-estado.sh` acende quando um item 🔒/📅 do mapa do escritório nomeia UMA casa só.
+1.5. **`V-ROTEAR-SEM-TIRAR-DA-FILA-DELE`** (ordem do dono, 04/09: *"apenas pendências do escritório, as dos projetos devem ser roteadas ao próprio projeto"*) — levar o item à casa é METADE; a outra metade é **tirá-lo da fila dele no mesmo commit**, senão vira duplicata e ele perde o fio. **Dente:** check `[11]` do `linter-estado.sh` acende quando um item 🔒/📅 do mapa nomeia UMA casa só.
 1. **`V-ATO-DO-DONO-NAO-E-CRITERIO`** — *"é ele quem faz, logo é do escritório"*. Nunca foi. (A-424)
 2. **`V-AVISO-QUE-VIRA-SEGUNDA-VOZ`** — achou superfície errada numa unidade? **corrija a superfície da unidade**. Pôr o aviso no mapa do escritório não cala a voz errada: **cria uma segunda**, e o dono fica com duas ordens opostas. (A-425)
 3. **`V-CUSTODIA-SEM-PRAZO-VIRA-MUDANCA`** — item de casa entra como custódia com data, ou não entra.

@@ -86,6 +86,32 @@
 
 import { execFileSync } from "node:child_process";
 import { readFileSync, statSync } from "node:fs";
+import { createHash } from "node:crypto";
+
+// ═══════════════════════════════════════════════════════════════════════════
+// O SELO — o rótulo anda quando a regra anda (B14, pedido do `portfolio-automacoes` em 17/09)
+// ═══════════════════════════════════════════════════════════════════════════
+//   A casa mediu: havia QUATRO guardas de segredo diferentes no portfólio e todos os quatro
+//   diziam `v2.3` no comentário de calibragem mais novo. Remedido pelo escritório em 26/09, com
+//   md5 de cada cópia: **6 conteúdos distintos em 29 cópias**, e todas com o mesmo "v2.3" escrito
+//   à mão. Rótulo escrito à mão é a promessa que envelhece calada — quem lê o log de uma casa não
+//   tem como saber qual dos seis guardas rodou ali.
+//   O selo abaixo é um resumo dos BYTES DESTE ARQUIVO, dito pelo próprio guarda no ato da varredura:
+//   duas cópias com bytes diferentes imprimem selos diferentes, sem ninguém manter nada.
+//   `--versao` mostra só o selo, para conferir sem varrer.
+//   ⚠️ NÃO é o número do `vigia-de-copias.sh` do escritório, e não se deve "harmonizar" os dois: o
+//   vigia compara o md5 do CORPO (sem o carimbo que o escritório acrescenta ao entregar), justamente
+//   para o carimbo não contar como divergência. Aqui o arquivo inteiro é o que roda, então é o
+//   arquivo inteiro que se sela. Perguntas diferentes, números diferentes, de propósito.
+//   ⚠️ O selo NÃO é versão semântica e não diz "mais novo": diz IDENTIDADE. Quem quer saber se
+//   está atrasado compara com o selo do escritório, que é a origem do kit.
+function selo() {
+  try {
+    return createHash("sha256").update(readFileSync(new URL(import.meta.url))).digest("hex").slice(0, 8);
+  } catch {
+    return "sem-selo";
+  }
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // 1) O que é público por desenho e NUNCA vira achado (D206)
@@ -267,6 +293,54 @@ const REGRAS = [
     heuristicaFraca: true,
   },
   {
+    // ── B39 / A-813 (26/09) — O VERIFICADOR QUE CARREGA O SEGREDO ──────────────────────────────
+    // Achado da Keepee em 17/09: o script de auditoria deles tinha um teste "a senha vazou para
+    // algum arquivo?" escrito como busca pelo TEXTO LITERAL da senha — e, ao escrever o teste, a
+    // senha foi gravada dentro do script, que iria ao git no commit seguinte. O teste reprovou
+    // apontando para si mesmo; foi assim que apareceu.
+    // MEDIDO AQUI ANTES DE CONSTRUIR (26/09): `--arquivo` sobre a fixtura exata do caso deles
+    // devolvia ✅ "nada encontrado". A regra `senha-em-prosa` exige o RÓTULO (`senha:`/`chave=`)
+    // antes do valor; num `grep "<literal>"` não há rótulo. É o terceiro lugar do
+    // V-PORTA-DE-ENTRADA-SEM-PORTA-DE-SAIDA: a `segredo-e-consumidor` manda DECLARAR no ponto de
+    // consumo, a D200 barra o que ENTRA pelo diff, e nenhuma das duas via o valor entrando dentro
+    // da ferramenta feita para impedi-lo.
+    // ⚠️ A CALIBRAGEM É O TRABALHO, não a regra: todo gate do portfólio passa literal de
+    // EXPRESSÃO REGULAR a uma busca, e `+ * ?` são metacaracteres corriqueiros. Por isso (a) o
+    // símbolo exigido é `@ # $ % & !` — sem `* + ?` —, e (b) a peneira `aceita` REJEITA qualquer
+    // literal com metacaractere de regex. Erra para o lado de NÃO acusar, como toda porta que
+    // bloqueia commit em 26 casas tem de errar.
+    // LIMITE DECLARADO: pega o literal DEPOIS do construtor de busca (`grep`, `rg`, `re.search(`,
+    // `.includes(`…). A forma pythônica `if "<lit>" in texto:` põe o literal ANTES e não é vista.
+    id: "verificador-carrega-o-segredo",
+    categoria: "credencial literal passada a uma BUSCA (verificador que carrega o segredo)",
+    re: /(?:\bgrep\b|\brg\b|\bgit\s+grep\b|\bre\.(?:search|match|fullmatch|findall|finditer)\s*\(|\.(?:includes|indexOf|startsWith|endsWith)\s*\()[^\n'"]{0,40}(['"])((?=[^'"\n]*[A-Za-z])(?=[^'"\n]*[0-9])(?=[^'"\n]*[@#$%&!])[^'"\n\s]{8,})\1/g,
+    valor: (m) => m[2],
+    aceita: (v) => !/[\[\]{}()\\|^$.*+?]/.test(v),
+    heuristicaFraca: true,
+  },
+  {
+    // ⚠️ RESSUSCITADA em 2026-09-26 (B22). Esta regra NASCEU na Moderação Profinders em 25/08
+    // (commit `87ea7c7c`, o porteiro E-CRED da D200) porque **pegou um vazamento de verdade** que
+    // nenhuma das outras regras via, e foi **APAGADA por mim** em `823fc49f` — uma onda de "cópias
+    // de leitura atualizadas pelo Escritório" que sobrescreveu o varredor da casa pelo meu, que
+    // nunca teve a regra. O espelho existe para PROPAGAR proteção; aquele dia ele REMOVEU uma.
+    // Medido hoje antes de escrever: `grep -c crypt` nos 27 varredores do portfólio devolveu ZERO.
+    // Agora ela entra no SSOT, que é o caminho certo — a colheita da casa vira defesa de todos (D23).
+    //
+    // O que ela pega, nas palavras da casa que a escreveu:
+    //     UPDATE auth.users SET encrypted_password = crypt('<senha>', gen_salt('bf'))
+    // Nenhuma regra de cima pegava: não é atribuição a um nome de segredo, e a senha é curta demais
+    // para o limiar de 20 caracteres. O nome da coluna (`encrypted_password`) ainda dá a falsa
+    // impressão de que está protegido — mas o `crypt()` roda NO BANCO: o que está no arquivo é o
+    // texto puro. Falso positivo é improvável por construção: ninguém escreve uma senha literal
+    // dentro de `crypt()` sem querer, e senha gerada em SQL usa `gen_random_bytes`/`gen_random_uuid`,
+    // que não casa com esta regra.
+    id: "senha-literal-em-sql",
+    categoria: "senha de conta em texto puro num arquivo SQL (`crypt('…')` / `PASSWORD '…'`)",
+    re: /(?:\bcrypt\s*\(\s*'([^']{3,})'|\bPASSWORD\s+'([^']{3,})')/gi,
+    valor: (m) => m[1] ?? m[2],
+  },
+  {
     id: "onsuite",
     categoria: "senha do OnSuite embutida (ONSUITE_SENHA=…)",
     re: /\bONSUITE_SENHA\b\s*[:=]\s*['"]?([^'"\s]{4,})/g,
@@ -444,7 +518,55 @@ const IGNORADOS_SEMPRE = [
  */
 const IGNORADOS_SO_NA_ARVORE = [/(^|\/)_legado\//, /(^|\/)_historico\//];
 
+/**
+ * EXCEÇÕES DE ARQUIVO **DA CASA** — `processos/VARREDURA-EXCECOES.txt`, opcional.
+ *
+ * ⚠️ 26/09 (A-822) — POR QUE ISTO EXISTE, e não uma linha a mais na lista acima. A régua escrita
+ * ali manda distinguir *quem escreve a linha*: ferramenta ⇒ exceção de ARQUIVO. Só que a lista
+ * acima mora num instrumento ESPELHADO em mais de 20 casas, e a bateria
+ * (`processos/_teste-varredura-de-segredos.sh`) exige — com razão — bytes IGUAIS nas 3 cópias.
+ * Resultado: qualquer exceção de uma casa viajava para todas como ruído, e a saída que sobrava era
+ * a casa FORCAR o próprio scanner. Medido no portfólio em 26/09: **2 casas já tinham o
+ * `scripts/varredura-de-segredos.mjs` divergente** — e cópia divergente é controle que ninguém
+ * mais atualiza. O instrumento fica idêntico; a exceção é DADO da casa e mora ao lado.
+ *
+ * FORMATO (uma por linha, `#` comenta):   caminho/exato/do/arquivo — motivo assinado e datado
+ * Entrada SEM motivo é RECUSADA em voz alta: exceção sem dono é exceção que ninguém revisa.
+ * Caminho é LITERAL, nunca expressão — para não cegar uma família inteira por descuido.
+ * E toda exceção USADA numa rodada é IMPRESSA no fim: a válvula continua visível (a doutrina do
+ * marcador `segredo-ok` é a mesma — quem usa está assinando embaixo).
+ */
+const EXCECOES_DA_CASA = (() => {
+  const mapa = new Map();
+  let bruto;
+  try {
+    bruto = readFileSync("processos/VARREDURA-EXCECOES.txt", "utf8");
+  } catch {
+    return mapa;
+  }
+  bruto.split("\n").forEach((linha, i) => {
+    const l = linha.trim();
+    if (!l || l.startsWith("#")) return;
+    const partes = l.split(" — ");
+    if (partes.length < 2 || !partes.slice(1).join(" — ").trim()) {
+      console.error(
+        `\u26a0\ufe0f  VARREDURA-EXCECOES.txt:${i + 1} — entrada SEM motivo assinado (falta " — "); ` +
+          `IGNORADA. O arquivo segue varrido.`,
+      );
+      return;
+    }
+    mapa.set(partes[0].trim(), partes.slice(1).join(" — ").trim());
+  });
+  return mapa;
+})();
+
+const EXCECOES_USADAS = new Map();
+
 function ignorar(caminho, modo) {
+  if (EXCECOES_DA_CASA.has(caminho)) {
+    EXCECOES_USADAS.set(caminho, EXCECOES_DA_CASA.get(caminho));
+    return true;
+  }
   if (IGNORADOS_SEMPRE.some((re) => re.test(caminho))) return true;
   if (modo === "arvore" && IGNORADOS_SO_NA_ARVORE.some((re) => re.test(caminho))) return true;
   return false;
@@ -659,6 +781,12 @@ const USO =
 
 const argv = process.argv.slice(2);
 const modo = argv[0];
+
+if (modo === "--versao") {
+  console.log(`varredura-de-segredos.mjs · selo ${selo()}`);
+  console.log("o selo é o resumo dos bytes DESTE arquivo — cópias diferentes imprimem selos diferentes.");
+  process.exit(0);
+}
 const achados = [];
 let titulo;
 
@@ -723,13 +851,24 @@ const unicos = achados.filter((a) => {
 });
 unicos.sort((a, b) => a.caminho.localeCompare(b.caminho) || a.numero - b.numero);
 
-if (unicos.length === 0) {
-  console.log(`✅ Varredura de segredos: nada encontrado ${titulo}.`);
-  process.exit(0);
+function imprimirExcecoesUsadas() {
+  if (EXCECOES_USADAS.size === 0) return;
+  console.log(
+    `\u2139\ufe0f  ${EXCECOES_USADAS.size} exceção(ões) de arquivo desta casa em uso ` +
+      `(processos/VARREDURA-EXCECOES.txt) — a válvula é visível de propósito:`,
+  );
+  for (const [caminho, motivo] of EXCECOES_USADAS) console.log(`   · ${caminho} — ${motivo}`);
 }
 
+if (unicos.length === 0) {
+  console.log(`✅ Varredura de segredos [selo ${selo()}]: nada encontrado ${titulo}.`);
+  imprimirExcecoesUsadas();
+  process.exit(0);
+}
+imprimirExcecoesUsadas();
+
 console.error("");
-console.error(`🔴 Varredura de segredos (D200): ${unicos.length} achado(s) ${titulo}.`);
+console.error(`🔴 Varredura de segredos (D200) [selo ${selo()}]: ${unicos.length} achado(s) ${titulo}.`);
 console.error("");
 for (const a of unicos) {
   // Caminho, linha e categoria. O VALOR nunca — nem mascarado (ver o cabeçalho).
