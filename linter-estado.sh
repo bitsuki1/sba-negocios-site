@@ -134,6 +134,26 @@ else
   yel "[catraca-fiação] sem canário da fiação — o [segredo-declarado] fica sem quem prove que ele distingue catraca morta de catraca que achou"
 fi
 
+
+# ── [lentes] AS LENTES DE CONTEÚDO DO MAPA DO DONO (ordem dele, 2026-09-09: "lance lentes de
+#    revisao antes de publicar os mapas"). O `[espelho]` cobra a FORMA (o HTML sai do gerador);
+#    estas cobram o PADRÃO que ele descreveu: só pendência, a dele didática, a minha registrada,
+#    a lista DENTRO do mapa. São eixos diferentes — gerador verde com conteúdo fora do padrão foi
+#    exatamente o que ele corrigiu à mão duas vezes.
+#    ⚠️ NÃO se recita o número de lentes aqui: ecoa-se a linha do próprio script, que conta as
+#    dele mesmo. O bloco que recitava "7" com 11 no código é a V-NUMERO-DE-LENTE-RECITADO.
+if [ -f "$ROOT/MAPA-DE-PENDENCIAS.md" ]; then
+  if [ -f "$ROOT/scripts/revisar-mapa.py" ]; then
+    if _lentes=$(cd "$ROOT" && python3 scripts/revisar-mapa.py 2>/dev/null); then
+      grn "[lentes] $(echo "$_lentes" | tail -1 | sed 's/^🟩 lentes de revisão: //')"
+    else
+      red "[lentes] o mapa do dono TEM DEFEITO de conteúdo — rode: python3 scripts/revisar-mapa.py (ele diz a linha e o conserto)"
+    fi
+  else
+    yel "[lentes] falta scripts/revisar-mapa.py — sem ele o mapa volta a sair confuso (ordem do dono 09/09)"
+  fi
+fi
+
 echo "─────────────────────────────────────────────"
 [ "$FAIL" -eq 0 ] && echo "RESULTADO: 🟩 sem 🟥 · $WARN aviso(s) 🟨" || echo "RESULTADO: 🟥 há bloqueio — corrija antes de fechar"
 exit $FAIL
