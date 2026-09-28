@@ -975,6 +975,35 @@ def recorta(doc, frente):
 
 # ── bateria por mutação do RECORTE (DE-83) — gate que nunca reprova não é dente
 # ────────────────────
+def aviso_de_versionamento(out):
+    """B34 — o HTML gerado é o MOLDE e o FALLBACK; fora do git, ele morre com a página.
+
+    A AVC perdeu a biblioteca em 25/09: o gerador dela exigia `--molde <index.html publicado>` e o
+    molde só existia na página publicada, que deixou de responder. Endereço publicado é perecível
+    (V-ARTIFACT-URL); arquivo versionado não é.
+
+    Três estados, e o do meio é o que ninguém veria sozinho:
+      · fora de qualquer repositório (scratchpad, /tmp) → o arquivo é descartável, e isso se diz;
+      · dentro do repositório mas NÃO rastreado → falta um `git add`, que é o gesto inteiro;
+      · rastreado → silêncio.
+    """
+    import subprocess
+
+    d = os.path.dirname(os.path.abspath(out)) or "."
+    raiz = subprocess.run(["git", "-C", d, "rev-parse", "--show-toplevel"],
+                          capture_output=True, text=True)
+    if raiz.returncode != 0:
+        return ["   🟨 [B34] este HTML está FORA de qualquer repositório (%s): ele é o molde e o "
+                "fallback da página do dono — gere-o dentro do repo, ou grave uma cópia lá." % d]
+    seguido = subprocess.run(["git", "-C", d, "ls-files", "--error-unmatch", os.path.abspath(out)],
+                             capture_output=True, text=True)
+    if seguido.returncode != 0:
+        return ["   🟨 [B34] este HTML ainda NÃO está no git: `git add %s` no mesmo commit do mapa — "
+                "ele é o molde e o fallback; página publicada é perecível, arquivo versionado não."
+                % out]
+    return []
+
+
 def recado_de_publicacao(url):
     """O que a instância tem de fazer para a página do dono NÃO trocar de endereço.
 
@@ -1003,7 +1032,13 @@ def recado_de_publicacao(url):
         "     2. Artifact  file_path:\"<o html>\"  url:\"<a MESMA URL>\"\n"
         "   Se o passo 1 responder *not found*, o endereço morreu: publique SEM url= e **grave o\n"
         "   endereço devolvido na linha 2 deste mapa, no mesmo commit** — endereço que só existe na\n"
-        "   memória da instância é o que matou 21 mapas do portfólio em 14/09."
+        "   memória da instância é o que matou 21 mapas do portfólio em 14/09.\n"
+        "   3. ANTES de anunciar o endereço a ele, confira que ele existe: `Artifact` action:\"list\"\n"
+        "      (B34 — a AVC perdeu a biblioteca em 25/09 anunciando endereço que já não respondia).\n"
+        "   ⚠️ E o HTML gerado VAI PARA O GIT: ele é o molde E o fallback. Página publicada é\n"
+        "      perecível; arquivo versionado não. O gerador da AVC exigia `--molde <index.html\n"
+        "      publicado>` e o molde só existia na página que morreu — com o HTML no repo, isso\n"
+        "      não acontece."
     )
 
 
@@ -1468,6 +1503,8 @@ def main():
     open(a.out, "w", encoding="utf-8").write(novo)
     n = len(itens_suas(doc["secoes"]["🔒"]["linhas"])[1])
     print(f"✅ {a.out} gerado ({len(novo)} B) — {n} item(ns) 🔒")
+    for linha in aviso_de_versionamento(a.out):
+        print(linha)
     print(recado_de_publicacao(doc["url"]))
     # Aviso que ninguém lê é o mesmo que aviso que não existe — e a rota de saída da 📅 depende
     # de a casa VER que ela vai virar erro. Sai na tela, e no --check também.
