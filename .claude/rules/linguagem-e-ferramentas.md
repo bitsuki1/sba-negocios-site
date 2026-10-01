@@ -10,7 +10,7 @@ jurídica/fiscal em nome de "ficar bonito".
 
 ## D160 — Ferramentas do portfólio são de todos
 Toda unidade tem acesso de **USO a TODAS** as ferramentas. SSOT do inventário =
-`referencia/FERRAMENTAS.md` (aberto a todas; credenciais por ponteiro no cofre, valor fora do git).
+`FERRAMENTAS.md` (no escritório; aberto a todas; credenciais por ponteiro no cofre, valor fora do git).
 **USO ≠ ESCRITA:** as fronteiras de escrita em repositórios permanecem (DEV `keepee-facilities` —
 **D187 vigente**, "todos leem, só o Atlas escreve"; canônico de unidade via caixa D104/D144; EDU
 não vaza D-EDU-2). Falta de acesso a uma ferramenta = bloqueio de INFRA (DE com DoD), nunca "não
@@ -20,7 +20,5 @@ não vaza D-EDU-2). Falta de acesso a uma ferramenta = bloqueio de INFRA (DE com
 Morreram **D161 · D161-FIX · D169** (mapa vivo, robô, agregador, `portfolio-fragmento.json`) — **não
 recriar**; fragmento remanescente em unidade é lixo a remover. Vigente no lugar: **cada projeto tem o
 SEU `MAPA-DE-PENDENCIAS.md`** (D172), Artifact sob demanda, com "tudo → mapa" como lei (D176).
-Corpo integral e rastro: `processos/_legado/mapa-vivo-aposentado-2026-08-11/`.
-**⚠️ RETIFICAÇÃO (20/08):** a lista citava **D170** por erro de numeração. O D170 lavrado é o robô
-*"chega na main"* (auto-consolidar), **VIVO — não desligar `consolidar.sh`**.
-_(⚰️ 10/09 dizia a morte do Mapa Vivo 2× e apontava o DEV a D119/D145, revogadas — ACHADOS § A-666.)_
+⚠️ **O D170 NÃO morreu** — é o robô *"chega na main"* (auto-consolidar): **não desligar `consolidar.sh`**.
+_(Corpo integral, o erro de numeração de 20/08 e o fóssil de 10/09: A-666, no escritório.)_

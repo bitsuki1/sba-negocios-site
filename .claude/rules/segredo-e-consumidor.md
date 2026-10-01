@@ -24,17 +24,18 @@ Trocar a senha da conta Resend
 Uma opção é sempre **"Adiar — quero ver quem usa primeiro"**.
 
 ## Onde mora a lista
-**Duas metades, fronteira escrita** _(retificado 09/09, A-624: antes mandava usar só a 1ª, que a casa já provara errada em 6 linhas)_:
-- **medido pela máquina** → `portfolio/CONSUMIDORES-DE-SEGREDO-MEDIDO.md` (gerado por `processos/medir-consumidores-de-segredo.py`, com data e fonte) = *"quem JÁ usa"*. **Comece aqui.**
-- **fora do alcance da máquina** (painel Vercel/Supabase, conector claude.ai, Bitwarden) → `portfolio-automacoes/SEGREDOS-E-CONSUMIDORES.md`, por **SEGREDO**, marcado não-verificável. Co-montado em toda sessão (D162).
+**Duas metades, fronteira escrita** _(retificado 09/09 — antes mandava usar só a 1ª, que a casa já provara errada em 6 linhas: A-624)_:
+- **medido pela máquina** → `CONSUMIDORES-DE-SEGREDO-MEDIDO.md` (no escritório, gerado por medição, com data e fonte) = *"quem JÁ usa"*. **Comece aqui.**
+- **fora do alcance da máquina** (painel Vercel/Supabase, conector claude.ai, Bitwarden) → `SEGREDOS-E-CONSUMIDORES.md` na **caixa de ferramentas** (repo `portfolio-automacoes`, **ao lado** desta casa, não dentro), por **SEGREDO**, marcado não-verificável. Co-montado em toda sessão (D162).
 
 ⚠️ **Não revoga "consumidor tem UM lugar"**: são dois EIXOS (*medido* × *declarado porque a máquina não vê*), não duas listas do mesmo fato. Linha nos dois com valores diferentes = defeito, e o medido vence.
-⚠️ **Não confundir com o cofre** (`ACESSOS-FERRAMENTAS.md`): o cofre é indexado por FERRAMENTA e responde *"como uso isto?"*. Este responde *"quem quebra se eu mexer?"*. Eixos diferentes, SSOTs diferentes (A-002).
+⚠️ **Não confundir com o cofre** (`ACESSOS-FERRAMENTAS.md`): ele é indexado por FERRAMENTA e responde *"como uso isto?"*; este responde *"quem quebra se eu mexer?"*. Eixos e SSOTs diferentes (A-002).
 
-## As 3 coisas que não se negociam
-1. **A coluna "quem usa" NUNCA se escreve de cabeça.** Gera-se por medição (grep/API), com data e fonte. _(4 das 10 linhas do Top-10 do cofre já tinham "quem PODERIA usar" dentro de "quem JÁ usa": coluna sem data lê-se como "poderia".)_
+## As 4 coisas que não se negociam
+1. **A coluna "quem usa" NUNCA se escreve de cabeça.** Gera-se por medição (grep/API), com data e fonte. _(4 das 10 linhas do Top-10 do cofre tinham "quem PODERIA usar" dentro de "quem JÁ usa": coluna sem data lê-se como "poderia".)_
 2. **Consumidor de segredo tem UM lugar.** Qualquer outra menção é ponteiro. Duas listas de consumidor para o mesmo segredo são piores que nenhuma — a errada faz agir.
-3. **O que a máquina não vê, declara-se.** Painel da Vercel, conector do claude.ai, Bitwarden, painel do Supabase: o gerador não alcança. A coluna dessas fontes é manual **e marcada como não-verificável**, nunca omitida.
+3. **O que a máquina não vê, declara-se** — a coluna dessas fontes (as da 2ª metade acima) é manual, **marcada não-verificável**, nunca omitida.
+4. **O VERIFICADOR NUNCA CARREGA O SEGREDO.** Teste *"a senha vazou?"* **não se escreve como busca pelo texto literal da senha** — escrever o teste grava o valor dentro da ferramenta feita para impedi-lo, e ela vai ao git no commit seguinte. Busque pelo **nome da variável**, pela **forma** (regex do formato) ou pelo **hash**; valor indispensável entra por env-var no ato, nunca no arquivo. _(Dois dentes: o `varredura-de-segredos.mjs` na entrada — A-813, Keepee 17/09 — e a **2ª lente do `gate-segredo-declarado.py`** (26/09), que acende em linha NOVA com FORMA de credencial e **nunca reproduz o valor**; crachá público é isento, D206 — A-833.)_
 
 ## Declaração no ponto de consumo (o que alimenta a lista)
 Todo lugar que LÊ um segredo carrega uma linha, no formato fechado — **no comentário da linguagem
@@ -43,11 +44,10 @@ daquele arquivo**:
 # segredo: RESEND_API_KEY — envia o aviso de acesso ao acervo — casa: ccev     ← shell, Python, YAML
 // segredo: RESEND_API_KEY — envia o aviso de acesso ao acervo — casa: ccev    ← TypeScript, Deno, JS
 ```
-**A linha vai ACIMA da leitura, dentro de 6 linhas.** _(⚰️ 14/09: a regra exigia só `#`, que em
-TypeScript não é comentário — justo nas funções Deno onde moram as credenciais. Achado da CCEV-site;
-história em ACHADOS § A-680.)_
+**A linha vai ACIMA da leitura, dentro de 6 linhas.** _(⚰️ 14/09: exigir só `#` tornava a regra
+incumprível em TypeScript, justo nas funções Deno onde moram as credenciais — A-680.)_
 Exigida em: `.github/workflows/*.yml` · `supabase/functions/**` · `tools/**` · `scripts/**` · `.env.example`.
-_(Precedente que morde: `portfolio-automacoes/tools/ci/gate_runner_declarado.py`.)_
+_(Precedente que morde: o `gate_runner_declarado.py` da caixa de ferramentas.)_
 
 ## Alçada (D202)
 | peça | dono | classe |
@@ -60,10 +60,10 @@ _(Precedente que morde: `portfolio-automacoes/tools/ci/gate_runner_declarado.py`
 ⚠️ **O escritório NUNCA rotaciona, apaga chave ou reescreve histórico** (D200 + D208). Ele mede, lista e leva.
 
 ## Vacinas
-1. **`V-PORTA-DE-ENTRADA-SEM-PORTA-DE-SAIDA`** — o portfólio instrumentou *"está entrando segredo no git?"* em 7 repos e **nunca** instrumentou *"posso mexer neste segredo?"*. São perguntas opostas; **o dano passa pela saída**.
-2. **`V-CAMPO-QUEM-USA-ESCRITO-DE-CABECA`** — coluna de consumidor escrita à mão infla nos dois sentidos: nomes a mais fazem preservar o morto, nomes a menos fazem apagar o vivo.
-3. **`V-MODELO-CERTO-COM-DENOMINADOR-DE-1`** — quando uma linha resolve bem um problema de classe, medir **quantos itens da classe ela cobre** antes de dar o problema por resolvido. 1 de 25 é protótipo, não solução.
-4. **`V-LACUNA-DECLARADA-NAO-E-LACUNA-TRATADA`** — este buraco ficou **67 dias** declarado como `[A VERIFICAR]` e sem dono enquanto os incidentes aconteciam. Todo `[A VERIFICAR]` em superfície canônica nasce com **dono + data de revisão** — e desde **10/09** tem dente: o check `[lacuna]` do `linter-estado.sh` (`processos/gate-lacuna-declarada.py`) varre as superfícies vivas e acusa o marcador órfão. _(Até 10/09 esta frase prometia mecanismo inexistente — AUD-6.)_
-5. **`V-DESCOBRIR-O-DANO-PELO-ESTRAGO`** — o procedimento de rotação escrito no cofre era *"robô que falhar: pedir o valor novo"*. Esperar quebrar **é** o método que o dono está reclamando; não escrever isso como se fosse processo.
+1. **`V-PORTA-DE-ENTRADA-SEM-PORTA-DE-SAIDA`** — o portfólio instrumentou *"está entrando segredo no git?"* em 7 repos e **nunca** *"posso mexer neste segredo?"*. Perguntas opostas; **o dano passa pela saída**.
+2. **`V-CAMPO-QUEM-USA-ESCRITO-DE-CABECA`** — coluna escrita à mão erra nos dois sentidos: nome a mais preserva o morto, nome a menos apaga o vivo.
+3. **`V-MODELO-CERTO-COM-DENOMINADOR-DE-1`** — linha que resolve bem um problema de classe: medir **quantos itens da classe ela cobre** antes de dar o problema por resolvido. 1 de 25 é protótipo.
+4. **`V-LACUNA-DECLARADA-NAO-E-LACUNA-TRATADA`** — este buraco ficou 67 dias como `[A VERIFICAR]` sem dono, enquanto os incidentes aconteciam. Todo `[A VERIFICAR]` em superfície canônica nasce com **dono + data de revisão**; dente no check `[lacuna]` do `linter-estado.sh` (AUD-6).
+5. **`V-DESCOBRIR-O-DANO-PELO-ESTRAGO`** — o procedimento de rotação no cofre era *"robô que falhar: pedir o valor novo"*. Esperar quebrar **é** a dor que o dono relatou; não se escreve isso como processo.
 
 Referência normativa: **D200 · D202 · D203 · D206 · D208 · D71** · achados da lente de segredos (2026-08-25).
