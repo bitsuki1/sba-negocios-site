@@ -154,6 +154,26 @@ if [ -f "$ROOT/MAPA-DE-PENDENCIAS.md" ]; then
   fi
 fi
 
+
+# ── [jargão] TERMO DE MÁQUINA CRU NA SUPERFÍCIE QUE O DONO LÊ (D159 · A-772/B12) ──────────────
+#    A ordem dele, no GO de 17/09: "faça uma varredura a lugares com linguagem de maquina e termos
+#    especificos do projeto, ISSO ATRAPALHA OS ENTENDIMENTOS DOS HUMANOS".
+#    A régua NÃO é "a palavra existe?" — a D159 manda GLOSAR: o termo fica UMA vez, com o português
+#    ao lado. `juntada (merge)` passa; `merge` sozinho acende.
+#    🟨 por desenho, como o [lacuna]: é passivo de REDAÇÃO, e a caneta no texto do mapa é DA CASA
+#    (D21/D104) — o escritório mede e entrega a régua, nunca reescreve o mapa de quem o assina.
+if [ -f "$ROOT/processos/gate-jargao-na-superficie-do-dono.py" ]; then
+  _jrg=$(cd "$ROOT" && python3 processos/gate-jargao-na-superficie-do-dono.py 2>&1)
+  case "$?" in
+    0) if echo "$_jrg" | grep -q '^🟩'; then grn "[jargão] $(echo "$_jrg" | head -1 | sed 's/^🟩 \[jargão\] //')"
+       else yel "[jargão] $(echo "$_jrg" | head -1 | sed 's/^🟨 \[jargão\] //')"
+            echo "$_jrg" | sed -n '2,7p' ; fi ;;
+    *) yel "[jargão] o gate saiu com rc≠0 e NÃO mediu — verde aqui não vale (A-768): $(echo "$_jrg" | head -1)" ;;
+  esac
+else
+  yel "[jargão] falta processos/gate-jargao-na-superficie-do-dono.py — a superfície do dono sai sem passar pela régua da D159"
+fi
+
 echo "─────────────────────────────────────────────"
 [ "$FAIL" -eq 0 ] && echo "RESULTADO: 🟩 sem 🟥 · $WARN aviso(s) 🟨" || echo "RESULTADO: 🟥 há bloqueio — corrija antes de fechar"
 exit $FAIL
