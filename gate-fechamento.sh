@@ -53,6 +53,15 @@ EXT   = r'(?:md|sh|py|json|ya?ml|mjs|js|ts|tsx|html|tsv|csv|sql|lock|txt|toml|pn
 CRASE = re.compile(r'`([^`\s]{3,120})`')
 PLACE = re.compile(r'[<>*?{}\[\]|→]|\.\.\.|…|\$\{')
 FUTURO = re.compile(r'pronto quando', re.I)
+# ESCAPE DECLARATIVO (pedido da Keepee, carta 2026-09-17 `dente-de-conteudo-pune-quem-relata-o-caminho-morto`).
+# O dente nao distinguia CITAR COMO PONTEIRO ("ver `x.md`" — acusar e certo) de CITAR COMO ASSUNTO
+# ("o item citava `x.md`, que nao existe mais" — acusar e punir quem RELATA o defeito). Custo medido la:
+# 5 dias de gate vermelho num item aberto para relatar dois enderecos mortos JA consertados, e a unica
+# saida da casa era APAGAR O REGISTRO para ficar verde — o oposto de "nada se joga fora" (D24).
+# O furo, dito em voz alta (A-622): ninguem le intencao, e o marcador pode ser carimbado em ponteiro de
+# verdade. O ganho e trocar "apague o rastro para passar" por "declare por escrito", visivel no diff —
+# mesma postura da isencao ⚰️ do [carta-anexa]. Canario: processos/prova-dente-de-conteudo.sh (7 casos).
+MARCA  = re.compile(r'caminho-hist[oó]rico', re.I)
 
 def git(*a):
     try: return subprocess.run(a, cwd=raiz, capture_output=True, text=True).stdout.strip()
@@ -67,8 +76,12 @@ achados = []
 for mp in mapas:
     try: txt = open(mp, encoding="utf-8", errors="replace").read()
     except Exception: continue
+    # o marcador se le no texto CRU: o stripper de comentario abaixo apagaria o proprio escape.
+    _marcadas = {i for i, l in enumerate(txt.split("\n"), 1) if MARCA.search(l)}
     txt = re.sub(r'<!--.*?-->', lambda m: "\n" * m.group(0).count("\n"), txt, flags=re.S)
     for n, linha in enumerate(txt.split("\n"), 1):
+        if n in _marcadas:   # o autor declarou: cito como ASSUNTO, nao como ponteiro
+            continue
         if FUTURO.search(linha):
             continue
         for t in sorted(set(CRASE.findall(linha))):
@@ -93,8 +106,43 @@ __GC_PY__
   elif [ "${_gc_m:-0}" = "0" ]; then
     _gc_warn "[conteúdo] nenhum MAPA-DE-PENDENCIAS na raiz — o dente não tem onde morder"
   elif [ "${_gc_n:-0}" -gt 0 ]; then
-    _gc_fail "[conteúdo] $_gc_n item(ns) do mapa citam obra JÁ FEITA — o arquivo existiu neste repo e foi embora, e o item continua aberto. Tire o item (o que foi feito SAI do mapa) ou conserte o caminho:"
-    printf '%s\n' "$_gc_out" | grep -v '^__N__'
+    # ── B40 (2026-09-26): O BLOQUEIO É SEU, OU JÁ ESTAVA NA MAIN? ────────────────────────────────
+    # Medido pela frente `estudo-bulky-log` da Keepee em 17/09: o portão devolveu 5 bloqueios e
+    # NENHUM era dela — linhas que já estavam na `main`. Portão sempre vermelho é portão que se
+    # aprende a ignorar, e aí o vermelho verdadeiro passa batido. A régua responde com o GIT
+    # (`merge-base`), não com palavra, e não precisa saber o que é um nó: `processos/herdado-da-main.py`.
+    # FALHA FECHADA: sem a régua no repo, ou quando ela devolve NAO-MEDIDO, o bloqueio PERMANECE.
+    # E o herdado NÃO SOME DA TELA — vira aviso COM ENDEREÇO: "não é seu" ≠ "não existe".
+    # ONDE A RÉGUA MORA muda por casa: no escritório é `processos/`, no kit o tooling python desce
+    # para `scripts/`, e há casa que guarda na raiz. Procurar nos três é 1 linha; presumir um só é
+    # instalar o dente e ele nunca morder — o defeito que o item B15 chama de "kit que ninguém chama".
+    _GC_REGUA=$(ls processos/herdado-da-main.py scripts/herdado-da-main.py herdado-da-main.py 2>/dev/null | head -1)
+    _gc_herd=""; _gc_seus=""
+    if [ -n "${_GC_REGUA:-}" ] && command -v python3 >/dev/null 2>&1; then
+      while IFS= read -r _gc_l; do
+        [ -z "$_gc_l" ] && continue
+        _gc_tok=$(printf '%s' "$_gc_l" | awk '{print $1}')
+        case "$_gc_tok" in
+          *:[0-9]*) _gc_v=$(python3 "$_GC_REGUA" "$_gc_tok" 2>/dev/null | head -1 | awk '{print $1}') ;;
+          *)        _gc_v="NAO-MEDIDO" ;;
+        esac
+        if [ "${_gc_v:-}" = "HERDADO" ]; then _gc_herd="${_gc_herd}${_gc_l}"$'\n'
+        else _gc_seus="${_gc_seus}${_gc_l}"$'\n'; fi
+      done <<EOF
+$(printf '%s\n' "$_gc_out" | grep -v '^__N__')
+EOF
+    else
+      _gc_seus=$(printf '%s\n' "$_gc_out" | grep -v '^__N__')
+      _gc_warn "[conteúdo] régua do bloqueio herdado ausente (herdado-da-main.py em processos/, scripts/ ou na raiz) — nada rebaixado (falha fechada)"
+    fi
+    if [ -n "$(printf '%s' "$_gc_herd" | tr -d '[:space:]')" ]; then
+      _gc_warn "[conteúdo] os item(ns) abaixo JÁ ESTAVAM na \`origin/main\` antes desta branch divergir — NÃO é seu, e alguém precisa pagar:"
+      printf '%s' "$_gc_herd"
+    fi
+    if [ -n "$(printf '%s' "$_gc_seus" | tr -d '[:space:]')" ]; then
+      _gc_fail "[conteúdo] item(ns) DESTA branch citam obra JÁ FEITA — o arquivo existiu neste repo e foi embora, e o item continua aberto. Tire o item (o que foi feito SAI do mapa) ou conserte o caminho:"
+      printf '%s' "$_gc_seus"
+    fi
   else
     _gc_ok "[conteúdo] mapa sem item citando obra já feita ($_gc_m mapa(s) da raiz lido(s); sub-mapas NÃO medidos)"
   fi
