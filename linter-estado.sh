@@ -92,24 +92,22 @@ fi
 # A linha, no formato fechado:  # segredo: NOME — para que serve — casa: <casa>
 # Bateria: python3 scripts/gate-segredo-declarado.py --prova (8 casos)
 if [ -f "$ROOT/scripts/gate-segredo-declarado.py" ] && command -v python3 >/dev/null 2>&1; then
-  # ⚠️ A-738 (2026-09-15) — TRAZIDO PELO ESCRITÓRIO DO MOU. Este check acendia 🟩 COM A
-  # CATRACA DESTRUÍDA, e a catraca é a da **D200** (ordem viva do dono, 21/08: *"credencial em git
-  # não é mais aceito"*). O `2>/dev/null` engolia o traceback, o **código de saída era
-  # DESCARTADO**, e a decisão saía de um `grep '^🟥'` no stdout: gate morto ⇒ stdout vazio ⇒
-  # nenhum 🟥, nenhum 🟨 ⇒ caía no `else` e imprimia, palavra por palavra, *"nenhum ponto novo
-  # de leitura de segredo sem declaração"*. **Verde byte-a-byte idêntico ao verde saudável.**
+  # ⚠️ ESTA FIAÇÃO ERROU DOS DOIS LADOS EM 2 DIAS — a ordem abaixo é o conserto, não estilo.
+  #   A-738 (15/09) VERDE-CEGO: com `2>/dev/null` e o código de saída DESCARTADO, catraca destruída
+  #   ⇒ stdout vazio ⇒ nenhum 🟥 ⇒ caía no `else` e imprimia "nenhum ponto novo…", verde byte-
+  #   idêntico ao verde saudável. O sinal de vida é o CÓDIGO DE SAÍDA, não a presença de texto:
+  #   a catraca SÃ é silenciosa (0 byte, rc 0).
+  #   A-768 (17/09) VERMELHO-MENTIROSO: consertado o primeiro, a ordem ficou invertida — `rc != 0`
+  #   testado ANTES do 🟥. Como rc=1 é o código de "ACHEI" **e** o de "morri", a catraca que tinha
+  #   ACHADO era reportada como "NÃO RODOU" e o achado ficava escondido.
+  #   Ordem que vale: **🟥 primeiro, rc depois.** Não reordenar.
   _sd=$(cd "$ROOT" && python3 scripts/gate-segredo-declarado.py 2>&1); _sdrc=$?
-  # ⚠️ O sinal de vida é o **CÓDIGO DE SAÍDA**, nunca a presença de texto: a catraca SÃ é
-  # **SILENCIOSA** — sem ponto novo ela imprime **nada** e sai 0. A 1ª versão deste conserto, no
-  # escritório, decidiu por *"stdout sem veredito ⇒ morreu"* e acendeu 🟥 no caso saudável.
-  # Mutação sozinha prova que o dente morde — nunca que ele morde **só onde deve**. Por isso o PR
-  # que trouxe esta linha prova as duas direções nesta casa: saudável 🟩, mutilada 🟥, restaurada 🟩.
-  if [ "$_sdrc" != "0" ]; then
-    red "[segredo-declarado] a catraca da D200 NÃO RODOU (saiu $_sdrc) — isto não é verde, é cego:"
-    echo "$_sd" | tail -3 | sed 's/^/      /'
-  elif echo "$_sd" | grep -q '^🟥'; then
+  if echo "$_sd" | grep -q '^🟥'; then
     red "[segredo-declarado] ponto NOVO lendo segredo sem dizer para que serve:"
     echo "$_sd" | grep -v '^🟥' | head -5
+  elif [ "$_sdrc" != "0" ]; then
+    red "[segredo-declarado] a catraca da D200 NÃO RODOU (saiu $_sdrc) — isto não é verde, é cego:"
+    echo "$_sd" | tail -3 | sed 's/^/      /'
   elif echo "$_sd" | grep -q '^🟨'; then
     yel "[segredo-declarado] a catraca não pôde comparar — não conte como verificado"
   else
@@ -117,6 +115,63 @@ if [ -f "$ROOT/scripts/gate-segredo-declarado.py" ] && command -v python3 >/dev/
   fi
 else
   yel "[segredo-declarado] scripts/gate-segredo-declarado.py ausente — a catraca não existe"
+fi
+
+# ── [catraca-fiação] O CANÁRIO DO CHECK ACIMA (E-086 — todo check nasce com canário) ──────────────
+# A fiação do `[segredo-declarado]` errou dos DOIS lados em 2 dias: verde-cego (A-738, 15/09) e
+# vermelho-mentiroso (A-768, 17/09 — "NÃO RODOU" quando a catraca tinha ACHADO). O canário extrai
+# o bloco VIVO do próprio linter e o roda contra 4 dublês; testar uma cópia da fiação provaria a
+# cópia. Se ele reprovar, o veredito do check acima não vale hoje — não é detalhe de teste.
+if [ -f "$ROOT/scripts/prova-fiacao-catraca.sh" ]; then
+  _cfi=$( (cd "$ROOT" && bash scripts/prova-fiacao-catraca.sh 2>&1) ); _cfirc=$?
+  if [ "$_cfirc" != "0" ]; then
+    red "[catraca-fiação] o canário da fiação REPROVOU (saiu $_cfirc) — o veredito do [segredo-declarado] não vale hoje:"
+    printf '%s\n' "$_cfi" | grep '❌' | head -3 | sed 's/^/      /'
+  else
+    grn "$(printf '%s' "$_cfi" | tail -1 | sed 's/^🟩 //') [catraca-fiação]"
+  fi
+else
+  yel "[catraca-fiação] sem canário da fiação — o [segredo-declarado] fica sem quem prove que ele distingue catraca morta de catraca que achou"
+fi
+
+
+# ── [lentes] AS LENTES DE CONTEÚDO DO MAPA DO DONO (ordem dele, 2026-09-09: "lance lentes de
+#    revisao antes de publicar os mapas"). O `[espelho]` cobra a FORMA (o HTML sai do gerador);
+#    estas cobram o PADRÃO que ele descreveu: só pendência, a dele didática, a minha registrada,
+#    a lista DENTRO do mapa. São eixos diferentes — gerador verde com conteúdo fora do padrão foi
+#    exatamente o que ele corrigiu à mão duas vezes.
+#    ⚠️ NÃO se recita o número de lentes aqui: ecoa-se a linha do próprio script, que conta as
+#    dele mesmo. O bloco que recitava "7" com 11 no código é a V-NUMERO-DE-LENTE-RECITADO.
+if [ -f "$ROOT/MAPA-DE-PENDENCIAS.md" ]; then
+  if [ -f "$ROOT/scripts/revisar-mapa.py" ]; then
+    if _lentes=$(cd "$ROOT" && python3 scripts/revisar-mapa.py 2>/dev/null); then
+      grn "[lentes] $(echo "$_lentes" | tail -1 | sed 's/^🟩 lentes de revisão: //')"
+    else
+      red "[lentes] o mapa do dono TEM DEFEITO de conteúdo — rode: python3 scripts/revisar-mapa.py (ele diz a linha e o conserto)"
+    fi
+  else
+    yel "[lentes] falta scripts/revisar-mapa.py — sem ele o mapa volta a sair confuso (ordem do dono 09/09)"
+  fi
+fi
+
+
+# ── [jargão] TERMO DE MÁQUINA CRU NA SUPERFÍCIE QUE O DONO LÊ (D159 · A-772/B12) ──────────────
+#    A ordem dele, no GO de 17/09: "faça uma varredura a lugares com linguagem de maquina e termos
+#    especificos do projeto, ISSO ATRAPALHA OS ENTENDIMENTOS DOS HUMANOS".
+#    A régua NÃO é "a palavra existe?" — a D159 manda GLOSAR: o termo fica UMA vez, com o português
+#    ao lado. `juntada (merge)` passa; `merge` sozinho acende.
+#    🟨 por desenho, como o [lacuna]: é passivo de REDAÇÃO, e a caneta no texto do mapa é DA CASA
+#    (D21/D104) — o escritório mede e entrega a régua, nunca reescreve o mapa de quem o assina.
+if [ -f "$ROOT/processos/gate-jargao-na-superficie-do-dono.py" ]; then
+  _jrg=$(cd "$ROOT" && python3 processos/gate-jargao-na-superficie-do-dono.py 2>&1)
+  case "$?" in
+    0) if echo "$_jrg" | grep -q '^🟩'; then grn "[jargão] $(echo "$_jrg" | head -1 | sed 's/^🟩 \[jargão\] //')"
+       else yel "[jargão] $(echo "$_jrg" | head -1 | sed 's/^🟨 \[jargão\] //')"
+            echo "$_jrg" | sed -n '2,7p' ; fi ;;
+    *) yel "[jargão] o gate saiu com rc≠0 e NÃO mediu — verde aqui não vale (A-768): $(echo "$_jrg" | head -1)" ;;
+  esac
+else
+  yel "[jargão] falta processos/gate-jargao-na-superficie-do-dono.py — a superfície do dono sai sem passar pela régua da D159"
 fi
 
 echo "─────────────────────────────────────────────"

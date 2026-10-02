@@ -142,11 +142,18 @@ def _instrucao_de_resposta(lin, cod):
 
 
 def secoes(texto):
-    """Divide o markdown nas seções `# 🔒`, `# ⚙️`, `# 📌`, guardando o número da linha."""
+    """Divide o markdown nas seções `# 🔒`, `# 🧊`, `# ⚙️`, `# 📌`, guardando o número da linha.
+
+    ⚠️ **A 🧊 faltava nesta lista, e o custo era silencioso** (achado da L10, 19/09, na 1ª rodada
+    dela contra o mapa desta casa): `# 🧊 CONGELADO` não casava o padrão, então tudo o que vinha
+    depois dele continuava sendo atribuído à pista ANTERIOR — a 🔒. Toda lente que lê 🔒 (L5, L6,
+    L9, L10, L11) vinha julgando conteúdo CONGELADO como se fosse fila ativa. A lente nova achou
+    um defeito do próprio instrumento antes de achar um defeito de mapa: é para isso que serve o
+    canário (E-086)."""
     out, atual = {}, None
     cab = []
     for i, lin in enumerate(texto.split("\n"), 1):
-        m = re.match(r"^# (🔒|⚙️|📌|📅|💬)", lin)
+        m = re.match(r"^# (🔒|🧊|⚙️|📌|📅|💬)", lin)
         if m:
             atual = m.group(1)
             out[atual] = []
@@ -200,7 +207,7 @@ def _base_do_repo():
     m = re.search(r"github\.com[:/]([^/]+/[^/\s]+?)(?:\.git)?$", u)
     if not m:
         return ""            # sem remote legível: sugere o caminho sem inventar dono
-    return "https://github.com/%s/blob/main/" % m.group(1)
+    return f"https://github.com/{m.group(1)}/blob/main/"
 
 
 def revisar(texto):
@@ -297,7 +304,7 @@ def revisar(texto):
             )
 
     # ── L6 · código interno sem glosa na cara do dono ────────────────────────────────────────
-    _declara = any(DECLARA_CODIGO.search(l) for _, l in cab)
+    _declara = any(DECLARA_CODIGO.search(ln) for _, ln in cab)
     for i, lin in sec.get("🔒", []):
         if lin.strip().startswith(">") or not lin.strip():
             continue
@@ -363,22 +370,127 @@ def revisar(texto):
     # números existem e a conciliação está escrita nos dois lados — não "consertar" renumerando.
     CAMINHO = re.compile(r"`([A-Za-z0-9_./-]+\.(?:py|sh|md|csv|tsv|yml|yaml|json|xlsx|txt|mjs))`")
     for s in ("🔒", "🧊", "💬"):
-        for i, l in sec.get(s, []):
-            for m in CAMINHO.finditer(l):
+        for i, ln in sec.get(s, []):
+            for m in CAMINHO.finditer(ln):
                 alvo = m.group(1)
-                if ("[`%s`](" % alvo) in l or ("](%s" % alvo) in l:
+                if (f"[`{alvo}`](") in ln or (f"]({alvo}") in ln:
                     continue            # já é rótulo de link: vale
                 achados.append(
-                    ("L9 arquivo sem link em %s" % s, i,
-                     "cita “%s” pelo nome, sem link que abra" % alvo,
-                     "troque por link: %s%s — nome de arquivo ele copia, procura e não "
-                     "acha (ordem dele, 09/09)" % (_base_do_repo(), alvo)))
+                    (f"L9 arquivo sem link em {s}", i,
+                     f"cita “{alvo}” pelo nome, sem link que abra",
+                     f"troque por link: {_base_do_repo()}{alvo} — nome de arquivo ele "
+                     "copia, procura e não "
+                     "acha (ordem dele, 09/09)"))
+
+    # ── L10 · item 🔒 que não diz se JÁ foi à caixa de clique
+    #        COLHEITA DO `portfolio-automacoes` ──
+    # A D203 manda que decisão dele vá em CAIXA DE CLIQUE; a D222 recorta — o mapa é onde a coisa
+    # MORA, a caixa continua sendo o gesto de DECIDIR. Entre as duas sobra um vão: um item pode
+    # morar no 🔒 por dias sem que ninguém tenha perguntado nada a ele, e nenhuma superfície
+    # registra a diferença. Item que espera decisão sem ter sido perguntado NÃO está esperando —
+    # está parado, e quem lê o mapa não distingue os dois. Medido pela casa em 18/09: dois itens
+    # 🔒 desde 17/09, e `grep -ri "caixa de clique"` no log dela devolvia ZERO.
+    # ⚠️ LIMITE DECLARADO, e ele importa: esta lente NÃO prova que a caixa foi aberta na tela dele.
+    # Gate nenhum lê o chat (D224 diz isso com todas as letras; prometer o contrário repetiria o
+    # A-622). Ela move o erro de "ninguém reparou que a pergunta não foi feita" para "alguém
+    # escreveu que foi" — que é MENOS, e dizer que é menos é a parte honesta.
+    # ⚠️ A pista 🧊 fica DE FORA de propósito: congelado é decisão que ELE já tomou ("você congelou
+    # em …"), logo a pergunta já chegou. Cobrar a declaração ali seria pedir prova de uma caixa que
+    # a própria linha do item registra — falso-vermelho, e falso-vermelho custa o mesmo que
+    # falso-verde.
+    if "🔒" in sec:
+        bloco, cab_ln = [], None
+        def _fecha(bloco, cab_ln):
+            if cab_ln is None:
+                return
+            txt = "\n".join(bloco)
+            if "caixa de clique" not in txt.lower():
+                achados.append(
+                    ("L10 sem dizer se foi à caixa", cab_ln,
+                     "item 🔒 não diz se já foi à caixa de clique",
+                     "acrescente UMA linha: `**Levado em caixa de clique:** AAAA-MM-DD` ou "
+                     "`**Ainda não levado em caixa de clique** — vai na resposta de hoje`"))
+        for i, ln in sec["🔒"]:
+            if ln.startswith("## "):
+                _fecha(bloco, cab_ln)
+                bloco, cab_ln = [ln], i
+            elif cab_ln is not None:
+                bloco.append(ln)
+        _fecha(bloco, cab_ln)
+
+    # ── L11 · pista SEM item, mas COM prosa — COLHEITA DO `portfolio-automacoes` ────────────────
+    # A regra nº 1 do molde é "só PENDÊNCIA; o que foi feito SAI do mapa, inteiro, com o item". A
+    # lente que existe para isso (L2, obra feita) caça uma LISTA DE VERBOS escrita à mão. Contra
+    # texto escrito pela mesma instância que conhece a lista, ela vale zero — não por má-fé, por
+    # composição: cada frase nova sorteia outro sinônimo. Medido pela casa em 18/09: as duas
+    # decisões fecharam, os dois itens saíram, e a pista 🔒 ficou com ZERO itens e 8 linhas
+    # recapitulando o que ele acabara de decidir — a L2 passou, porque os verbos usados não
+    # estavam na lista dela.
+    # O DENTE não olha vocabulário nenhum, olha a FORMA: pista com zero itens e mais de 2 linhas
+    # de texto está narrando em vez de listar. Teto 2 porque pista vazia se diz em UMA linha — e
+    # uma segunda para o link de onde o que fechou foi morar.
+    # ⚠️ LIMITE DECLARADO: não pega pista COM itens e prosa demais em volta. Isso é da L2/L5 e do
+    # olho; fazê-la acender por tamanho trocaria "defeito" por "comprimento", e comprimento não é
+    # defeito.
+    for s_p, e_item in (("🔒", lambda ln: ln.startswith("## ")),
+                        ("⚙️", lambda ln: ln.strip().startswith("|"))):
+        if s_p not in sec:
+            continue
+        corpo = [(i, ln) for i, ln in sec[s_p] if not ln.startswith(">")]
+        itens = [1 for _, ln in corpo if e_item(ln)]
+        prosa = [ln for _, ln in corpo if ln.strip() and not e_item(ln)]
+        if not itens and len(prosa) > 2:
+            achados.append(
+                ("L11 pista sem item, com prosa", min([i for i, _ in corpo], default=1),
+                 f"a pista {s_p} tem ZERO itens e {len(prosa)} linhas de texto",
+                 "pista vazia se diz em UMA linha (mais uma para o link de onde o que fechou foi "
+                 "morar) — o resto é narrar, e narrar sai do mapa"))
+
+    # ── L12 · item 🔒 PESADO DE MÁQUINA — COLHEITA DA AVC (24/09, a régua de leitura) ───────────
+    # A L6 olha LINHA a linha e aceita código glosado. Mas um item 🔒 com quatro códigos, todos
+    # glosados, ainda é texto de máquina para quem lê no celular: a glosa salva a FRASE, não o
+    # ITEM. A AVC mediu "termos nossos por mil palavras" por ARQUIVO (`medir-leitura.py`, com
+    # catraca); aqui a unidade é o ITEM da pista dele, que é o que ele lê de uma vez. Teto: 3
+    # códigos DISTINTOS por item — o 4º acende. Exclui o que a L6 já suprime (âncora declarada e
+    # instrução de resposta), pelas mesmas razões e sob a mesma condição (a casa DECLARA).
+    if "🔒" in sec:
+        declara = bool(DECLARA_CODIGO.search(texto))
+
+        def _pesa(bloco, cab_ln):
+            if cab_ln is None:
+                return
+            cods = set()
+            for ln in bloco:
+                for m in CODIGO_INTERNO.finditer(ln):
+                    cod = m.group(0)
+                    if declara and (_ancora_longa(ln, cod) or _instrucao_de_resposta(ln, cod)):
+                        continue
+                    cods.add(cod)
+            if len(cods) >= 4:
+                achados.append(
+                    ("L12 item pesado de máquina", cab_ln,
+                     f"o item 🔒 carrega {len(cods)} códigos internos distintos "
+                     f"({', '.join(sorted(cods)[:6])})",
+                     "ele lê o item inteiro no celular: glosar cada código salva a frase, não o "
+                     "item. Diga o que os códigos QUEREM (a regra, a decisão) e deixe no máximo "
+                     "três, ou leve o rastro para a ficha/carta e aponte"))
+
+        bloco, cab_ln = [], None
+        for i, ln in sec["🔒"]:
+            if ln.startswith("## "):
+                _pesa(bloco, cab_ln)
+                bloco, cab_ln = [ln], i
+            elif cab_ln is not None:
+                bloco.append(ln)
+        _pesa(bloco, cab_ln)
+
     return achados
 
 
 def _n_lentes():
     """Quantas lentes existem, MEDIDO no próprio arquivo. ⚠️ até 11/09 o número vivia CRAVADO em
-    3 lugares e eu acabei de acrescentar a 8ª (a do link, colheita da SBA) — a frase diria "7 lentes"
+    3 lugares e eu acabei de acrescentar a 8ª (a do link, colheita da SBA) — a frase
+    diria "7 lentes"
     para sempre, que é o instrumento mentindo sobre si mesmo. Conta os cabeçalhos `# ── L<n> ·`."""
     try:
         corpo = open(os.path.abspath(__file__), encoding="utf-8").read()
@@ -388,7 +500,8 @@ def _n_lentes():
 
 
 def _declarando(mapa):
-    """Devolve o mapa com a DECLARAÇÃO do protocolo de resposta no cabeçalho (o que a Keepee tem)."""
+    """Devolve o mapa com a DECLARAÇÃO do protocolo de resposta no cabeçalho
+    (o que a Keepee tem)."""
     return mapa.replace(
         "> **Atualizado:",
         "> Responda citando o código curto; a âncora longa é só o endereço.\n> **Atualizado:",
@@ -405,6 +518,7 @@ def prova():
 # 🔒 SUAS — 1
 
 ## P1 · 🟧 Apagar as branches
+> **Levado em caixa de clique:** 2026-09-09
 > As três, uma por linha:
 > - https://github.com/x/y/branches/all?query=a
 > - https://github.com/x/y/branches/all?query=b
@@ -424,6 +538,26 @@ def prova():
 """
     casos = [
         ("bom", bom, None),
+        # ── L12 (colheita da AVC, 25/09): item 🔒 com QUATRO códigos, cada um glosado — a L6 fica
+        # quieta (glosa na linha) e a L12 acende (o item inteiro é máquina).
+        (
+            "L12 item 🔒 com 4 códigos glosados",
+            bom.replace(
+                '2. Me dizer "P1 apaguei".',
+                '2. Me dizer "P1 apaguei".\n> Depende da D200 (regra), da D208 (regra), '
+                "do A-704 (achado) e da D216 (decisão).",
+            ),
+            "L12",
+        ),
+        (
+            "L12 · item com 3 códigos glosados NÃO acende (teto é 3)",
+            bom.replace(
+                '2. Me dizer "P1 apaguei".',
+                '2. Me dizer "P1 apaguei".\n'
+                '> Depende da D200 (regra), da D208 (regra) e da D216 (decisão).',
+            ),
+            None,
+        ),
         (
             "L1 cabeçalho",
             bom.replace("Nada mais mudou.", "Nada mais mudou. " + "história antiga " * 40),
@@ -596,6 +730,56 @@ def prova():
             "conferida nesta rodada.\n",
             None,
         ),
+        # ── L10 (colheita do `portfolio-automacoes`, 18/09): o item 🔒 tem de DIZER se já foi à
+        # caixa de clique. A mutação tira a linha — e a lente acende. Limite declarado no corpo
+        # dela: isto prova que alguém ESCREVEU, nunca que a caixa abriu na tela dele.
+        (
+            "L10 item 🔒 sem dizer se foi à caixa de clique",
+            bom.replace("> **Levado em caixa de clique:** 2026-09-09\n", ""),
+            "L10",
+        ),
+        (
+            "L10 · a forma NEGATIVA também vale (dizer que ainda não foi é declaração)",
+            bom.replace(
+                "> **Levado em caixa de clique:** 2026-09-09",
+                "> **Ainda não levado em caixa de clique** — vai na resposta de hoje",
+            ),
+            None,
+        ),
+        # ── L11 (mesma carta): pista com ZERO itens e prosa. A mutação esvazia a pista 🔒 dos
+        # itens e deixa 3 linhas narrando — a forma que ele vetou em 17/09.
+        (
+            "L11 pista 🔒 sem item, com prosa",
+            bom.replace(
+                '## P1 · 🟧 Apagar as branches\n'
+                '> **Levado em caixa de clique:** 2026-09-09\n'
+                '> As três, uma por linha:\n'
+                '> - https://github.com/x/y/branches/all?query=a\n'
+                '> - https://github.com/x/y/branches/all?query=b\n'
+                '> - https://github.com/x/y/branches/all?query=c\n'
+                '1. Clicar em cada link e usar a lixeira.\n'
+                '2. Me dizer "P1 apaguei".',
+                "Você respondeu as duas de hoje e as duas saíram daqui.\n"
+                "O registro de cada uma foi para o lugar dela.\n"
+                "Nada mais depende de você nesta pista agora.",
+            ),
+            "L11",
+        ),
+        (
+            "L11 · pista vazia dita em UMA linha NÃO acende (é o jeito certo)",
+            bom.replace(
+                '## P1 · 🟧 Apagar as branches\n'
+                '> **Levado em caixa de clique:** 2026-09-09\n'
+                '> As três, uma por linha:\n'
+                '> - https://github.com/x/y/branches/all?query=a\n'
+                '> - https://github.com/x/y/branches/all?query=b\n'
+                '> - https://github.com/x/y/branches/all?query=c\n'
+                '1. Clicar em cada link e usar a lixeira.\n'
+                '2. Me dizer "P1 apaguei".',
+                "Nada depende de você agora.",
+            ),
+            None,
+        ),
     ]
     falhou = 0
     for nome, texto, espera in casos:
@@ -610,7 +794,8 @@ def prova():
         print(f"  {'✅' if ok else '🟥'} {nome}{detalhe}")
         falhou += 0 if ok else 1
     veredito = (
-        ("🟩 as %d lentes provadas por mutação" % _n_lentes()) if not falhou else f"🟥 {falhou} caso(s) falharam"
+        f"🟩 as {_n_lentes()} lentes provadas por mutação" if not falhou
+        else f"🟥 {falhou} caso(s) falharam"
     )
     print(f"\n{veredito}")
     return 0 if not falhou else 1
@@ -628,10 +813,22 @@ def main():
     if not os.path.isfile(a.md):
         print(f"não achei {a.md}", file=sys.stderr)
         sys.exit(2)
-    ach = revisar(open(a.md, encoding="utf-8").read())
+    _txt = open(a.md, encoding="utf-8").read()
+    ach = revisar(_txt)
     if not ach:
-        print("🟩 lentes de revisão: %s está no padrão do dono (%d lentes, 0 defeito)"
-              % (a.md, _n_lentes()))
+        # ⚠️ O VERDE DIZ O QUE MEDIU (26/09, ao ligar este revisor no kit — B15). A frase antiga
+        # era *"está no padrão do dono"*, e ela crescia além da medição: as lentes leem o CONTEÚDO
+        # das pistas, então num arquivo SEM pista nenhuma elas não têm o que medir e o revisor sai
+        # 0 do mesmo jeito. Provado com um MAPA-DE-PENDENCIAS.md de 3 linhas: 🟩 "está no padrão".
+        # Verde que afirma mais do que mediu é a família do check do manifesto (A-799/A-824) —
+        # aqui, no instrumento que guarda a superfície que o dono lê.
+        _pistas = len(secoes(_txt)[1])
+        if _pistas == 0:
+            print(f"🟨 lentes de revisão: {a.md} não traz pista nenhuma "
+                  f"(🔒/🧊/⚙️/💬) — as {_n_lentes()} lentes rodaram e não tiveram o que medir")
+            sys.exit(1)
+        print(f"🟩 lentes de revisão: {a.md} — nenhuma das {_n_lentes()} lentes acusou "
+              f"({_pistas} pista(s) medida(s))")
         sys.exit(0)
     print(f"🟥 lentes de revisão: {len(ach)} defeito(s) em {a.md} — NÃO publique assim\n")
     for lente, ln, defeito, conserto in ach:

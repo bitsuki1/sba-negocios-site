@@ -5,7 +5,7 @@
 ## D203 — Decisão do dono vem em CAIXA DE CLIQUE, nunca em prosa
 Toda vez que o escritório precisa de **APROVAÇÃO, DEFINIÇÃO ou ESCOLHA** do MOU, a pergunta vai na **caixa de clique** (ferramenta `AskUserQuestion` — chips clicáveis na tela dele), **NÃO** como parágrafo no fim de uma resposta longa.
 - **Por quê:** ele opera no CELULAR (D85), decide em 1 toque. Pergunta em prosa = ele não vê, a fila para. Já reclamou disso mais de uma vez.
-- **Como fica:** recomendação do escritório = **1ª opção, marcada "(Recomendado)"** (D40 dentro da caixa); no máximo 4 caixas por vez; contexto curto ANTES da caixa se precisar; a resposta termina no selo (D85). Decisão que precisa de contexto longo → o contexto vem curto antes, e a caixa carrega a escolha (opção "Explique melhor" quando couber).
+- **Como fica:** recomendação do escritório = **1ª opção, marcada "(Recomendado)"** (D40); no máximo 4 caixas por vez; contexto curto ANTES dela; a resposta termina no selo (D85). Contexto longo → resume-se antes, e a caixa carrega só a escolha (com "Explique melhor" quando couber).
 - **Fronteira:** o `MAPA-DE-PENDENCIAS.md` segue sendo a superfície de **LEITURA** do estado (D191); a **AÇÃO** de decidir passa pela caixa.
 - **VACINA:** "trouxe a decisão em prosa no fim da resposta" — reincidente até 2026-08-22. Não repetir.
 
@@ -32,7 +32,7 @@ _(Esta regra entrou aqui, e não em arquivo próprio, porque as regras de boot t
 | **C** | Irreversível · externo (Drive/rede/2FA/e-CAC/produção) · financeiro · societário · marca · o que encosta na regra de ouro (perna b/LGPD) | **Só o dono**, e trago em CAIXA DE CLIQUE (D203). |
 
 - **ANTÍTESE da classe B:** pode executar algo que o dono vetaria se visse a tempo. **CONCILIAÇÃO:** (a) só cobre o REVERSÍVEL (git desfaz); (b) toda entrada da fila B tem recomendação + prazo visível; (c) o dono veta a qualquer momento nos 3 dias. Risco de veto-tardio aceito contra o custo da fila parada.
-- **MECANISMO — EXISTE desde 2026-09-07** _(⚠️ até 09/09 esta linha o dava como inexistente — A-622)_: fila datada `processos/AGUARDANDO-ALCADA.md` com `item · classe · proposto-em · executa-em(+3d) · recomendação`, e o check **`[alçada]`** do `processos/linter-estado.sh` acende quando um item B passa do prazo sem execução nem veto (a fila não vira cemitério).
-- **A fila de PERGUNTAS ao dono é outra** — `processos/AGUARDANDO-CAIXA.md`, tabela `Q<n>`, com dente no mesmo check **`[9]`** desde 09/09 (antes ele lia só a tabela `B`, e a Q4 ficou 19 dias parada — A-619).
+- **MECANISMO — EXISTE desde 2026-09-07** _(⚠️ até 09/09 esta linha o dava como inexistente — A-622)_: fila datada `AGUARDANDO-ALCADA.md` (no escritório) com `item · classe · proposto-em · executa-em(+3d) · recomendação`, e o check **`[alçada]`** do linter dele acende quando um item B passa do prazo sem execução nem veto (a fila não vira cemitério).
+- **A fila de PERGUNTAS ao dono é outra** — `AGUARDANDO-CAIXA.md` (idem), tabela `Q<n>`, com dente no mesmo check **`[9]`** desde 09/09 (antes ele lia só a tabela `B`, e a Q4 ficou 19 dias parada — A-619).
 
 Referência normativa: **DECISOES.md · D202 · D203**.
