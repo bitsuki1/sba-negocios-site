@@ -404,7 +404,7 @@ def revisar(texto):
             if cab_ln is None:
                 return
             txt = "\n".join(bloco)
-            if "caixa de clique" not in txt.lower():
+            if "caixa de clique" not in txt.lower() and "levado a você" not in txt.lower():  # D238 (04/10): prosa vale
                 achados.append(
                     ("L10 sem dizer se foi à caixa", cab_ln,
                      "item 🔒 não diz se já foi à caixa de clique",
