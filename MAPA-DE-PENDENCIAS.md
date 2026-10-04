@@ -2,7 +2,9 @@
 > **🌐 Sua página:** https://claude.ai/code/artifact/b68922ed-318d-4a98-a5f3-e198e944d614 — republicada no MESMO endereço a cada mudança (**dois gestos**: ler por ele antes, publicar passando ele).
 > **👤 Conta que publica esta página:** `contato@bitsuki.com.br` — medido em 2026-09-17: a página está na lista desta conta. Página do Claude é **privada por conta**: só quem publicou consegue atualizar, e de outra conta ela nem aparece na lista. **Se você abriu noutra conta, NÃO republique** — republicar cria um SEGUNDO endereço, que o dono não acompanha e ninguém mantém; corrija esta linha com a sua conta e publique dali. Ordem do dono, 16/09: *"cada casa, a sua conta"*.
 > _⚰️ **2026-09-14 — o endereço anterior (`8bf55b35-ffa5-4c03-9257-67c3fa94f09d`) sumiu.** Não foi renome: a conta tem 42 páginas publicadas e ele não está entre elas. Foi conferido um a um; o mesmo aconteceu com as páginas de outras nove casas no mesmo dia. O conteúdo nunca esteve em risco — a fonte é o `MAPA-DE-PENDENCIAS.md` no git, e a página é a foto dele._
-> **Atualizado: 2026-09-14 (v10 — regras de boot em dia, varredor de segredos atualizado, a pista de 'próxima instância' aposentada — os 3 combinados voltaram como pendência minha)** Desde 26/08 o site não mudou — o que andou foi governança (porta de segredos, permissões pré-liberadas, este molde). Tudo o que você decidiu em 26/08 está no ar e saiu daqui. Sobram três coisas suas: guardar a senha do guia (1 minuto), o Search Console quando você disser, e um insumo opcional.
+> **Atualizado: 2026-09-14 (v10 — regras de boot em dia, varredor de segredos atualizado, a pista de 'próxima instância' aposentada — os 3 combinados voltaram como pendência minha)**
+>
+> Desde 26/08 o site não mudou — o que andou foi governança (porta de segredos, permissões pré-liberadas, este molde). Tudo o que você decidiu em 26/08 está no ar e saiu daqui. Sobram três coisas suas: guardar a senha do guia (1 minuto), o Search Console quando você disser, e um insumo opcional.
 > **Como responder:** cite o código (*"resolve o P2"*) ou clique na caixa quando eu trouxer. 🔒 = você faz · ⚙️ = eu faço, é só para você ver.
 > **Régua desta casa (sua ordem, 26/08):** aqui só o que é 100% do site — código, SEO, conteúdo, publicação. Comercial e negócio moram na unidade `sba-unidades-de-negocios`; o que trava outras casas sobe ao mapa do escritório.
 
@@ -13,7 +15,8 @@
 > Você respondeu os 8 itens de 26/08; sete saíram no mesmo dia. Nada novo entrou desde então. Quando eu precisar de você, aparece em **caixa de clique** na tela, nunca em parágrafo no fim de um texto.
 
 ## P1 · 🟥 Guardar a senha nova do guia de parceiros no seu gerenciador (T-003)
-Em 26/08 eu redefini a senha do `/guia-etapas` — a antiga estava perdida para todo mundo, porque o site guarda só uma versão embaralhada dela, de mão única — e te entreguei a nova no chat. Se ela ficar só na conversa, some com a conversa: foi exatamente assim que a anterior se perdeu.
+> **Levado a você:** não consta nesta casa — o escritório conferiu em 04/10 e não abriu caixa (a decisão D238, sem caixa obrigatória); a casa confirma na próxima resposta.
+Em 26/08 eu redefini a senha do `/guia-etapas` — a antiga estava perdida para todo mundo, porque o site guarda só uma versão embaralhada dela, de mão única — e a nova foi passada a você no chat. Se ela ficar só na conversa, some com a conversa: foi exatamente assim que a anterior se perdeu.
 
 > **Sem link para a senha:** ela foi entregue na conversa de 26/08 (a que executou suas 8 decisões), e conversa não tem endereço fixo. Os passos abaixo dizem o nome exato do que você vê na tela.
 
@@ -26,6 +29,7 @@ Em 26/08 eu redefini a senha do `/guia-etapas` — a antiga estava perdida para 
 **Rec.:** hoje. Leva 1 minuto, e cada dia sem guardar é um dia a mais de risco de repetirmos esta conversa.
 
 ## P2 · 🟡 Ligar o Google Search Console — quando você disser (era o item 2 de 26/08: *"faremos depois"*)
+> **Levado a você:** não consta nesta casa — o escritório conferiu em 04/10 e não abriu caixa (a decisão D238, sem caixa obrigatória); a casa confirma na próxima resposta.
 É a única ferramenta que mostra **o que as pessoas digitaram no Google** antes de chegar ao site. É de graça e é do Google. Sem ela, as correções de 26/08 ficam sem prova: o painel da Vercel dá as visitas, mas não a busca que trouxe cada uma — e é a busca que diz se o trabalho de SEO acertou o alvo.
 
 1. **Abrir o Search Console** → https://search.google.com/search-console/welcome (entre com a conta Google dona do domínio)
@@ -38,6 +42,7 @@ Em 26/08 eu redefini a senha do `/guia-etapas` — a antiga estava perdida para 
 **Rec.:** quando você disser — mas quanto antes melhor, porque o relógio dos dados só começa a contar depois de verificado.
 
 ## P3 · 🟢 Foto ou notícia do projeto de Congonhas do Campo — opcional (T-002)
+> **Levado a você:** não consta nesta casa — o escritório conferiu em 04/10 e não abriu caixa (a decisão D238, sem caixa obrigatória); a casa confirma na próxima resposta.
 A página de resíduos mostra o projeto-farol do parceiro CSTR em Congonhas do Campo (MG). Ela funciona sem isso e já está no ar; fica mais forte com uma prova de fora.
 
 > **Sem link:** os dois insumos estão com você ou com o parceiro, não numa tela.
@@ -74,7 +79,7 @@ A página de resíduos mostra o projeto-farol do parceiro CSTR em Congonhas do C
 - **Os 4 itens roteados ao comercial da SBA** (a lista dos 39 consórcios do PPI · Perfil de Empresa no Google · link de volta do CSTR · campanha de anúncios) **não são pendência do site** — sua ordem, 26/08. Chegaram ao comercial em 26/08 e foram processados lá; o site só espera a devolução do N1.
 - **O robô "chega na main" (D170) não existe nesta casa** — precisa de 1 clique seu (um segredo nas configurações do repositório). A casa declarou em 25/08 e o escritório decide se vale; o plano da onda de 01/09 o previa e não o entregou. Nada trava por causa disso.
 - **Colisão de nome `SELO.md` × `SELO-DE-FECHO.md`** — o arquivo daqui carimba só o KIT, não é selo de onda; dúvida registrada em 25/08, o escritório arbitra. Até lá, o aviso no topo do arquivo é a mitigação.
-- **O guia de etapas fica fechado** (fora do Google e com senha) — sua decisão, 26/08 (*"mantemos fechado"*). A versão pública resumida que o estudo propôs não foi aprovada; se um dia quiser, é decisão sua em caixa.
+- **O guia de etapas fica fechado** (fora do Google e com senha) — sua decisão, 26/08 (*"mantemos fechado"*). A versão pública resumida que o estudo propôs segue fora do site por sua decisão; reabre só se você pedir.
 - **As imagens são o peso do site: 3,5 MB em 26 arquivos, todas JPG/PNG.** Converter para formato moderno cortaria bastante, mas exige ferramenta que o projeto não tem e mexe em arquivo de produto — não feito (instância, 26/08). Só com o seu *"vai"*.
 - **Imagem de compartilhamento própria do tema Resíduos (arte 1200×630)** — é peça de design, não de código; não feita (instância, 26/08).
 - **Perguntas jurídicas novas no FAQ da tributária** (prazo, prescrição) só entram com fonte do jurídico da SBA — escrever sem fonte seria pior que a lacuna (instância, 26/08).
