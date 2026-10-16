@@ -157,7 +157,10 @@
       "MultiEdit(//home/user/protheus-keepee/**)",
       "Edit(//home/user/railway-grafana-stack/**)",
       "Write(//home/user/railway-grafana-stack/**)",
-      "MultiEdit(//home/user/railway-grafana-stack/**)"
+      "MultiEdit(//home/user/railway-grafana-stack/**)",
+      "Edit(//home/user/profinders-help-center/**)",
+      "Write(//home/user/profinders-help-center/**)",
+      "MultiEdit(//home/user/profinders-help-center/**)"
     ],
     "allow": [
       "Bash",
