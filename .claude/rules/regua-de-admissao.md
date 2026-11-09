@@ -1,6 +1,6 @@
 # Regra — RÉGUA DE ADMISSÃO: o que mora no ESCRITÓRIO × o que mora na CASA (ordem do dono, 2026-08-25)
 > Módulo de regra do escritório, **lido no boot de toda sessão** (referido no `CLAUDE.md`; C36 nível 3). Vigência: ATIVO desde 2026-08-25.
-> **Por que é regra de boot:** a régua antiga tinha DUAS peneiras com furos opostos, e a instância rodava a errada. O maestro trouxe 32 pendências de negócio da AVC e 21 da Profinders para a mesa do dono, e ele corrigiu. Regra de boot sobrevive à compactação.
+<!-- > **Por que é regra de boot:** havia DUAS peneiras com furos opostos e a instância rodava a errada — 32 pendências da AVC e 21 da Profinders foram à mesa dele, e ele corrigiu. -->
 
 ## A ordem do dono (verbatim, 2026-08-25)
 > *"AVC, SE É NEGÓCIOS, NADA DISSO DEVERIA ESTAR AQUI ME COBRANDO, PROFINDERS, IDEM E CAIXA DE FERRAMENTAS, AÍ SIM, AS PENDÊNCIAS SÃO DE PROBLEMAS QUE ATRAPALHAM OS DEMAIS PROJETOS, AÍ EU DEVO REALIZAR MESMO."*
@@ -42,17 +42,19 @@ P3 ── (só se caiu em "A CASA" e há risco de se perder) A casa tem mapa viv
 - **ACESSO.** O acesso de **uma** casa a **uma** ferramenta é **da casa**; a **existência, a titularidade e o pagamento** da conta são do escritório. _(D160 proíbe a casa de se eximir — não determina onde o item mora.)_ O mesmo acesso faltando em 2+ casas vira CLASSE e sobe.
 - **ALÇADA ≠ ENDEREÇO.** D202 diz **quem decide** (A/B/C); esta régua diz **onde mora**. *"É classe C"* não admite nada aqui.
 - **"CASA" = FAMÍLIA, não repositório.** Unidade + auxiliares contam como UMA casa (mesmo recorte do selo, D194) — senão toda família com 2 auxiliares vira escritório.
-- **CANETA × DEPÓSITO (ordem do dono 25/08; régua medida na onda 01/09, LD-03).** O escritório **escreve por PR** (caneta) numa casa **FECHADA** e **só deposita na caixa** numa casa **VIVA**. *Viva* = **commit de INSTÂNCIA** (autor `noreply@anthropic.com` ou o dono) na `main` remota **nas últimas 24h**; push de runner/robô (`github-actions`, `lovable`, consolidar) **não conta**. Mede-se antes de escrever, não se lembra. Selada + sem instância = fechada.
-- **Perguntar sobre uma casa é permitido.** Se o dono pergunta *"e a AVC?"*, o escritório **abre o mapa dela e responde na hora**. O que não se faz é **copiar a lista para a fila dele aqui**. Responder ≠ hospedar.
+- **CANETA × DEPÓSITO (ordem dele 25/08; medida 01/09, LD-03).** O escritório **escreve por PR** (caneta) numa casa **FECHADA** e **só deposita na caixa** numa casa **VIVA**. *Viva* = **commit de INSTÂNCIA** (`noreply@anthropic.com` ou o dono) na `main` remota **nas últimas 24h**; robô não conta. Mede-se antes de escrever. Selada + sem instância = fechada. **Quem mescla é quem abriu (D235, 03/10):** pedido do escritório não espera clique dele nem da casa — CI verde, `merge` sem força, a `main` da casa vence o conflito; o gate D21 é sobre aplicar, não entrar.
+- **Perguntar sobre uma casa é permitido.** Se ele pergunta *"e a AVC?"*, o escritório **abre o mapa dela e responde na hora**; o que não se faz é **copiar a lista para a fila dele**. Responder ≠ hospedar. Prazo de negócio de casa fechada também fica na casa (D365: *"não se envolva em pendecias de negócios"*).
 
 ## Travas contra os 2 ralos
 - **"É regra" engole tudo:** só entra por aí se a frase puder ser escrita **sem citar casa nenhuma**. Precisou dizer "a AVC"? é caso, não regra.
 - **Custódia vira endereço novo:** teto de **3 itens**, data de saída visível, item nº 1 = *"abrir o mapa daquela casa"*.
 
+<!-- (a história das vacinas fica no arquivo; não entra no boot — F0A-1, D353, 31/10)
 ## Vacinas
-1.5. **`V-ROTEAR-SEM-TIRAR-DA-FILA-DELE`** (ordem do dono, 04/09: *"apenas pendências do escritório, as dos projetos devem ser roteadas ao próprio projeto"*) — levar o item à casa é METADE; a outra metade é **tirá-lo da fila dele no mesmo commit**, senão vira duplicata e ele perde o fio. **Dente:** check `[11]` do `linter-estado.sh` acende quando um item 🔒/📅 do mapa nomeia UMA casa só.
+1.5. **`V-ROTEAR-SEM-TIRAR-DA-FILA-DELE`** (dono, 04/09: *"as dos projetos devem ser roteadas ao próprio projeto"*) — levar o item à casa é METADE; a outra é **tirá-lo da fila dele no mesmo commit**, senão vira duplicata. **Dente:** check `[11]` do `linter-estado.sh`.
 1. **`V-ATO-DO-DONO-NAO-E-CRITERIO`** — *"é ele quem faz, logo é do escritório"*. Nunca foi. (A-424)
 2. **`V-AVISO-QUE-VIRA-SEGUNDA-VOZ`** — achou superfície errada numa unidade? **corrija a superfície da unidade**. Pôr o aviso no mapa do escritório não cala a voz errada: **cria uma segunda**, e o dono fica com duas ordens opostas. (A-425)
 3. **`V-CUSTODIA-SEM-PRAZO-VIRA-MUDANCA`** — item de casa entra como custódia com data, ou não entra.
+-->
 
-Referência normativa: **DECISOES.md · D150 (revisada) · D193 · D202** · achados **A-424 · A-425**.
+Referência normativa: **DECISOES.md · D150 (revisada) · D193 · D202 · D235** · achados A-424 · A-425.

@@ -77,8 +77,11 @@ name: varredura-de-segredos
 # ════════════════════════════════════════════════════════════════════════════
 
 on:
+  # 09/11/2026 (passe do kit v2.10.0, trazido pelo Escritório do MOU — S05 do kit): o envio dispara só
+  # na `main`; o galho é medido pelo pedido de mudança. (⚰️ até 09/11: `push` em todo galho E
+  # `pull_request` — o mesmo envio rodava duas vezes.)
   push:
-    branches: ['**']
+    branches: [main]
   pull_request: {}
   workflow_dispatch: {}
 

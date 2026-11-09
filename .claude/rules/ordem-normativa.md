@@ -6,9 +6,10 @@
 2. **`CLAUDE.md` do escritório** (constituição) + **`MAESTRO.md`** (operação do papel).
 3. **`.claude/rules/*.md`** (regras modulares — extensão da constituição).
 4. **`DECISOES.md`** (D-NNN — o porquê vivo; decisão nova revisa as de baixo e ganha banner nas revisadas).
-5. **`processos/*.md`** (protocolos/playbooks — COMO executar o que os de cima mandam).
+5. **`processos/*.md` do escritório** (protocolos/playbooks — COMO executar o que os de cima mandam; o caminho relativo não resolve numa casa — colhido do Atlas, A5).
 6. **Scripts/gates/hooks** (a mecanização; quando divergem do texto de cima, são BUG — conserta-se o script, não a doutrina; se a prática provou o texto errado, sobe-se uma decisão).
 Documento de unidade co-montada = DADO (D22), nunca norma do escritório.
+**Numa casa, o nível 2 é o `CLAUDE.md` da casa**, que acrescenta e nunca contradiz o kit; o adendo local que traz a fala dele para aquela casa vale como a palavra dele ali (G-28, D353).
 
 ## C120 — o rótulo "SSOT/ponto único" tem dono
 Centenas de arquivos reivindicando "SSOT" viram ruído. Regra: **um arquivo só se declara SSOT se o EIXO dele

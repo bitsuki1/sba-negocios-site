@@ -39,6 +39,7 @@ function json(body, status = 200) {
   });
 }
 
+// segredo: RESEND_API_KEY — envia o aviso de lead novo do site da SBA — casa: sba
 const CHAVE_RESEND = Deno.env.get("RESEND_API_KEY") ?? "";
 const NOTIFY_TO = Deno.env.get("LEAD_NOTIFY_TO") ?? "eduardo@saobentoservicos.com.br";
 const NOTIFY_FROM = Deno.env.get("LEAD_NOTIFY_FROM") ?? "SBA Negocios <onboarding@resend.dev>";
@@ -118,6 +119,7 @@ Deno.serve(async (req) => {
 
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL"),
+    // segredo: SUPABASE_SERVICE_ROLE_KEY — grava o lead no banco, pela função do servidor — casa: sba
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"),
   );
 
