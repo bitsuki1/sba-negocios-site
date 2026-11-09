@@ -1,11 +1,22 @@
 name: linter-estado
+# dono: orquestrador do site da SBA (esta casa); quem responde é a instância aberta nela
+# validade: 2027-05-09
 # Verificação de estado do repositório, no servidor, a cada envio e a cada pedido de junção.
 # Existe porque verificação que só roda na máquina de quem edita não roda sempre.
 # Falha (❌) apenas em bloqueio; os avisos aparecem no log sem travar.
 on:
+  # 09/11/2026 (passe do kit v2.10.0, trazido pelo Escritório do MOU — S05 do kit): o envio dispara só na
+  # `main`; o galho é medido pelo pedido de mudança (antes o mesmo envio rodava duas vezes: `push` em
+  # todo galho E `pull_request`). O relógio semanal mede a `main` depois de juntada feita por robô.
+  # ⚠️ Esta casa é PÚBLICA e o kit central (`bitsuki1/portfolio-kit`) é privado: o GitHub NÃO deixa
+  # repositório público chamar ação de repositório privado ("Unable to resolve action", medido no
+  # pedido #46 em 09/11). Por isso o portão do kit NÃO roda aqui — segue o linter da casa. A saída
+  # (cópia do kit por versão, ou kit acessível) é a decisão 4 da S-54 do escritório, do dono.
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
+  schedule:
+    - cron: '41 10 * * 4'   # quinta-feira, ~07:41 em Brasília
   workflow_dispatch: {}
 # Piso de custo do portfolio (2026-09-07). Sem isto, cada push empilha uma execucao
 # a mais e as antigas seguem gastando minuto ate terminar sozinhas.
