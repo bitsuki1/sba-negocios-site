@@ -1,4 +1,6 @@
 name: linter-estado
+# dono: orquestrador do site da SBA (esta casa); quem responde é a instância aberta nela
+# validade: 2027-05-09
 # Verificação de estado do repositório, no servidor.
 # O ponteiro para o kit central (kit v2.10.0 · passe do kit trazido pelo Escritório do MOU em 09/11/2026,
 # por ordem do dono do mesmo dia). Antes daqui este robô rodava só o `linter-estado.sh` da casa; agora
