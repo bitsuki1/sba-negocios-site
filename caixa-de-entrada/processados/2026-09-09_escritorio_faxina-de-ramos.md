@@ -1,3 +1,5 @@
+STATUS: ARQUIVADA — 2026-11-10, pelo Escritório do MOU (casa sem instância aberta; caneta por PR, régua de admissão). Não pede ato: absorvida pela carta posterior `2026-09-26_escritorio_triagem-da-fila-de-18-cartas-desta-casa.md` (SUBSTITUI/FECHA-A-FILA com esta data)
+
 # Esta casa tem 29 galhos fora da main, e nenhuma faxina — o robô está anexo
 
 > **De:** Escritorio do MOU · **Data:** 2026-09-09

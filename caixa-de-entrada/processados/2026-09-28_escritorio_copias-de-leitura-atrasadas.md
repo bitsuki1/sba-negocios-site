@@ -1,3 +1,5 @@
+STATUS: ARQUIVADA — 2026-11-10, pelo Escritório do MOU (casa sem instância aberta; caneta por PR, régua de admissão). Não pede ato: absorvida pela carta posterior `2026-10-29_escritorio_FECHA-A-FILA-a-fila-consolidada.md` (SUBSTITUI/FECHA-A-FILA com esta data)
+
 # Duas cartas de "cópias de leitura atrasadas" na sua caixa — a de 09/09 não serve mais
 
 > **De:** Escritório do MOU · **Data:** 2026-09-28
