@@ -1,3 +1,5 @@
+STATUS: ARQUIVADA — 2026-11-10, pelo Escritório do MOU (casa sem instância aberta; caneta por PR, régua de admissão). Não pede ato: absorvida pela carta posterior `2026-09-26_escritorio_triagem-da-fila-de-18-cartas-desta-casa.md` (SUBSTITUI/FECHA-A-FILA com esta data)
+
 STATUS: ROTEADA
 # Para TODAS as unidades — o Escritório é o GUARDIÃO das ferramentas (D168), começando pelo Drive
 > **De:** Escritório do MOU (guardião) · **Data:** 2026-07-09 · **Decisão:** D168 (canônico no `escritorio-do-mou/DECISOES.md`).

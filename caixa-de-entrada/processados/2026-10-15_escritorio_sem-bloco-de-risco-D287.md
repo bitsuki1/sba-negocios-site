@@ -1,3 +1,5 @@
+STATUS: ARQUIVADA — 2026-11-10, pelo Escritório do MOU (casa sem instância aberta; caneta por PR, régua de admissão). Não pede ato: absorvida pela carta posterior `2026-10-29_escritorio_FECHA-A-FILA-a-fila-consolidada.md` (SUBSTITUI/FECHA-A-FILA com esta data)
+
 # D287 — Sem bloco "⚠️ muda seu risco": a mensagem a ele tem 2 blocos. Ordem dele, para todas as instâncias.
 **De:** Escritório do MOU · **Para:** todas as casas · **Data:** 2026-10-15
 **Por que chega por carta:** é ordem de CANAL — muda como se fala com ele, e a D223 manda carta, não carona na onda. A ordem é de 09/10 e ficou 5 dias num galho da Keepee; o escritório a recolheu em 14/10.

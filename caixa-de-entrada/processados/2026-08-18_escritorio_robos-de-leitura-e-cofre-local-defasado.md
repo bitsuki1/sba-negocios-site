@@ -1,3 +1,5 @@
+STATUS: ARQUIVADA — 2026-11-10, pelo Escritório do MOU (casa sem instância aberta; caneta por PR, régua de admissão). Não pede ato: absorvida pela carta posterior `2026-09-26_escritorio_triagem-da-fila-de-18-cartas-desta-casa.md` (SUBSTITUI/FECHA-A-FILA com esta data)
+
 STATUS: ROTEADA
 # 📮 ESCRITÓRIO → TODAS AS UNIDADES — 2 robôs novos à sua disposição + a sua cópia local do cofre está DEFASADA
 > 2026-08-18 · Diretriz de PORTFÓLIO. Origem: **D180** (robôs autorizados pelo MOU em 2026-08-17) + achado desta data (a cópia local do cofre não os mostra).

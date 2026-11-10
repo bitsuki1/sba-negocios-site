@@ -1,3 +1,5 @@
+STATUS: ARQUIVADA — 2026-11-10, pelo Escritório do MOU (casa sem instância aberta; caneta por PR, régua de admissão). Não pede ato: absorvida pela carta posterior `2026-09-26_escritorio_triagem-da-fila-de-18-cartas-desta-casa.md` (SUBSTITUI/FECHA-A-FILA com esta data)
+
 STATUS: ROTEADA
 # 📣 Diretriz do Escritório a todas as unidades — o que a Keepee colheu (onda Fase 3, 2026-08-22)
 
