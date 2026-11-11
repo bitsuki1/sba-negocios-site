@@ -2,10 +2,10 @@
 > **A regra desta página, em uma linha:** o **dado** se lê na **visão oficial** (a porta do assunto); o **original** mora na **pasta** que a porta aponta. Antes de baixar, pedir ou criar, procure aqui. Não achou? Pergunte; nunca siga sem.
 > **Consolidar é atualizar a porta do assunto no mesmo arquivo** — a 3ª cópia `_v3` não nasce; o histórico fica no git.
 
-<!-- gerado:inicio · catalogo.py · data=2026-11-09 · feito=nao -->
+<!-- gerado:inicio · catalogo.py · data=2026-11-11 · feito=nao -->
 ## O que existe nesta casa (gerado — não editar à mão)
-> Gerado por `portfolio-kit/processos/catalogo.py` em **2026-11-09**. Regenere com `python3 <kit>/processos/catalogo.py gerar --casa .`; a verificação confere com `--check --max-dias 30`. Só este bloco é da máquina; o resto do arquivo é da casa.
-> **184 arquivos versionados · 5,3 MB** · 🟢 vivo 102 · ⚰️ superado 0 · 🗄️ histórico 9 · ⚙️ gerado/mecanismo 35 · 📦 dado 38
+> Gerado por `portfolio-kit/processos/catalogo.py` em **2026-11-11**. Regenere com `python3 <kit>/processos/catalogo.py gerar --casa .`; a verificação confere com `--check --max-dias 30`. Só este bloco é da máquina; o resto do arquivo é da casa.
+> **188 arquivos versionados · 5,3 MB** · 🟢 vivo 76 · ⚰️ superado 0 · 🗄️ histórico 38 · ⚙️ gerado/mecanismo 36 · 📦 dado 38
 > **Antes de baixar, pedir ou criar:** procure aqui e na porta do assunto. Não achou? Pergunte; nunca siga sem.
 
 ### As portas por assunto (o `portas:` do `.kit`)
@@ -29,15 +29,15 @@ _A casa ainda não declarou `portas:` no `.kit` (uma linha por assunto: `portas:
 ### Por pasta (até 2 nível(is); o que fica mais fundo conta na pasta de cima)
 | pasta | arquivos | tamanho | 🟢 | ⚰️ | 🗄️ | ⚙️ | 📦 | do que se trata |
 |---|--:|--:|--:|--:|--:|--:|--:|---|
-| `(raiz)/` | 22 | 109 KB | 8 | 0 | 0 | 11 | 3 |  |
+| `(raiz)/` | 23 | 110 KB | 8 | 0 | 0 | 12 | 3 |  |
 | `.claude/` | 1 | 11 KB | 0 | 0 | 0 | 1 | 0 |  |
 | `.claude/agents/` | 3 | 11 KB | 3 | 0 | 0 | 0 | 0 |  |
-| `.claude/rules/` | 9 | 39 KB | 9 | 0 | 0 | 0 | 0 |  |
-| `.github/workflows/` | 3 | 15 KB | 0 | 0 | 0 | 3 | 0 |  |
+| `.claude/rules/` | 10 | 42 KB | 10 | 0 | 0 | 0 | 0 |  |
+| `.github/workflows/` | 3 | 14 KB | 0 | 0 | 0 | 3 | 0 |  |
 | `caixa-de-entrada/` | 1 | 2 KB | 1 | 0 | 0 | 0 | 0 |  |
-| `caixa-de-entrada/do-escritorio/` | 34 | 168 KB | 30 | 0 | 3 | 1 | 0 |  |
-| `caixa-de-entrada/do-sba/` | 1 | 2 KB | 1 | 0 | 0 | 0 | 0 |  |
-| `caixa-de-entrada/processados/` | 1 | 0 KB | 0 | 0 | 1 | 0 | 0 |  |
+| `caixa-de-entrada/do-escritorio/` | 5 | 18 KB | 1 | 0 | 3 | 1 | 0 |  |
+| `caixa-de-entrada/do-sba/` | 3 | 5 KB | 3 | 0 | 0 | 0 | 0 |  |
+| `caixa-de-entrada/processados/` | 30 | 158 KB | 0 | 0 | 30 | 0 | 0 |  |
 | `caixa-de-saida/` | 1 | 2 KB | 1 | 0 | 0 | 0 | 0 |  |
 | `caixa-de-saida/para-unidade-sba/` | 1 | 1 KB | 1 | 0 | 0 | 0 | 0 |  |
 | `caixa-de-saida/processados/` | 5 | 47 KB | 0 | 0 | 5 | 0 | 0 |  |
