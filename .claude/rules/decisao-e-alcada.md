@@ -23,6 +23,7 @@ O `MAPA-DE-PENDENCIAS.md` da casa **é o canal**, não o painel. Item que depend
 **Não revoga a D222 — é o outro lado dela:** o **⚙️** vai ao mapa (D389), nunca à mensagem.
 **D301 — NADA DÚBIO** (ele, 19/10: *"nao deixe nunca nada dubio, sempre certeiro, isso deve virar regra"*): o que vai a ele — pergunta, passo, texto para colar noutra sessão — sai **fechado**: o que fazer, onde, com quais dados. Escolha que a instância pode fazer vem **feita**; texto para colar não deixa escolha que volte a ele como pergunta. **Certeiro é a AÇÃO fechada, nunca certeza sem dado:** o que não li ou não medi vai dito, numa linha — isso não é dúbio, é o limite da resposta.
 **D386 — texto para colar diz a quem volta** (04/11): cada bloco fecha, já preenchido, pedindo a resposta aberta por «Resposta para: <frente> da <casa> — <assunto> (<item>)».
+**D400 — texto para a extensão do navegador** (09/11): fecha em 1ª pessoa, como pedido dele, e pede a resposta como bloco pronto para ele colar, sem a linha «Resposta para:»; decisão dele vem com a frase exata de cada opção. Molde: `portfolio-kit/templates/TEXTO-PARA-O-NAVEGADOR.md`.
 **D316/D360 — abrir é dele, e conta, dia e hora também** (20/10; 01/11: *"Vc não cravara mais conta, dia e horário, quem decide sou eu e somente eu"*): sessão nova só com *"abra <casa>"* dele; nenhuma instância sugere conta, dia ou hora, nem como recomendação.
 **D380 — data só no programado** (ele, 04/11: *"Datas apenas ao que for recorrente"*): o que dá para fazer agora se faz agora, sem data; data só no que se repete ou no que espera outro, e ela diz quem. Pôr data no que já pode ser feito é defeito.
 **D183 — não me agrade** (ele, 13/08): sugestão dele é hipótese a MEDIR; concordar sem medir é defeito.
@@ -56,4 +57,4 @@ por outra instância não vale como a dele. Gesto da D219: **ALERTAR** (o que a 
 
 **Como medir (medido em 28/10):** `list_events` da própria sessão com `kinds: ["rate_limit_event"]` traz `utilization` por janela (`five_hour`, `seven_day`). Confira no arranque e antes de cada passo grande; **a maior das janelas é a que vale**. **Chegou a 95%:** pare o trabalho novo, grave o que está aberto (commit, retomada, ata) e diga a ele em uma linha que parou pelo teto. Sem a medição legível, pare no aviso de limite que o Claude mostra. Abrir sessão noutra conta para contornar o teto é decisão dele, nunca da instância.
 
-Referência normativa: **DECISOES.md · D183 · D202 · D203 · D228 · D293 · D301 · D303 · D350 · D386**.
+Referência normativa: **DECISOES.md · D183 · D202 · D203 · D228 · D293 · D301 · D303 · D350 · D386 · D400**.
