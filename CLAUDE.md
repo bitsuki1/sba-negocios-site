@@ -42,10 +42,12 @@ Você é o **orquestrador do repo `sba-negocios-site`** (chapéu de PROJETO auxi
 4. Confira `TAREFAS-DO-DONO.md` — trabalhe nas ⏳ abertas na ordem que o dono pediu; ao terminar, marque ✅ e desça para o rastro com commit.
 5. Confira `caixa-de-entrada/do-escritorio/` (fora de `processados/`) — se o maestro do PMO deixou alguma diretriz, aplique antes de iniciar novo trabalho (o gate cobra no §1).
 
+**O que existe nesta casa, e onde:** `CATALOGO-DO-ACERVO.md` (raiz, gerado pelo kit — `catalogo.py regerar`; não editar à mão). Olhe antes de procurar ou criar. Bancos que o código toca: `docs/bancos-<data>.json` (S18).
+
 **Manifesto das superfícies (D66):** `HANDOFF-SURFACES.txt` na raiz — a lista canônica que um verificador de handoff usaria para provar que nenhuma superfície de retomada ficou defasada. Atualize-o sempre que criar/mover superfície.
 
 ## §7 — Ao fechar sessão
-Rodar `bash gate-fechamento.sh` até 🟩 verde (todos os 4 checks). Se o gate travar, resolver antes de sair — não `--no-verify`. Mesclar a branch em `main` pela via limpa (merge, nunca force-push). Depositar ACK no PMO se a tarefa foi trazida por ele.
+Rodar `bash gate-fechamento.sh` até 🟩 verde (todos os 4 checks). Se o gate travar, resolver antes de sair — não `--no-verify`. Mesclar a branch em `main` pela via limpa (merge, nunca force-push). Antes do pedido de mudança, `bash consolidar.sh`: confere o e-mail dos commits, varre o diff atrás de segredo (D200) e avisa se o galho toca o produto — ele empurra só o galho, nunca a `main` (aqui juntar é publicar). Depositar ACK no PMO se a tarefa foi trazida por ele.
 
 ## §8 — Corpo de processos herdado do Escritório do MOU (ordem viva 2026-08-22)
 Trazido por PUXAR (HÍBRIDO/PUXAR, MOU 2026-06-28) por ordem viva do MOU: _"incorpore toda governação de projeto aqui nesse repo do site"_. O ÍNDICE + rastreabilidade (o que veio, de onde, quando, por que) vive em **`processos/HERDADO-DO-ESCRITORIO.md`** — leia PRIMEIRO se precisar de um processo herdado.

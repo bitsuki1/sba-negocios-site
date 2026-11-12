@@ -1,0 +1,13 @@
+{
+  "_leia": "Inventário de bancos desta casa (S18 do kit v2.11.1; molde: portfolio-kit/templates/bancos.json). Escrito pelo Escritório do MOU em 12/11/2026 LENDO SÓ O CÓDIGO desta casa — nenhuma conexão ao banco foi feita; por isso não há `esquemas`/`tabelas`/`aplicadas` (esses saem do `inventario_de_banco.py gerar`, no robô da casa dona do banco, só leitura). O que o código toca, medido em 12/11: o site chama a função de borda `submit-lead` (src/lib/supabase.ts → supabase/functions/submit-lead/index.ts), e ela grava em `sba_leads` com a chave de serviço, que vive no ambiente do Supabase, fora do git. A chave do navegador é a pública por desenho (D206). Mudou o fato? troque a linha e a data do nome.",
+  "medido_em": "2026-11-12",
+  "bancos": [
+    {
+      "nome": "gestao-integrada-dados (projeto Supabase compartilhado, sa-east-1)",
+      "referencias": ["supabase:lbjudeifksyeqminwlto"],
+      "dono": "o projeto Supabase é compartilhado (CCEV, SBA, robôs do portfólio); a tabela `sba_leads` responde a esta casa, sba-negocios-site, para a unidade SBA Negócios",
+      "porta_de_gravacao": "a função de borda `submit-lead` (supabase/functions/submit-lead/index.ts), que insere em `sba_leads` com a chave de serviço do ambiente do Supabase; o site nunca escreve direto na tabela",
+      "desenho": "fora: o desenho da `sba_leads` não está em .sql de git nenhum do portfólio (medido em 12/11/2026); mora só no projeto Supabase"
+    }
+  ]
+}
