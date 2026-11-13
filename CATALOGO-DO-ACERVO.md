@@ -5,7 +5,7 @@
 <!-- gerado:inicio · catalogo.py · data=2026-11-13 · feito=nao -->
 ## O que existe nesta casa (gerado — não editar à mão)
 > Gerado por `portfolio-kit/processos/catalogo.py` em **2026-11-13**. Regenere com `python3 <kit>/processos/catalogo.py gerar --casa .`; a verificação confere com `--check --max-dias 30`. Só este bloco é da máquina; o resto do arquivo é da casa.
-> **192 arquivos versionados · 5,4 MB** · 🟢 vivo 77 · ⚰️ superado 0 · 🗄️ histórico 38 · ⚙️ gerado/mecanismo 39 · 📦 dado 38
+> **193 arquivos versionados · 5,4 MB** · 🟢 vivo 78 · ⚰️ superado 0 · 🗄️ histórico 38 · ⚙️ gerado/mecanismo 39 · 📦 dado 38
 > **Antes de baixar, pedir ou criar:** procure aqui e na porta do assunto. Não achou? Pergunte; nunca siga sem.
 
 ### As portas por assunto (o `portas:` do `.kit`)
@@ -43,6 +43,7 @@ _A casa ainda não declarou `portas:` no `.kit` (uma linha por assunto: `portas:
 | `caixa-de-saida/para-unidade-sba/` | 1 | 1 KB | 1 | 0 | 0 | 0 | 0 |  |
 | `caixa-de-saida/processados/` | 5 | 47 KB | 0 | 0 | 5 | 0 | 0 |  |
 | `docs/` | 3 | 8 KB | 2 | 0 | 0 | 1 | 0 |  |
+| `ordens/` | 1 | 2 KB | 1 | 0 | 0 | 0 | 0 |  |
 | `processos/` | 11 | 100 KB | 10 | 0 | 0 | 1 | 0 |  |
 | `processos/templates/` | 1 | 8 KB | 1 | 0 | 0 | 0 | 0 |  |
 | `public/` | 5 | 162 KB | 0 | 0 | 0 | 0 | 5 |  |
