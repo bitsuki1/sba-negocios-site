@@ -83,7 +83,7 @@ on:
         required: false
         default: ""
 
-# producao: arquiva (arquivo/AAAA-MM-DD/*) e apaga os galhos mortos, e abre o aviso de triagem — ordem do dono 2026-11-13 (S192, «S192, pode»)
+# producao: arquiva (arquivo/AAAA-MM-DD/*) e apaga os galhos mortos, e abre o aviso de triagem — ordem do dono 2026-11-13 (ordem OR-0001; S192, «S192, pode»)
 permissions:
   contents: write
   issues: write
