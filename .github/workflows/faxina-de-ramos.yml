@@ -1,0 +1,237 @@
+name: Faxina de ramos (mensal, automática e sem perda)
+# dono: a casa (sba-negocios-site); instalado pelo Escritório do MOU em 13/11/2026 por ordem do dono («S192, pode»), cópia do robô que já roda nas outras casas; quem responde é a instância aberta nela
+# validade: 2027-05-09
+
+# 2026-08-21 — ordem do MOU: "me incomodo muito em ter de toda hora apagar coisas mortas;
+# dar um jeito de vocês mesmos fazerem isso". Este é o mecanismo PERMANENTE:
+# roda todo mês (e sob demanda) e CLASSIFICA na hora, sem lista fixa:
+#
+#   SOME sozinho (arquiva + apaga):  ramo sem NENHUM commit único fora da main
+#                                    (git cherry = zero "+") E sem commit há ≥ 14 dias
+#                                    E sem PR aberto. Antes de apagar, nasce a cópia
+#                                    arquivo/AAAA-MM-DD/<nome> com SHA conferido — perda zero.
+#   VIRA RELATÓRIO (nunca some só):  ramo com commit único (trabalho não-mesclado) ou fresco —
+#                                    entra na issue `faxina-ramos` para triagem humana/da instância.
+#
+# Travas herdadas da varredura de 21/08 (loss-proof por construção): recontagem do cherry na
+# hora, cópia antes do delete, SHA conferido, delete que falha = job VERMELHO.
+# Push com GITHUB_TOKEN não dispara workflow (anti-loop do GitHub).
+#
+# ── COMO PROTEGER UMA FRENTE QUE ESTÁ APENAS PARADA (pedido da Moderação Profinders, 09/09) ───────
+# **Frente viva se protege com um PR EM RASCUNHO aberto: o robô pula TODO ramo com PR aberto**, em
+# qualquer caminho — inclusive o das `triadas`, desde o conserto de 10/09. É de graça, não muda a
+# régua dos 14 dias, e resolve o caso da frente que só está dormindo: sem o PR, o ramo é arquivado
+# e apagado sozinho, nada se perde (a cópia fica em `arquivo/`), mas quem voltar terá de recriá-lo.
+
+# ── DUAS COISAS PORTADAS DO `podar-branches.yml` DA SBA (carta de 09/09, T-07) ────────────────────
+# Ela recusou copiar este robô, com motivo, e o motivo era bom: o desenho dela é mais apertado onde
+# o risco mora. Comparei os dois e trouxe o que ela faz melhor, com o crédito:
+#   1. **Apagar NO MERGE, não só no dia 3.** *"Uma faxina mensal deixa o galho morto visível por até
+#      30 dias; foi assim que se chegou aos 603 do portfólio."* Rodar quando o PR fecha é o que
+#      impede o acúmulo — e o galho recém-mesclado é o caso mais seguro que existe.
+#   2. **O botão manual nasce em ENSAIO.** Robô que apaga não deve ter "apagar" como default de um
+#      clique humano. Quem quiser limpar escolhe `limpar`; quem só quer ver, não escolhe nada.
+# O que NÃO troquei: a régua das 3 condições juntas (sem commit único + 14 dias + sem PR). A dela é
+# mais simples ("o topo já é ancestral da main"), a minha é mais restritiva — apaga MENOS. Trocar
+# régua de robô que apaga em 16 casas exige mais do que elegância, e a dela já roda na casa dela.
+# ── CLONE RASO MENTE SOBRE HISTÓRIA (vacina da Moderação Profinders, 09/09 — e ela custou caro) ──
+# Antes de QUALQUER conclusão sobre história de git — *"desconexo"*, *"main recomeçada"*, *"órfão"*,
+# *"N commits únicos"* — medir **`git rev-parse --is-shallow-repository`**. Num clone raso, `merge-base`
+# vazio e `git cherry` inflado são o **sintoma esperado**, não um achado: o `merge-base` falha por
+# **falta de objeto no disco**, não por falta de parentesco, e o `cherry` sem ancestral conta o galho
+# inteiro. **Medido em 15/09: as 16 casas que têm este arquivo clonam RASO na sessão** (aqui a `main`
+# tem 1 commit). Este robô NÃO sofre disso — `actions/checkout` com `fetch-depth: 0`.
+#
+# **A história, porque ela é a prova.** Em 09/09 a Moderação escreveu que a `main` dela tinha sido
+# recomeçada (154 commits desde 22/08, raiz original de 2025, `merge-base` vazio em 40 galhos) e
+# autorizou, com base nisso, uma triagem para apagar **26 galhos** — pela entrada `triadas`, que
+# existe justamente para contornar a trava do `cherry`. **18 dos 26 carregavam trabalho único não
+# mesclado**, de 1 a 14 commits. **Nada foi apagado**, e quem pegou o erro foi ESTE robô: rodado em
+# `modo: relatorio`, ele reportou um galho como MORTO (0 únicos) onde a instância tinha contado 2.045.
+# **A divergência abriu o caso** — a máquina media no servidor, com a história inteira; a instância
+# media o próprio clone. Histórico real: 2.971 commits, `merge-base` existe nos 58, `cherry` de 0 a 14.
+# `V-A-MAQUINA-COM-CONTEXTO-MELHOR-E-A-HIPOTESE-FORTE`: quando a minha medição diverge da de um robô
+# com contexto completo, a hipótese forte é a DELE.
+#
+# ⚰️ **O que esteve escrito aqui por ~40 minutos em 15/09, e era falso:** um aviso ensinando a tratar
+# *"main recomeçada"* como classe real, citando aquela carta como **medição de uma casa com história
+# completa**. Não era: a casa a RETRATOU 4 horas depois, no mesmo dia, numa errata que estava na
+# MESMA pasta da caixa e que eu ainda não tinha lido. **Casos medidos da classe "main recomeçada":
+# ZERO.** Eu tinha recusado a RECEITA de uma casa medindo (A-714) e aceitei o DIAGNÓSTICO de outra
+# sem medir — e anexei a ele a minha própria vacina de clone raso, afirmando que ela tinha o que não
+# tinha. `V-LER-UMA-CARTA-DO-LOTE-E-LER-METADE-DA-FRASE` (A-717).
+
+on:
+  schedule:
+    - cron: "0 7 3 * *"   # dia 3 de cada mês, ~04:00 BR
+  pull_request:
+    types: [closed]       # a faxina no MERGE — a ideia da SBA, que evita o acúmulo de 30 dias
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "relatorio = só lista (nada é apagado) · limpar = arquiva+apaga os mortos"
+        required: false
+        default: "relatorio"
+        type: choice
+        options: [relatorio, limpar]
+      triadas:
+        description: "ramos JÁ TRIADOS (vírgula) — arquiva+apaga MESMO com commits únicos. Ramo com PR ABERTO é SEMPRE pulado aqui (a decisão de triagem precisa estar registrada em doc; a cópia arquivo/AAAA-MM-DD/* preserva tudo)"
+        required: false
+        default: ""
+      triadas_com_pr:
+        description: "ramos a apagar MESMO COM PR ABERTO (vírgula) — campo separado de propósito: quem tria olha commits, não PRs. Só o que estiver aqui é apagado com PR aberto."
+        required: false
+        default: ""
+
+# producao: arquiva (arquivo/AAAA-MM-DD/*) e apaga os galhos mortos, e abre o aviso de triagem — ordem do dono 2026-11-13 (S192, «S192, pode»)
+permissions:
+  contents: write
+  issues: write
+  pull-requests: read
+
+# Piso de custo do portfolio (2026-09-07). Sem isto, cada push empilha uma execucao
+# a mais e as antigas seguem gastando minuto ate terminarem sozinhas. Este repo e o
+# que mais empurra galho no portfolio, entao e o que mais empilha.
+# este workflow MEXE no repo: agrupa para nao empilhar, mas NUNCA cancela pela metade.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  faxina:
+    # PR fechado SEM merge não é faxina: o galho pode ter trabalho vivo que ninguém quis agora.
+    # Só o merge é gatilho seguro — é a metade da ideia da SBA que importa.
+    if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    # Piso de custo do portfolio (2026-09-07): sem teto, um job travado so para no
+    # limite de 6h do GitHub — 11 execucoes de um teste numa casa queimaram ~66h de
+    # runner numa manha assim. 60 min = 1,7x a mais demorada que ja deu certo no
+    # portfolio (36,2 min, medido em 253 execucoes). O escritorio carrega o que manda.
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+
+      - name: Classificar e faxinar
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # ⚠️ A-715 (15/09, achado do ATLAS na carta de 11/09) — O MESMO ROBÔ CARREGAVA DOIS
+          # DEFAULTS OPOSTOS PARA O MESMO ATO, E SÓ UM DELES FOI PENSADO. O botão manual nasce em
+          # `relatorio` de propósito (linha 45, portado da SBA: *"robô que apaga não deve ter apagar
+          # como default de um clique humano"*) — mas o CRON e o `pull_request: closed` caíam em
+          # `limpar` por um fallback anônimo, que ninguém escreveu como decisão.
+          # AQUI o `limpar` automático é a ORDEM, não um descuido — o dono mandou em 21/08:
+          # *"me incomodo muito em ter de toda hora apagar coisas mortas; dar um jeito de vocês
+          # mesmos fazerem isso"*. Então o comportamento NÃO muda; o que muda é que a autorização
+          # passa a estar ESCRITA no ponto onde o modo é resolvido.
+          # Por que isso importa fora daqui: este arquivo está em 16 casas (medido 15/09), todas com
+          # `limpar` no cron, e a 17ª — o Atlas — RECUSOU instalá-lo assim porque tem ordem viva
+          # contrária (*"nenhum galho se apaga"*, 22/08). Varri as 16 atrás de ordem contrária:
+          # **zero** — os hits de *"nada se apaga"* eram a doutrina de zero-perda, não ordem de galho.
+          # Ou seja: a classe é real, os casos realizados são ZERO, e a única casa onde morderia é a
+          # que se protegeu sozinha. Por isso o conserto é de VISIBILIDADE, não uma virada em 16 casas.
+          # VACINA `V-DOIS-DEFAULTS-OPOSTOS-PARA-O-MESMO-ATO`: quando um robô pergunta ao humano
+          # antes de destruir e não pergunta ao relógio, o fallback herdado é a exceção que ninguém
+          # disparou. Robô que apaga declara, por GATILHO, quem o autorizou.
+          MODO: ${{ github.event.inputs.modo || 'limpar' }}   # automático = limpar, POR ORDEM DE 21/08 (acima)
+          TRIADAS: ${{ github.event.inputs.triadas || '' }}
+          TRIADAS_COM_PR: ${{ github.event.inputs.triadas_com_pr || '' }}
+          DIAS_MORTO: "14"
+        run: |
+          set -u
+          HOJE=$(date -u +%F)
+          # ⚠️ A LISTA DE PRs ABERTOS VEM ANTES DE TUDO (achado da Moderação Profinders, 09/09).
+          # Ela era calculada DEPOIS do laço das triadas, que por isso arquivava e apagava sem
+          # olhar PR nenhum. Medido na casa que achou: dos 40 galhos que a régua marca como
+          # descartáveis, 14 tinham PR aberto — uma triagem feita pela própria régua do robô
+          # FECHARIA os 14 de uma vez. Lá não aconteceu porque a instância cruzou as listas à mão,
+          # e trava que depende de alguém lembrar não é trava.
+          # O campo `triadas` fala em COMMITS; quem tria olha commits, não PRs. Então PR aberto
+          # protege o galho SEMPRE, e apagar mesmo assim exige o campo explícito `triadas_com_pr`.
+          PRS_ABERTOS=$(gh pr list --state open --json headRefName --jq '.[].headRefName' 2>/dev/null || true)
+          FORCAR="${TRIADAS_COM_PR:-}"
+          # ── ramos TRIADOS (decisão humana/da instância registrada): arquiva+apaga sem olhar cherry
+          arquivados=0; falhas=0; protegidos=0
+          if [ -n "$TRIADAS" ]; then
+            for ref in $(echo "$TRIADAS" | tr ',' ' '); do
+              if echo "$PRS_ABERTOS" | grep -qx "$ref" && ! echo ",$FORCAR," | grep -q ",$ref,"; then
+                echo "::warning::TRIADA com PR aberto — NÃO toco: $ref (use o campo triadas_com_pr para forçar)"
+                protegidos=$((protegidos+1)); continue
+              fi
+              sha=$(git rev-parse "origin/$ref" 2>/dev/null || echo AUSENTE)
+              if [ "$sha" = "AUSENTE" ]; then echo "TRIADA já apagada: $ref"; continue; fi
+              arq="arquivo/$HOJE/$(echo "$ref" | tr '/' '-')"
+              git push origin "$sha:refs/heads/$arq" || { echo "::error::falha ao arquivar triada $ref"; falhas=$((falhas+1)); continue; }
+              sha_arq=$(git ls-remote origin "refs/heads/$arq" | cut -f1)
+              if [ "$sha_arq" != "$sha" ]; then echo "::error::cópia de $ref divergiu — NÃO apago."; falhas=$((falhas+1)); continue; fi
+              if git push origin --delete "$ref"; then
+                echo "TRIADA arquivada+apagada: $ref → $arq"; arquivados=$((arquivados+1))
+              else
+                echo "::error::delete da triada $ref falhou (cópia $arq existe — nada se perdeu)"; falhas=$((falhas+1))
+              fi
+            done
+          fi
+          # (a lista de PRs abertos já foi calculada no topo — ramos com PR ABERTO nunca são tocados)
+          relatorio=""
+          for ref in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin \
+                       | sed 's#^origin/##' | grep -v '^HEAD$'); do
+            case "$ref" in
+              main|arquivo/*) continue ;;
+            esac
+            # triada já foi tratada acima (o ref local ainda existe após o delete remoto — pular)
+            if [ -n "$TRIADAS" ] && echo ",$TRIADAS," | grep -q ",$ref,"; then continue; fi
+            if echo "$PRS_ABERTOS" | grep -qx "$ref"; then
+              relatorio="$relatorio\n- \`$ref\` — PR aberto (não se toca)"; continue
+            fi
+            sha=$(git rev-parse "origin/$ref")
+            idade_dias=$(( ( $(date -u +%s) - $(git log -1 --format=%ct "origin/$ref") ) / 86400 ))
+            unicos=$(git cherry origin/main "origin/$ref" | grep -c '^+' || true)
+            if [ "$unicos" != "0" ]; then
+              relatorio="$relatorio\n- \`$ref\` — **$unicos commit(s) único(s)** fora da main (idade ${idade_dias}d) → TRIAGEM humana/da instância"
+              continue
+            fi
+            if [ "$idade_dias" -lt "$DIAS_MORTO" ]; then
+              relatorio="$relatorio\n- \`$ref\` — mesclado mas fresco (${idade_dias}d < ${DIAS_MORTO}d) → some na próxima faxina"
+              continue
+            fi
+            if [ "$MODO" != "limpar" ]; then
+              relatorio="$relatorio\n- \`$ref\` — MORTO (0 únicos, ${idade_dias}d) → seria arquivado+apagado no modo limpar"
+              continue
+            fi
+            arq="arquivo/$HOJE/$(echo "$ref" | tr '/' '-')"
+            git push origin "$sha:refs/heads/$arq" || { echo "::error::falha ao arquivar $ref"; falhas=$((falhas+1)); continue; }
+            sha_arq=$(git ls-remote origin "refs/heads/$arq" | cut -f1)
+            if [ "$sha_arq" != "$sha" ]; then
+              echo "::error::cópia de $ref divergiu — NÃO apago."; falhas=$((falhas+1)); continue
+            fi
+            if git push origin --delete "$ref"; then
+              echo "ARQUIVADO+APAGADO: $ref → $arq"; arquivados=$((arquivados+1))
+            else
+              echo "::error::delete de $ref falhou (cópia $arq existe — nada se perdeu)"; falhas=$((falhas+1))
+            fi
+          done
+          {
+            echo "## Faxina de ramos — $HOJE (modo: $MODO)"
+            echo
+            echo "**$arquivados** ramo(s) morto(s) arquivado(s)+apagado(s) · **$falhas** falha(s)"
+            if [ "$protegidos" != "0" ]; then
+              echo
+              echo "**$protegidos** triada(s) NÃO tocada(s) por ter PR aberto — o campo \`triadas\` fala em commits, e quem tria olha commits, não PRs. Para apagar mesmo assim, use \`triadas_com_pr\`."
+            fi
+            echo
+            if [ -n "$relatorio" ]; then echo "### Sobraram para triagem/observação:"; printf '%b\n' "$relatorio"; else echo "_Nenhum ramo sobrou — repositório limpo._"; fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          # issue de triagem só quando há ramo com trabalho único esperando decisão
+          UNICOS_PENDENTES=$(printf '%b' "$relatorio" | grep -c 'único' || true)
+          if [ "$UNICOS_PENDENTES" != "0" ]; then
+            CORPO=$(printf 'Faxina de %s: %s ramo(s) carregam trabalho único não-mesclado e esperam triagem:\n%b\n\n_Regra: ramo com commit único NUNCA é apagado pela faxina — alguém decide (mesclar, arquivar com lápide, ou descartar por escrito)._' "$HOJE" "$UNICOS_PENDENTES" "$relatorio")
+            NUM=$(gh issue list --state open --label faxina-ramos --json number --jq '.[0].number' 2>/dev/null || true)
+            if [ -n "$NUM" ] && [ "$NUM" != "null" ]; then
+              gh issue comment "$NUM" --body "$CORPO"
+            else
+              gh issue create --title "🧹 Faxina de ramos — triagem pendente" --label faxina-ramos --body "$CORPO" \
+                || gh issue create --title "🧹 Faxina de ramos — triagem pendente" --body "$CORPO"
+            fi
+          fi
+          [ "$falhas" -eq 0 ] || exit 1
