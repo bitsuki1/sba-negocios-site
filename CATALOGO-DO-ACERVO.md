@@ -5,7 +5,7 @@
 <!-- gerado:inicio · catalogo.py · data=2026-11-13 · feito=nao -->
 ## O que existe nesta casa (gerado — não editar à mão)
 > Gerado por `portfolio-kit/processos/catalogo.py` em **2026-11-13**. Regenere com `python3 <kit>/processos/catalogo.py gerar --casa .`; a verificação confere com `--check --max-dias 30`. Só este bloco é da máquina; o resto do arquivo é da casa.
-> **191 arquivos versionados · 5,3 MB** · 🟢 vivo 77 · ⚰️ superado 0 · 🗄️ histórico 38 · ⚙️ gerado/mecanismo 38 · 📦 dado 38
+> **192 arquivos versionados · 5,4 MB** · 🟢 vivo 77 · ⚰️ superado 0 · 🗄️ histórico 38 · ⚙️ gerado/mecanismo 39 · 📦 dado 38
 > **Antes de baixar, pedir ou criar:** procure aqui e na porta do assunto. Não achou? Pergunte; nunca siga sem.
 
 ### As portas por assunto (o `portas:` do `.kit`)
@@ -34,7 +34,7 @@ _A casa ainda não declarou `portas:` no `.kit` (uma linha por assunto: `portas:
 | `.claude/` | 1 | 11 KB | 0 | 0 | 0 | 1 | 0 |  |
 | `.claude/agents/` | 3 | 11 KB | 3 | 0 | 0 | 0 | 0 |  |
 | `.claude/rules/` | 10 | 42 KB | 10 | 0 | 0 | 0 | 0 |  |
-| `.github/workflows/` | 3 | 14 KB | 0 | 0 | 0 | 3 | 0 |  |
+| `.github/workflows/` | 4 | 30 KB | 0 | 0 | 0 | 4 | 0 |  |
 | `caixa-de-entrada/` | 1 | 2 KB | 1 | 0 | 0 | 0 | 0 |  |
 | `caixa-de-entrada/do-escritorio/` | 5 | 18 KB | 1 | 0 | 3 | 1 | 0 |  |
 | `caixa-de-entrada/do-sba/` | 3 | 5 KB | 3 | 0 | 0 | 0 | 0 |  |
