@@ -2,10 +2,10 @@
 > **A regra desta página, em uma linha:** o **dado** se lê na **visão oficial** (a porta do assunto); o **original** mora na **pasta** que a porta aponta. Antes de baixar, pedir ou criar, procure aqui. Não achou? Pergunte; nunca siga sem.
 > **Consolidar é atualizar a porta do assunto no mesmo arquivo** — a 3ª cópia `_v3` não nasce; o histórico fica no git.
 
-<!-- gerado:inicio · catalogo.py · data=2026-11-12 · feito=nao -->
+<!-- gerado:inicio · catalogo.py · data=2026-11-13 · feito=nao -->
 ## O que existe nesta casa (gerado — não editar à mão)
-> Gerado por `portfolio-kit/processos/catalogo.py` em **2026-11-12**. Regenere com `python3 <kit>/processos/catalogo.py gerar --casa .`; a verificação confere com `--check --max-dias 30`. Só este bloco é da máquina; o resto do arquivo é da casa.
-> **190 arquivos versionados · 5,3 MB** · 🟢 vivo 76 · ⚰️ superado 0 · 🗄️ histórico 38 · ⚙️ gerado/mecanismo 38 · 📦 dado 38
+> Gerado por `portfolio-kit/processos/catalogo.py` em **2026-11-13**. Regenere com `python3 <kit>/processos/catalogo.py gerar --casa .`; a verificação confere com `--check --max-dias 30`. Só este bloco é da máquina; o resto do arquivo é da casa.
+> **191 arquivos versionados · 5,3 MB** · 🟢 vivo 77 · ⚰️ superado 0 · 🗄️ histórico 38 · ⚙️ gerado/mecanismo 38 · 📦 dado 38
 > **Antes de baixar, pedir ou criar:** procure aqui e na porta do assunto. Não achou? Pergunte; nunca siga sem.
 
 ### As portas por assunto (o `portas:` do `.kit`)
@@ -15,6 +15,7 @@ _A casa ainda não declarou `portas:` no `.kit` (uma linha por assunto: `portas:
 | arquivo | do que se trata |
 |---|---|
 | [`CLAUDE.md`](CLAUDE.md) | sba-negocios-site — CLAUDE.md (repo AUXILIAR sabor USO/APP da SBA Negócios · kit D196) |
+| [`ESTEIRA.md`](ESTEIRA.md) | Esteira — SBA Negócios · site institucional |
 | [`HANDOFF-ULTIMO.md`](HANDOFF-ULTIMO.md) | HANDOFF ÚLTIMO — sba-negocios-site · delta puro da última sessão (padrão D139/D66) |
 | [`MAPA-DE-PENDENCIAS.md`](MAPA-DE-PENDENCIAS.md) | MAPA DE PENDÊNCIAS — SBA · Site (sba-negocios-site) |
 | [`README.md`](README.md) | Site SBA Negócios |
@@ -29,7 +30,7 @@ _A casa ainda não declarou `portas:` no `.kit` (uma linha por assunto: `portas:
 ### Por pasta (até 2 nível(is); o que fica mais fundo conta na pasta de cima)
 | pasta | arquivos | tamanho | 🟢 | ⚰️ | 🗄️ | ⚙️ | 📦 | do que se trata |
 |---|--:|--:|--:|--:|--:|--:|--:|---|
-| `(raiz)/` | 24 | 116 KB | 8 | 0 | 0 | 13 | 3 |  |
+| `(raiz)/` | 25 | 119 KB | 9 | 0 | 0 | 13 | 3 |  |
 | `.claude/` | 1 | 11 KB | 0 | 0 | 0 | 1 | 0 |  |
 | `.claude/agents/` | 3 | 11 KB | 3 | 0 | 0 | 0 | 0 |  |
 | `.claude/rules/` | 10 | 42 KB | 10 | 0 | 0 | 0 | 0 |  |
