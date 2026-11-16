@@ -42,7 +42,7 @@ P3 ── (só se caiu em "A CASA" e há risco de se perder) A casa tem mapa viv
 - **ACESSO.** O acesso de **uma** casa a **uma** ferramenta é **da casa**; a **existência, a titularidade e o pagamento** da conta são do escritório. _(D160 proíbe a casa de se eximir — não determina onde o item mora.)_ O mesmo acesso faltando em 2+ casas vira CLASSE e sobe.
 - **ALÇADA ≠ ENDEREÇO.** D202 diz **quem decide** (A/B/C); esta régua diz **onde mora**. *"É classe C"* não admite nada aqui.
 - **"CASA" = FAMÍLIA, não repositório.** Unidade + auxiliares contam como UMA casa (mesmo recorte do selo, D194) — senão toda família com 2 auxiliares vira escritório.
-- **CANETA × DEPÓSITO (ordem dele 25/08; medida 01/09, LD-03).** O escritório **escreve por PR** (caneta) numa casa **FECHADA** e **só deposita na caixa** numa casa **VIVA**. *Viva* = **commit de INSTÂNCIA** (`noreply@anthropic.com` ou o dono) na `main` remota **nas últimas 24h**; robô não conta. Mede-se antes de escrever. Selada + sem instância = fechada. **Quem mescla é quem abriu (D235, 03/10):** pedido do escritório não espera clique dele nem da casa — CI verde, `merge` sem força, a `main` da casa vence o conflito; o gate D21 é sobre aplicar, não entrar.
+- **CANETA (D404, decisão dele 16/11; ⚰️ «caneta em casa fechada, depósito em casa viva», 25/08).** Em outra casa, viva ou fechada, o escritório só escreve para **entregar carta** e **levar o kit**, por pedido de mudança; o resto vai por carta. **Quem mescla é quem abriu (D235, 03/10):** pedido do escritório não espera clique dele nem da casa — CI verde, `merge` sem força, a `main` da casa vence o conflito; o gate D21 é sobre aplicar, não entrar.
 - **Perguntar sobre uma casa é permitido.** Se ele pergunta *"e a AVC?"*, o escritório **abre o mapa dela e responde na hora**; o que não se faz é **copiar a lista para a fila dele**. Responder ≠ hospedar. Prazo de negócio de casa fechada também fica na casa (D365: *"não se envolva em pendecias de negócios"*).
 
 ## Travas contra os 2 ralos
@@ -57,4 +57,4 @@ P3 ── (só se caiu em "A CASA" e há risco de se perder) A casa tem mapa viv
 3. **`V-CUSTODIA-SEM-PRAZO-VIRA-MUDANCA`** — item de casa entra como custódia com data, ou não entra.
 -->
 
-Referência normativa: **DECISOES.md · D150 (revisada) · D193 · D202 · D235** · achados A-424 · A-425.
+Referência normativa: **DECISOES.md · D150 (revisada) · D193 · D202 · D235 · D404** · achados A-424 · A-425.
