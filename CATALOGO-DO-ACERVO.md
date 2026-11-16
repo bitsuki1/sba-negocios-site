@@ -2,9 +2,9 @@
 > **A regra desta página, em uma linha:** o **dado** se lê na **visão oficial** (a porta do assunto); o **original** mora na **pasta** que a porta aponta. Antes de baixar, pedir ou criar, procure aqui. Não achou? Pergunte; nunca siga sem.
 > **Consolidar é atualizar a porta do assunto no mesmo arquivo** — a 3ª cópia `_v3` não nasce; o histórico fica no git.
 
-<!-- gerado:inicio · catalogo.py · data=2026-11-13 · feito=nao -->
+<!-- gerado:inicio · catalogo.py · data=2026-11-16 · feito=nao -->
 ## O que existe nesta casa (gerado — não editar à mão)
-> Gerado por `portfolio-kit/processos/catalogo.py` em **2026-11-13**. Regenere com `python3 <kit>/processos/catalogo.py gerar --casa .`; a verificação confere com `--check --max-dias 30`. Só este bloco é da máquina; o resto do arquivo é da casa.
+> Gerado por `portfolio-kit/processos/catalogo.py` em **2026-11-16**. Regenere com `python3 <kit>/processos/catalogo.py gerar --casa .`; a verificação confere com `--check --max-dias 30`. Só este bloco é da máquina; o resto do arquivo é da casa.
 > **193 arquivos versionados · 5,4 MB** · 🟢 vivo 78 · ⚰️ superado 0 · 🗄️ histórico 38 · ⚙️ gerado/mecanismo 39 · 📦 dado 38
 > **Antes de baixar, pedir ou criar:** procure aqui e na porta do assunto. Não achou? Pergunte; nunca siga sem.
 
